@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Solar Analemma — Months & Solar Height</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #111;
+      color: #eee;
+      text-align: center;
+      font-family: sans-serif;
+      padding: 20px;
+    }
+
+    canvas {
+      background: #000;
+      border: 1px solid #444;
+      margin-top: 20px;
+    }
+
+    .controls {
+      margin-top: 10px;
+      color: #ccc;
+    }
+
+    input[type="range"] {
+      width: 300px;
+    }
+
+
+    #container {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    canvas {
+      background: #181818;
+      border: 1px solid #333;
+    }
+
+    .result {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .highlight {
+      color: #4da3ff;
+      font-weight: bold;
+    }
+
+    label {
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .legend {
+      margin-top: 25px;
+      font-size: 16px;
+    }
+
+    .legend-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .swatch {
+      width: 16px;
+      height: 16px;
+      margin-right: 8px;
+      border: 1px solid #555;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Solar Analemma</h1>
+  <p>Sun position at <strong>solar noon</strong> through the year</p>
+
+  <div class="controls">
+    Latitude: <span id="latVal">46.5</span>°
+    <br>
+    <input id="latSlider" type="range" min="-66" max="66" step="0.5" value="46.5">
+  </div>
+
+  <canvas id="canvas" width="600" height="800"></canvas>
+
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    const W = canvas.width;
+    const H = canvas.height;
+
+    const margin = 0.05;
+    const usableW = W * (1 - 2 * margin);
+    const usableH = H * (1 - 2 * margin);
+
+    const cx = W / 2;
+    const cy = H / 2;
+
+    let latitude = 45;
+
+    function dayOfYear(date) {
+      const start = new Date(date.getFullYear(), 0, 0);
+      return Math.floor((date - start) / 86400000);
+    }
+
+    function solarDeclination(N) {
+      return 23.44 * Math.sin((2 * Math.PI / 365) * (N - 81));
+    }
+
+    function equationOfTime(N) {
+      const B = (2 * Math.PI / 365) * (N - 81);
+      return 9.87 * Math.sin(2 * B)
+        - 7.53 * Math.cos(B)
+        - 1.5 * Math.sin(B);
+    }
+
+    // Solar altitude at solar noon
+    function solarAltitude(lat, decl) {
+      return 90 - Math.abs(lat - decl);
+    }
+
+    // Precompute extrema
+    let minE = Infinity, maxE = -Infinity;
+    let minD = Infinity, maxD = -Infinity;
+
+    for (let N = 1; N <= 365; N++) {
+      const e = equationOfTime(N);
+      const d = solarDeclination(N);
+      minE = Math.min(minE, e);
+      maxE = Math.max(maxE, e);
+      minD = Math.min(minD, d);
+      maxD = Math.max(maxD, d);
+    }
+
+    const xScale = usableW / (maxE - minE);
+    const yScale = usableH / (maxD - minD);
+
+    function toCanvas(e, d) {
+      return {
+        x: cx + (e - (minE + maxE) / 2) * xScale,
+        y: cy - (d - (minD + maxD) / 2) * yScale
+      };
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+
+      // Axes
+      ctx.strokeStyle = "#333";
+      ctx.beginPath();
+      ctx.moveTo(cx, margin * H);
+      ctx.lineTo(cx, H - margin * H);
+      ctx.moveTo(margin * W, cy);
+      ctx.lineTo(W - margin * W, cy);
+      ctx.stroke();
+
+      // Axis labels
+      ctx.fillStyle = "#aaa";
+      ctx.font = "14px sans-serif";
+      ctx.fillText("Equation of Time (minutes)", W / 2 - 90, H - 10);
+      ctx.save();
+      ctx.translate(12, H / 2 + 100);
+      ctx.rotate(-Math.PI / 2);
+      ctx.fillText("Solar Declination (°)", 0, 0);
+      ctx.restore();
+
+      // Analemma
+      ctx.strokeStyle = "#00bcd4";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (let N = 1; N <= 365; N++) {
+        const p = toCanvas(equationOfTime(N), solarDeclination(N));
+        if (N === 1) ctx.moveTo(p.x, p.y);
+        else ctx.lineTo(p.x, p.y);
+      }
+      ctx.stroke();
+
+      // Month tick marks (15th of each month)
+      const months = [
+        ["Jan", 1], ["Feb", 32], ["Mar", 60], ["Apr", 91],
+        ["May", 121], ["Jun", 152], ["Jul", 182], ["Aug", 213],
+        ["Sep", 244], ["Oct", 274], ["Nov", 305], ["Dec", 335]
+
+
+      ];
+
+      ctx.fillStyle = "#bbb";
+      ctx.font = "11px sans-serif";
+
+      months.forEach(([name, day]) => {
+        const p = toCanvas(equationOfTime(day), solarDeclination(day));
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2.5, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.fillText(name, p.x + 6, p.y - 4);
+      });
+
+      // Today
+      const today = new Date();
+      const N = dayOfYear(today);
+      const decl = solarDeclination(N);
+      const eNow = equationOfTime(N);
+      const alt = solarAltitude(latitude, decl);
+      const pNow = toCanvas(eNow, decl);
+
+      ctx.fillStyle = "#ff5252";
+      ctx.beginPath();
+      ctx.arc(pNow.x, pNow.y, 6, 0, 2 * Math.PI);
+      ctx.fill();
+
+      ctx.fillStyle = "#fff";
+      ctx.font = "13px sans-serif";
+      ctx.fillText(today.toDateString(), pNow.x + 8, pNow.y + 14);
+      ctx.fillText(`${eNow.toFixed(1)} min ${eNow > 0 ? "ahead" : "behind"}`, pNow.x + 8, pNow.y + 30);
+      ctx.fillText(`Declination: ${decl.toFixed(1)}°`, pNow.x + 8, pNow.y + 46);
+      ctx.fillText(`Solar altitude: ${alt.toFixed(1)}°`, pNow.x + 8, pNow.y + 62);
+
+      // Altitude range overlay
+      const maxAlt = solarAltitude(latitude, 23.44);
+      const minAlt = solarAltitude(latitude, -23.44);
+
+      ctx.strokeStyle = "#444";
+      ctx.setLineDash([4, 4]);
+
+      [maxAlt, minAlt].forEach(a => {
+        const d = latitude > 0 ? 90 - a + latitude : latitude - (90 - a);
+        const y = toCanvas(0, d).y;
+        ctx.beginPath();
+        ctx.moveTo(margin * W, y);
+        ctx.lineTo(W - margin * W, y);
+        ctx.stroke();
+      });
+
+      ctx.setLineDash([]);
+    }
+
+    const slider = document.getElementById("latSlider");
+    const latVal = document.getElementById("latVal");
+
+    slider.addEventListener("input", () => {
+      latitude = parseFloat(slider.value);
+      latVal.textContent = latitude.toFixed(1);
+      draw();
+    });
+
+    draw();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  <h2>Seasonal Symmetry Wheel</h2>
+
+  <label>
+    Select date:
+    <input type="date" id="datePicker">
+  </label>
+
+  <div id="container">
+
+    <canvas id="wheel" width="640" height="550"></canvas>
+
+    <div class="result" id="output"></div>
+
+  </div>
+
+  <script>
+
+    const canvas2 = document.getElementById("wheel");
+    const ctxw = canvas2.getContext("2d");
+
+    const cxw = 320;
+    const cyw = 275;
+    const radius = 180;
+
+    function formatDate(d) {
+
+      let day = String(d.getDate()).padStart(2, '0');
+      let month = String(d.getMonth() + 1).padStart(2, '0');
+      let year = d.getFullYear();
+
+      return `${day}/${month}/${year}`;
+    }
+
+    function getSeasonPoints(year) {
+
+      return {
+
+        summer: new Date(year, 5, 21),
+        winter: new Date(year, 11, 21),
+        spring: new Date(year, 2, 20),
+        autumn: new Date(year, 8, 22)
+
+      };
+
+    }
+
+    function daysBetween(a, b) {
+
+      const ms = 1000 * 60 * 60 * 24;
+      return Math.round((a - b) / ms);
+
+    }
+
+    function addDays(date, days) {
+
+      let d = new Date(date);
+      d.setDate(d.getDate() + days);
+      return d;
+
+    }
+
+    function dayOfYear(date) {
+
+      const start = new Date(date.getFullYear(), 0, 0);
+      return Math.floor((date - start) / (1000 * 60 * 60 * 24));
+
+    }
+
+    function daysInYear(year) {
+
+      return ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) ? 366 : 365;
+
+    }
+
+    function angleForDate(date) {
+
+      const doy = dayOfYear(date);
+      const total = daysInYear(date.getFullYear());
+
+      return (doy / total) * Math.PI * 2 - Math.PI / 2;
+
+    }
+
+    function polar(angle, r) {
+
+      return {
+        x: cxw + Math.cos(angle) * r,
+        y: cyw + Math.sin(angle) * r
+      };
+
+    }
+
+    function drawWheel() {
+
+      ctxw.clearRect(0, 0, 440, 440);
+
+      ctxw.strokeStyle = "#888";
+      ctxw.lineWidth = 1;
+
+      ctxw.beginPath();
+      ctxw.arc(cxw, cyw, radius, 0, Math.PI * 2);
+      ctxw.stroke();
+
+      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+      ctxw.fillStyle = "#ccc";
+      ctxw.font = "12px sans-serif";
+
+      for (let m = 0; m < 12; m++) {
+
+        let d = new Date(2026, m, 1);
+
+        let a = angleForDate(d);
+
+        let p = polar(a, radius + 18);
+
+        ctxw.fillText(months[m], p.x - 10, p.y);
+
+      }
+
+    }
+
+    function drawAxis(date1, date2) {
+
+      let a1 = angleForDate(date1);
+      let a2 = angleForDate(date2);
+
+      let p1 = polar(a1, radius);
+      let p2 = polar(a2, radius);
+
+      ctxw.strokeStyle = "#555";
+      ctxw.setLineDash([6, 6]);
+
+      ctxw.beginPath();
+      ctxw.moveTo(p1.x, p1.y);
+      ctxw.lineTo(p2.x, p2.y);
+      ctxw.stroke();
+
+      ctxw.setLineDash([]);
+    }
+
+    function drawPoint(date, color, size) {
+
+      let a = angleForDate(date);
+      let p = polar(a, radius);
+
+      ctxw.beginPath();
+      ctxw.arc(p.x, p.y, size, 0, Math.PI * 2);
+      ctxw.fillStyle = color;
+      ctxw.fill();
+
+    }
+
+    function drawLabel(date, text, offset) {
+
+      let a = angleForDate(date);
+      let p = polar(a, radius + offset);
+
+      ctxw.font = "12px sans-serif";
+
+      const padding = 4;
+
+      let metrics = ctxw.measureText(text);
+
+      let w = metrics.width + padding * 2;
+      let h = 16;
+
+      ctxw.fillStyle = "#000";
+      ctxw.fillRect(p.x - w / 2, p.y - h / 2, w, h);
+
+      ctxw.strokeStyle = "#888";
+      ctxw.strokeRect(p.x - w / 2, p.y - h / 2, w, h);
+
+      ctxw.fillStyle = "#fff";
+      ctxw.fillText(text, p.x - metrics.width / 2, p.y + 4);
+
+    }
+
+    function reflectAcrossSolstice(date, solstice) {
+
+      const diff = daysBetween(date, solstice);
+
+      return addDays(solstice, -diff);
+
+    }
+
+    function calculate() {
+
+      const picker = document.getElementById("datePicker");
+      const selected = new Date(picker.value);
+      const year = selected.getFullYear();
+      const { summer, winter, spring, autumn } = getSeasonPoints(year);
+
+      const diffSummer = daysBetween(selected, summer);
+      const diffWinter = daysBetween(selected, winter);
+
+      let closest = "summer";
+
+      if (Math.abs(diffWinter) < Math.abs(diffSummer)) closest = "winter";
+
+      let solstice = (closest === "summer") ? summer : winter;
+
+      let inverse = reflectAcrossSolstice(selected, solstice);
+
+      drawWheel();
+
+      drawAxis(summer, winter);
+      drawAxis(spring, autumn);
+
+      drawPoint(selected, "#ff4d4d", 6);
+      drawPoint(inverse, "#5cff8d", 6);
+
+      drawPoint(summer, closest === "summer" ? "#4da3ff" : "#555", 8);
+      drawPoint(winter, closest === "winter" ? "#4da3ff" : "#555", 8);
+
+      drawPoint(spring, "#c27cff", 6);
+      drawPoint(autumn, "#c27cff", 6);
+
+      drawLabel(summer, "Summer Solstice", 60);
+      drawLabel(winter, "Winter Solstice", 60);
+
+      drawLabel(spring, "Spring Equinox", 80);
+      drawLabel(autumn, "Autumn Equinox", 80);
+
+      document.getElementById("output").innerHTML = `
+
+<b>Selected date:</b> ${formatDate(selected)}<br><br>
+
+Days from Summer Solstice:
+<span class="${closest === "summer" ? "highlight" : ""}">
+${diffSummer}
+</span><br>
+
+Days from Winter Solstice:
+<span class="${closest === "winter" ? "highlight" : ""}">
+${diffWinter}
+</span><br><br>
+
+<b>Closest solstice:</b> ${closest === "summer" ? "Summer" : "Winter"}<br>
+
+<b>Inverse date:</b> ${formatDate(inverse)}
+
+<div class="legend">
+
+<b>Legend</b>
+
+<div class="legend-row">
+<div class="swatch" style="background:#ff4d4d"></div>Selected Date
+</div>
+
+<div class="legend-row">
+<div class="swatch" style="background:#5cff8d"></div>Inverse Date
+</div>
+
+<div class="legend-row">
+<div class="swatch" style="background:#4da3ff"></div>Closest Solstice
+</div>
+
+<div class="legend-row">
+<div class="swatch" style="background:#555"></div>Other Solstice
+</div>
+
+<div class="legend-row">
+<div class="swatch" style="background:#c27cff"></div>Equinoxes
+</div>
+
+<div class="legend-row">
+<div class="swatch" style="background:#555"></div>Seasonal Axes
+</div>
+
+</div>
+
+`;
+
+    }
+
+    const picker = document.getElementById("datePicker");
+
+    const today = new Date();
+    picker.value = today.toISOString().split("T")[0];
+
+    picker.addEventListener("change", calculate);
+
+    calculate();
+
+  </script>
+
+
+
+</body>
+
+</html>

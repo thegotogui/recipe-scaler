@@ -1,0 +1,52 @@
+[
+	{
+		"title": "Spaghetti Carbonara",
+		"description": "A classic Roman pasta dish made with eggs, cheese, and pancetta.",
+		"meta": {
+			"cuisine": "Italian",
+			"difficulty": "medium",
+			"servings": 4
+		},
+		"time": {
+			"prep_minutes": 10,
+			"cook_minutes": 20,
+			"total_minutes": 30
+		},
+		"ingredients": [
+			{ "amount": 400, "unit": "g", "name": "spaghetti", "notes": "or any long pasta" },
+			{ "amount": 150, "unit": "g", "name": "pancetta", "notes": "guanciale is traditional" },
+			{ "amount": 4, "unit": "", "name": "eggs", "notes": "beaten" },
+			{ "amount": 50, "unit": "g", "name": "Pecorino Romano", "notes": "finely grated" }
+		],
+		"instructions": [
+			{ "step": 1, "title": "Boil the pasta", "description": "Cook spaghetti in well-salted boiling water until al dente." },
+			{ "step": 2, "title": "Cook the pancetta", "description": "Fry pancetta in a large pan over medium heat until crispy." },
+			{ "step": 3, "title": "Combine", "description": "Remove pan from heat, add pasta, then stir in egg mixture quickly to avoid scrambling." }
+		]
+	},
+	{
+		"title": "Margherita Pizza",
+		"description": "A simple classic Neapolitan pizza with tomato, mozzarella, and basil.",
+		"meta": {
+			"cuisine": "Italian",
+			"difficulty": "easy",
+			"servings": 2
+		},
+		"time": {
+			"prep_minutes": 20,
+			"cook_minutes": 15,
+			"total_minutes": 35
+		},
+		"ingredients": [
+			{ "amount": 250, "unit": "g", "name": "pizza dough", "notes": "store-bought or homemade" },
+			{ "amount": 100, "unit": "ml", "name": "tomato sauce", "notes": "passata works well" },
+			{ "amount": 125, "unit": "g", "name": "fresh mozzarella", "notes": "torn into pieces" },
+			{ "amount": 10, "unit": "g", "name": "fresh basil", "notes": "add after baking" }
+		],
+		"instructions": [
+			{ "step": 1, "title": "Preheat oven", "description": "Heat oven to its maximum temperature, at least 250°C, with a baking tray inside." },
+			{ "step": 2, "title": "Prepare the base", "description": "Stretch the dough out thin and spread tomato sauce evenly, leaving a border for the crust." },
+			{ "step": 3, "title": "Add toppings and bake", "description": "Add mozzarella and bake for 10-15 minutes until crust is golden. Top with fresh basil." }
+		]
+	}
+]

@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Backward Scheduler</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f4f2ed;
+    --surface: #ffffff;
+    --border: #c8c4bb;
+    --border-light: #e0ddd7;
+    --text: #1a1917;
+    --text-muted: #6b6860;
+    --accent-light: #3a3935;
+    --danger: #b84040;
+    --green: #1a5c1a;
+    --green-bg: #c8eac8;
+    --orange: #7a3a00;
+    --orange-bg: #ffd9a0;
+    --sans: system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', Courier, monospace;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    min-height: 100vh;
+    padding: 24px 16px 64px;
+  }
+
+  header {
+    max-width: 680px;
+    margin: 0 auto 24px;
+    border-bottom: 2px solid var(--text);
+    padding-bottom: 10px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  header h1 {
+    font-family: var(--sans);
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  #live-clock {
+    font-size: 18px;
+    letter-spacing: 0.04em;
+    font-weight: bold;
+    display: none;
+  }
+
+  .container { max-width: 680px; margin: 0 auto; }
+
+  /* Config */
+  .config-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+
+  .config-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border-light);
+    flex-wrap: wrap;
+  }
+  .config-row:last-child { border-bottom: none; }
+
+  .config-row label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    min-width: 110px;
+    flex-shrink: 0;
+  }
+
+  .config-row input[type="text"],
+  .config-row input[type="time"],
+  .config-row input[type="number"] {
+    font-family: var(--sans);
+    font-size: 15px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    padding: 4px 8px;
+    color: var(--text);
+    outline: none;
+  }
+
+  .config-row input[type="text"]   { flex: 1; min-width: 120px; }
+  .config-row input[type="time"]   { width: 90px; }
+  .config-row input[type="number"] { width: 64px; }
+  .config-row input:focus { border-color: var(--text); }
+  .config-row .unit { font-size: 12px; color: var(--text-muted); }
+
+  /* Steps */
+  .section-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+
+  #steps-list { list-style: none; margin-bottom: 10px; }
+
+  .step-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-top: none;
+    padding: 7px 10px;
+  }
+  .step-item:first-child { border-top: 1px solid var(--border-light); }
+
+  .step-handle {
+    cursor: grab;
+    color: #ccc;
+    font-size: 15px;
+    flex-shrink: 0;
+    user-select: none;
+    line-height: 1;
+  }
+  .step-handle:active { cursor: grabbing; }
+  .step-item.dragging { opacity: 0.35; }
+  .step-item.drag-over { border-top: 2px solid var(--text); }
+
+  .step-num { font-size: 11px; color: var(--text-muted); width: 16px; text-align: right; flex-shrink: 0; }
+
+  .step-desc {
+    flex: 1; min-width: 0;
+    font-family: var(--sans); font-size: 14px;
+    border: 1px solid transparent; background: transparent;
+    padding: 3px 4px; color: var(--text); outline: none;
+  }
+  .step-desc:focus { border-color: var(--border); background: var(--bg); }
+
+  .step-dur {
+    font-family: var(--sans); font-size: 14px;
+    border: 1px solid transparent; background: transparent;
+    padding: 3px 4px; color: var(--text); outline: none;
+    width: 48px; text-align: right;
+  }
+  .step-dur:focus { border-color: var(--border); background: var(--bg); }
+
+  .step-dur-label { font-size: 11px; color: var(--text-muted); flex-shrink: 0; }
+
+  .step-delete {
+    background: none; border: none; cursor: pointer;
+    color: #ccc; font-size: 17px; line-height: 1;
+    padding: 1px 3px; flex-shrink: 0;
+  }
+  .step-delete:hover { color: var(--danger); }
+
+  /* Buttons */
+  .btn-row { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+
+  button.btn {
+    font-family: var(--sans); font-size: 13px;
+    padding: 7px 13px; cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--surface); color: var(--text);
+  }
+  button.btn:hover { background: var(--bg); border-color: var(--text); }
+
+  button.btn-primary { background: var(--text); color: var(--bg); border-color: var(--text); }
+  button.btn-primary:hover { background: var(--accent-light); }
+
+  button.btn-active { background: var(--green); color: #fff; border-color: var(--green); }
+  button.btn-active:hover { background: #1d501d; border-color: #1d501d; }
+
+  /* Error */
+  .error-msg { font-size: 12px; color: var(--danger); padding: 4px 0; display: none; }
+  .error-msg.visible { display: block; }
+
+  /* Result */
+  #result { display: none; border: 1px solid var(--border); background: var(--surface); }
+  #result.visible { display: block; }
+
+  .result-header {
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--border-light);
+    background: var(--text); color: var(--bg);
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+  }
+
+  /* Table */
+  .sched-table { width: 100%; border-collapse: collapse; }
+
+  .sched-table td {
+    padding: 7px 12px;
+    border-bottom: 1px solid var(--border-light);
+    vertical-align: middle;
+  }
+  .sched-table tr:last-child td { border-bottom: none; }
+
+  .col-time     { width: 62px; font-size: 15px; font-weight: bold; white-space: nowrap; }
+  .col-desc     { font-size: 14px; }
+  .col-dur      { font-size: 13px; color: var(--text-muted); text-align: right; white-space: nowrap; width: 70px; }
+  .col-countdown{ font-family: var(--mono); font-size: 13px; text-align: right; white-space: nowrap; width: 110px; }
+
+  /* Row types */
+  tr.row-anchor td { background: var(--text); color: var(--bg); }
+  tr.row-anchor .col-dur { color: #999; }
+  tr.row-anchor .col-countdown { color: #ccc; }
+
+  tr.row-buffer td { background: #f5f0e8; }
+
+  tr.row-past td { color: #bbb; }
+  tr.row-past .col-time { color: #ccc; }
+
+  tr.row-active td { background: var(--green-bg); }
+  tr.row-active .col-time { color: var(--green); }
+  tr.row-active .col-countdown { color: var(--green); font-weight: bold; }
+
+  tr.row-next td { background: var(--orange-bg); }
+  tr.row-next .col-countdown { color: var(--orange); font-weight: bold; }
+
+  /* Callout */
+  .start-callout {
+    padding: 10px 14px;
+    border-top: 2px solid var(--text);
+    display: flex; align-items: baseline;
+    gap: 10px; flex-wrap: wrap;
+  }
+  .sc-label { font-size: 12px; color: var(--text-muted); }
+  .sc-time  { font-size: 22px; font-family: var(--sans); font-weight: 600; }
+  .sc-note  { font-size: 13px; color: var(--text-muted); }
+  .sc-countdown { font-family: var(--mono); font-size: 14px; margin-left: auto; }
+
+  .clock-note {
+    font-size: 12px; color: var(--text-muted);
+    padding: 7px 14px; border-top: 1px solid var(--border-light);
+    display: none; align-items: center; gap: 14px; flex-wrap: wrap;
+  }
+  .clock-note.visible { display: flex; }
+  .clock-note .cn-label { margin-right: 4px; }
+  .clock-swatch {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px;
+  }
+  .clock-swatch .sw {
+    display: inline-block; width: 28px; height: 14px;
+    border: 1px solid rgba(0,0,0,0.15);
+  }
+
+  @media (max-width: 480px) {
+    .step-handle { display: none; }
+    .col-countdown { display: none; }
+    header { flex-direction: column; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Backward Scheduler</h1>
+  <div id="live-clock"></div>
+</header>
+
+<div class="container">
+
+  <div class="config-block">
+    <div class="config-row">
+      <label>Fixed event</label>
+      <input type="text" id="anchor-label" value="Train departs" placeholder="Event name">
+      <input type="time" id="anchor-time" value="18:15">
+    </div>
+    <div class="config-row">
+      <label>Arrive early by</label>
+      <input type="number" id="buffer" value="20" min="0" max="999" step="1">
+      <span class="unit">min before fixed event</span>
+    </div>
+  </div>
+
+  <div class="section-label">Steps — in chronological order (first thing you do at top)</div>
+  <ul id="steps-list"></ul>
+
+  <div class="btn-row">
+    <button class="btn" id="btn-add">+ Add step</button>
+    <button class="btn" id="btn-clock">⏱ Start clock</button>
+    <button class="btn" id="btn-reset">↺ Reset</button>
+  </div>
+
+  <div class="error-msg" id="error-msg"></div>
+
+  <div id="result">
+    <div class="result-header">Schedule</div>
+    <table class="sched-table" id="sched-table"></table>
+    <div class="clock-note" id="clock-note">
+      <span class="cn-label">● Clock active</span>
+      <span class="clock-swatch"><span class="sw" style="background:var(--green-bg)"></span> Current step</span>
+      <span class="clock-swatch"><span class="sw" style="background:var(--orange-bg)"></span> Next step</span>
+    </div>
+    <div class="start-callout" id="start-callout"></div>
+  </div>
+
+</div>
+
+<script>
+// ── State ──
+const defaultSteps = [
+  { desc: "Walk to bus station",      dur: 15 },
+  { desc: "Take the bus",             dur: 20 },
+  { desc: "Walk from bus to hotel",   dur:  5 },
+  { desc: "Retrieve luggage",         dur:  5 },
+  { desc: "Walk to train station",    dur: 10 },
+];
+
+let steps  = defaultSteps.map((s, i) => ({ ...s, id: i }));
+let nextId = steps.length;
+let clockMode  = false;
+let clockTimer = null;
+let lastResult = null; // cache last computed schedule
+
+// ── Utilities ──
+const pad = n => String(n).padStart(2, '0');
+
+function nowMins() { const d = new Date(); return d.getHours() * 60 + d.getMinutes(); }
+function nowSecs() { const d = new Date(); return d.getHours() * 3600 + d.getMinutes() * 60 + d.getSeconds(); }
+
+function fmtTime(m) {
+  const n = ((m % 1440) + 1440) % 1440;
+  return `${pad(Math.floor(n / 60))}:${pad(n % 60)}`;
+}
+
+function timeToMins(s) { const [h, m] = s.split(':').map(Number); return h * 60 + m; }
+
+function fmtDur(m) {
+  if (m === 0) return '0 min';
+  if (m < 60)  return `${m} min`;
+  const h = Math.floor(m / 60), r = m % 60;
+  return r === 0 ? `${h}h` : `${h}h ${r}m`;
+}
+
+function fmtCountdown(s) {
+  if (s <= 0) return '00:00:00';
+  const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
+  return `${pad(h)}:${pad(m)}:${pad(sec)}`;
+}
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Render step inputs ──
+function renderSteps() {
+  const list = document.getElementById('steps-list');
+  list.innerHTML = '';
+  steps.forEach((step, idx) => {
+    const li = document.createElement('li');
+    li.className = 'step-item';
+    li.dataset.id = step.id;
+    li.draggable = true;
+    li.innerHTML = `
+      <span class="step-handle" title="Drag to reorder">⠿</span>
+      <span class="step-num">${idx + 1}</span>
+      <input class="step-desc" type="text" value="${esc(step.desc)}" placeholder="Description">
+      <input class="step-dur"  type="number" value="${step.dur}" min="0" max="9999" step="1">
+      <span class="step-dur-label">min</span>
+      <button class="step-delete" title="Remove">×</button>
+    `;
+    li.querySelector('.step-desc').addEventListener('input', e => {
+      steps.find(s => s.id === step.id).desc = e.target.value;
+      recalc();
+    });
+    li.querySelector('.step-dur').addEventListener('input', e => {
+      steps.find(s => s.id === step.id).dur = parseInt(e.target.value) || 0;
+      recalc();
+    });
+    li.querySelector('.step-delete').addEventListener('click', () => {
+      steps = steps.filter(s => s.id !== step.id);
+      renderSteps(); recalc();
+    });
+    li.addEventListener('dragstart', onDragStart);
+    li.addEventListener('dragover',  onDragOver);
+    li.addEventListener('dragleave', onDragLeave);
+    li.addEventListener('drop',      onDrop);
+    li.addEventListener('dragend',   onDragEnd);
+    list.appendChild(li);
+  });
+}
+
+// ── Drag & drop ──
+let dragSrcId = null;
+function onDragStart(e) { dragSrcId = parseInt(this.dataset.id); this.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move'; }
+function onDragOver(e)  { e.preventDefault(); document.querySelectorAll('.step-item').forEach(el => el.classList.remove('drag-over')); this.classList.add('drag-over'); }
+function onDragLeave()  { this.classList.remove('drag-over'); }
+function onDrop(e) {
+  e.preventDefault();
+  const ti = steps.findIndex(s => s.id === parseInt(this.dataset.id));
+  const si = steps.findIndex(s => s.id === dragSrcId);
+  if (si === ti) return;
+  const [m] = steps.splice(si, 1); steps.splice(ti, 0, m);
+  renderSteps(); recalc();
+}
+function onDragEnd() { document.querySelectorAll('.step-item').forEach(el => el.classList.remove('dragging','drag-over')); }
+
+// ── Live recalc — called whenever any input changes ──
+function recalc() {
+  hideError();
+  const result = buildSchedule(true);
+  if (!result) return;
+  lastResult = result;
+  document.getElementById('result').classList.add('visible');
+  if (!clockMode) renderTable(result, false);
+}
+
+// ── Add step ──
+document.getElementById('btn-add').addEventListener('click', () => {
+  steps.push({ id: nextId++, desc: '', dur: 10 });
+  renderSteps();
+  recalc();
+  document.querySelectorAll('.step-item .step-desc').forEach((el, _, all) => {
+    if (el === all[all.length - 1]) el.focus();
+  });
+});
+
+// ──────────────────────────────────────────────────────────────
+//  SCHEDULE COMPUTATION
+//
+//  Steps are entered CHRONOLOGICALLY (first thing at top).
+//  We work backward from the anchor to assign start times.
+//
+//  Each row stores:
+//    startMins  — when this step begins
+//    endMins    — when this step ends (= start of next step)
+//    dur        — endMins - startMins (= the step's own duration)
+//    label      — display name
+//    type       — 'step' | 'buffer' | 'anchor'
+//
+//  The "dur" column in the table shows the duration of THAT row,
+//  so "Walk to bus station  15 min" means it takes 15 min,
+//  starting at the time shown, ending 15 min later.
+// ──────────────────────────────────────────────────────────────
+function buildSchedule(silent = false) {
+  const anchorLabel = document.getElementById('anchor-label').value.trim() || 'Fixed event';
+  const anchorTimeStr = document.getElementById('anchor-time').value;
+  const buffer = Math.max(0, parseInt(document.getElementById('buffer').value) || 0);
+
+  if (!anchorTimeStr) { if (!silent) showError('Please enter a time for the fixed event.'); return null; }
+  if (steps.length === 0) { if (!silent) showError('Add at least one step.'); return null; }
+  for (const s of steps) {
+    if (isNaN(s.dur) || s.dur < 0) { if (!silent) showError('All durations must be 0 or greater.'); return null; }
+  }
+
+  const anchorMins = timeToMins(anchorTimeStr);
+  const rows = [];
+
+  // Anchor (the fixed event itself — no duration shown)
+  rows.push({ startMins: anchorMins, endMins: null, dur: null, label: anchorLabel, type: 'anchor' });
+
+  // Work backward. cursor = time at which something must END.
+  // Start at anchorMins and subtract each block.
+  let cursor = anchorMins;
+
+  // Buffer block: occupies [anchorMins - buffer, anchorMins)
+  if (buffer > 0) {
+    const bStart = anchorMins - buffer;
+    rows.push({ startMins: bStart, endMins: anchorMins, dur: buffer,
+                label: `At ${anchorLabel.toLowerCase()} — ${buffer} min early`, type: 'buffer' });
+    cursor = bStart;
+  }
+
+  // Steps are chronological, so the LAST step in the list finishes
+  // just before the buffer (or anchor). Walk backwards through the list.
+  for (let i = steps.length - 1; i >= 0; i--) {
+    const s = steps[i];
+    const stepEnd   = cursor;
+    const stepStart = cursor - s.dur;
+    rows.push({ startMins: stepStart, endMins: stepEnd, dur: s.dur,
+                label: s.desc || '(unnamed)', type: 'step' });
+    cursor = stepStart;
+  }
+
+  // Sort ascending by startMins so the table reads top-to-bottom in time
+  rows.sort((a, b) => a.startMins - b.startMins);
+
+  const startMins = rows[0].startMins;
+  const totalMins = anchorMins - startMins;
+
+  return { rows, anchorMins, startMins, totalMins, anchorLabel, buffer };
+}
+
+// ── Render table (static or live) ──
+function renderTable(result, withClock) {
+  const { rows, anchorMins, startMins, totalMins, anchorLabel } = result;
+
+  const tbody = document.getElementById('sched-table');
+  tbody.innerHTML = '';
+
+  const nowM = withClock ? nowMins() : null;
+  const nowS = withClock ? nowSecs() : null;
+
+  // Find which row is "active" = currently underway (nowM is within [startMins, endMins))
+  let activeIdx = -1;
+  if (withClock) {
+    for (let i = 0; i < rows.length; i++) {
+      const r = rows[i];
+      if (r.endMins === null) continue; // anchor has no end
+      if (nowM >= r.startMins && nowM < r.endMins) { activeIdx = i; break; }
+    }
+  }
+
+  // First future row (not yet started)
+  let nextIdx = -1;
+  if (withClock && activeIdx !== -1) {
+    for (let i = activeIdx + 1; i < rows.length; i++) {
+      if (rows[i].type !== 'anchor') { nextIdx = i; break; }
+    }
+  } else if (withClock && activeIdx === -1) {
+    // Nothing active — highlight the soonest future non-anchor row
+    for (let i = 0; i < rows.length; i++) {
+      if (rows[i].type !== 'anchor' && nowM < rows[i].startMins) { nextIdx = i; break; }
+    }
+  }
+
+  rows.forEach((row, i) => {
+    const tr = document.createElement('tr');
+
+    if (row.type === 'anchor') {
+      tr.className = 'row-anchor';
+    } else if (withClock) {
+      if (i === activeIdx)     tr.className = 'row-active';
+      else if (i === nextIdx)  tr.className = 'row-next';
+      else if (nowM !== null && row.endMins !== null && nowM >= row.endMins) tr.className = 'row-past';
+    } else if (row.type === 'buffer') {
+      tr.className = 'row-buffer';
+    }
+
+    const durText = row.dur !== null ? fmtDur(row.dur) : '';
+
+    let cdText = '';
+    if (withClock && nowS !== null && row.type !== 'anchor') {
+      const startS = row.startMins * 60;
+      const endS   = row.endMins   * 60;
+      if (nowS < startS) {
+        cdText = `in ${fmtCountdown(startS - nowS)}`;
+      } else if (nowS < endS) {
+        cdText = `${fmtCountdown(endS - nowS)} left`;
+      } else {
+        cdText = 'done';
+      }
+    }
+
+    tr.innerHTML = `
+      <td class="col-time">${fmtTime(row.startMins)}</td>
+      <td class="col-desc">${esc(row.label)}</td>
+      <td class="col-dur">${esc(durText)}</td>
+      <td class="col-countdown">${esc(cdText)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  // Callout
+  let cdCallout = '';
+  if (withClock && nowS !== null) {
+    const secsLeft = anchorMins * 60 - nowS;
+    if (secsLeft > 0) {
+      cdCallout = `<span class="sc-countdown">${fmtCountdown(secsLeft)} until ${esc(anchorLabel)}</span>`;
+    } else {
+      cdCallout = `<span class="sc-countdown" style="color:var(--danger)">Departed</span>`;
+    }
+  }
+
+  document.getElementById('start-callout').innerHTML = `
+    <span class="sc-label">Start by</span>
+    <span class="sc-time">${fmtTime(startMins)}</span>
+    <span class="sc-note">— ${fmtDur(totalMins)} before ${esc(anchorLabel)}</span>
+    ${cdCallout}
+  `;
+
+  document.getElementById('clock-note').classList.toggle('visible', withClock);
+}
+
+// ── Clock button ──
+const btnClock = document.getElementById('btn-clock');
+btnClock.addEventListener('click', () => {
+  if (clockMode) { stopClock(); return; }
+  const result = buildSchedule();
+  if (!result) return;
+  lastResult = result;
+  document.getElementById('result').classList.add('visible');
+  startClock();
+});
+
+function startClock() {
+  clockMode = true;
+  btnClock.textContent = '⏹ Stop clock';
+  btnClock.classList.add('btn-active');
+  document.getElementById('live-clock').style.display = 'block';
+
+  function tick() {
+    const d = new Date();
+    document.getElementById('live-clock').textContent =
+      `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+    // Rebuild schedule each tick so any edits made while clock is running apply immediately
+    const result = buildSchedule();
+    if (result) { lastResult = result; renderTable(result, true); }
+  }
+  tick();
+  clockTimer = setInterval(tick, 1000);
+}
+
+function stopClock() {
+  clockMode = false;
+  clearInterval(clockTimer); clockTimer = null;
+  btnClock.textContent = '⏱ Start clock';
+  btnClock.classList.remove('btn-active');
+  document.getElementById('live-clock').style.display = 'none';
+  document.getElementById('clock-note').classList.remove('visible');
+  if (lastResult) renderTable(lastResult, false);
+}
+
+function showError(msg) { const el = document.getElementById('error-msg'); el.textContent = msg; el.classList.add('visible'); }
+function hideError()    { document.getElementById('error-msg').classList.remove('visible'); }
+function hideResult()   { stopClock(); document.getElementById('result').classList.remove('visible'); hideError(); lastResult = null; }
+
+// ── Reset button ──
+document.getElementById('btn-reset').addEventListener('click', () => {
+  stopClock();
+  document.getElementById('anchor-label').value = '';
+  document.getElementById('anchor-time').value = '';
+  document.getElementById('buffer').value = '0';
+  steps = [];
+  nextId = 0;
+  renderSteps();
+  document.getElementById('result').classList.remove('visible');
+  hideError();
+  lastResult = null;
+});
+
+// ── Wire config inputs for live recalc ──
+document.getElementById('anchor-label').addEventListener('input', recalc);
+document.getElementById('anchor-time').addEventListener('input', recalc);
+document.getElementById('buffer').addEventListener('input', recalc);
+
+// ── Init ──
+renderSteps();
+recalc();
+</script>
+</body>
+</html>

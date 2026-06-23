@@ -1,0 +1,150 @@
+/*  #8ca4ac  #b4bcc4  #74949c  #647c8c  #546c7c  #ccdcdc  #445c64  #34444c  */
+
+:root {
+	--grey13: #ccdcdc;
+	--grey12: #b4bcc4;
+	--grey11: #8ca4ac;
+	--grey10: #74949c;
+	--grey9: #647c8c;
+	--grey8: #546c7c;
+	--grey7: #445c64;
+	--grey6: #34444c;
+	--grey5: #1b242a;
+	--grey4: #161e23;
+	--grey3: #253237;
+	--grey2: #202b30;
+	--grey1: #1b242a;
+
+	--deepPurple: #1b1027;
+	--nailPolish: #9c2d4d;
+	--golden: #d2b059;
+	--algae: #73a53a;
+	--seafoam: #93d6c3;
+	--skyBlue: #6060d4;
+	--bluegrey: #1d1c2e;
+	--bluegrey2: #202036;
+	--blue: #1e90ff;
+	--white: #ffffff;
+	--dared: rgba(155, 77, 0, 0.3);
+	--bg1: #1a1e2a;
+	--bg2: #1d2436;
+	--bg3: #202843;
+	--bg4: #202843;
+	--bg5: #202843;
+	--bg6: #202843;
+	--bgred: #49252a;	
+
+	--fg1: #93d6c3;
+	--fg2: #b0e2ff;
+	--fg3: #e52325;
+
+	--pastel1: #40a4e0;
+	--pastel2: #fc915d;
+	--pastel3: #fc84bc;
+	--pastel4: #545454;
+	--pastel5: #809478;
+	--pastel6: #2c9c78;
+	--pastel7: #fed365;
+	--pastel8: #f53b88;
+	--darkdark: #1a1223;
+	/* 	 #40a4e0  #fc915d  #fc84bc  #545454  #809478  #2c9c78  #2c5080  #585050  */
+}
+
+.bg1,
+.bg2,
+.bg3,
+.bg4 {
+	margin: 3px;
+	padding: 0px;
+}
+
+.roundTop {
+	border-radius: 5px 5px 0px 0px;
+}
+
+.roundBottom {
+	border-bottom: 2px;
+}
+
+
+.bg1 {
+	background-color: var(--grey1);
+}
+.bg2 {
+	background-color: var(--grey2);
+}
+.bg3 {
+	background-color: var(--grey3);
+}
+.bg4 {
+	background-color: var(--bgred);
+}
+
+
+.fg1 {
+	color: var(--pastel1);
+}
+.fg2 {
+	color: var(--pastel2);
+}
+.fg3 {
+	color: var(--pastel3);
+}
+.fg4 {
+	color: var(--pastel4);
+}
+.fg5 {
+	color: var(--pastel5);
+}
+.fg6 {
+	color: var(--pastel6);
+}
+.fg7 {
+	color: var(--pastel7);
+}
+.fg8 {
+	color: var(--pastel8);
+}
+.fg9 {
+	color: var(--pastel9);
+}
+
+.black {
+	background-color: var(--darkdark);
+	color: white;
+}
+
+.blue {
+	color: var(--blue);
+}
+.redbg {
+	background-color: var(--dared);
+}
+.skyNess {
+	color: var(--skyBlue);
+}
+.deepPurple {
+	background-color: var(--deepPurple);
+}
+.blueGrey2 {
+	background-color: var(--blueGrey2);
+}
+.polish {
+	color: var(--nailPolish);
+}
+.golden {
+	color: var(--golden);
+}
+.algae {
+	color: var(--algae);
+}
+
+.mono {
+	font-family: monospace;
+	font-size: 1.1rem;
+	margin: 1rem;
+}
+
+.blueback {
+	background-color: lightblue;
+}

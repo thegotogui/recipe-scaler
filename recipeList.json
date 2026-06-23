@@ -1,0 +1,11 @@
+{ 
+    "recipe": [
+        {"ingredient": "Cavatelli Pasta Dough", "amt": 300, "wetordry": "d"},
+        {"ingredient": "Stracciatella", "amt": 250, "wetordry": "d"},
+        {"ingredient": "Asparagus", "amt": 150, "wetordry": "d"},
+        {"ingredient": "Lemon Juice", "amt": 8, "wetordry": "d"},
+        {"ingredient": "Salt", "amt": 3, "wetordry": "w"},
+        {"ingredient": "Lemon Zest", "amt": 2, "wetordry": "w"},
+        {"recipeSteps": "1. Gently heat the stracciatella in a pan. You want it warm, not hot.\n 2. Add lemon juice and zest to the cheese and stir to combine. Set on keep warm setting.\n 3. Cook asparagus and pasta. 4. Add pasta to the cheese and mix. 5. Add asparagus and serve."}
+    ]
+};

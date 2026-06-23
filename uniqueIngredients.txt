@@ -1,0 +1,25 @@
+xed; not sure if they were necessary for the portionator updates. undefined scripts.js:14:10
+AP Flour is #FFFFFF, row is 1 scaler.js:2010:15
+Baking Powder is #FFFFFF, row is 3 scaler.js:2010:15
+Bread Flour is #FFFFFF, row is 1 scaler.js:2010:15
+Buckwheat Flour is #ffdeb7, row is 4 scaler.js:2010:15
+Butter is #fff6a2, row is 3 scaler.js:2010:15
+Buttermilk is #fff6a2, row is 1 scaler.js:2010:15
+Cornmeal is #ffee00, row is 1 scaler.js:2010:15
+Curaçao is undefined, row is 1 scaler.js:2010:15
+Egg is #FEE580, row is 2 scaler.js:2010:15
+HTML File Version Info:
+Lime Juice is undefined, row is 3 scaler.js:2010:15
+makeRecCards(300);
+Master Script Version 18-10-25 - Added date and time stamper to indicate when the page was loaded.
+Milk is #FFFFFF, row is 1 scaler.js:2010:15
+Olive Oil is #529148, row is 3 scaler.js:2010:15
+Page loaded at: 24/03/2026, 22:14:29 scripts.js:8:9
+Prior Recipe: Water,400,w,Polenta,90,d,Sour Cream,30,w,Butter,15,w,Salt,5.3,d,Cheese,120,d scaler.js:233:11
+Salt is #F2F2F2, row is 2 scaler.js:2010:15
+Sour Cream is #F2F2F2, row is 5 scaler.js:2010:15
+Sugar is #F2F2F2, row is 5 scaler.js:2010:15
+Tequila is undefined, row is 2 scaler.js:2010:15
+Water is #A2DFF7, row is 1 scaler.js:2010:15
+Whole Wheat Flour is #ffdeb7, row is 3 scaler.js:2010:15
+Yeast is #fdeab0, row is 3 scaler.js:2010:15

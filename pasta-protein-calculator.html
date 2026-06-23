@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pasta Calculator</title>
+  <link rel="icon" href="/app_icons/protein+pasta.svg" sizes="any" type="image/svg+xml">
+  <link rel="stylesheet" href="css/navigation.css"> <!-- TiniCalc-specific Navigation CSS (keep this) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --cream: #f5f0e8;
+      --paper: #ede7d9;
+      --ink: #1e1a14;
+      --rust: #b84a1e;
+      --rust-light: #d4622a;
+      --warm-gray: #6b6358;
+      --border: #c8bfae;
+      --white: #faf8f4;
+    }
+
+    html {
+      font-size: 18px;
+    }
+
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'Lora', Georgia, serif;
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+      background-image:
+        radial-gradient(ellipse at 20% 0%, rgba(184, 74, 30, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 100%, rgba(107, 99, 88, 0.08) 0%, transparent 60%);
+    }
+
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      padding-bottom: 2rem;
+      border-bottom: 1.5px solid var(--border);
+      /* margin-bottom: 2.5rem; */
+      position: relative;
+    }
+
+
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2rem, 8vw, 2.8rem);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--rust);
+    }
+
+    .subtitle {
+      margin-top: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--warm-gray);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-family: 'Lora', serif;
+    }
+
+    /* Section label */
+    .section-label {
+      font-size: 1rem;
+      color: var(--warm-gray);
+      margin-bottom: 1rem;
+      font-family: 'Lora', serif;
+    }
+
+    /* Card */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 1px 4px rgba(30, 26, 20, 0.06);
+    }
+
+    /* Field */
+    .field {
+      margin-bottom: 1.25rem;
+    }
+
+    .field:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+      font-family: 'Lora', serif;
+    }
+
+    label .hint {
+      font-weight: 400;
+      color: var(--warm-gray);
+      font-style: italic;
+      font-size: 0.8rem;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 0.5rem;
+      align-items: stretch;
+    }
+
+    input[type="number"] {
+      flex: 1;
+      padding: 0.65rem 0.8rem;
+      border: 1.5px solid var(--border);
+      border-radius: 3px;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      transition: border-color 0.15s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    input[type="number"]:focus {
+      outline: none;
+      border-color: var(--rust);
+      background: var(--white);
+    }
+
+    input[type="number"]::placeholder {
+      color: var(--border);
+    }
+
+    .unit-badge {
+      display: flex;
+      align-items: center;
+      padding: 0 0.8rem;
+      background: var(--paper);
+      border: 1.5px solid var(--border);
+      border-radius: 3px;
+      font-size: 0.78rem;
+      color: var(--warm-gray);
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+      font-family: 'Lora', serif;
+    }
+
+    /* Unit toggle */
+    .unit-toggle {
+      display: flex;
+      border: 1.5px solid var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .unit-toggle button {
+      flex: 1;
+      padding: 0.55rem;
+      border: none;
+      background: var(--cream);
+      color: var(--warm-gray);
+      font-family: 'Lora', serif;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      letter-spacing: 0.05em;
+    }
+
+    .unit-toggle button.active {
+      background: var(--rust);
+      color: #fff;
+    }
+
+    .unit-toggle button:not(:last-child) {
+      border-right: 1.5px solid var(--border);
+    }
+
+    .card-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-row .card {
+      flex: 1 1 320px;
+      min-width: 280px;
+    }
+
+    /* Protein toggle */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      position: absolute;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      inset: 0;
+      background: var(--border);
+      border-radius: 24px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .toggle-slider::before {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      left: 3px;
+      top: 3px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.2s;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .toggle-switch input:checked+.toggle-slider {
+      background: var(--rust);
+    }
+
+    .toggle-switch input:checked+.toggle-slider::before {
+      transform: translateX(20px);
+    }
+
+    .toggle-label {
+      font-size: 0.9rem;
+      color: var(--ink);
+    }
+
+    .protein-field {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    .protein-field.visible {
+      max-height: 120px;
+      opacity: 1;
+    }
+
+    /* Servings stepper */
+    .stepper {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 1.5px solid var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+      width: fit-content;
+    }
+
+    .stepper button {
+      width: 40px;
+      height: 40px;
+      border: none;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background 0.15s;
+      font-family: 'Lora', serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stepper button:active {
+      background: var(--border);
+    }
+
+    .stepper .count {
+      min-width: 48px;
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--ink);
+      padding: 0 4px;
+      border-left: 1.5px solid var(--border);
+      border-right: 1.5px solid var(--border);
+      line-height: 40px;
+    }
+
+    /* Results */
+    .results-card {
+      background: var(--ink);
+      color: var(--cream);
+      border-radius: 4px;
+      padding: 1.75rem 1.5rem;
+      margin-top: 1.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .results-card::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: rgba(184, 74, 30, 0.15);
+      pointer-events: none;
+    }
+
+    .results-header {
+      font-size: 1rem;
+      color: rgb(255, 255, 255);
+      margin-bottom: 1.25rem;
+    }
+
+    .result-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.6rem 0;
+      border-bottom: 3px solid rgb(72, 72, 72);
+    }
+
+    .result-line:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .result-line:first-of-type {
+      padding-top: 0;
+    }
+
+    .result-name {
+      font-size: 1.5rem;
+      color: rgb(255, 255, 255);
+    }
+
+    .result-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--cream);
+      text-align: right;
+    }
+
+    .result-value.highlight {
+      color: #e8855a;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 1rem 0 0.5rem;
+      color: rgba(245, 240, 232, 0.35);
+      font-size: 0.85rem;
+      font-style: italic;
+    }
+
+    /* Divider */
+    .divider {
+      border: none;
+      border-top: 3px solid var(--border);
+      margin: 1.75rem 0;
+    }
+
+    /* Note */
+    .note {
+      font-size: 1rem;
+      color: var(--warm-gray);
+      line-height: 1.6;
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+
+    /* Remove spinner arrows */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+    }
+
+    /* input[type=number] {
+      -moz-appearance: textfield;
+    } */
+  </style>
+</head>
+
+<body
+  onload="versionIt('Scaler HTML', '07-01-26 - Some tweaks to obsolete HTML were fixed; not sure if they were necessary for the portionator updates.'); initializeIt('Pasta/Protein', './app_icons/protein+pasta.svg'); initializeArray(0); toggleProtein(); setUnit('g');"
+  style="background-color: rgba(26, 42, 73, 0.0); padding: 0;">
+
+  <!-- This is filler material to force an accurate rendering of the page before Javascript generates the real one -->
+  <div id="navHead">
+    <nav class="" style="padding:8px; height: 76px;">
+      <a class="navbar-brand" style="padding-left: 15px;" href="index.html">
+        <span id="pageTitle" class="pageTitle"></span>
+      </a>
+    </nav>
+  </div>
+
+
+
+  <div class="page">
+
+    <header>
+      <h1>La <em>Pasta</em> Calculator</h1>
+      <p class="subtitle">Dry to cooked · per serving</p>
+      <p class="note">
+        Based on a ratio of 70g dry pasta → 170g cooked pasta per serving.<br>
+        Protein weight is subtracted from the cooked pasta target before scaling back to dry.
+      </p>
+
+    </header>
+
+    <!-- Unit system -->
+    <p class="section-label">Units</p>
+    <div class="unit-toggle">
+      <button onclick="setUnit('oz')">Ounces (oz)</button>
+      <button class="active" onclick="setUnit('g')">Grams (g)</button>
+    </div>
+
+    <div class="card-row">
+      <!-- Servings -->
+      <div class="card">
+        <p class="section-label">Servings</p>
+        <div class="toggle-row" style="margin-bottom:0">
+          <div class="stepper">
+            <button onclick="changeServings(-1)">−</button>
+            <div class="count" id="servings-display">2</div>
+            <button onclick="changeServings(1)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Protein -->
+      <div class="card">
+        <div class="toggle-row">
+          <label class="toggle-switch">
+            <input type="checkbox" id="protein-toggle" onchange="toggleProtein()" />
+            <span class="toggle-slider"></span>
+          </label>
+          <span class="toggle-label">Adding a protein?</span>
+        </div>
+
+        <div class="protein-field" id="protein-field">
+          <div class="field">
+            <label>Cooked protein weight <span class="hint">per serving</span></label>
+            <div class="input-row">
+              <input type="number" id="protein-input" min="0" step="0.5" placeholder="e.g. 113" style="text-align: center;" oninput="calculate()" />
+              <span class="unit-badge" id="protein-unit">g</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="results-card">
+      <p class="results-header">Your recipe</p>
+      <div id="results">
+        <p class="empty-state">Set your servings above to begin.</p>
+      </div>
+    </div>
+
+
+  </div>
+
+  <script>
+    // ── State ──────────────────────────────────────────────────────────
+    // Base ratio (in oz): 2.5 oz dry → 6 oz cooked, per serving
+
+    console.log(`Started up!`);
+
+    const DRY_OZ = 2.5;
+    const COOKED_OZ = 6;
+    const RATIO = DRY_OZ / COOKED_OZ; // dry per oz of cooked pasta needed
+
+    let unit = 'g';
+    let servings = 2;
+    let hasProtein = false;
+
+    // ── Unit helpers ──────────────────────────────────────────────────
+    function toG(oz) { return oz * 28.3495; }
+    function toOz(g) { return g / 28.3495; }
+
+    function fmt(oz) {
+      if (unit === 'oz') {
+        return oz.toFixed(1) + ' oz';
+      } else {
+        return Math.round(toG(oz)) + ' g';
+      }
+    }
+
+    function unitLabel() { return unit === 'oz' ? 'oz' : 'g'; }
+
+    // ── Controls ──────────────────────────────────────────────────────
+    function setUnit(u) {
+      unit = u === 'oz' ? 'oz' : 'g';
+      document.getElementById("protein-unit").innerHTML = unit;
+      document.querySelectorAll('.unit-toggle button').forEach((b, i) => {
+        b.classList.toggle('active', (i === 0 && u === 'oz') || (i === 1 && u === 'g'));
+      });
+      document.querySelectorAll('.unit-badge').forEach(b => b.textContent = unitLabel());
+
+      const input = document.getElementById('protein-input');
+      const val = parseFloat(input.value);
+      if (!isNaN(val) && val > 0) {
+        if (u === 'g') {
+          input.value = Math.round(toG(val));
+          input.placeholder = 'e.g. 113';
+        } else {
+          input.value = +(toOz(val)).toFixed(1);
+          input.placeholder = 'e.g. 4';
+        }
+      } else {
+        input.placeholder = u === 'oz' ? 'e.g. 4' : 'e.g. 113';
+      }
+      calculate();
+    }
+
+    function changeServings(delta) {
+      servings = Math.max(1, servings + delta);
+      document.getElementById('servings-display').textContent = servings;
+      calculate();
+    }
+
+    function toggleProtein() {
+      console.log(`toggled!`);
+      hasProtein = document.getElementById('protein-toggle').checked;
+      const field = document.getElementById('protein-field');
+      field.classList.toggle('visible', hasProtein);
+      if (!hasProtein) {
+        document.getElementById('protein-input').value = '';
+      }
+      calculate();
+    }
+
+    // ── Core calculation ──────────────────────────────────────────────
+    function calculate() {
+      const resultsEl = document.getElementById('results');
+
+      // Get protein input (always work in oz internally)
+      let proteinOzPerServing = 0;
+      if (hasProtein) {
+        const raw = parseFloat(document.getElementById('protein-input').value);
+        if (!isNaN(raw) && raw > 0) {
+          proteinOzPerServing = unit === 'g' ? toOz(raw) : raw;
+        }
+      }
+
+      // Per serving: cooked pasta needed = 12 oz − protein
+      const cookedPastaPerServing = Math.max(0, COOKED_OZ - proteinOzPerServing);
+      // Dry pasta needed per serving
+      const dryPerServing = cookedPastaPerServing * RATIO;
+
+      // Totals
+      const totalDry = dryPerServing * servings;
+      const totalCooked = cookedPastaPerServing * servings;
+      const totalProtein = proteinOzPerServing * servings;
+
+      if (totalDry <= 0 && hasProtein && proteinOzPerServing >= COOKED_OZ) {
+        resultsEl.innerHTML = `
+        <p class="empty-state" style="color:rgba(232,133,90,0.7)">
+          Protein weight exceeds the pasta target — no pasta needed!
+        </p>`;
+        return;
+      }
+
+      let html = '';
+
+      html += row('Dry pasta needed', fmt(totalDry), true);
+      html += row('Cooked pasta (yield)', fmt(totalCooked), false);
+
+      if (hasProtein && proteinOzPerServing > 0) {
+        html += row('Protein (total)', fmt(totalProtein), false);
+        html += row('Total dish weight', fmt(totalCooked + totalProtein), false);
+      }
+
+      if (servings > 1) {
+        html += `<div style="border-top:1px solid rgba(245,240,232,0.12);margin:0.5rem 0 0.75rem"></div>`;
+        html += row('Dry pasta per serving', fmt(dryPerServing), false);
+        if (hasProtein && proteinOzPerServing > 0) {
+          html += row('Protein per serving', fmt(proteinOzPerServing), false);
+        }
+      }
+
+      resultsEl.innerHTML = html;
+    }
+
+    function row(name, value, highlight) {
+      return `
+      <div class="result-line">
+        <span class="result-name">${name}</span>
+        <span class="result-value${highlight ? ' highlight' : ''}">${value}</span>
+      </div>`;
+    }
+
+    // ── Init ──────────────────────────────────────────────────────────
+    toggleProtein(); // ensure protein field is visible on load
+    calculate();
+  </script>
+  <script src="js/scripts.js"></script>
+</body>
+
+</html>

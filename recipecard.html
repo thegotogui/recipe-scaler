@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>recipeEngine</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+        crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous">
+        </script>
+    <script src="js/scripts.js" async></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville&amp;display=swap">
+    <link rel="stylesheet" href="css/navigation.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+</head>
+
+<body onload="initializeIt('RecipeCard', './app_icons/recipeCard.svg');">
+    <div id="navHead">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding:8px;">
+            <a class="navbar-brand" style="padding-left: 15px;" href="index.html">
+                <img src="dgreyholder.svg" width="50" height="50" class="d-inline-block align-top" alt="" id="pageIcon">
+                <span id="pageTitle2" class="pageTitle"></span>
+            </a>
+
+            <div class="jumpButtons">
+                <div class="icons"><img class="icon" src="greyholder.svg" width="30px;" style="cursor: pointer;"></div>
+                <div class="icons"><img class="icon" src="greyholder.svg" width="30px;" style="cursor: pointer;"></div>
+                <div class="icons"><img class="icon" src="greyholder.svg" width="30px;" style="cursor: pointer;"></div>
+                <div class="icons"><img class="icon" src="greyholder.svg" width="30px;" style="cursor: pointer;"></div>
+                <div class="icons"><img class="icon" src="greyholder.svg" width="30px;" style="cursor: pointer;"></div>
+                <div class="icons"><img class="icon" src="greyholder.svg" width="30px;" style="cursor: pointer;"></div>
+                <div class="icons"><img class="icon" src="greyholder.svg" width="30px;" style="cursor: pointer;"></div>
+                <div class="icons"><img class="icon" src="greyholder.svg" width="30px;" style="cursor: pointer;"></div>
+                <div class="icons"><img class="icon" src="greyholder.svg" width="30px;" style="cursor: pointer;"></div>
+                <div class="icons"><img class="icon" src="greyholder.svg" width="30px;" style="cursor: pointer;"></div>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col col-lg-3 col-sm-1">
+            </div>
+            <div class="col col-lg-5 col-sm-10">
+                <div class="containerSelect">
+                    <select class="form-select form-select-lg" id="recipeSelect" oninput="chooseRecipe();" style="text-align: center; margin: 0px;">
+                        <option value="0" selected>Choose a Recipe</option>
+                        <option value="1">Fire Chicken</option>
+                        <option value="2">Recipe 1</option>
+                        <option value="3">Recipe 2</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col col-lg-3 col-sm-1">
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col">
+                <h1 id="recTitle" style="margin: 0px;margin-top: 26px;"></h1>
+                <span id="recIntro">
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-5 col-xxl-4 ingBox">
+                <h3 style="margin-top: 13px;">Ingredients</h3>
+                <hr>
+                <ul>
+                    <div id="ingList">
+                    </div>
+                </ul>
+            </div>
+            <div class="col proBox">
+                <h3 style="margin-top: 13px;">Preparation:</h3>
+                <hr>
+                <ol>
+                    <span id="preparation"></span>
+                </ol>
+                </span>
+            </div>
+        </div>
+    </div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+<script>
+
+    function chooseRecipe() {
+        chosen = document.getElementById("recipeSelect");
+        var recipeIndex = chosen.options[chosen.selectedIndex].value;
+        console.log(`recipeIndex: ${recipeIndex}`);
+
+
+        //* FIRE CHICKEN
+        if (recipeIndex == 1) {
+            var intro = [
+                "Fire Chicken",
+                "I saw a recipe for Korean 'buldak' which combines spicy Korean chicken with mozzarella cheese. It seemed like an odd pairing especially since Asians eat almost zero dairy. I never really thought of rich but mild mozzarella pairing with something spicy but I was intrigued. And then I made a pizza with pepperoni and mozzarella cheese and realized, of course they go together! While mozzarella alone would be an uninteresting pairing with Martinis the addition of spicy chicken takes it in a whole different direction. Now the fatty mildness of the cheese can balance and cool the spice from the chicken."
+            ];
+
+            var ingredients = [
+                "15g (1 Tbsp) Korean red-pepper paste (gochujang)",
+                "9g (≈2 tsps) 3 garlic cloves, peeled and crushed",
+                "10g (1 Tbsp) crushed or grated ginger (freeze before grating)",
+                "2g (1 1/2 x 2/5in/5-6cm x 1.5cm) strip orange zest",
+                "15g (1 Tbsp) soy sauce ",
+                "4g (2 tsp) black pepper",
+                "59g (1/4 cup) chicken stock",
+                "1/2 lb boneless skinless chicken thighs cut into ¾-inch cubes",
+                "2 Tbsp canola or peanut oil",
+                "to 8 oz low-moisture mozzarella put on at the very last moment. Gets stringy",
+                "2 scallions sliced for garnish"
+            ];
+
+            var preparation = [
+                "Add about 1/3 chicken to the pan at a time, frying until just browned.", "Move to a bowl and fry the next batch.",
+                "Combine the gochugaru, gochujang, garlic, ginger, soy sauce, black pepper, and stock in a saucepan over medium-low heat.", "Once heated, stir to combine.",
+                "When all the chicken has been fried, combine chicken and chili pepper mixture in the frying pan over medium-low heat.",
+                "Stir occasionally until the chicken is cooked through, 8 to 10 minutes.", "Meanwhile, heat the broiler in your oven.",
+                "Remove the chicken from the heat.", "Cover the chicken with the sliced mozzarella, then slide the pan under the broiler.", "Cook until the cheese has melted and browned in spots, about 2 minutes.", "Remove from the oven, and sprinkle with scallions.", "Serve immediately."
+            ];
+        }
+
+
+
+        //* Recipe 2
+        if (recipeIndex == 2) {
+            var intro = [
+                "Recipe 2",
+                "This is a description for Recipe 2"
+            ];
+
+            var ingredients = [
+                "Recipe2 Ingredients"
+            ];
+
+            var preparation = [
+                "Recipe 2 Ingredients"
+            ];
+        }
+
+        localStorage.setItem("ingredients", ingredients);
+
+        document.getElementById("recTitle").innerHTML = "";
+        document.getElementById("recIntro").innerHTML = "";
+        document.getElementById("ingList").innerHTML = "";
+        document.getElementById("preparation").innerHTML = ""
+
+
+        document.getElementById("recTitle").innerHTML = intro[0];
+        document.getElementById("recIntro").innerHTML = intro[1];
+
+        for (let loop = 0; loop < ingredients.length; loop++) {
+            document.getElementById("ingList").innerHTML += "<li>" + ingredients[loop];
+        }
+        console.log(`HEY!2`);
+
+        for (loop = 0; loop < preparation.length; loop++) {
+            document.getElementById("preparation").innerHTML += `<li>${preparation[loop]}`;
+        }
+    }
+
+</script>
+
+</html>

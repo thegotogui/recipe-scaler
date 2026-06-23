@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+            width: 60%;
+            padding: 20px 40px;
+            text-align: left;
+            background-color: #000000;
+            background-image: url("./analemaimages/");
+            margin-top: 10px;
+        }
+    </style>
+
+    <script>
+        //function to add zeros
+        function AddZero(num) {
+            return (num >= 0 && num < 10) ? "0" + num : num + "";
+        }
+
+        /*
+        First we obtain the current time, the using the conditional 'if', we compare the current time with the time of the reolad '13:21:31'... if the time are equals, the reload the page, if not, do nothing...
+        */
+        setInterval(function () {
+
+            var d = new Date();
+            var dhours = AddZero(d.getHours());
+            var dminutes = AddZero(d.getMinutes());
+            var dseconds = AddZero(d.getSeconds());
+
+            if (dseconds == '00') {
+                // location.reload();
+            }
+        }, 1000);
+
+
+        function refreshAt(hours, minutes, seconds) {
+            var now = new Date();
+            var then = new Date();
+
+            if (now.getHours() > hours ||
+                (now.getHours() == hours && now.getMinutes() > minutes) ||
+                now.getHours() == hours && now.getMinutes() == minutes && now.getSeconds() >= seconds) {
+                then.setDate(now.getDate() + 1);
+            }
+            then.setHours(hours);
+            then.setMinutes(minutes);
+            then.setSeconds(seconds);
+
+            var timeout = (then.getTime() - now.getTime());
+            setTimeout(function () {
+                window.location.reload(true);
+            }, timeout);
+        }
+
+        // returns the year (four digits)
+        // Return today's date and time
+        var currentTime = new Date()
+        var theYear = currentTime.getFullYear()
+    </script>
+
+    <title>Daniel's Analema Engine 3</title>
+</head>
+
+
+<script>
+    var day = 3635236;
+
+    function analema() {
+
+        var now = new Date();
+        var start = new Date(now.getFullYear(), 0, 0);
+        var diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
+        var oneDay = 1000 * 60 * 60 * 24;
+        day = Math.floor(diff / oneDay);
+
+        // day *= 2;
+        // day += 425;
+
+        if (day > 730) {
+            day -= 730;
+        }
+
+        if (day < 10) {
+            day = "00" + day;
+        }
+        if (day < 100) {
+            day = "0" + day;
+        }
+        console.log('Day of year: ' + day);
+
+        document.getElementsByTagName("img")[0].src = `./analemaimgs/analema_${day}.png`;
+    }
+</script>
+
+<body onload="analema();">
+    <div style="width: 100%; z-index: 1; text-align: center;">
+        <div style="width: 100%; z-index: 5; position: absolute; left: 0px; top: 0 px;">
+        </div>
+
+        <div style="width: 100%; z-index: 3; position: absolute; left: 0px; top: ' + mtop + 'px;">
+            <img src="./analemaimgs/analemma_70.png" style="max-width:100%; height:auto;">
+        </div>
+        <!--         
+        <div style="width: 100%; z-index: 4; position: absolute; left: 0px; top: ' + mtop + 'px;">
+        <img src=./analemaimages/analema_01.png style=max-width:100%; height:auto;></div> -->
+
+    </div>
+    </div>
+</body>
+
+</html>

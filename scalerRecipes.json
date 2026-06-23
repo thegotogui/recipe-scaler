@@ -1,0 +1,1247 @@
+[
+	{
+		"title": "Reset",
+		"ingredients": [
+			{ "name": "Ingredient", "amount": 1, "wetdry": "w" },
+			{ "name": "Ingredient", "amount": 1, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Ahi Tuna",
+		"description": "Wasabi Sauce for Ahi TUna",
+		"ingredients": [
+			{ "name": "Yogurt", "amount": 60 },
+			{ "name": "Buttermilk", "amount": 45 },
+			{ "name": "Wasabi Salt", "amount": 1 },
+			{ "name": "Black Pepper", "amount": 2 },
+			{ "name": "Aleppo Pepper", "amount": 2 },
+			{ "name": "Salt", "amount": 0.89 }
+		]
+	},
+	{
+		"description": "Pesto",
+		"title": "Pesto",
+		"ingredients": [
+			{ "name": "Olive oil", "amount": 60, "wetdry": "w" },
+			{ "name": "Basil", "amount": 18, "wetdry": "d" },
+			{ "name": "Almonds", "amount": 11, "wetdry": "d" },
+			{ "name": "Parmesan", "amount": 9, "wetdry": "d" },
+			{ "name": "Lemon Juice", "amount": 9, "wetdry": "w" },
+			{ "name": "Garlic", "amount": 5, "wetdry": "d" }
+		]
+	},
+
+	{
+		"description": "Caesar Dressing",
+		"title": "Caesar",
+		"ingredients": [
+			{ "name": "Olive Oil", "amount": 60, "wetdry": "w" },
+			{ "name": "Lemon Juice", "amount": 24, "wetdry": "w" },
+			{ "name": "Egg Yolk", "amount": 15, "wetdry": "w" },
+			{ "name": "Worcestershire", "amount": 2.5, "wetdry": "w" },
+			{ "name": "Garlic Clove", "amount": 18, "wetdry": "d" },
+			{ "name": "Parmesan", "amount": 15, "wetdry": "d" },
+			{ "name": "Anchovy", "amount": 10, "wetdry": "d" },
+			{ "name": "Salt", "amount": 1.16, "wetdry": "d" }
+		]
+	},
+	{
+		"description": "Nicoise Dressing",
+		"title": "Niçoise",
+		"ingredients": [
+			{ "name": "Olive Oil", "amount": 59, "wetdry": "w" },
+			{ "name": "Red Wine Vinegar", "amount": 24, "wetdry": "w" },
+			{ "name": "Shallot", "amount": 20, "wetdry": "d" },
+			{ "name": "Garlic Clove", "amount": 6, "wetdry": "d" },
+			{ "name": "Dijon Mustard", "amount": 6, "wetdry": "w" }
+		]
+	},
+
+	{
+		"title": "Ranch",
+		"description": "Ranch Dressing",
+		"ingredients": [
+			{ "name": "Greek Yogurt", "amount": 118, "wetdry": "w" },
+			{ "name": "Buttermilk", "amount": 30, "wetdry": "w" },
+			{ "name": "Garlic Clove", "amount": 8, "wetdry": "d" },
+			{ "name": "Apple Cider Vinegar", "amount": 29, "wetdry": "w" },
+			{ "name": "Scallion", "amount": 6, "wetdry": "d" },
+			{ "name": "Dill", "amount": 1, "wetdry": "d" },
+			{ "name": "Parsley", "amount": 2, "wetdry": "d" },
+			{ "name": "Thyme", "amount": 1, "wetdry": "d" },
+			{ "name": "Black Pepper", "amount": 1, "wetdry": "d" },
+			{ "name": "Kosher Salt", "amount": 1.58, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "White Rice",
+		"description": "White rice (rice is 241 wet)",
+		"ingredients": [
+			{ "name": "Rice", "amount": 210, "wetdry": "d" },
+			{ "name": "Water", "amount": 314, "wetdry": "w" },
+			{ "name": "Salt", "amount": 4.25, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Lentils",
+		"description": "Lentils",
+		"ingredients": [
+			{ "name": "Lentils", "amount": 120, "wetdry": "d" },
+			{ "name": "Water", "amount": 290, "wetdry": "w" },
+			{ "name": "Salt", "amount": 3.3, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Roma",
+		"description": "Roma rice",
+		"ingredients": [
+			{ "name": "Rice ", "amount": 162, "wetdry": "d" },
+			{ "name": "Water", "amount": 337, "wetdry": "w" },
+			{ "name": "Salt", "amount": 4, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Jasmine",
+		"description": "Jasmine rice",
+		"ingredients": [
+			{ "name": "Water", "amount": 420, "wetdry": "w" },
+			{ "name": "Rice", "amount": 210, "wetdry": "d" },
+			{ "name": "Salt", "amount": 5, "wetdry": "d" },
+			{ "name": "Powdered Garlic", "amount": 2, "wetdry": "d" },
+			{ "name": "Powdered Onion", "amount": 2, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Sushi",
+		"description": "Sushi rice",
+		"ingredients": [
+			{ "name": "Rice", "amount": 210, "wetdry": "d" },
+			{ "name": "Water", "amount": 314, "wetdry": "w" },
+			{ "name": "Rice Vinegar", "amount": 15, "wetdry": "w" },
+			{ "name": "Sugar", "amount": 5, "wetdry": "d" },
+			{ "name": "Salt", "amount": 4, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Pickled Onion",
+		"description": "Pickled Onion",
+		"ingredients": [
+			{ "name": "Water", "amount": 50, "wetdry": "w" },
+			{ "name": "Vinegar", "amount": 10, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Burger",
+		"description": "Tini Burger",
+		"ingredients": [
+			{ "name": "Ground Beef", "amount": 225, "wetdry": "w" },
+			{ "name": "Onion", "amount": 40, "wetdry": "w" },
+			{ "name": "Panko", "amount": 15, "wetdry": "w" },
+			{ "name": "Milk", "amount": 34.5, "wetdry": "w" },
+			{ "name": "Worcestershire", "amount": 3.2, "wetdry": "w" },
+			{ "name": "Salt", "amount": 2.25, "wetdry": "w" },
+			{ "name": "Powdered Garlic", "amount": 2.25, "wetdry": "d" },
+			{ "name": "Powdered Onion", "amount": 2.25, "wetdry": "d" },
+			{ "name": "Dried Thyme", "amount": 2.25, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Miso",
+		"description": "Miso Sauce",
+		"ingredients": [
+			{ "name": "Soy Sauce", "amount": 30, "wetdry": "w" },
+			{ "name": "Brown miso", "amount": 15, "wetdry": "w" },
+			{ "name": "Rice Wine Vinegar", "amount": 15, "wetdry": "w" },
+			{ "name": "Garlic Clove", "amount": 6, "wetdry": "d" },
+			{ "name": "Honey", "amount": 3, "wetdry": "w" },
+			{ "name": "Ginger", "amount": 2, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Tonnato",
+		"description": "Tonnato",
+		"ingredients": [
+			{ "name": "Tuna", "amount": 142, "wetdry": "d" },
+			{ "name": "Mayo", "amount": 118, "wetdry": "w" },
+			{ "name": "Olive Oil", "amount": 60, "wetdry": "w" },
+			{ "name": "Lemon Juice", "amount": 45, "wetdry": "w" },
+			{ "name": "Capers", "amount": 15, "wetdry": "d" },
+			{ "name": "Anchovy", "amount": 12, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Classic Crepes",
+		"ingredients": [
+			{ "name": "Milk", "amount": 120, "wetdry": "w" },
+			{ "name": "Egg", "amount": 100, "wetdry": "w" },
+			{ "name": "Whole Wheat Flour", "amount": 50, "wetdry": "d" },
+			{ "name": "AP Flour", "amount": 28, "wetdry": "d" },
+			{ "name": "Buckwheat Flour", "amount": 28, "wetdry": "d" },
+			{ "name": "Buttermilk", "amount": 45, "wetdry": "w" },
+			{ "name": "Butter", "amount": 24, "wetdry": "w" },
+			{ "name": "Salt", "amount": 3, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Couz",
+		"description": "Ti Couz Crepes",
+		"ingredients": [
+			{ "name": "Water", "amount": 310, "wetdry": "w" },
+			{ "name": "Milk", "amount": 100, "wetdry": "w" },
+			{ "name": "Egg", "amount": 8, "wetdry": "w" },
+			{ "name": "Butter", "amount": 17, "wetdry": "w" },
+			{ "name": "Whole Wheat Flour", "amount": 50, "wetdry": "d" },
+			{ "name": "AP Flour", "amount": 30, "wetdry": "d" },
+			{ "name": "Buckwheat Flour", "amount": 23, "wetdry": "d" },
+			{ "name": "Salt", "amount": 4.35, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Sourdough Crepes",
+		"ingredients": [
+			{ "name": "Milk", "amount": 210, "wetdry": "w" },
+			{ "name": "Water", "amount": 55, "wetdry": "w" },
+			{ "name": "Egg", "amount": 50, "wetdry": "w" },
+			{ "name": "Butter", "amount": 22, "wetdry": "w" },
+			{ "name": "Flour", "amount": 135, "wetdry": "d" },
+			{ "name": "Salt", "amount": 4, "wetdry": "d" },
+			{ "name": "Starter", "amount": 30, "wetdry": "s" }
+		],
+		"markdown": "### Updated 1-3-25 to tone down the starter amount - too tart!"
+	},
+
+	{
+		"title": "Naan",
+		"ingredients": [
+			{ "name": "AP Flour", "amount": 500, "wetdry": "d" },
+			{ "name": "Milk", "amount": 236, "wetdry": "w" },
+			{ "name": "Yogurt", "amount": 60, "wetdry": "w" },
+			{ "name": "Canola Oil", "amount": 30, "wetdry": "n" },
+			{ "name": "Salt", "amount": 6.8, "wetdry": "d" },
+			{ "name": "Yeast", "amount": 7, "wetdry": "d" },
+			{ "name": "Baking Powder", "amount": 5, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Biscuits",
+		"ingredients": [
+			{ "name": "AP Flour", "amount": 180, "wetdry": "d" },
+			{ "name": "Salt", "amount": 3, "wetdry": "d" },
+			{ "name": "Baking Powder", "amount": 10, "wetdry": "d" },
+			{ "name": "Milk", "amount": 130, "wetdry": "w" },
+			{ "name": "Butter", "amount": 50, "wetdry": "w" }
+		]
+	},
+
+	{
+		"title": "Cornbread",
+		"ingredients": [
+			{ "name": "Cornmeal", "amount": 100, "wetdry": "d" },
+			{ "name": "AP Flour", "amount": 90, "wetdry": "d" },
+			{ "name": "Baking Powder", "amount": 3, "wetdry": "d" },
+			{ "name": "Salt", "amount": 2, "wetdry": "d" },
+			{ "name": "Sour Cream", "amount": 85, "wetdry": "w" },
+			{ "name": "Milk", "amount": 80, "wetdry": "w" },
+			{ "name": "Buttermilk", "amount": 55, "wetdry": "w" },
+			{ "name": "Butter", "amount": 55, "wetdry": "w" },
+			{ "name": "Egg", "amount": 50, "wetdry": "w" }
+		]
+	},
+
+	{
+		"title": "Pita",
+		"ingredients": [
+			{ "name": "Flour", "amount": 310, "wetdry": "d" },
+			{ "name": "WW Flour", "amount": 35, "wetdry": "d" },
+			{ "name": "Water", "amount": 235, "wetdry": "w" },
+			{ "name": "Olive Oil", "amount": 30, "wetdry": "n" },
+			{ "name": "Salt", "amount": 4.95, "wetdry": "d" },
+			{ "name": "Yeast", "amount": 2, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Baguette",
+		"ingredients": [
+			{ "name": "Bread Flour", "amount": 700, "wetdry": "d" },
+			{ "name": "Water", "amount": 520, "wetdry": "w" },
+			{ "name": "Yeast", "amount": 2, "wetdry": "d" },
+			{ "name": "Salt", "amount": 8, "wetdry": "d" }
+		],
+		"markdown": [
+			"## Process",
+			"### Part 1",
+			"- Mix all the ingredients together until combined, you will see the dough will amalgamate into a ball, this should not take more than 2mn.",
+			"- Cover and let it rise for 8 to 10 hours, I leave the dough in the cold oven.",
+
+			"### Part 2",
+			"- Sprinkle some flour on the bench or a pizza dish/plate, scrape the dough on the dish and sprinkle",
+			"again some more flour on top to avoid sticking. You will need a plastic dough scraper and make sure",
+			"you're not pressing the dough to keep the air inside.",
+			"- Cut the dough in 4 (if you want 4 baguettes, but you can make 2/3/5).",
+			"- Take each piece and stretch it gently into a baguette shape and put it on a baking tray or plate",
+			"with baking paper. This should not take more than 3 mn and if you're well organised cleaning included.",
+			"- Bake at 250 degC (480 degF) for approx 25 mn in a pre heated oven depending how golden you want them.",
+			"### Timeline",
+			"- 2 min mixing, 8/10-hours rising, shaping 3 mins, baking 25 mins"
+		]
+	},
+
+	{
+		"title": "Classic Pizza",
+		"description": "Pizza Dough",
+		"ingredients": [
+			{ "name": "AP Flour", "amount": 100, "wetdry": "d" },
+			{ "name": "Bread Flour", "amount": 100, "wetdry": "d" },
+			{ "name": "Water", "amount": 140, "wetdry": "w" },
+			{ "name": "Salt", "amount": 3.5, "wetdry": "d" },
+			{ "name": "Yeast", "amount": 1, "wetdry": "d" },
+			{ "name": "Olive Oil", "amount": 4, "wetdry": "n" }
+		],
+		"markdown": [
+			"## Process",
+			"1. Combine flours, water, and yeast",
+			"1. Let rest 30 minutes-2 hours.",
+			"1. Add oil and mix to combine and distribute.",
+			"1. Place in a warm location to rise for 3+ hours.",
+			"1. Do a final tuck and roll, allow for a final rest, then stretch."
+		]
+	},
+
+	{
+		"title": "Neapolitan",
+		"description": "Neapolitan Pizza Dough",
+		"ingredients": [
+			{ "name": "Bread Flour", "amount": 300, "wetdry": "d" },
+			{ "name": "AP Flour", "amount": 200, "wetdry": "d" },
+			{ "name": "Water", "amount": 200, "wetdry": "w" },
+			{ "name": "Salt", "amount": 6, "wetdry": "d" },
+			{ "name": "Honey", "amount": 5, "wetdry": "w" },
+			{ "name": "Yeast", "amount": 5, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Sourdough Pizza Dough",
+		"description": "Sourdough Pizza Dough",
+		"ingredients": [
+			{ "name": "Sourdough Starter", "amount": 100, "wetdry": "s" },
+			{ "name": "AP Flour", "amount": 220, "wetdry": "d" },
+			{ "name": "Water", "amount": 90, "wetdry": "w" },
+			{ "name": "Olive Oil", "amount": 15, "wetdry": "n" },
+			{ "name": "Salt", "amount": 4.34, "wetdry": "d" },
+			{ "name": "Yeast", "amount": 3, "wetdry": "d" }
+		],
+		"markdown": ["- 20 Slices of Pepperoni", "- 20 slices of Courgette", "- 20g of Kale/6 smaller leaves", "- ~190g of sauce"]
+	},
+
+	{
+		"title": "Sourdough Bread",
+		"description": "Sourdough Bread",
+		"ingredients": [
+			{ "name": "Bread Flour", "amount": 335, "wetdry": "d" },
+			{ "name": "WW Flour", "amount": 50, "wetdry": "d" },
+			{ "name": "Rye Flour", "amount": 20, "wetdry": "d" },
+			{ "name": "Water", "amount": 250, "wetdry": "w" },
+			{ "name": "Salt", "amount": 7, "wetdry": "d" },
+			{ "name": "Sourdough Starter", "amount": 13, "wetdry": "s" }
+		]
+	},
+
+	{
+		"title": "Vito",
+		"description": "Vito's Pizza Dough",
+		"ingredients": [
+			{ "name": "AP Flour", "amount": 75, "wetdry": "d" },
+			{ "name": "Water", "amount": 75, "wetdry": "w" },
+			{ "name": "Yeast", "amount": 3, "wetdry": "d" },
+			{ "name": "Honey", "amount": 3, "wetdry": "W" },
+			{ "name": "Flour", "amount": 180, "wetdry": "d" },
+			{ "name": "Water", "amount": 100, "wetdry": "w" },
+			{ "name": "Salt", "amount": 7.5, "wetdry": "d" },
+			{ "name": "Olive Oil", "amount": 3, "wetdry": "n" }
+		],
+		"markdown": [
+			"## Process",
+			"### Part 1",
+			"- Mix all the ingredients together until combined, you will see the dough will amalgamate into a ball, this should not take more than 2mn.",
+			"- Cover and let it rise for 8 to 10 hours, I leave the dough in the cold oven.",
+			"- Mix everything keep 1 hour at room temperature to activate the leavened then put it in the fridge 16to24 hours",
+			"### Part 2",
+			"- Make the pizza dough",
+			"- 16 to 24 hours "
+		]
+	},
+
+	{
+		"title": "Levain",
+		"description": "Levain for Bread",
+		"ingredients": [
+			{ "name": "Bread Flour", "amount": 40, "wetdry": "d" },
+			{ "name": "WW Flour", "amount": 40, "wetdry": "d" },
+			{ "name": "Water", "amount": 80, "wetdry": "w" },
+			{ "name": "Starter", "amount": 8, "wetdry": "s" }
+		]
+	},
+
+	{
+		"title": "Bread for Bread",
+		"description": "Bread for Bread",
+		"ingredients": [
+			{ "name": "Bread Flour", "amount": 766, "wetdry": "d" },
+			{ "name": "WW Flour", "amount": 161, "wetdry": "d" },
+			{ "name": "Water", "amount": 635, "wetdry": "w" },
+			{ "name": "Sourdough Starter", "amount": 169, "wetdry": "s" },
+			{ "name": "Water 2", "amount": 50, "wetdry": "w" },
+			{ "name": "Salt", "amount": 19, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Focaccia",
+		"description": "Focaccia",
+		"ingredients": [
+			{ "name": "AP Flour", "amount": 360, "wetdry": "d" },
+			{ "name": "Water", "amount": 284, "wetdry": "w" },
+			{ "name": "Olive Oil", "amount": 18, "wetdry": "n" },
+			{ "name": "Salt", "amount": 9, "wetdry": "d" },
+			{ "name": "Sugar", "amount": 5, "wetdry": "d" },
+			{ "name": "Yeast", "amount": 3, "wetdry": "d" }
+		],
+		"markdown": [
+			"## Process",
+			"### To make the dough:",
+			"- **Weigh your flour;** or measure it by gently spooning it into a cup, then sweeping off any excess.",
+			"- In a large bowl (a 3-quart bowl with a lid works great), whisk together the flour, salt, sugar, and yeast.",
+			"- Add the water and olive oil and stir — with a spatula, bowl scraper, dough whisk, or your hands —",
+			"until the mixture is thoroughly combined and homogeneous; there should be no dry patches or lumps.",
+			"Cover the bowl and set it aside for 15 minutes.",
+			"- Perform the first bowl fold: Use a wet hand to grab a section of dough from one side of the bowl",
+			"then lift it up and press it into the center. Repeat this motion, grabbing a new section of dough",
+			"each time, until you've made a full circle around the bowl, about 8 to 12 times. Once you’ve circled",
+			"the bowl, flip the dough over in the bowl so that the smooth side is up; the first bowl fold is now",
+			"complete. Cover the bowl and let the dough rest for 15 minutes.",
+			"> Note: You'll be doing this three more times over the next 45 minutes, each time further developing,",
+			"the dough's strength.",
+			"- Repeat the bowl fold for a second time. (Remember to use a wet hand to prevent the dough from sticking!) At this point, the dough should feel smoother and tighter. Cover the bowl and let the dough rest for 15 minutes.",
+			"- Repeat the bowl fold for a third time. Cover the bowl and let the dough rest for 15 minutes.",
+			"- Repeat the bowl fold for a fourth and final time; the dough should feel relatively strong.",
+			"- Cover the bowl and let the dough rise at a warm room temperature (70°F to 75°F) for 1 hour; see this post, Where to put dough to rise, for tips. After 1 hour, the dough should have nearly doubled in size and will be vry puffy; it may even have a few bubbles on the surface.",
+			"- To prepare the pan:",
+			"- Once the dough has risen, spray the bottom and sides of a 9 inch square Fabulous Focaccia Pan with nonstick spray. (See “tips,” below for details about this pan as well as alternative pan options.)",
+			"- Cut a 3\"-wide strip of parchment that's about 16\" long. Lay the strip across the center of the pan, leaving a few inches of overhang on two sides; press it firmly into the pan and crease the parchment where it meets the sides of the pan to help it stay in place. (The parchment tabs will help you remove the focaccia from the pan later.)",
+			"- Spray the parchment with nonstick spray, then add 1 tablespoon (13g) of the olive oil and ilt the pan to spread the oil evenly across the bottom.",
+			"- Use a bowl scraper or flexible spatula to gently transfer the risen dough to the center of the pan. Using your hand as paddles (and a bowl scraper for assistance, if you need it) swiftly but gently flip the dough over so that it's coated in oil; try to handle the dough minimally to keep it from deflating.",
+			"- Cover the pan and let the dough rise at a warm room temperature for 1 to 1 1/2 hours, until it's marshmallowy and jiggly; the dough should nearly fill the corners of the pan and be very close to the top edge.",
+			"- Toward the end of the rise, preheat the oven to 475°F with racks in the upper and lower thirds.",
+			"- Once the dough has risen, lightly coat your fingers in oil. Starting at one edge, press your fingertips into the dough until they reach the bottom of the pan, creating dimples. Repeat this process, working your way from one edge to the other, spacing the dimples about 1 1/2\" apart. The goal is to thoroughly dimple the dough without deflating it — aim for decisive yet gentle motions. If there are any large untouched areas of the dough, add additional dimples using one finger.",
+			"### To top the dough:",
+			"- Drizzle the remaining 1 tablespoon (13g) olive oil all over the surface of the dough; it's OK if it pools in some dimples.",
+			"- Sprinkle evenly with flaky salt (use 1 generously rounded teaspoon Cyprus Flake Salt or 1/2 teaspoon Maldon).",
+			"- Bake the focaccia on the lower rack for 15 to 18 minutes, until brown in the highest spots and golden in the crevices. If necessary, move the pan to the top rack and broil briefly for the final 1 to 2 minutes, watching carefully, to achieve the desired color.",
+			"- Remove the focaccia from the oven. Using the parchment tabs as handles, lift the focaccia out of the pan and transfer it to a wire rack or cutting board; remove the parchment strip. Turn off the oven and slide the focaccia back into the oven, directly on the lower rack, for 5 to 7 minutes, until the sides are golden brown and crisp. Remove the focaccia from the oven once again and transfer it to a wire rack to cool completely.",
+			"### Storage information:",
+			"- Focaccia is best enjoyed the day it's made. If storing leftovers, wrap the focaccia loosely in foil, keep it at room temperature, and reheat before serving.",
+			"---",
+			"### Tips from our Bakers",
+			"- The temperature of your ingredients and rising environment will impact how long it takes for your",
+			"dough to rise. In warmer months (or when your indoor temperature is 70°F to 75°F), the liquid should",
+			"be 90°F to 100°F. In cooler months (or when your indoor temperature is around 65°F), use 100°F to",
+			"110°F liquid. The desired dough temperature after mixing (step two) should be between 82°F and 86°F;",
+			"if it's outside of this range, your dough may rise on a different timeline. See this blog post about",
+			"where to put dough to rise for troububleshooting tips."
+		]
+	},
+
+	{
+		"title": "Agnolotti",
+		"description": "Agnolotti",
+		"ingredients": [
+			{ "name": "AP Flour", "amount": 100, "wetdry": "d" },
+			{ "name": "Yolks", "amount": 36, "wetdry": "w" },
+			{ "name": "Egg", "amount": 18, "wetdry": "w" },
+			{ "name": "Milk", "amount": 5.3, "wetdry": "w" },
+			{ "name": "Salt", "amount": 1.63, "wetdry": "d" },
+			{ "name": "Olive Oil", "amount": 2.1, "wetdry": "n" }
+		]
+	},
+
+	{
+		"title": "Uncooked",
+		"description": "Cooked vs uncooked pasta",
+		"ingredients": [
+			{ "name": "Dry Pasta", "amount": 120, "wetdry": "d" },
+			{ "name": "Cooked Dry Pasta", "amount": 290, "wetdry": "w" }
+		]
+	},
+
+	{
+		"title": "Chitarra",
+		"description": "Chitarra pasta",
+		"ingredients": [
+			{ "name": "00 Flour", "amount": 115, "wetdry": "d" },
+			{ "name": "Semolina Flour", "amount": 85, "wetdry": "d" },
+			{ "name": "Eggs", "amount": 100, "wetdry": "w" },
+			{ "name": "Salt", "amount": 3.04, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Turmeric",
+		"description": "Turmeric Chicken",
+		"ingredients": [
+			{ "name": "Chicken Thighs", "amount": 450, "wetdry": "d" },
+			{ "name": "Water", "amount": 60, "wetdry": "w" },
+			{ "name": "Honey", "amount": 30, "wetdry": "w" },
+			{ "name": "Black Pepper", "amount": 1, "wetdry": "d" },
+			{ "name": "Apple Cider Vinegar", "amount": 10, "wetdry": "w" },
+			{ "name": "Salt", "amount": 2, "wetdry": "d" },
+			{ "name": "Mustard", "amount": 30, "wetdry": "w" },
+			{ "name": "Turmeric", "amount": 6, "wetdry": "d" },
+			{ "name": "AP Flour", "amount": 10, "wetdry": "d" },
+			{ "name": "Asparagus", "amount": 150, "wetdry": "d" },
+			{ "name": "Rice Vinegar or Soy Sauce", "amount": 5, "wetdry": "w" }
+		],
+		"markdown": [
+			"## Process:",
+			"1. Mix water, honey, vinegar, mustard, turmeric, salt, pepper, and flour together in a bowl.",
+			"2. Add chicken and mix to coat. Let marinate for 30 minutes.",
+			"3. Cook chicken in a pan until cooked through, about 5-7 minutes per side.",
+			"4. Add asparagus to the pan and cook until tender, about 5 minutes.",
+			"1. In a small bowl or measuring cup, stir together 1/4 cup water with the honey, pepper and 1/2 teaspoon salt; set aside.",
+			"2. In a medium bowl, stir together the flour, turmeric and 1 teaspoon salt. Add the chicken and toss until coated.",
+			"3. In a medium (10-inch) nonstick skillet, heat the oil over medium-high. Add the chicken and cook until the turmeric is fragrant and the chicken is golden brown on both sides, 2 to 3 minutes per side. Add the asparagus, season with salt, stir to combine and cook until crisp-tender, 1 to 2 minutes.",
+			"4. Add the honey mixture and cook, stirring, until the chicken is cooked through and the sauce has thickened, 2 to 3 minutes.",
+			"5. Remove from heat and stir in the vinegar, if using. Season to taste with salt and pepper. Serve with lime squeezed over top, if you like.5. Drizzle with rice vinegar or soy sauce and serve."
+		]
+	},
+
+	{
+		"title": "Basic",
+		"description": "Basic pasta (egg and flour)",
+		"ingredients": [
+			{ "name": "Egg", "amount": 50, "wetdry": "w" },
+			{ "name": "Flour", "amount": 94, "wetdry": "d" },
+			{ "name": "Salt", "amount": 1.16, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Ricotta",
+		"description": "Ricotta Gnocchi",
+		"ingredients": [
+			{ "name": "Flour", "amount": 110, "wetdry": "d" },
+			{ "name": "Ricotta", "amount": 240, "wetdry": "w" },
+			{ "name": "Egg", "amount": 100, "wetdry": "w" },
+			{ "name": "Parmesan", "amount": 15, "wetdry": "d" },
+			{ "name": "Salt", "amount": 3.75, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "All Durum",
+		"description": "All Durum Dough",
+		"ingredients": [
+			{ "name": "Durum Flour", "amount": 155, "wetdry": "d" },
+			{ "name": "Egg", "amount": 70, "wetdry": "w" },
+			{ "name": "Salt", "amount": 2.33, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Dente",
+		"description": "Al Dente Pasta Dough",
+		"ingredients": [
+			{ "name": "Durum Flour", "amount": 90, "wetdry": "d" },
+			{ "name": "AP Flour", "amount": 70, "wetdry": "d" },
+			{ "name": "Egg", "amount": 50, "wetdry": "w" },
+			{ "name": "Water", "amount": 30, "wetdry": "w" },
+			{ "name": "Salt", "amount": 1.87, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Culurgione Pasta Dough",
+		"description": "Culurgione Pasta Dough",
+		"ingredients": [
+			{ "name": "AP Flour", "amount": 150, "wetdry": "d" },
+			{ "name": "Semolina Flour", "amount": 100, "wetdry": "d" },
+			{ "name": "Water", "amount": 145, "wetdry": "w" },
+			{ "name": "Salt", "amount": 3.2, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Culurgione Filling",
+		"description": "Culurgione Filling",
+		"ingredients": [
+			{ "name": "Potatoes (skins=10%, 15mins @325)", "amount": 230, "wetdry": "d" },
+			{ "name": "Aged Pecorino", "amount": 23, "wetdry": "d" },
+			{ "name": "Fresh Pecorino", "amount": 46, "wetdry": "d" },
+			{ "name": "Goat Cheese", "amount": 46, "wetdry": "d" },
+			{ "name": "Chopped Mint", "amount": 2, "wetdry": "d" },
+			{ "name": "Egg", "amount": 12, "wetdry": "w" },
+			{ "name": "Garlic", "amount": 3, "wetdry": "d" },
+			{ "name": "Olive Oil", "amount": 15, "wetdry": "w" }
+		]
+	},
+
+	{
+		"title": "Potato G",
+		"description": "Potato Gnocchi Dough",
+		"ingredients": [
+			{ "name": "Potato", "amount": 600, "wetdry": "d" },
+			{ "name": "AP Flour", "amount": 150, "wetdry": "d" },
+			{ "name": "Egg", "amount": 50, "wetdry": "w" },
+			{ "name": "Salt", "amount": 6.45, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Ravioli",
+		"description": "Ravioli Pasta Dough",
+		"ingredients": [
+			{ "name": "AP Flour", "amount": 80, "wetdry": "d" },
+			{ "name": "Semolina Flour", "amount": 70, "wetdry": "d" },
+			{ "name": "WW Flour", "amount": 70, "wetdry": "d" },
+			{ "name": "Water", "amount": 60, "wetdry": "w" },
+			{ "name": "Egg", "amount": 50, "wetdry": "w" }
+		]
+	},
+
+	{
+		"title": "Stracciatella",
+		"description": "Straciatella Pasta with Lemon and Asparagus",
+		"ingredients": [
+			{ "name": "Cavatelli Pasta Dough", "amount": 300, "wetdry": "d" },
+			{ "name": "Stracciatella", "amount": 250, "wetdry": "d" },
+			{ "name": "Asparagus", "amount": 150, "wetdry": "d" },
+			{ "name": "Lemon Juice", "amount": 8, "wetdry": "d" },
+			{ "name": "Salt", "amount": 3, "wetdry": "w" },
+			{ "name": "Lemon Zest", "amount": 2, "wetdry": "w" }
+		],
+		"markdown": [
+			"1. Gently heat the stracciatella in a pan. You want it warm, not hot.",
+			"2. Add lemon juice and zest to the cheese and stir to combine. Set on keep warm setting.",
+			"3. Cook asparagus and pasta.",
+			"4. Add pasta to the cheese and mix.",
+			"5. Add asparagus and serve."
+		]
+	},
+
+	{
+		"title": "Trapanese",
+		"description": "Trapanese Pesto",
+		"ingredients": [
+			{ "name": "Plum Tomatoes", "amount": 450, "wetdry": "d" },
+			{ "name": "Garlic", "amount": 10, "wetdry": "d" },
+			{ "name": "Almonds", "amount": 35, "wetdry": "d" },
+			{ "name": "Mint", "amount": 8, "wetdry": "d" },
+			{ "name": "Basil", "amount": 20, "wetdry": "d" },
+			{ "name": "EVOO", "amount": 80, "wetdry": "n" },
+			{ "name": "Pecorino", "amount": 25, "wetdry": "d" },
+			{ "name": "Pasta", "amount": 450, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Starter",
+		"description": "Starter",
+		"ingredients": [
+			{ "name": "AP Flour", "amount": 28, "wetdry": "d" },
+			{ "name": "Rye Flour", "amount": 14, "wetdry": "d" },
+			{ "name": "Water", "amount": 40, "wetdry": "w" }
+		]
+	},
+
+	{
+		"title": "Hollandaise",
+		"description": "Hollandaise Sauce",
+		"ingredients": [
+			{ "name": "Butter", "amount": 150, "wetdry": "w" },
+			{ "name": "Egg Yolk", "amount": 85, "wetdry": "w" },
+			{ "name": "Water", "amount": 50, "wetdry": "w" },
+			{ "name": "Lemon Juice", "amount": 20, "wetdry": "w" },
+			{ "name": "Salt", "amount": 3, "wetdry": "d" }
+		],
+		"markdown": ["## Process", "- Combine in a zip-lock bag.", "- Poach in a 147°F (64°C) water bath for 1 hour.", "- Remove from bag and whisk to combine.", "- Adjust seasoning with salt and lemon juice to taste."]
+	},
+
+	{
+		"title": "Pasta Sauce",
+		"description": "Sauce for Pasta",
+		"ingredients": [
+			{ "name": "Pasta", "amount": 142, "wetdry": "d" },
+			{ "name": "Tomato Sauce", "amount": 275, "wetdry": "w" }
+		]
+	},
+
+	{
+		"title": "Gnocchi",
+		"description": "Sauce for Gnocchi",
+		"ingredients": [
+			{ "name": "Gnocchi", "amount": 250, "wetdry": "d" },
+			{ "name": "Sauce", "amount": 150, "wetdry": "w" }
+		]
+	},
+
+	{
+		"title": "Bolognese",
+		"ingredients": [
+			{ "name": "Ground Beef", "amount": 340, "wetdry": "d" },
+			{ "name": "Tomato", "amount": 450, "wetdry": "d" },
+			{ "name": "Milk", "amount": 240, "wetdry": "w" },
+			{ "name": "White Wine", "amount": 240, "wetdry": "w" },
+			{ "name": "Onion", "amount": 80, "wetdry": "d" },
+			{ "name": "Celery", "amount": 100, "wetdry": "d" },
+			{ "name": "Carrot", "amount": 100, "wetdry": "d" }
+		],
+		"markdown": [
+			"# Bolognese Sauce",
+			"## Ingredients",
+			"### Preparation",
+			"1. Heat a large (roughly 5-Quart) heavy-bottomed Dutch oven or pot over medium-low heat.",
+			"2. Add the olive oil and butter. Once the butter has melted, add the diced onions and ½ teaspoon",
+			"Diamond Crystal kosher salt (note: if using a different brand of cooking salt, reduce quantity by at least half).",
+			"3. Sauté the onions, stirring often, until softened and nearly translucent, about 5 to 7 minutes.",
+			"Add the celery, carrots, and another pinch of salt. Cook for 2 to 3 minutes, stirring often.",
+			"Add the garlic and red pepper flakes, if using, and cook until fragrant, stirring constantly, about 1 minute or so.",
+			"4. Add the ground beef, a generous pinch of kosher salt, and freshly ground black pepper.",
+			"5. Cook over medium heat, breaking up the meat with a fork as needed, until nearly cooked through and no longer raw, about 3 to 5 minutes.",
+			"6. Add the milk and simmer over low heat, stirring frequently, until the milk has mostly cooked out, about 5 to 7 minutes.",
+			"7. Stir in the freshly grated nutmeg.",
+			"8. Add the white wine and simmer until evaporated, about 3 to 5 minutes. Add the canned tomatoes and parmesan rinds and stir mixture to combine.",
+			"9. Bring to a slow boil, then reduce heat immediately to a very, very low simmer (*only a few and small bubbles on the surface of the sauce).",
+			"10. Simmer the sauce, uncovered, for at least 3 to 4 hours, stirring every so often. Add a splash of water as needed throughout the simmer time.",
+			"11. Season to taste with salt and pepper, remove and discard the parmesan rinds.",
+			"* **Cooking Note:** As Marcella explains, the simmer time can be broken up into various stages",
+			"throughout the same day if needed. Simply remove the sauce from the heat, cover with a lid, and ",
+			"resume simmering later. Once you have prepared the sauce base, you can also transfer it to a slow ",
+			"cooker or Instant pot (set to low 'slow cook' mode) for an easy, hands-off simmer option. * For ",
+			"Serving: Toss with boiled cooked pasta – ideally finishing the al dente pasta in the warm sauce –",
+			"until well-coated. Serve with freshly grated parmigiano-reggiano cheese on the side."
+		]
+	},
+
+	{
+		"title": "Ssamjang",
+		"description": "Ssamjang Sauce",
+		"ingredients": [
+			{ "name": "Beef Stock", "amount": 70, "wetdry": "w" },
+			{ "name": "Samjang", "amount": 60, "wetdry": "w" },
+			{ "name": "Light Miso", "amount": 20, "wetdry": "w" },
+			{ "name": "Gochujang", "amount": 15, "wetdry": "w" },
+			{ "name": "Red Wine Vinegar", "amount": 15, "wetdry": "w" }
+		]
+	},
+
+	{
+		"title": "Meatballs",
+		"description": "Meatballs",
+		"ingredients": [
+			{ "name": "Ground Beef", "amount": 280, "wetdry": "d" },
+			{ "name": "Milk", "amount": 100, "wetdry": "w" },
+			{ "name": "Bread Crumbs", "amount": 40, "wetdry": "w" },
+			{ "name": "Onion", "amount": 40, "wetdry": "d" },
+			{ "name": "Egg", "amount": 30, "wetdry": "w" },
+			{ "name": "Parm", "amount": 30, "wetdry": "d" },
+			{ "name": "Parsley", "amount": 5, "wetdry": "d" },
+			{ "name": "Salt", "amount": 4, "wetdry": "d" },
+			{ "name": "Garlic Powder", "amount": 3, "wetdry": "d" }
+		],
+		"markdown": [
+			"1. Mix milk and breadcrumbs together and allow to sit 15-20 minutes.",
+			"2. Combine all ingredients and knead until evenly distributed. Meatballs should be wet and somewhat sticky.",
+			"3. In a medium-heat pan, brown meatballs on all sides.",
+			"4. Combine meatballs and sauce to a pan over a simmer. Cover and cook 10-15 minutes, turning halfway through.",
+			"5. Combine with pasta and serve",
+			"Alternatively, they can be baked at 350° for 15 minutes"
+		]
+	},
+
+	{
+		"title": "Albondigas",
+		"description": "Albondigas",
+		"ingredients": [
+			{ "name": "Ground Beef", "amount": 280, "wetdry": "d" },
+			{ "name": "Milk", "amount": 125, "wetdry": "w" },
+			{ "name": "Bread Crumbs", "amount": 50, "wetdry": "d" },
+			{ "name": "Rice (Roma)", "amount": 100, "wetdry": "d" },
+			{ "name": "Egg", "amount": 50, "wetdry": "w" },
+			{ "name": "Onion", "amount": 40, "wetdry": "d" },
+			{ "name": "Parm", "amount": 30, "wetdry": "d" },
+			{ "name": "Parsley", "amount": 5, "wetdry": "d" },
+			{ "name": "Salt", "amount": 4, "wetdry": "d" },
+			{ "name": "Garlic Powder", "amount": 3, "wetdry": "d" }
+		],
+		"markdown": [
+			"## Process",
+			"### It's a little hard to believe this is going to stay together, but it does.",
+			"1. Mix milk and breadcrumbs together and allow to sit 15-20 minutes.",
+			"2. Combine all ingredients and knead until ingredients are distributed. Meatballs should be wet and somewhat sticky.",
+			"3. In a medium-heat pan, brown meatballs on all sides.",
+			"4. Add meatballs and sauce to a pan over a simmer. Cover and cook 10-15 minutes, turning meatballs halfway through.",
+			"5. Combine with pasta and serve",
+			"Alternatively, they can be baked at 350° for 15 minutes"
+		]
+	},
+
+	{
+		"title": "Mashed",
+		"description": "Mashed Potatoes",
+		"ingredients": [
+			{ "name": "Potatoes", "amount": 700, "wetdry": "d" },
+			{ "name": "Sour Cream", "amount": 130, "wetdry": "w" },
+			{ "name": "Butter", "amount": 66, "wetdry": "w" },
+			{ "name": "White Pepper", "amount": 3, "wetdry": "d" },
+			{ "name": "Salt", "amount": 4, "wetdry": "d" },
+			{ "name": "Wasabi Salt", "amount": 2.5, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Shakshuka",
+		"description": "Shakshuka",
+		"ingredients": [
+			{ "name": "Tomato", "amount": 200, "wetdry": "w" },
+			{ "name": "Egg", "amount": 50, "wetdry": "w" },
+			{ "name": "Harissa", "amount": 25, "wetdry": "d" },
+			{ "name": "Onion", "amount": 50, "wetdry": "d" },
+			{ "name": "Red Pepper", "amount": 20, "wetdry": "d" },
+			{ "name": "Garlic", "amount": 10, "wetdry": "d" },
+			{ "name": "Paprika", "amount": 6, "wetdry": "d" },
+			{ "name": "Cumin", "amount": 3, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Tatty",
+		"description": "Tatty Scones",
+		"ingredients": [
+			{ "name": "Potato", "amount": 500, "wetdry": "d" },
+			{ "name": "Flour", "amount": 100, "wetdry": "d" },
+			{ "name": "Butter", "amount": 50, "wetdry": "n" },
+			{ "name": "Salt", "amount": 5, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Tortillas",
+		"description": "Tortillas",
+		"ingredients": [
+			{ "name": "Masa", "amount": 90, "wetdry": "d" },
+			{ "name": "AP F  lour", "amount": 9, "wetdry": "d" },
+			{ "name": "Water", "amount": 110, "wetdry": "w" },
+			{ "name": "Butter", "amount": 10, "wetdry": "w" },
+			{ "name": "Salt", "amount": 2.21, "wetdry": "d" }
+		],
+		"markdown": [
+			"## Process",
+			"- Melt butter",
+			"- Combine butter, water, and salt.",
+			"- Add flour and mix until a dough forms. Knead for 3 minutes until uniform.",
+			"- Allow dough to rest at least 15 minutes, preferably longer.",
+			"- Cookk on grey non-stick pan on big burner at 6.0 heat. "
+		]
+	},
+
+	{
+		"title": "Sonoran",
+		"description": "Sonoran Flour Tortillas",
+		"ingredients": [
+			{ "name": "Flour", "amount": 100, "wetdry": "d" },
+			{ "name": "Water", "amount": 50, "wetdry": "w" },
+			{ "name": "Lard", "amount": 30, "wetdry": "w" },
+			{ "name": "Salt", "amount": 2, "wetdry": "d" },
+			{ "name": "Baking Powder", "amount": 1, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Udon",
+		"description": "Udon Noodles",
+		"ingredients": [
+			{ "name": "AP Flour", "amount": 200, "wetdry": "d" },
+			{ "name": "Water", "amount": 90, "wetdry": "w" },
+			{ "name": "Salt", "amount": 10, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Blinis",
+		"description": "Blinis",
+		"ingredients": [
+			{ "name": "Buttermilk", "amount": 475, "wetdry": "w" },
+			{ "name": "Egg", "amount": 110, "wetdry": "w" },
+			{ "name": "Butter", "amount": 28, "wetdry": "w" },
+			{ "name": "Buckwheat Flour", "amount": 140, "wetdry": "d" },
+			{ "name": "AP Flour", "amount": 70, "wetdry": "d" },
+			{ "name": "Sugar", "amount": 8, "wetdry": "d" },
+			{ "name": "Salt", "amount": 2, "wetdry": "d" },
+			{ "name": "Baking Powder", "amount": 2, "wetdry": "d" },
+			{ "name": "Baking Soda", "amount": 1, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Spanish",
+		"description": "Spanish Rice",
+		"ingredients": [
+			{ "name": "Water", "amount": 300, "wetdry": "w" },
+			{ "name": "Rice", "amount": 200, "wetdry": "d" },
+			{ "name": "Bell Pepper", "amount": 80, "wetdry": "d" },
+			{ "name": "Tomato Paste", "amount": 30, "wetdry": "w" },
+			{ "name": "Cumin", "amount": 3, "wetdry": "d" },
+			{ "name": "Salt", "amount": 4.93, "wetdry": "d" },
+			{ "name": "Dried Garlic", "amount": 2, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Kale",
+		"description": "Crispy Kale",
+		"ingredients": [
+			{ "name": "Kale", "amount": 100, "wetdry": "d" },
+			{ "name": "Olive Oil", "amount": 10, "wetdry": "n" },
+			{ "name": "Salt", "amount": 3, "wetdry": "d" }
+		],
+		"markdown": [
+			"## Process",
+			"- Preheat oven to 360°F.",
+			"- Wash and thoroughly dry the kale.",
+			"- Remove the leaves from the thick stems and tear them into bite-sized pieces.",
+			"- Place the kale pieces in a large bowl. Drizzle with olive oil and sprinkle with salt. Use your hands to massage the oil and salt into the kale, ensuring each piece is well coated.",
+			"- Arrange the kale pieces in a single layer on a baking sheet lined with parchment paper or a silicone baking mat. Avoid overcrowding to ensure even crisping.",
+			"- Bake in the preheated oven for about 10 minutes, turning the pieces halfway through, until the kale is crispy but not burnt."
+		]
+	},
+
+	{
+		"title": "Lemonade Spritzer",
+		"description": "Lemon(ade) Spritzer",
+		"ingredients": [
+			{ "name": "Lemonade", "amount": 100, "wetdry": "w" },
+			{ "name": "Soda Water", "amount": 80, "wetdry": "w" }
+		]
+	},
+
+	{
+		"title": "Bloody",
+		"description": "Bloody",
+		"ingredients": [
+			{ "name": "V8", "amount": 150, "wetdry": "w" },
+			{ "name": "Soy Sauce", "amount": 5, "wetdry": "d" },
+			{ "name": "Horseradish", "amount": 3, "wetdry": "d" },
+			{ "name": "Lemon Juice", "amount": 2, "wetdry": "w" },
+			{ "name": "Worcestershire", "amount": 2, "wetdry": "d" },
+			{ "name": "Tabasco", "amount": 1, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Sangrita",
+		"description": "Sangrita",
+		"ingredients": [
+			{ "name": "Tomato Juice", "amount": 70, "wetdry": "w" },
+			{ "name": "Orange Juice", "amount": 25, "wetdry": "w" },
+			{ "name": "Lime", "amount": 4, "wetdry": "w" },
+			{ "name": "Salt", "amount": 2, "wetdry": "d" },
+			{ "name": "Cholula", "amount": 2, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Risotto",
+		"description": "Risotto",
+		"ingredients": [
+			{ "name": "Stock", "amount": 350, "wetdry": "w" },
+			{ "name": "Carnaroli", "amount": 140, "wetdry": "d" },
+			{ "name": "Vegetable Oil", "amount": 42, "wetdry": "n" },
+			{ "name": "Onion", "amount": 10, "wetdry": "d" },
+			{ "name": "Salt", "amount": 5, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Cavatelli",
+		"description": "Cavatelli",
+		"ingredients": [
+			{ "name": "AP Flour", "amount": 120, "wetdry": "d" },
+			{ "name": "Durum Flour", "amount": 50, "wetdry": "d" },
+			{ "name": "WW", "amount": 20, "wetdry": "d" },
+			{ "name": "Water", "amount": 55, "wetdry": "w" },
+			{ "name": "Egg", "amount": 50, "wetdry": "w" },
+			{ "name": "Salt", "amount": 3, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Bechamel",
+		"description": "Bechamel",
+		"ingredients": [
+			{ "name": "Flour", "amount": 15, "wetdry": "d" },
+			{ "name": "Butter", "amount": 15, "wetdry": "w" },
+			{ "name": "Milk", "amount": 175, "wetdry": "w" },
+			{ "name": "Mustard", "amount": 15, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Bull",
+		"description": "Bullshot",
+		"ingredients": [
+			{ "name": "Vodka", "amount": 50, "wetdry": "w" },
+			{ "name": "Beef Stock", "amount": 100, "wetdry": "w" },
+			{ "name": "Worcestershire Sauce", "amount": 5.25, "wetdry": "d" },
+			{ "name": "Red Wine Vinegar", "amount": 1.25, "wetdry": "w" },
+			{ "name": "Soy Sauce", "amount": 5.25, "wetdry": "d" },
+			{ "name": "Tabasco Sauce", "amount": 0.62, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Margarita",
+		"description": "Margarita",
+		"ingredients": [
+			{ "name": "Curaçao", "amount": 85, "wetdry": "w" },
+			{ "name": "Tequila", "amount": 33, "wetdry": "w" },
+			{ "name": "Lime Juice", "amount": 33, "wetdry": "w" }
+		]
+	},
+
+	{
+		"title": "Polenta",
+		"description": "Polenta",
+		"ingredients": [
+			{ "name": "Water", "amount": 400, "wetdry": "w" },
+			{ "name": "Polenta", "amount": 90, "wetdry": "d" },
+			{ "name": "Sour Cream", "amount": 30, "wetdry": "w" },
+			{ "name": "Butter", "amount": 15, "wetdry": "w" },
+			{ "name": "Salt", "amount": 5.3, "wetdry": "d" },
+			{ "name": "Cheese", "amount": 120, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Farro",
+		"description": "Farro",
+		"ingredients": [
+			{ "name": "Farro", "amount": 100, "wetdry": "d" },
+			{ "name": "Water", "amount": 360, "wetdry": "w" },
+			{ "name": "Salt", "amount": 4, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Dutch",
+		"description": "Dutch Baby",
+		"ingredients": [
+			{ "name": "Flour", "amount": 120, "wetdry": "d" },
+			{ "name": "Cheese", "amount": 72, "wetdry": "d" },
+			{ "name": "Thyme", "amount": 1, "wetdry": "d" },
+			{ "name": "Parsley", "amount": 1, "wetdry": "d" },
+			{ "name": "Egg", "amount": 400, "wetdry": "w" },
+			{ "name": "Milk", "amount": 176, "wetdry": "w" },
+			{ "name": "Unsalted Butter", "amount": 89, "wetdry": "w" }
+		]
+	},
+
+	{
+		"title": "Welsh",
+		"description": "Welsh Rarebit",
+		"ingredients": [
+			{ "name": "Cheese", "amount": 50, "wetdry": "d" },
+			{ "name": "Butter", "amount": 15, "wetdry": "w" },
+			{ "name": "Flour", "amount": 15, "wetdry": "d" },
+			{ "name": "Milk", "amount": 26, "wetdry": "w" },
+			{ "name": "Guinness", "amount": 26, "wetdry": "w" },
+			{ "name": "Worcestershire", "amount": 7.5, "wetdry": "w" },
+			{ "name": "Coleman's", "amount": 5, "wetdry": "w" }
+		]
+	},
+
+	{
+		"title": "Injeera",
+		"description": "Injeera",
+		"ingredients": [
+			{ "name": "Water", "amount": 300, "wetdry": "w" },
+			{ "name": "AP Flour", "amount": 75, "wetdry": "d" },
+			{ "name": "Teff Flour", "amount": 40, "wetdry": "d" },
+			{ "name": "Starter", "amount": 175, "wetdry": "s" }
+		]
+	},
+
+	{
+		"title": "Ponzu",
+		"description": "Ponzu Sauce",
+		"ingredients": [
+			{ "name": "Kombu", "amount": 1, "wetdry": "d" },
+			{ "name": "Rice Vinegar", "amount": 30, "wetdry": "w" },
+			{ "name": "Mirin", "amount": 12, "wetdry": "w" },
+			{ "name": "Katsuobushi", "amount": 15, "wetdry": "d" },
+			{ "name": "Yuzu", "amount": 120, "wetdry": "w" },
+			{ "name": "Soy Sauce", "amount": 120, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Julep",
+		"description": "Coconut Rum Julep",
+		"ingredients": [
+			{ "name": "Rum", "amount": 43, "wetdry": "w" },
+			{ "name": "Simple", "amount": 21, "wetdry": "w" },
+			{ "name": "Lime", "amount": 14, "wetdry": "w" },
+			{ "name": "Coconut", "amount": 21, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Jungle Bird",
+		"description": "Jungle Bird",
+		"ingredients": [
+			{ "name": "Dark Rum", "amount": 43, "wetdry": "w" },
+			{ "name": "Campari", "amount": 21, "wetdry": "w" },
+			{ "name": "Pineapple", "amount": 43, "wetdry": "w" },
+			{ "name": "Lime", "amount": 14, "wetdry": "w" },
+			{ "name": "Simple", "amount": 14, "wetdry": "w" }
+		]
+	},
+
+	{
+		"title": "Cable",
+		"description": "Cable Car",
+		"ingredients": [
+			{ "name": "Spiced Rum", "amount": 45, "wetdry": "w" },
+			{ "name": "Curacao", "amount": 22, "wetdry": "w" },
+			{ "name": "Lemon Juice", "amount": 30, "wetdry": "w" },
+			{ "name": "Simple", "amount": 15, "wetdry": "w" }
+		]
+	},
+
+	{
+		"title": "Mexican",
+		"description": "Mexican",
+		"ingredients": [
+			{ "name": "Pineapple", "amount": 70, "wetdry": "w" },
+			{ "name": "Tequila", "amount": 28, "wetdry": "w" },
+			{ "name": "Triple Sec", "amount": 10, "wetdry": "w" }
+		]
+	},
+
+	{
+		"title": "Mai Tai",
+		"description": "Mai Tai",
+		"ingredients": [
+			{ "name": "Dark Rum", "amount": 30, "wetdry": "w" },
+			{ "name": "Light Rum", "amount": 30, "wetdry": "w" },
+			{ "name": "Lime", "amount": 30, "wetdry": "w" },
+			{ "name": "Orange Curacao", "amount": 15, "wetdry": "w" },
+			{ "name": "Orgeat", "amount": 15, "wetdry": "w" },
+			{ "name": "Simple", "amount": 7.5, "wetdry": "w" }
+		]
+	},
+
+	{
+		"title": "Soda",
+		"description": "Soda",
+		"ingredients": [
+			{ "name": "Fizzy Water", "amount": 300, "wetdry": "w" },
+			{ "name": "Flavor Syrup", "amount": 40, "wetdry": "w" }
+		]
+	},
+
+	{
+		"title": "Tea",
+		"description": "Tea",
+		"ingredients": [
+			{ "name": "Water", "amount": 500, "wetdry": "w" },
+			{ "name": "Loose Tea", "amount": 6, "wetdry": "d" }
+		]
+	},
+
+	{
+		"title": "Egg",
+		"description": "Egg Topping",
+		"ingredients": [
+			{ "name": "Egg", "amount": 58, "wetdry": "w" },
+			{ "name": "Water", "amount": 8, "wetdry": "w" }
+		]
+	},
+
+	{
+		"title": "Turkey Masala",
+		"description": "Turkey Masala",
+		"ingredients": [
+			{ "name": "Garam Masala", "amount": 5, "wetdry": "d" },
+			{ "name": "Coriander", "amount": 2, "wetdry": "d" },
+			{ "name": "Cumin", "amount": 2, "wetdry": "d" },
+			{ "name": "Paprika", "amount": 8, "wetdry": "d" },
+			{ "name": "Turmeric", "amount": 4, "wetdry": "d" },
+			{ "name": "Kosher Salt", "amount": 1, "wetdry": "d" },
+			{ "name": "Red Pepper Flakes", "amount": 0.5, "wetdry": "d" },
+			{ "name": "Garlic", "amount": 3, "wetdry": "d" },
+			{ "name": "Ginger", "amount": 3, "wetdry": "d" },
+			{ "name": "Whole Milk Yogurt", "amount": 118, "wetdry": "w" },
+			{ "name": "Chicken or Turkey", "amount": 2, "wetdry": "w" },
+			{ "name": "Onion", "amount": 1, "wetdry": "d" },
+			{ "name": "Cardamom Pods", "amount": 0.25, "wetdry": "d" },
+			{ "name": "Whole Peeled Tomatoes", "amount": 1, "wetdry": "w" },
+			{ "name": "Heavy Cream", "amount": 1, "wetdry": "w" },
+			{ "name": "Bay Leaf", "amount": 1, "wetdry": "n" },
+			{ "name": "Kosher Salt", "amount": 9, "wetdry": "d" },
+			{ "name": "Fresh Cilantro", "amount": 0.75, "wetdry": "d" },
+			{ "name": "Lemon Juice", "amount": 1, "wetdry": "w" },
+			{ "name": "Steamed Basmati Rice", "amount": 1, "wetdry": "n" }
+		],
+
+		"markdown": [
+			"1. Combine spices, garlic, ginger, and yogurt in a large bowl. Add chicken and onion and mix to coat. Cover and refrigerate for at least 1 hour, preferably overnight.",
+			"2. Heat a large skillet over medium-high heat. Add marinated chicken and cook until browned on all sides, about 5 minutes. Remove chicken and set aside.",
+			"3. Add tomatoes, cardamom pods, and bay leaf to the skillet. Simmer for 10 minutes, stirring occasionally, until the tomatoes have broken down and the sauce has thickened slightly.",
+			"4. Remove cardamom pods and bay leaf from the sauce. Add heavy cream and simmer for an additional 5 minutes, stirring occasionally, until the sauce has thickened to your liking.",
+			"5. Return the browned chicken to the skillet and simmer for an additional 10-15 minutes, until the chicken is cooked through and the flavors have melded together.",
+			"6. Season the masala with kosher salt to taste. Stir in fresh cilantro and lemon juice just before serving.",
+			"7. Serve the turkey masala over steamed basmati rice and enjoy!"
+		]
+	},
+
+	{
+		"title": "Egg",
+		"description": "Egg Topping",
+		"ingredients": [
+			{ "name": "Egg", "amount": 58, "wetdry": "w" },
+			{ "name": "Water", "amount": 8, "wetdry": "w" }
+		]
+	},
+
+	{
+		"title": "TEST",
+		"description": "TEST",
+		"ingredients": [
+			{ "name": "A", "amount": 1, "wetdry": "w" },
+			{ "name": "B", "amount": 2, "wetdry": "w" },
+			{ "name": "C", "amount": 3, "wetdry": "w" },
+			{ "name": "D", "amount": 4, "wetdry": "w" },
+			{ "name": "E", "amount": 5, "wetdry": "w" },
+			{ "name": "F", "amount": 6, "wetdry": "w" },
+			{ "name": "G", "amount": 7, "wetdry": "w" },
+			{ "name": "H", "amount": 8, "wetdry": "w" },
+			{ "name": "I", "amount": 9, "wetdry": "w" },
+			{ "name": "J", "amount": 10, "wetdry": "w" }
+		]
+	}
+]

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ButterScaler</title>
+	<link rel="icon" type="image/svg+xml" href="./app_icons/butter.svg">
+	<link rel="stylesheet" href="./css/hollandstyles.css" />
+	<script src="js/scripts.js"></script>
+	<script src="js/butter.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+		crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous">
+		</script>
+
+	<style>
+		body {
+			background-color: #425e7a;
+			font-family: 'Open Sans', sans-serif;
+			color: white;
+		}
+
+		h3 {
+			font-weight: 600;
+		}
+
+		.form-label {
+			color: white;
+		}
+
+		/* -----------------------------------------------*/
+		/* The two halves of the top, partial butter graph*/
+		/* -----------------------------------------------*/
+		.butterE,
+		.butterS,
+		.butterEU {
+			color: black;
+		}
+
+		/* Elgin Stick Graph */
+		.butterE,
+		.notButterE {
+			height: 115px;
+			padding-top: 37px;
+		}
+
+		/* Stubbie Stick Graph */
+		.butterS,
+		.notButterS {
+			height: 136px;
+			padding-top: 51px;
+		}
+
+		/* European Stick Graph */
+		.butterEU,
+		.notButterEU {
+			height: 392px;
+			padding-top: 180px;
+		}
+
+		/* Elgin Stick Graph */
+		.butterE,
+		.butterS,
+		.butterEU {
+			background-color: rgb(255, 255, 169);
+			width: 100%;
+			text-align: center;
+			border-radius: 7px 0px 0px 7px;
+		}
+
+		.notButterE,
+		.notButterS,
+		.notButterEU {
+			background-color: rgb(255, 255, 169, .2);
+			border-radius: 0px 7px 7px 0px;
+			width: 0%;
+			padding-left: 10px;
+			text-align: left;
+			color: white;
+		}
+
+		.icons {
+			padding: 0px 20px 0px 20px;
+		}
+
+		/* -----------------------------------------------*/
+
+
+		.butterFullS,
+		.butterFullE,
+		.butterFullEu {
+			background-color: rgb(255, 255, 169);
+			text-align: center;
+			border-radius: 8px;
+			display: flex;
+		}
+
+		.butterFullE {
+			width: 100%;
+			height: 115px;
+			padding-top: 40px;
+		}
+
+		.butterFullS {
+			height: 136px;
+			padding-top: 55px;
+		}
+
+		.butterFullEu {
+			height: 136px;
+			padding-top: 55px;
+		}
+
+		.butterStickE {
+			margin: 20px auto;
+			width: 433px;
+			padding-bottom: 30px;
+		}
+
+		.butterStickS {
+			margin: 20px auto;
+			width: 298px;
+			padding-bottom: 30px;
+		}
+
+		.butterStickEu {
+			margin: 20px auto;
+			width: 664px;
+			padding-bottom: 30px;
+		}
+
+		.biggerLabels {
+			font-size: x-large;
+		}
+	</style>
+	<link rel="stylesheet" href="css/navigation.css">
+</head>
+
+<body style="background-color: #0f1a33; font-family: Arial, Helvetica, sans-serif;" onload="initializeIt('ButterScaler', './app_icons/butter.svg'); radioCheck(1);">
+
+	<div id="navHead">
+	</div>
+
+	<div class="container" style="max-width: 1166px; text-align: center;">
+		<div class="btn-group" role="group" style="margin-top: 2rem;">
+			<label class="btn btn-primary active" id="elginRadio">
+				<input type="radio" class="btn-check" autocomplete="off" onclick="radioCheck(1)">Elgin</label>
+			<label class="btn btn-primary" id="stubbieRadio">
+				<input type="radio" class="btn-check" autocomplete="off" onclick="radioCheck(2)">Stubbie</label>
+			<label class="btn btn-primary" id="bothRadio">
+				<input type="radio" class="btn-check" autocomplete="off" onclick="radioCheck(3)">Both</label>
+			<label class="btn btn-primary" id="euroRadio">
+				<input type="radio" class="btn-check" autocomplete="off" onclick="radioCheck(4)">European</label>
+		</div>
+
+		<!-- <div class="form-check form-check-inline">
+			<input class="form-check-input" type="radio" onclick="radioCheck(1)" name="inLineRadioOptions" id="elginRadio" value="option1" checked>
+			<label class="form-check-label" for="inlineRadio1">Elgin</label>
+		</div>
+		<div class="form-check form-check-inline">
+			<input class="form-check-input" type="radio" onclick="radioCheck(2)" name="inLineRadioOptions" id="stubbieRadio" value="option2">
+			<label class="form-check-label" for="inlineRadio2">Stubby</label>
+		</div> -->
+		<div style="text-align: center; color: white; padding-top: 30px;">
+			<h1 style="font-weight: bold;">Weight Needed</h1>
+		</div>
+		<div style="display: flex; padding: 0px 20%;">
+			<div style="width: 45%;">
+				<label for="weightg" class="form-label biggerLabels">Grams</label>
+				<input class="form-control" value="15" type="number" id="weightg" oninput="calculateIt(1);"
+					style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+			</div>
+			<div style="margin-left: auto; width: 45%;">
+				<label for="weighto" class="form-label biggerLabels">Ounces</label>
+				<input class="form-control" type="number" id="weighto" oninput="calculateIt(2);" style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+			</div>
+		</div>
+		<div style="display: flex; padding: 0px 20%;">
+			<div style="width: 45%;">
+				<label for="weightg" class="form-label biggerLabels">Tsp</label>
+				<input class="form-control" type="number" id="tsps" oninput="calculateIt(3);" style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+			</div>
+			<div style="margin-left: auto; width: 45%;">
+				<label for="weighto" class="form-label biggerLabels">Tbsp</label>
+				<input class="form-control" type="number" id="tbsps" oninput="calculateIt(4);" style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+			</div>
+		</div>
+
+		<div style="text-align: center; color: white; padding-top: 10px;">
+			<h1 style="font-weight: bold;">Length(s) Needed (cm)</h1>
+		</div>
+
+		<!-- <div style="display:flex; margin: 0, auto;">
+			<div class="showNoShow" style="width: 500px;">
+				<label for="elgin" class="form-label biggerLabels">Elgin Butter Stick</label>
+				<input class="form-control" type="text" id="elgin" style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+			</div>
+		</div> -->
+
+
+		<!--* Elgin Sticks -->
+		<div class="butterStickE elgin" style="display: none;">
+			<div id="butterHalfE" class="butterE"></div>
+			<div id="notButterHalfE" class="notButterE"></div>
+		</div>
+
+		<!--* Whole Elgin Stick(s) -->
+		<div class="butterStickE elgin" id="wholesticksE" style="display: none;">
+			<div id="butterFullE" class="butterFullE">
+				<h2 style="font-weight: bold; color: black;"></h2>
+			</div>
+		</div>
+
+		<!--* Stubbie Sticks -->
+		<div class="butterStickS stubbie" style="display: none;">
+			<div id="butterHalfS" class="butterS"></div>
+			<div id="notButterHalfS" class="notButterS"></div>
+		</div>
+
+		<!--* Whole Stubbie Stick(s) -->
+		<div class="butterStickS stubbie" id="wholesticksS" style="display: none;">
+			<div id="butterFullS" class="butterFullS">
+				<h2 style="font-weight: bold; color: black;"></h2>
+			</div>
+		</div>
+
+		<!--* EU Block -->
+		<div class="butterStickEu european" style="display: none;">
+			<div id="butterHalfEu" class="butterEU"></div>
+			<div id="notButterHalfEu" class="notButterEU"></div>
+		</div>
+
+		<!--* Whole Euro Block(s) -->
+		<div class="butterStickEu european" id="wholesticksEU" style="display: none;">
+			<div id="butterFullEUBlock" class="butterFullEu">
+				<h2 style="font-weight: bold; color: black;"></h2>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

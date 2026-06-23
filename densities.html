@@ -1,0 +1,1837 @@
+<!doctype html>
+<html lang="be" xmlns="http://www.w3.org/1999/xhtml"
+      dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <title>Fillet</title>
+    
+    <link rel="stylesheet" href="/css/custom.min.css">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <!-- Matomo -->
+    <script>
+        let _paq = window._paq = window._paq || [];
+        
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function () {
+            const u = "https://getfillet.matomo.cloud/";
+            _paq.push(['setTrackerUrl', u + 'matomo.php']);
+            _paq.push(['setSiteId', '1']);
+            const d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+            g.type = 'text/javascript';
+            g.async = true;
+            g.src = u + 'matomo.js';
+            s.parentNode.insertBefore(g, s);
+        })();
+    </script>
+    <!-- End Matomo Code -->
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="facebook" viewBox="0 0 16 16">
+        <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"></path>
+    </symbol>
+    <symbol id="instagram" viewBox="0 0 16 16">
+        <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"></path>
+    </symbol>
+    <symbol id="twitter" viewBox="0 0 16 16">
+        <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"></path>
+    </symbol>
+    <symbol id="youtube" viewBox="0 0 16 16">
+        <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01.0 011.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007.0 01-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309.0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007.0 01-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82.082 9.716A31.4 31.4.0 010 7.68v-.122C.002 7.343.01 6.6.064 5.78l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007.0 011.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788.0 017.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/>
+    </symbol>
+</svg>
+<!-- Stripe JS -->
+<script async src="https://js.stripe.com/v3/"></script>
+<!-- end Stripe JS -->
+<nav class="navbar navbar-expand-lg navbar-dark z-3 sticky-top shadow-lg" style="background-color:rgba(33,37,41,0.988);">
+    <div class="container">
+        <a class="navbar-brand" href="/be/">
+            <img class="d-inline-block align-middle my-2" alt="fillet_full_logo_white"
+                 srcset="
+                /images/logo_full.png,
+                /images/logo_full_2x.png 2x,
+                /images/logo_full_3x.png 3x,
+                /images/logo_full_4x.png 4x
+                             "
+                 src="/images/logo_full.png"
+                 height="30">
+        </a>
+        <!-- Sign in (mobile) -->
+        <div class="flex-fill d-lg-none"></div>
+        <a class="btn btn-outline-light me-3 d-lg-none" href="https://web.getfillet.com/login">Sign in</a>
+        <!-- end Sign in (mobile) -->
+        <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                class="navbar-toggler border-0 p-0"
+                data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse flex-grow-1" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto me-3 mb-2 mb-lg-0 gap-2">
+                <!-- Learn -->
+                <li class="nav-item">
+                    <a class="nav-link text-light letters-spaced" href="/be/guides?utm_source=nav">
+                        <span>Learn</span>
+                    </a>
+                </li>
+                <!-- end Learn -->
+                <!-- Features -->
+                <li class="nav-item">
+                    <a class="nav-link text-light letters-spaced" href="/be/features?utm_source=nav">
+                        <span>Features</span>
+                    </a>
+                </li>
+                <!-- end Features -->
+                <!-- Pricing -->
+                <li class="nav-item">
+                    <a class="nav-link text-light letters-spaced" href="/be/pricing?utm_source=nav">Pricing</a>
+                </li>
+                <!-- end Pricing -->
+                <!-- Dropdown buttons -->
+                <!-- More dropdown -->
+                <li class="nav-item dropdown d-none" id="dropdown-more">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span>More</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-lg-end">
+                        <li><a class="dropdown-item my-1" href="/be/support?utm_source=nav">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-book me-2" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+                            </svg>
+                            <span>Support</span>
+                        </a></li>
+                        <li><a class="dropdown-item my-1" href="/be/platforms-and-downloads?utm_source=nav">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-display me-2" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M0 4s0-2 2-2h12s2 0 2 2v6s0 2-2 2h-4c0 .667.083 1.167.25 1.5H11a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1h.75c.167-.333.25-.833.25-1.5H2s-2 0-2-2V4zm1.398-.855a.758.758 0 0 0-.254.302A1.46 1.46 0 0 0 1 4.01V10c0 .325.078.502.145.602.07.105.17.188.302.254a1.464 1.464 0 0 0 .538.143L2.01 11H14c.325 0 .502-.078.602-.145a.758.758 0 0 0 .254-.302 1.464 1.464 0 0 0 .143-.538L15 9.99V4c0-.325-.078-.502-.145-.602a.757.757 0 0 0-.302-.254A1.46 1.46 0 0 0 13.99 3H2c-.325 0-.502.078-.602.145z"/>
+                            </svg>
+                            <span>Platforms</span></a>
+                        </li>
+                        <li><a class="dropdown-item my-1" href="/be/solutions?utm_source=nav">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-database me-2" viewBox="0 0 16 16">
+                                <path d="M4.318 2.687C5.234 2.271 6.536 2 8 2s2.766.27 3.682.687C12.644 3.125 13 3.627 13 4c0 .374-.356.875-1.318 1.313C10.766 5.729 9.464 6 8 6s-2.766-.27-3.682-.687C3.356 4.875 3 4.373 3 4c0-.374.356-.875 1.318-1.313ZM13 5.698V7c0 .374-.356.875-1.318 1.313C10.766 8.729 9.464 9 8 9s-2.766-.27-3.682-.687C3.356 7.875 3 7.373 3 7V5.698c.271.202.58.378.904.525C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777A4.92 4.92 0 0 0 13 5.698ZM14 4c0-1.007-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1s-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4v9c0 1.007.875 1.755 1.904 2.223C4.978 15.71 6.427 16 8 16s3.022-.289 4.096-.777C13.125 14.755 14 14.007 14 13V4Zm-1 4.698V10c0 .374-.356.875-1.318 1.313C10.766 11.729 9.464 12 8 12s-2.766-.27-3.682-.687C3.356 10.875 3 10.373 3 10V8.698c.271.202.58.378.904.525C4.978 9.71 6.427 10 8 10s3.022-.289 4.096-.777A4.92 4.92 0 0 0 13 8.698Zm0 3V13c0 .374-.356.875-1.318 1.313C10.766 14.729 9.464 15 8 15s-2.766-.27-3.682-.687C3.356 13.875 3 13.373 3 13v-1.302c.271.202.58.378.904.525C4.978 12.71 6.427 13 8 13s3.022-.289 4.096-.777c.324-.147.633-.323.904-.525Z"/>
+                            </svg>
+                            <span>Solutions</span>
+                        </a>
+                        </li>
+                        <li><a class="dropdown-item my-1" href="/be/training?utm_source=nav">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-person-workspace me-2" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H4Zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+                                <path d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.373 5.373 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2H2Z"/>
+                            </svg>
+                            <span>Training</span>
+                        </a></li>
+                        <li><a class="dropdown-item my-1" href="/be/customers?utm_source=nav">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-chat-square-quote me-2" viewBox="0 0 16 16">
+                                <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                <path d="M7.066 4.76A1.665 1.665 0 0 0 4 5.668a1.667 1.667 0 0 0 2.561 1.406c-.131.389-.375.804-.777 1.22a.417.417 0 1 0 .6.58c1.486-1.54 1.293-3.214.682-4.112zm4 0A1.665 1.665 0 0 0 8 5.668a1.667 1.667 0 0 0 2.561 1.406c-.131.389-.375.804-.777 1.22a.417.417 0 1 0 .6.58c1.486-1.54 1.293-3.214.682-4.112z"/>
+                            </svg>
+                            <span>Customers</span>
+                        </a></li>
+                        <li><a class="dropdown-item my-1" href="/be/newsroom?utm_source=nav">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-text me-2" viewBox="0 0 16 16">
+                                <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
+                                <path d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8m0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5"/>
+                            </svg>
+                            <span>Newsroom</span>
+                        </a></li>
+                        <li><a class="dropdown-item my-1" href="/be/quick-start-guide?utm_source=nav">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lightbulb me-2" viewBox="0 0 16 16">
+                                <path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13a.5.5 0 0 1 0 1 .5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1 0-1 .5.5 0 0 1 0-1 .5.5 0 0 1-.46-.302l-.761-1.77a1.964 1.964 0 0 0-.453-.618A5.984 5.984 0 0 1 2 6zm6-5a5 5 0 0 0-3.479 8.592c.263.254.514.564.676.941L5.83 12h4.342l.632-1.467c.162-.377.413-.687.676-.941A5 5 0 0 0 8 1z"/>
+                            </svg>
+                            <span>Quick Start Guide</span>
+                        </a></li>
+                    </ul>
+                </li>
+                <!-- end More dropdown -->
+                <!-- end Dropdown buttons -->
+                <!-- Register -->
+                <li class="nav-item d-none">
+                    <a class="nav-link" href="https://web.getfillet.com/register?utm_source=nav">Register</a>
+                </li>
+                <!-- end Register -->
+                <!-- Language switcher -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/?utm_source=nav">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-translate text-light" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286H4.545zm1.634-.736L5.5 3.956h-.049l-.679 2.022H6.18z"/>
+                            <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2zm7.138 9.995c.193.301.402.583.63.846-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6.066 6.066 0 0 1-.415-.492 1.988 1.988 0 0 1-.94.31z"/>
+                        </svg>
+                    </a>
+                </li>
+                <!-- end Language switcher -->
+            </ul>
+
+            <!-- START NEW BUTTON GROUP WRAPPER -->
+            <div class="d-flex align-items-center gap-2">
+                <!-- Search Button (MOVED HERE) -->
+                <button
+                        class="btn btn-outline-light"
+                        type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#site-search-modal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                    </svg>
+                </button>
+
+                <!-- Sign in (Desktop) -->
+                <a class="btn btn-outline-light" href="https://web.getfillet.com/login">Sign in</a>
+
+                <!-- Try for free -->
+                <a class="btn btn-light" href="/be/get-started?utm_source=navbar">Try for free</a>
+            </div>
+            <!-- END NEW BUTTON GROUP WRAPPER -->
+
+        </div>
+    </div>
+</nav>
+<!-- Content -->
+<div id="content">
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="chevron-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
+        </symbol>
+        <symbol id="chevron-down" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                  d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path>
+        </symbol>
+    </svg>
+    <main>
+        <!-- SecondaryNav - LEARN -->
+        <div class="navbar navbar-expand-lg z-2 sticky-top shadow-lg transparent-gradient-light"
+         style="background-color:rgba(255,255,255,0.99); top: 69px;">
+        <div class="container">
+            <a class="navbar-brand" href="/be/guides?utm_source=secondarynav_learn">
+                <span class="fs-4 fw-medium">Learn</span>
+            </a>
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler border-0 p-0"
+                    data-bs-target="#learnSecondaryNav" data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="learnSecondaryNav">
+                <ul class="navbar-nav ms-auto me-3 mb-2 mb-lg-0 gap-2">
+                    <!-- Link -->
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium" href="/be/guides/index/product-documentation?utm_source=secondarynav_learn">
+                            <span>Product documentation</span>
+                        </a>
+                    </li>
+                    <!-- end Link -->
+                    <!-- Link -->
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium" href="/be/guides/index/application-settings?utm_source=secondarynav_learn">
+                            <span>Application settings</span>
+                        </a>
+                    </li>
+                    <!-- end Link -->
+                </ul>
+            </div>
+        </div>
+    </div>
+        <div class="articlePage-container">
+            <!-- Button - PRINT PAGE -->
+            
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <symbol id="printer" viewBox="0 0 22.4219 21.3574">
+                <path fill-rule="evenodd"
+                      d="M18.1934 3.07617L18.1934 3.59375L16.6797 3.59375L16.6797 2.96875C16.6797 2.14844 16.2695 1.74805 15.4492 1.74805L6.61133 1.74805C5.80078 1.74805 5.38086 2.14844 5.38086 2.96875L5.38086 3.59375L3.86719 3.59375L3.86719 3.07617C3.86719 1.17188 4.91211 0.322266 6.63086 0.322266L15.4297 0.322266C17.2461 0.322266 18.1934 1.17188 18.1934 3.07617Z" fill="#000000" fill-opacity="0.85"/>
+                <path d="M22.0605 6.45508L22.0605 15.5957C22.0605 17.5 21.0547 18.457 19.1602 18.457L18.125 18.457L18.125 16.9824L19.1797 16.9824C20.0391 16.9824 20.4883 16.5332 20.4883 15.6738L20.4883 6.37695C20.4883 5.51758 20.0391 5.06836 19.1797 5.06836L2.89062 5.06836C2.02148 5.06836 1.58203 5.51758 1.58203 6.37695L1.58203 15.6738C1.58203 16.5332 2.02148 16.9824 2.89062 16.9824L3.93555 16.9824L3.93555 18.457L2.91016 18.457C1.00586 18.457 0 17.5 0 15.5957L0 6.45508C0 4.56055 1.10352 3.59375 2.91016 3.59375L19.1602 3.59375C21.0547 3.59375 22.0605 4.56055 22.0605 6.45508ZM18.2031 7.38281C18.2031 8.05664 17.6465 8.60352 16.9922 8.60352C16.3184 8.60352 15.7715 8.05664 15.7715 7.38281C15.7715 6.72852 16.3184 6.17188 16.9922 6.17188C17.6465 6.17188 18.2031 6.72852 18.2031 7.38281Z" fill="#000000" fill-opacity="0.85"/>
+                <path d="M5.80078 21.3574L16.2598 21.3574C17.5 21.3574 18.125 20.791 18.125 19.4922L18.125 11.5234C18.125 10.2246 17.5 9.6582 16.2598 9.6582L5.80078 9.6582C4.61914 9.6582 3.93555 10.2246 3.93555 11.5234L3.93555 19.4922C3.93555 20.791 4.56055 21.3574 5.80078 21.3574ZM6.28906 19.8828C5.77148 19.8828 5.50781 19.6289 5.50781 19.1016L5.50781 11.9043C5.50781 11.377 5.77148 11.1328 6.28906 11.1328L15.7812 11.1328C16.3086 11.1328 16.5527 11.377 16.5527 11.9043L16.5527 19.1016C16.5527 19.6289 16.3086 19.8828 15.7812 19.8828ZM7.64648 14.4043L14.4336 14.4043C14.7852 14.4043 15.0391 14.1406 15.0391 13.7891C15.0391 13.457 14.7852 13.2031 14.4336 13.2031L7.64648 13.2031C7.29492 13.2031 7.03125 13.457 7.03125 13.7891C7.03125 14.1406 7.29492 14.4043 7.64648 14.4043ZM7.64648 17.8125L14.4336 17.8125C14.7852 17.8125 15.0391 17.5488 15.0391 17.2168C15.0391 16.875 14.7852 16.6113 14.4336 16.6113L7.64648 16.6113C7.29492 16.6113 7.03125 16.875 7.03125 17.2168C7.03125 17.5488 7.29492 17.8125 7.64648 17.8125Z" fill="#000000" fill-opacity="0.85"/>
+            </symbol>
+        </svg>
+        <!-- Original -->
+        <div class="container my-3 fw-medium d-flex justify-content-center justify-content-md-end">
+            <button class=" btn btn-small btn-light border border-dark text-dark border-opacity-50" onclick="window.print()">
+                <svg class="bi" width="1em" height="1em">
+                    <use xlink:href="#printer"></use>
+                </svg>
+                <span>Print or save PDF file.</span>
+            </button>
+        </div>
+        <!-- Script - OPEN PRINT DIALOG -->
+        <script style="display: none;">
+            // Alternative method using addEventListener
+            const printButton = document.querySelector('.print-button');
+            printButton.addEventListener('click', () => {
+                window.print();
+            });
+        </script>
+        <!-- Script - OPEN PRINT DIALOG -->
+        <!-- end Original -->
+    
+            <!-- end Button - PRINT PAGE -->
+            <!-- Breadcrumbs -->
+            <nav
+                    aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item ">
+                        <a class="text-decoration-none" href="/be/guides/index/product-documentation">
+                            <span>Index</span>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        <span>Density</span>
+                        <span>References</span>
+                    </li>
+                </ol>
+            </nav>
+            <!-- end Breadcrumbs -->
+            <div class="articlePage-content-container">
+                <!-- Body -->
+                <!-- Page title and description-->
+                <div class="articlePage-title-section">
+                    <h1 class="section-title-xxs">
+                        <span>Density</span>
+                        <span>References</span>
+                    </h1>
+                    <div class="lead">
+                        <p>This is a reference for densities of common ingredients.</p>
+                        <p>When you set an Ingredient’s density, you can do calculations using any mass unit or volume unit.</p>
+                    </div>
+                </div>
+                <!--end Page title and description-->
+                <hr id="section-1" class="section-divider-linked">
+                <!-- Introduction - ABOUT DENSITY -->
+                <div class="articlePage-body-section">
+                    <div class="mb-3">
+                        <h1 class="article-section-heading">
+                            <span>About Density</span>
+                        </h1>
+                    </div>
+                    <div class="mb-3">
+                        <p>Density is the amount of mass per volume for an Ingredient.</p>
+                        <p>Enter Density and Fillet can do conversions between mass units and volume units wherever this Ingredient is used.</p>
+                        <p>If an Ingredient does not have Density set, Recipes or Menu Items using that Ingredient will have calculation errors.</p>
+                        <p>If you often switch between mass and volume measurements, it’s a good idea to set up density for your key ingredients.</p>
+                    </div>
+                </div>
+                <!-- end Introduction - ABOUT DENSITY -->
+                <hr id="section-2" class="section-divider-linked">
+                <!-- Section - FLOURS -->
+                <div class="articlePage-body-section">
+                    <h1 class="article-section-heading">
+                        <span>Densities of flours</span>
+                    </h1>
+                    <div class="table-responsive my-4">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th class="bg-secondary bg-opacity-25 align-top">
+                                    <span class="fs-5">Ingredient</span>
+                                </th>
+                                <th class="bg-secondary bg-opacity-25 align-top">
+                                    <span class="fs-5">Volume</span>
+                                </th>
+                                <th class="bg-secondary bg-opacity-25 align-top">
+                                    <span class="fs-5">Mass</span>
+                                    <br>
+                                    <span>grams (g)</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>'00' Pizza flour</th>
+                                <td>1 cup</td>
+                                <td>116</td>
+                            </tr>
+                            <tr>
+                                <th>All-Purpose flour</th>
+                                <td>1 cup</td>
+                                <td>120</td>
+                            </tr>
+                            <tr>
+                                <th>Almond flour</th>
+                                <td>1 cup</td>
+                                <td>96</td>
+                            </tr>
+                            <tr>
+                                <th>Amaranth flour</th>
+                                <td>1 cup</td>
+                                <td>103</td>
+                            </tr>
+                            <tr>
+                                <th>Barley flour</th>
+                                <td>1 cup</td>
+                                <td>85</td>
+                            </tr>
+                            <tr>
+                                <th>Bread flour</th>
+                                <td>1 cup</td>
+                                <td>120</td>
+                            </tr>
+                            <tr>
+                                <th>Brown rice flour</th>
+                                <td>1 cup</td>
+                                <td>128</td>
+                            </tr>
+                            <tr>
+                                <th>Buckwheat flour</th>
+                                <td>1 cup</td>
+                                <td>120</td>
+                            </tr>
+                            <tr>
+                                <th>Chickpea flour</th>
+                                <td>1 cup</td>
+                                <td>85</td>
+                            </tr>
+                            <tr>
+                                <th>Coconut flour</th>
+                                <td>1 cup</td>
+                                <td>128</td>
+                            </tr>
+                            <tr>
+                                <th>Corn flour, Masa Harina</th>
+                                <td>1 cup</td>
+                                <td>93</td>
+                            </tr>
+                            <tr>
+                                <th>Durum flour</th>
+                                <td>1 cup</td>
+                                <td>124</td>
+                            </tr>
+                            <tr>
+                                <th>Gluten-Free '00' Pizza flour</th>
+                                <td>1 cup</td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <th>Gluten-Free All-Purpose flour</th>
+                                <td>1 cup</td>
+                                <td>156</td>
+                            </tr>
+                            <tr>
+                                <th>Gluten-Free Bread flour</th>
+                                <td>1 cup</td>
+                                <td>120</td>
+                            </tr>
+                            <tr>
+                                <th>Gluten-Free Measure for Measure flour</th>
+                                <td>1 cup</td>
+                                <td>120</td>
+                            </tr>
+                            <tr>
+                                <th>Glutinous rice flour</th>
+                                <td>1 cup</td>
+                                <td>120</td>
+                            </tr>
+                            <tr>
+                                <th>Hazelnut flour</th>
+                                <td>1 cup</td>
+                                <td>89</td>
+                            </tr>
+                            <tr>
+                                <th>High-Gluten flour</th>
+                                <td>1 cup</td>
+                                <td>120</td>
+                            </tr>
+                            <tr>
+                                <th>Oat flour</th>
+                                <td>1 cup</td>
+                                <td>92</td>
+                            </tr>
+                            <tr>
+                                <th>Pastry flour</th>
+                                <td>1 cup</td>
+                                <td>106</td>
+                            </tr>
+                            <tr>
+                                <th>Potato flour</th>
+                                <td>1/4 cup</td>
+                                <td>46</td>
+                            </tr>
+                            <tr>
+                                <th>Pumpernickel flour</th>
+                                <td>1 cup</td>
+                                <td>106</td>
+                            </tr>
+                            <tr>
+                                <th>Quinoa flour</th>
+                                <td>1 cup</td>
+                                <td>110</td>
+                            </tr>
+                            <tr>
+                                <th>Rye flour</th>
+                                <td>1 cup</td>
+                                <td>110</td>
+                            </tr>
+                            <tr>
+                                <th>Self-rising flour</th>
+                                <td>1 cup</td>
+                                <td>113</td>
+                            </tr>
+                            <tr>
+                                <th>Semolina flour</th>
+                                <td>1 cup</td>
+                                <td>163</td>
+                            </tr>
+                            <tr>
+                                <th>Sorghum flour</th>
+                                <td>1 cup</td>
+                                <td>138</td>
+                            </tr>
+                            <tr>
+                                <th>Soy flour</th>
+                                <td>1/4 cup</td>
+                                <td>35</td>
+                            </tr>
+                            <tr>
+                                <th>Spelt flour</th>
+                                <td>1 cup</td>
+                                <td>99</td>
+                            </tr>
+                            <tr>
+                                <th>Tapioca starch or flour</th>
+                                <td>1 cup</td>
+                                <td>113</td>
+                            </tr>
+                            <tr>
+                                <th>Unbleached cake flour</th>
+                                <td>1 cup</td>
+                                <td>120</td>
+                            </tr>
+                            <tr>
+                                <th>White Rye flour</th>
+                                <td>1 cup</td>
+                                <td>106</td>
+                            </tr>
+                            <tr>
+                                <th>White whole wheat flour</th>
+                                <td>1 cup</td>
+                                <td>113</td>
+                            </tr>
+                            <tr>
+                                <th>Whole grain flour</th>
+                                <td>1 cup</td>
+                                <td>113</td>
+                            </tr>
+                            <tr>
+                                <th>Whole wheat flour</th>
+                                <td>1 cup</td>
+                                <td>113</td>
+                            </tr>
+                            <tr>
+                                <th>Whole wheat pastry flour</th>
+                                <td>1 cup</td>
+                                <td>96</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- end Section - FLOURS -->
+                <hr id="section-3" class="section-divider-linked">
+                <!-- Section - SUGARS & SWEETENERS -->
+                <div class="articlePage-body-section">
+                    <h1 class="article-section-heading">
+                        <span>Densities of sugars and sweeteners</span>
+                    </h1>
+                    <div class="table-responsive my-4">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th class="bg-secondary bg-opacity-25 align-top">
+                                    <span class="fs-5">Ingredient</span>
+                                </th>
+                                <th class="bg-secondary bg-opacity-25 align-top">
+                                    <span class="fs-5">Volume</span>
+                                </th>
+                                <th class="bg-secondary bg-opacity-25 align-top">
+                                    <span class="fs-5">Mass</span>
+                                    <br>
+                                    <span>grams (g)</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>Agave syrup</th>
+                                <td>1/4 cup</td>
+                                <td>84</td>
+                            </tr>
+                            <tr>
+                                <th>Honey</th>
+                                <td>1 tablespoon</td>
+                                <td>21</td>
+                            </tr>
+                            <tr>
+                                <th>Maple syrup</th>
+                                <td>1/2 cup</td>
+                                <td>156</td>
+                            </tr>
+                            <tr>
+                                <th>Molasses</th>
+                                <td>1/4 cup</td>
+                                <td>85</td>
+                            </tr>
+                            <tr>
+                                <th>Sugar, Brown, packed</th>
+                                <td>1 cup</td>
+                                <td>213</td>
+                            </tr>
+                            <tr>
+                                <th>Sugar, Coconut, granulated</th>
+                                <td>1/2 cup</td>
+                                <td>77</td>
+                            </tr>
+                            <tr>
+                                <th>Sugar, Confectioners', unsifted</th>
+                                <td>2 cups</td>
+                                <td>227</td>
+                            </tr>
+                            <tr>
+                                <th>Sugar, Demerara, raw</th>
+                                <td>1 cup</td>
+                                <td>220</td>
+                            </tr>
+                            <tr>
+                                <th>Sugar, Golden, raw</th>
+                                <td>1 cup</td>
+                                <td>235</td>
+                            </tr>
+                            <tr>
+                                <th>Sugar, Maple</th>
+                                <td>1 cup</td>
+                                <td>160</td>
+                            </tr>
+                            <tr>
+                                <th>Sugar, Turbinado, raw</th>
+                                <td>1 cup</td>
+                                <td>180</td>
+                            </tr>
+                            <tr>
+                                <th>Sugar, White, granulated</th>
+                                <td>1 cup</td>
+                                <td>198</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- end Section - SUGARS & SWEETENERS -->
+                <hr id="section-4" class="section-divider-linked">
+                <!-- Section - COMMON VARIOUS -->
+                <div class="articlePage-body-section">
+                    <h1 class="article-section-heading">
+                        <span>Densities of various common ingredients</span>
+                    </h1>
+                    <div class="table-responsive my-4">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th class="bg-secondary bg-opacity-25 align-top">
+                                    <span class="fs-5">Ingredient</span>
+                                </th>
+                                <th class="bg-secondary bg-opacity-25 align-top">
+                                    <span class="fs-5">Volume</span>
+                                </th>
+                                <th class="bg-secondary bg-opacity-25 align-top">
+                                    <span class="fs-5">Mass</span>
+                                    <br>
+                                    <span>grams (g)</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>Almond butter</th>
+                                <td>1/4 cup</td>
+                                <td>68</td>
+                            </tr>
+                            <tr>
+                                <th>Almond meal</th>
+                                <td>1 cup</td>
+                                <td>84</td>
+                            </tr>
+                            <tr>
+                                <th>Almond paste</th>
+                                <td>1 cup</td>
+                                <td>259</td>
+                            </tr>
+                            <tr>
+                                <th>Almonds, sliced</th>
+                                <td>1/2 cup</td>
+                                <td>43</td>
+                            </tr>
+                            <tr>
+                                <th>Almonds, slivered</th>
+                                <td>1/2 cup</td>
+                                <td>57</td>
+                            </tr>
+                            <tr>
+                                <th>Almonds, whole, unblanched</th>
+                                <td>1 cup</td>
+                                <td>142</td>
+                            </tr>
+                            <tr>
+                                <th>Apple juice, concentrate</th>
+                                <td>1/4 cup</td>
+                                <td>70</td>
+                            </tr>
+                            <tr>
+                                <th>Apples, dried, diced</th>
+                                <td>1 cup</td>
+                                <td>85</td>
+                            </tr>
+                            <tr>
+                                <th>Apples, peeled, sliced</th>
+                                <td>1 cup</td>
+                                <td>113</td>
+                            </tr>
+                            <tr>
+                                <th>Applesauce</th>
+                                <td>1 cup</td>
+                                <td>255</td>
+                            </tr>
+                            <tr>
+                                <th>Apricot, dried, diced</th>
+                                <td>1/2 cup</td>
+                                <td>64</td>
+                            </tr>
+                            <tr>
+                                <th>Baking powder</th>
+                                <td>1 teaspoon</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <th>Baking soda</th>
+                                <td>1/2 teaspoon</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <th>Bananas, raw, mashed</th>
+                                <td>1 cup</td>
+                                <td>227</td>
+                            </tr>
+                            <tr>
+                                <th>Barley, cooked</th>
+                                <td>1 cup</td>
+                                <td>215</td>
+                            </tr>
+                            <tr>
+                                <th>Barley flakes</th>
+                                <td>1/2 cup</td>
+                                <td>46</td>
+                            </tr>
+                            <tr>
+                                <th>Barley malt syrup</th>
+                                <td>2 tablespoons</td>
+                                <td>42</td>
+                            </tr>
+                            <tr>
+                                <th>Basil pesto</th>
+                                <td>2 tablespoons</td>
+                                <td>28</td>
+                            </tr>
+                            <tr>
+                                <th>Bell peppers, fresh, diced</th>
+                                <td>1 cup</td>
+                                <td>142</td>
+                            </tr>
+                            <tr>
+                                <th>Blueberries, dried</th>
+                                <td>1 cup</td>
+                                <td>156</td>
+                            </tr>
+                            <tr>
+                                <th>Blueberries, fresh</th>
+                                <td>1 cup</td>
+                                <td>180</td>
+                            </tr>
+                            <tr>
+                                <th>Blueberries, frozen</th>
+                                <td>1 cup</td>
+                                <td>150</td>
+                            </tr>
+                            <tr>
+                                <th>Blueberry juice</th>
+                                <td>1 cup</td>
+                                <td>241</td>
+                            </tr>
+                            <tr>
+                                <th>Bran cereal</th>
+                                <td>1 cup</td>
+                                <td>60</td>
+                            </tr>
+                            <tr>
+                                <th>Breadcrumbs, dry</th>
+                                <td>1/4 cup</td>
+                                <td>28</td>
+                            </tr>
+                            <tr>
+                                <th>Breadcrumbs, fresh</th>
+                                <td>1/4 cup</td>
+                                <td>21</td>
+                            </tr>
+                            <tr>
+                                <th>Bread crumbs, Japanese Panko</th>
+                                <td>1 cup</td>
+                                <td>50</td>
+                            </tr>
+                            <tr>
+                                <th>Brown rice, cooked</th>
+                                <td>1 cup</td>
+                                <td>170</td>
+                            </tr>
+                            <tr>
+                                <th>Buckwheat, whole, cooked</th>
+                                <td>1 cup</td>
+                                <td>170</td>
+                            </tr>
+                            <tr>
+                                <th>Bulgur</th>
+                                <td>1 cup</td>
+                                <td>152</td>
+                            </tr>
+                            <tr>
+                                <th>Butter</th>
+                                <td>1/2 cup</td>
+                                <td>113</td>
+                            </tr>
+                            <tr>
+                                <th>Buttermilk</th>
+                                <td>1 cup</td>
+                                <td>227</td>
+                            </tr>
+                            <tr>
+                                <th>Buttermilk powder</th>
+                                <td>2 tablespoons</td>
+                                <td>18</td>
+                            </tr>
+                            <tr>
+                                <th>Cacao nibs</th>
+                                <td>1 cup</td>
+                                <td>120</td>
+                            </tr>
+                            <tr>
+                                <th>Caraway seeds</th>
+                                <td>2 tablespoons</td>
+                                <td>18</td>
+                            </tr>
+                            <tr>
+                                <th>Carrots, cooked and puréed</th>
+                                <td>1/2 cup</td>
+                                <td>128</td>
+                            </tr>
+                            <tr>
+                                <th>Carrots, diced</th>
+                                <td>1 cup</td>
+                                <td>142</td>
+                            </tr>
+                            <tr>
+                                <th>Carrots, grated</th>
+                                <td>1 cup</td>
+                                <td>99</td>
+                            </tr>
+                            <tr>
+                                <th>Cashews, chopped</th>
+                                <td>1 cup</td>
+                                <td>113</td>
+                            </tr>
+                            <tr>
+                                <th>Cashews, whole</th>
+                                <td>1 cup</td>
+                                <td>113</td>
+                            </tr>
+                            <tr>
+                                <th>Celery, diced</th>
+                                <td>1 cup</td>
+                                <td>142</td>
+                            </tr>
+                            <tr>
+                                <th>Cheese, Feta</th>
+                                <td>1/2 cup</td>
+                                <td>57</td>
+                            </tr>
+                            <tr>
+                                <th>Cheese, grated, semi-soft (e.g. Mozzarella, Emmental, Cheddar)</th>
+                                <td>1 cup</td>
+                                <td>113</td>
+                            </tr>
+                            <tr>
+                                <th>Cheese, grated, hard (e.g. Parmesan)</th>
+                                <td>1/2 cup</td>
+                                <td>50</td>
+                            </tr>
+                            <tr>
+                                <th>Cheese, creamy (e.g. Ricotta)</th>
+                                <td>1 cup</td>
+                                <td>227</td>
+                            </tr>
+                            <tr>
+                                <th>Cherries, candied</th>
+                                <td>1/4 cup</td>
+                                <td>50</td>
+                            </tr>
+                            <tr>
+                                <th>Cherries, dried</th>
+                                <td>1/2 cup</td>
+                                <td>71</td>
+                            </tr>
+                            <tr>
+                                <th>Cherries, fresh, chopped, pits removed</th>
+                                <td>1/2 cup</td>
+                                <td>80</td>
+                            </tr>
+                            <tr>
+                                <th>Cherries, frozen, pits removed</th>
+                                <td>1 cup</td>
+                                <td>113</td>
+                            </tr>
+                            <tr>
+                                <th>Chia seeds, dry</th>
+                                <td>1/4 cup</td>
+                                <td>37</td>
+                            </tr>
+                            <tr>
+                                <th>Chives, fresh</th>
+                                <td>1/2 cup</td>
+                                <td>21</td>
+                            </tr>
+                            <tr>
+                                <th>Chocolate, chopped</th>
+                                <td>1 cup</td>
+                                <td>170</td>
+                            </tr>
+                            <tr>
+                                <th>Chocolate chips</th>
+                                <td>1 cup</td>
+                                <td>170</td>
+                            </tr>
+                            <tr>
+                                <th>Chocolate chunks</th>
+                                <td>1 cup</td>
+                                <td>170</td>
+                            </tr>
+                            <tr>
+                                <th>Cocoa, unsweetened</th>
+                                <td>1/2 cup</td>
+                                <td>42</td>
+                            </tr>
+                            <tr>
+                                <th>Coconut, sweetened, shredded</th>
+                                <td>1 cup</td>
+                                <td>85</td>
+                            </tr>
+                            <tr>
+                                <th>Coconut, toasted</th>
+                                <td>1 cup</td>
+                                <td>85</td>
+                            </tr>
+                            <tr>
+                                <th>Coconut, unsweetened, desiccated</th>
+                                <td>1 cup</td>
+                                <td>85</td>
+                            </tr>
+                            <tr>
+                                <th>Coconut, unsweetened, large flakes</th>
+                                <td>1 cup</td>
+                                <td>60</td>
+                            </tr>
+                            <tr>
+                                <th>Coconut, unsweetened, shredded</th>
+                                <td>1 cup</td>
+                                <td>53</td>
+                            </tr>
+                            <tr>
+                                <th>Coconut cream, unsweetened</th>
+                                <td>1 cup</td>
+                                <td>284</td>
+                            </tr>
+                            <tr>
+                                <th>Coconut milk, canned, shaken</th>
+                                <td>1 cup</td>
+                                <td>241</td>
+                            </tr>
+                            <tr>
+                                <th>Coconut milk, evaporated</th>
+                                <td>1 cup</td>
+                                <td>242</td>
+                            </tr>
+                            <tr>
+                                <th>Coconut milk powder</th>
+                                <td>1/2 cup</td>
+                                <td>57</td>
+                            </tr>
+                            <tr>
+                                <th>Coconut oil</th>
+                                <td>1/2 cup</td>
+                                <td>113</td>
+                            </tr>
+                            <tr>
+                                <th>Cornmeal, whole</th>
+                                <td>1 cup</td>
+                                <td>138</td>
+                            </tr>
+                            <tr>
+                                <th>Cornmeal, yellow</th>
+                                <td>1 cup</td>
+                                <td>156</td>
+                            </tr>
+                            <tr>
+                                <th>Cornstarch</th>
+                                <td>1/4 cup</td>
+                                <td>28</td>
+                            </tr>
+                            <tr>
+                                <th>Cracked wheat</th>
+                                <td>1 cup</td>
+                                <td>149</td>
+                            </tr>
+                            <tr>
+                                <th>Cranberries, dried</th>
+                                <td>1/2 cup</td>
+                                <td>57</td>
+                            </tr>
+                            <tr>
+                                <th>Cranberries, fresh or frozen</th>
+                                <td>1 cup</td>
+                                <td>99</td>
+                            </tr>
+                            <tr>
+                                <th>Cream, heavy cream, light cream, or half and half</th>
+                                <td>1 cup</td>
+                                <td>227</td>
+                            </tr>
+                            <tr>
+                                <th>Cream cheese</th>
+                                <td>1 cup</td>
+                                <td>227</td>
+                            </tr>
+                            <tr>
+                                <th>Cream of coconut</th>
+                                <td>1/2 cup</td>
+                                <td>142</td>
+                            </tr>
+                            <tr>
+                                <th>Crème fraiche</th>
+                                <td>1/2 cup</td>
+                                <td>124</td>
+                            </tr>
+                            <tr>
+                                <th>Crystallized ginger</th>
+                                <td>1/2 cup</td>
+                                <td>92</td>
+                            </tr>
+                            <tr>
+                                <th>Currants</th>
+                                <td>1 cup</td>
+                                <td>142</td>
+                            </tr>
+                            <tr>
+                                <th>Dates, chopped</th>
+                                <td>1 cup</td>
+                                <td>149</td>
+                            </tr>
+                            <tr>
+                                <th>Dried nonfat milk, powdered</th>
+                                <td>1/4 cup</td>
+                                <td>28</td>
+                            </tr>
+                            <tr>
+                                <th>Dried potato flakes</th>
+                                <td>1/2 cup</td>
+                                <td>43</td>
+                            </tr>
+                            <tr>
+                                <th>Dried whole milk, powdered</th>
+                                <td>1/2 cup</td>
+                                <td>50</td>
+                            </tr>
+                            <tr>
+                                <th>Egg, fresh</th>
+                                <td>1 large</td>
+                                <td>50</td>
+                            </tr>
+                            <tr>
+                                <th>Egg white, fresh</th>
+                                <td>1 large</td>
+                                <td>35</td>
+                            </tr>
+                            <tr>
+                                <th>Egg whites, dried</th>
+                                <td>2 tablespoons</td>
+                                <td>11</td>
+                            </tr>
+                            <tr>
+                                <th>Egg yolk, fresh</th>
+                                <td>1 large</td>
+                                <td>14</td>
+                            </tr>
+                            <tr>
+                                <th>Espresso powder</th>
+                                <td>1 tablespoon</td>
+                                <td>7</td>
+                            </tr>
+                            <tr>
+                                <th>Figs, dried, chopped</th>
+                                <td>1 cup</td>
+                                <td>149</td>
+                            </tr>
+                            <tr>
+                                <th>Flax meal</th>
+                                <td>1/2 cup</td>
+                                <td>50</td>
+                            </tr>
+                            <tr>
+                                <th>Flaxseed</th>
+                                <td>1/4 cup</td>
+                                <td>35</td>
+                            </tr>
+                            <tr>
+                                <th>Garlic, minced</th>
+                                <td>2 tablespoons</td>
+                                <td>28</td>
+                            </tr>
+                            <tr>
+                                <th>Garlic, peeled and sliced</th>
+                                <td>1 cup</td>
+                                <td>149</td>
+                            </tr>
+                            <tr>
+                                <th>Ghee</th>
+                                <td>1/4 cup</td>
+                                <td>44</td>
+                            </tr>
+                            <tr>
+                                <th>Ginger, fresh, sliced</th>
+                                <td>1/4 cup</td>
+                                <td>57</td>
+                            </tr>
+                            <tr>
+                                <th>Gluten-Free All-Purpose Baking Mix</th>
+                                <td>1 cup</td>
+                                <td>120</td>
+                            </tr>
+                            <tr>
+                                <th>Gluten-Free sourdough starter</th>
+                                <td>1 cup</td>
+                                <td>235</td>
+                            </tr>
+                            <tr>
+                                <th>Graham cracker crumbs, crushed from whole crackers</th>
+                                <td>1 cup</td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <th>Granola</th>
+                                <td>1 cup</td>
+                                <td>113</td>
+                            </tr>
+                            <tr>
+                                <th>Guava paste</th>
+                                <td>1/4 cup</td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <th>Hazelnut Praline Paste</th>
+                                <td>1/2 cup</td>
+                                <td>156</td>
+                            </tr>
+                            <tr>
+                                <th>Hazelnut spread</th>
+                                <td>1/2 cup</td>
+                                <td>160</td>
+                            </tr>
+                            <tr>
+                                <th>Hazelnuts, whole</th>
+                                <td>1 cup</td>
+                                <td>142</td>
+                            </tr>
+                            <tr>
+                                <th>Lard</th>
+                                <td>1/2 cup</td>
+                                <td>113</td>
+                            </tr>
+                            <tr>
+                                <th>Leeks, diced</th>
+                                <td>1 cup</td>
+                                <td>92</td>
+                            </tr>
+                            <tr>
+                                <th>Lemon curd</th>
+                                <td>1/2 cup</td>
+                                <td>113</td>
+                            </tr>
+                            <tr>
+                                <th>Lemon juice</th>
+                                <td>1 tablespoon</td>
+                                <td>14</td>
+                            </tr>
+                            <tr>
+                                <th>Lemon juice, powdered</th>
+                                <td>2 tablespoons</td>
+                                <td>18</td>
+                            </tr>
+                            <tr>
+                                <th>Lime juice</th>
+                                <td>1 cup</td>
+                                <td>227</td>
+                            </tr>
+                            <tr>
+                                <th>Lime juice, powdered</th>
+                                <td>2 tablespoons</td>
+                                <td>18</td>
+                            </tr>
+                            <tr>
+                                <th>Macadamia nuts, whole</th>
+                                <td>1 cup</td>
+                                <td>149</td>
+                            </tr>
+                            <tr>
+                                <th>Malt syrup</th>
+                                <td>2 tablespoons</td>
+                                <td>43</td>
+                            </tr>
+                            <tr>
+                                <th>Malted milk powder</th>
+                                <td>1/4 cup</td>
+                                <td>35</td>
+                            </tr>
+                            <tr>
+                                <th>Malted wheat Flakes</th>
+                                <td>1/2 cup</td>
+                                <td>64</td>
+                            </tr>
+                            <tr>
+                                <th>Marshmallows, mini</th>
+                                <td>1 cup</td>
+                                <td>43</td>
+                            </tr>
+                            <tr>
+                                <th>Marzipan</th>
+                                <td>1 cup</td>
+                                <td>290</td>
+                            </tr>
+                            <tr>
+                                <th>Mascarpone cheese</th>
+                                <td>1 cup</td>
+                                <td>227</td>
+                            </tr>
+                            <tr>
+                                <th>Mashed potatoes</th>
+                                <td>1 cup</td>
+                                <td>213</td>
+                            </tr>
+                            <tr>
+                                <th>Mashed sweet potatoes</th>
+                                <td>1 cup</td>
+                                <td>240</td>
+                            </tr>
+                            <tr>
+                                <th>Mayonnaise</th>
+                                <td>1/2 cup</td>
+                                <td>113</td>
+                            </tr>
+                            <tr>
+                                <th>Milk, evaporated</th>
+                                <td>1/2 cup</td>
+                                <td>113</td>
+                            </tr>
+                            <tr>
+                                <th>Milk, fresh</th>
+                                <td>1 cup</td>
+                                <td>227</td>
+                            </tr>
+                            <tr>
+                                <th>Millet, whole</th>
+                                <td>1/2 cup</td>
+                                <td>103</td>
+                            </tr>
+                            <tr>
+                                <th>Mini chocolate chips</th>
+                                <td>1 cup</td>
+                                <td>177</td>
+                            </tr>
+                            <tr>
+                                <th>Mushrooms, sliced</th>
+                                <td>1 cup</td>
+                                <td>78</td>
+                            </tr>
+                            <tr>
+                                <th>Non-diastatic malt powder</th>
+                                <td>2 tablespoons</td>
+                                <td>18</td>
+                            </tr>
+                            <tr>
+                                <th>Oat bran</th>
+                                <td>1/2 cup</td>
+                                <td>53</td>
+                            </tr>
+                            <tr>
+                                <th>Oats, rolled</th>
+                                <td>1 cup</td>
+                                <td>89</td>
+                            </tr>
+                            <tr>
+                                <th>Oats, prepared</th>
+                                <td>1 cup</td>
+                                <td>147</td>
+                            </tr>
+                            <tr>
+                                <th>Olive oil</th>
+                                <td>1/4 cup</td>
+                                <td>50</td>
+                            </tr>
+                            <tr>
+                                <th>Olives, sliced</th>
+                                <td>1 cup</td>
+                                <td>142</td>
+                            </tr>
+                            <tr>
+                                <th>Onions, fresh, diced</th>
+                                <td>1 cup</td>
+                                <td>142</td>
+                            </tr>
+                            <tr>
+                                <th>Passion fruit purée</th>
+                                <td>1/3 cup</td>
+                                <td>60</td>
+                            </tr>
+                            <tr>
+                                <th>Peaches, peeled and diced</th>
+                                <td>1 cup</td>
+                                <td>170</td>
+                            </tr>
+                            <tr>
+                                <th>Peanut butter</th>
+                                <td>1/2 cup</td>
+                                <td>135</td>
+                            </tr>
+                            <tr>
+                                <th>Peanuts, whole, shelled</th>
+                                <td>1 cup</td>
+                                <td>142</td>
+                            </tr>
+                            <tr>
+                                <th>Pears, peeled and diced</th>
+                                <td>1 cup</td>
+                                <td>163</td>
+                            </tr>
+                            <tr>
+                                <th>Pecan Meal</th>
+                                <td>1 cup</td>
+                                <td>80</td>
+                            </tr>
+                            <tr>
+                                <th>Pecans, diced</th>
+                                <td>1/2 cup</td>
+                                <td>57</td>
+                            </tr>
+                            <tr>
+                                <th>Pine nuts</th>
+                                <td>1/2 cup</td>
+                                <td>71</td>
+                            </tr>
+                            <tr>
+                                <th>Pineapple, crushed, drained</th>
+                                <td>1 cup</td>
+                                <td>256</td>
+                            </tr>
+                            <tr>
+                                <th>Pineapple, dried</th>
+                                <td>1/2 cup</td>
+                                <td>71</td>
+                            </tr>
+                            <tr>
+                                <th>Pineapple, fresh or canned, diced</th>
+                                <td>1 cup</td>
+                                <td>170</td>
+                            </tr>
+                            <tr>
+                                <th>Pistachio nuts, shelled</th>
+                                <td>1/2 cup</td>
+                                <td>60</td>
+                            </tr>
+                            <tr>
+                                <th>Pistachio Paste</th>
+                                <td>1/4 cup</td>
+                                <td>78</td>
+                            </tr>
+                            <tr>
+                                <th>Pizza sauce</th>
+                                <td>1/4 cup</td>
+                                <td>57</td>
+                            </tr>
+                            <tr>
+                                <th>Polenta, coarse ground cornmeal</th>
+                                <td>1 cup</td>
+                                <td>163</td>
+                            </tr>
+                            <tr>
+                                <th>Poppy seeds</th>
+                                <td>2 tablespoons</td>
+                                <td>18</td>
+                            </tr>
+                            <tr>
+                                <th>Potato starch</th>
+                                <td>1 cup</td>
+                                <td>152</td>
+                            </tr>
+                            <tr>
+                                <th>Pumpkin purée</th>
+                                <td>1 cup</td>
+                                <td>227</td>
+                            </tr>
+                            <tr>
+                                <th>Queso fresco</th>
+                                <td>1/2 cup</td>
+                                <td>57</td>
+                            </tr>
+                            <tr>
+                                <th>Quinoa, cooked</th>
+                                <td>1 cup</td>
+                                <td>184</td>
+                            </tr>
+                            <tr>
+                                <th>Quinoa, whole</th>
+                                <td>1 cup</td>
+                                <td>177</td>
+                            </tr>
+                            <tr>
+                                <th>Raisins, loose</th>
+                                <td>1 cup</td>
+                                <td>149</td>
+                            </tr>
+                            <tr>
+                                <th>Raisins, packed</th>
+                                <td>1/2 cup</td>
+                                <td>85</td>
+                            </tr>
+                            <tr>
+                                <th>Raspberries, whole, fresh</th>
+                                <td>1 cup</td>
+                                <td>120</td>
+                            </tr>
+                            <tr>
+                                <th>Raspberries, whole, frozen</th>
+                                <td>1 cup</td>
+                                <td>142</td>
+                            </tr>
+                            <tr>
+                                <th>Rhubarb, sliced, 1/2" slices</th>
+                                <td>1 cup</td>
+                                <td>130</td>
+                            </tr>
+                            <tr>
+                                <th>Rice, long grain, dry</th>
+                                <td>1/2 cup</td>
+                                <td>99</td>
+                            </tr>
+                            <tr>
+                                <th>Rice flour, white</th>
+                                <td>1 cup</td>
+                                <td>142</td>
+                            </tr>
+                            <tr>
+                                <th>Rye flakes</th>
+                                <td>1 cup</td>
+                                <td>124</td>
+                            </tr>
+                            <tr>
+                                <th>Salt, table</th>
+                                <td>1 tablespoon</td>
+                                <td>18</td>
+                            </tr>
+                            <tr>
+                                <th>Scallions, sliced</th>
+                                <td>1 cup</td>
+                                <td>64</td>
+                            </tr>
+                            <tr>
+                                <th>Sesame seeds</th>
+                                <td>1/2 cup</td>
+                                <td>71</td>
+                            </tr>
+                            <tr>
+                                <th>Shallots, raw, sliced</th>
+                                <td>1 cup</td>
+                                <td>156</td>
+                            </tr>
+                            <tr>
+                                <th>Sour cream</th>
+                                <td>1 cup</td>
+                                <td>227</td>
+                            </tr>
+                            <tr>
+                                <th>Sourdough starter</th>
+                                <td>1 cup</td>
+                                <td>235</td>
+                            </tr>
+                            <tr>
+                                <th>Steel cut oats</th>
+                                <td>1/2 cup</td>
+                                <td>70</td>
+                            </tr>
+                            <tr>
+                                <th>Strawberries, fresh, sliced</th>
+                                <td>1 cup</td>
+                                <td>167</td>
+                            </tr>
+                            <tr>
+                                <th>Sunflower seeds</th>
+                                <td>1/4 cup</td>
+                                <td>35</td>
+                            </tr>
+                            <tr>
+                                <th>Sweetened condensed coconut milk</th>
+                                <td>1 cup</td>
+                                <td>288</td>
+                            </tr>
+                            <tr>
+                                <th>Sweetened condensed milk</th>
+                                <td>1/4 cup</td>
+                                <td>78</td>
+                            </tr>
+                            <tr>
+                                <th>Tahini paste</th>
+                                <td>1/2 cup</td>
+                                <td>128</td>
+                            </tr>
+                            <tr>
+                                <th>Tapioca, quick cooking</th>
+                                <td>2 tablespoons</td>
+                                <td>21</td>
+                            </tr>
+                            <tr>
+                                <th>Tomato paste</th>
+                                <td>2 tablespoons</td>
+                                <td>29</td>
+                            </tr>
+                            <tr>
+                                <th>Vanilla Extract</th>
+                                <td>1 tablespoon</td>
+                                <td>14</td>
+                            </tr>
+                            <tr>
+                                <th>Vegetable oil</th>
+                                <td>1 cup</td>
+                                <td>198</td>
+                            </tr>
+                            <tr>
+                                <th>Vegetable shortening</th>
+                                <td>1/4 cup</td>
+                                <td>46</td>
+                            </tr>
+                            <tr>
+                                <th>Vital Wheat Gluten</th>
+                                <td>2 tablespoons</td>
+                                <td>18</td>
+                            </tr>
+                            <tr>
+                                <th>Walnuts, chopped</th>
+                                <td>1 cup</td>
+                                <td>113</td>
+                            </tr>
+                            <tr>
+                                <th>Walnuts, whole</th>
+                                <td>1/2 cup</td>
+                                <td>64</td>
+                            </tr>
+                            <tr>
+                                <th>Water</th>
+                                <td>1 cup</td>
+                                <td>227</td>
+                            </tr>
+                            <tr>
+                                <th>Wheat berries, red</th>
+                                <td>1 cup</td>
+                                <td>184</td>
+                            </tr>
+                            <tr>
+                                <th>Wheat bran</th>
+                                <td>1/2 cup</td>
+                                <td>32</td>
+                            </tr>
+                            <tr>
+                                <th>Wheat germ</th>
+                                <td>1/4 cup</td>
+                                <td>28</td>
+                            </tr>
+                            <tr>
+                                <th>White chocolate chips</th>
+                                <td>1 cup</td>
+                                <td>170</td>
+                            </tr>
+                            <tr>
+                                <th>Yeast, instant</th>
+                                <td>1 teaspoon</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <th>Yogurt, plain</th>
+                                <td>1 cup</td>
+                                <td>227</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- end Section - COMMON VARIOUS -->
+                <hr id="related-topics" class="section-divider-linked">
+                <!-- Related topics -->
+                <div class="mb-5">
+                    <h4 class="relatedTopics-heading">Related topics:</h4>
+                    <!-- Topic 1 -->
+                    <div class="mb-3">
+                        <a href="/be/guides/documentation/2/ingredients-density"
+                           class="relatedTopics-link">
+                            <span>Set density for an ingredient</span>
+                            <svg class="bi" width="1em" height="1em">
+                                <use xlink:href="#chevron-right"></use>
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- end Topic 1 -->
+                    <!-- Topic 2 -->
+                    <div class="mb-3">
+                        <a href="/be/guides/documentation/1/ingredients-basics-introduction"
+                           class="relatedTopics-link">
+                            <span>Ingredients</span>
+                            <span>•</span>
+                            <span>Basics</span>
+                            <svg class="bi" width="1em" height="1em">
+                                <use xlink:href="#chevron-right"></use>
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- end Topic 2 -->
+                    <!-- Topic 3 -->
+                    <div class="mb-3">
+                        <a href="/be/guides/standard-units-of-measurement"
+                           class="relatedTopics-link">
+                            <span>Standard units of measurement in Fillet</span>
+                            <svg class="bi" width="1em" height="1em">
+                                <use xlink:href="#chevron-right"></use>
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- end Topic 3 -->
+                    <!-- Topic 4 -->
+                    <div class="mb-3">
+                        <a href="/be/guides/nutrition/units-of-measurement-and-nutrition"
+                           class="relatedTopics-link">
+                            <span>Units of measurement and nutrition</span>
+                            <svg class="bi" width="1em" height="1em">
+                                <use xlink:href="#chevron-right"></use>
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- end Topic 4 -->
+                    <!-- Topic 5 -->
+                    <div class="mb-3">
+                        <a href="/be/guides/nutrition/warnings-and-errors-in-nutrition-calculations"
+                           class="relatedTopics-link">
+                            <span>Warnings and errors in nutrition calculations</span>
+                            <svg class="bi" width="1em" height="1em">
+                                <use xlink:href="#chevron-right"></use>
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- end Topic 5 -->
+                </div>
+                <!-- end Related topics -->
+                <!-- Docs Feedback Survey -->
+                <div id="sekhmet-docsFeedbackSurvey-referenceIngredientsDensities" class="docsFeedbackSurveyWidget-wrapper">
+                    <h6 class="docsFeedbackSurveyWidget-heading">
+                        <span>Was this page helpful?</span>
+                    </h6>
+                    <div class="row">
+                        <div class="col col-6">
+                            <a href="/be/feedback/1/success?utm_source=surveyResponse_YES_docs-referenceIngredientsDensities"
+                               class="docsFeedbackSurveyWidget-button">
+                                <span>Yes</span>
+                            </a>
+                        </div>
+                        <div class="col col-6">
+                            <a href="/be/feedback/2/success?utm_source=surveyResponse_NO_docs-referenceIngredientsDensities"
+                               class="docsFeedbackSurveyWidget-button">
+                                <span>No</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- end Docs Feedback Survey -->
+            </div>
+            <!-- end Body -->
+        </div>
+    </main>
+</div>
+<!-- Footer -->
+<div class="container-fluid bg-dark text-light">
+    <div class="container">
+        <footer class="py-5">
+            <div class="row gy-3">
+                <div class="col-12 col-sm-6">
+                    <h5>Fillet Site Map</h5>
+                    <ul class="nav flex-column">
+                        <!-- Home -->
+                        <li class="nav-item mb-2"><a href="/be/" class="nav-link p-0 text-light">Home</a></li>
+                        <!-- Documentation -->
+                        <li class="nav-item mb-2"><a href="/be/documentation" class="nav-link p-0 text-light">Documentation</a></li>
+                        <!-- Features -->
+                        <li class="nav-item mb-2"><a href="/be/features" class="nav-link p-0 text-light">Features</a></li>
+                        <!-- Pricing -->
+                        <li class="nav-item mb-2"><a href="/be/pricing?utm_source=sitemap" class="nav-link p-0 text-light">Pricing</a></li>
+                        <!-- Guides -->
+                        <li class="nav-item mb-2"><a href="/be/guides" class="nav-link p-0 text-light">Guides</a></li>
+                        <!-- end Guides -->
+                        <!-- Training -->
+                        <li class="nav-item mb-2"><a href="/be/training" class="nav-link p-0 text-light">Training</a></li>
+                        <!-- Customers -->
+                        <li class="nav-item mb-2"><a href="/be/customers" class="nav-link p-0 text-light">Customers</a></li>
+                        <!-- end Customers -->
+                        <!-- Newsroom -->
+                        <li class="nav-item mb-2"><a href="/be/newsroom" class="nav-link p-0 text-light">Newsroom</a></li>
+                        <!-- end Newsroom -->
+                        <!-- Support -->
+                        <li class="nav-item mb-2"><a href="/be/support" class="nav-link p-0 text-light">Support</a></li>
+                        <!-- end Support -->
+                        <!-- Platforms -->
+                        <li class="d-none nav-item mb-2"><a href="/be/platforms-and-downloads" class="nav-link p-0 text-light">Download</a></li>
+                        <!-- end Platforms -->
+                    </ul>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="col text-center">
+                        <div class=mb-4>
+                            <a href="https://itunes.apple.com/app/apple-store/id696313628?pt=572677&amp;ct=W5&amp;mt=8"
+                               target=_blank><img height=100 style=padding:19px alt="Download on the App Store"
+                                                  src=/images/AppStore/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg></a>
+                        </div>
+                        <h5>Android APK</h5>
+                        <a class="btn btn-outline-light mb-2"
+                           href=https://android.getfillet.com/0.0.43/Fillet.apk
+                           target=_blank>
+                            <span>Download&nbsp;now</span>
+                        </a>
+                        <p class="small mb-2 text-light">Version 0.0.43</p>
+                        <a href="/be/newsroom/3/fillet-for-android-apk-download-play-store"
+                           class="text-light small">What is an APK?</a>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between py-4 my-4 border-top">
+                <small class="text-light">Copyright &copy; 2025 Cityredbird Location Services Ltd. All rights reserved.</small>
+                <ul class="list-unstyled d-flex">
+                    <li class="ms-3">
+                        <a class="link-light"
+                           href=https://twitter.com/getfillet
+                           target=_blank>
+                            <svg class="bi" width="24" height="24">
+                                <use xlink:href="#twitter"></use>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="ms-3">
+                        <a class="link-light"
+                           href=https://instagram.com/getfillet
+                           target=_blank>
+                            <svg class="bi" width="24" height="24">
+                                <use xlink:href="#instagram"></use>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="ms-3">
+                        <a class="link-light"
+                           href=https://facebook.com/getfillet
+                           target=_blank>
+                            <svg class="bi" width="24" height="24">
+                                <use xlink:href="#facebook"></use>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="ms-3">
+                        <a class="link-light"
+                           href=https://www.youtube.com/channel/UCsZq3KCQ6KeGwMbn9Y4b37Q
+                           target=_blank>
+                            <svg class="bi" width="24" height="24">
+                                <use xlink:href="#youtube"></use>
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+</div>
+<!-- Bootstrap JavaScript plugins -->
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- [sageWilliams] Site Search Modal -->
+<div
+        class="modal fade"
+        id="site-search-modal"
+        tabindex="-1"
+        aria-labelledby="site-search-modal-label"
+        aria-hidden="true"
+>
+    <!-- [sageWilliams] Site Search Modal -->
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <!-- This is the new modal-header -->
+            <div class="modal-header border-0">
+                <!-- The search input now lives inside the modal -->
+                <input
+                        id="site-search-input"
+                        class="form-control form-control-lg"
+                        type="search"
+                        placeholder="Пошук" aria-label="Search"
+                />
+            </div>
+            <div class="modal-body">
+                <!-- Container for filter pills -->
+                <ul id="search-filter-container" class="nav nav-pills mb-3">
+                    <!-- Filter pills will be dynamically inserted here by JavaScript -->
+                </ul>
+                <!-- Container for search results -->
+                <ul id="search-results-list" class="list-group">
+                    <!-- [sageWilliams] New container for i18n guidance, rendered by Thymeleaf -->
+                    <div id="i18n-guidance-message" class="d-none">
+                        <div class="p-3 text-center letters-spaced">
+                            <a href="/be/learn/?source=global_site_search"
+                               class="text-decoration-none d-block text-body">
+                                <h4 class="mb-2 fw-bold">Coming soon!</h4>
+                                <p>This function will be available shortly. For now, please use Search in the Learn portal.</p>
+                            </a>
+                            <a href="/be/learn/?source=global_site_search_button"
+                            class="btn btn-outline-primary">
+                                <span>Product documentation</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- [sageWilliams] End of new container -->
+
+                    <!-- Search results will be dynamically inserted here by JavaScript -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add this hidden "data island" for filter translations -->
+    <div id="search-filter-translations" class="d-none">
+        <span data-key="All">All</span>
+        <span data-key="Featured">Featured</span>
+        <span data-key="Documentation">Documentation</span>
+    </div>
+    <!-- End of data island -->
+
+    <!-- end of [sageWilliams] Site Search Modal -->
+</div>
+<!-- [sageWilliams] End Site Search Modal -->
+<!-- [sageWilliams] Add Search Libraries -->
+<!-- Lunr.js Core Library from CDN -->
+<script src="https://unpkg.com/lunr/lunr.min.js"></script>
+<!-- Our Custom Search Logic -->
+<script src="/js/site-search.js"></script>
+<!-- [sageWilliams] End Search Libraries -->
+<!-- The first line pulls the lightweight Lunr.js library directly from a fast, public Content Delivery Network (CDN).-->
+<!-- The second line uses the correct Thymeleaf syntax `th:src="@{...}"` to safely link to the `site-search.js` file you just created.-->
+</body>
+</html>

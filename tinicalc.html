@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<title>TiniCalc</title>
+	<link rel="icon" type="image/svg+xml" href="./app_icons/martini.svg">
+
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+		crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+		crossorigin="anonymous">
+		</script>
+
+	<script src="js/scripts.js"></script>
+	<script src="js/tripletiniscript.js"></script>
+
+	<style>
+		body {
+			background: url('./app_backgrounds/nailsntini.jpg');
+			background-size: auto;
+			background-repeat: no-repeat;
+			background-color: rgb(0, 28, 50);
+			color: white;
+		}
+
+		label {
+			font-size: 26px;
+			color: white;
+		}
+
+		.form-control,
+		.form-select {
+			background-color: #10151f;
+			color: white;
+			font-size: 26px;
+			border: none;
+			text-align: center;
+		}
+
+		/* 
+Cocktail Bar Charts
+*/
+		.bg-liquor,
+		.bg-vermouth,
+		.bg-water,
+		.bg-ingenium,
+		.bg-italicus {
+			color: white;
+			font-size: 12pt;
+			font-weight: bold;
+		}
+
+		.bg-liquor {
+			background-color: rgb(185, 186, 188);
+			color: black;
+		}
+
+		.bg-vermouth {
+			background-color: rgba(231, 211, 140, 1);
+			color: black;
+		}
+
+		.bg-water {
+			background-color: rgba(100, 145, 197, 1);
+		}
+
+		.bg-ingenium {
+			background-color: rgb(189, 165, 160);
+		}
+
+		.bg-italicus {
+			background-color: rgb(71, 150, 116);
+		}
+
+		#waterField #vermouthField {
+			font-weight: bold;
+		}
+
+		.contact-clean form {
+			background-color: rgba(0, 28, 48, 0.8);
+		}
+
+		@media screen and (max-width: 900px) {
+			.container {
+				background-color: rgba(0, 28, 48, 0.8);
+				color: rgb(185, 186, 188);
+				margin-top: 2rem;
+				padding: 2rem;
+				border-radius: 1rem;
+			}
+
+			.flexible {
+				display: flex-wrap;
+			}
+		}
+
+		@media screen and (min-width: 768px) {
+			.container {
+				background-color: rgba(0, 28, 48, 0.5);
+				color: rgb(185, 186, 188);
+				margin-top: 2rem;
+				padding: 2rem;
+				border-radius: 1rem;
+			}
+
+			.flexible {
+				display: flex-wrap;
+			}
+		}
+
+		@media screen and (max-width: 768px) {
+			.container {
+				background-color: rgba(0, 28, 48, 0.5);
+				color: rgb(185, 186, 188);
+				margin-top: 2rem;
+				padding: 2rem;
+				border-radius: 1rem;
+			}
+
+			.flexible {
+				display: flex-wrap;
+			}
+		}
+
+		.row,
+		.form-row {
+			margin-top: 1rem;
+		}
+
+		.icons {
+			padding: 0px 20px 0px 20px;
+		}
+	</style>
+
+	<link rel="stylesheet" href="css/navigation.css">
+</head>
+
+<body onload="initializeIt('TiniCalc!', './app_icons/martini.svg'); calculate();">
+
+	<div id="navHead">
+	</div>
+
+	<div class="container" style="max-width: 850px;">
+
+		<form method="post">
+
+			<!-- Recipe ingredient fields -->
+			<div class="row justify-content-md-center">
+				<div class="col-md-6">
+					<label id="ratioLabel">Liquor</label>
+					<input class="form-control" step="1" type="number" id="liquorIn" placeholder="" value="100" oninput="calculate();">
+					<input class="checkbox" style="margin-top: 10px;" type="checkbox" name="refresh" id="refresher" checked class="checkbox">Refresh
+				</div>
+			</div>
+
+			<div class="row justify-content-md-center">
+				<div class="col-md-6">
+					<label>Water Ratio</label>
+					<select class="form-select form-select-lg right" id="waterRatio" oninput="calculate();">
+						<option value="0" selected>0%</option>
+						<option value=".10">10%</option>
+						<option value=".11">11%</option>
+						<option value=".12">12%</option>
+						<option value=".13">13%</option>
+						<option value=".14">14%</option>
+						<option value=".15">15%</option>
+						<option value=".16">16%</option>
+						<option value=".17">17%</option>
+						<option value=".18">18%</option>
+						<option value=".19">19%</option>
+						<option value=".20">20%</option>
+						<option value=".21">21%</option>
+						<option value=".22">22% (Average)</option>
+						<option value=".23">23%</option>
+						<option value=".24">24%</option>
+						<option value=".25">25%</option>
+						<option value=".26">26%</option>
+						<option value=".27">27%</option>
+						<option value=".28">28%</option>
+						<option value=".29">29%</option>
+						<option value=".30">30%</option>
+					</select>
+				</div>
+			</div>
+
+			<!-- Results output =========================================================================================-->
+			<h2 class="text-center" style="margin-bottom: 0px; margin-top: 26px; color: white;">Results</h2>
+			<div class="row justify-content-md-center">
+
+				<div class="col-md-6" id="volumeOnly">
+					<label>Water Amount</label>
+					<input class="form-control center" type="number" id="waterOut" value="126" readonly>
+				</div>
+			</div>
+
+			<!-- Row 1-->
+			<div class="form-row justify-content-md-center" style="display: flex;">
+				<div class="form-group col-md-5 col-sm-6 col-xs-6" style="margin-right: 15px;">
+					<label>Gin Ratio</label>
+					<select class="form-select right" id="vgRatio" oninput="calculate();">
+						<option value="1">1:1 (1)</option>
+						<option value=".5">2:1</option>
+						<option value=".333">3:1</option>
+						<option value=".25">4:1</option>
+						<option value=".20">5:1</option>
+						<option value=".1798" selected>5.56:1</option>
+						<option value=".1525">6:1</option>
+						<option value=".1428">7:1</option>
+						<option value=".125">8:1</option>
+						<option value=".1111">9:1</option>
+						<option value=".1">10:1</option>
+						<option value=".091">11:1</option>
+						<option value=".083">12:1</option>
+						<option value=".0769">13:1</option>
+						<option value=".0714">14:1</option>
+						<option value=".06667">15:1</option>
+						<option value=".0625">16:1</option>
+						<option value=".0588">17:1</option>
+						<option value=".0556">18:1</option>
+						<option value=".0526">19:1</option>
+						<option value=".050">20:1</option>
+					</select>
+				</div>
+				<div class="form-group col-md-5 col-sm-6 col-xs-6" style="margin-left: 0px;">
+					<label>Vodka Ratio</label>
+					<select class="form-select right" id="vvRatio" oninput="calculate();">
+						<option value="1">1:1 (1)</option>
+						<option value=".5">2:1</option>
+						<option value=".333">3:1</option>
+						<option value=".25">4:1</option>
+						<option value=".20">5:1</option>
+						<option value=".1798">5.56:1</option>
+						<option value=".1525">6:1</option>
+						<option value=".1428">7:1</option>
+						<option value=".125" selected>8:1</option>
+						<option value=".1111">9:1</option>
+						<option value=".1">10:1</option>
+						<option value=".091">11:1</option>
+						<option value=".083">12:1</option>
+						<option value=".0769">13:1</option>
+						<option value=".0714">14:1</option>
+						<option value=".06667">15:1</option>
+						<option value=".0625">16:1</option>
+						<option value=".0588">17:1</option>
+						<option value=".0556">18:1</option>
+						<option value=".0526">19:1</option>
+						<option value=".050">20:1</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-row justify-content-md-center" style="display: flex;">
+				<div class="form-group col-md-5 col-sm-6 col-xs-6" style="margin-right: 15px;">
+					<label>G Verm</label>
+					<input class="form-control right" type="number" id="gvermouth" value="120" readonly>
+				</div>
+				<div class="form-group col-md-5 col-sm-6 col-xs-6" style="margin-left: 0px;">
+					<label>V Verm</label>
+					<input class="form-control right" type="number" id="vvermouth" value="15" readonly>
+				</div>
+			</div>
+			<div class="form-row justify-content-md-center" style="display: flex;">
+				<div class="form-group col-md-5 col-sm-6" style="margin-right: 15px;">
+					<label>Gin Total</label>
+					<input class="form-control right" type="number" id="gvermouthOut" value="15" oninput="volumeBack(1)">
+				</div>
+				<div class="form-group col-md-5 col-sm-6" style="margin-left: 0px;">
+					<label>Vodka Total</label>
+					<input class="form-control right" type="number" id="vvermouthOut" value="120" oninput="volumeBack(2)">
+				</div>
+			</div>
+
+
+			<!-- Bar Chart  -->
+			<div class="justify-content-md-center" style="margin: 0 auto; display: flex;">
+				<div class="progress col-md-8 col-sm-12" style="height: 50px; width: 50%; margin: 20px 10px;">
+					<div class="progress-bar bg-liquor" id="gliquorbar" role="progressbar" style="width: 33.33%">
+						<div class="percenters" id="glpercentageLabel"></div>
+					</div>
+					<div class="progress-bar bg-vermouth" id="gvermouthbar" role="progressbar" style="width: 33.33%">
+						<div class="percenters" id="gvpercentageLabel"></div>
+					</div>
+					<div class="progress-bar bg-water" id="gwaterbar" role="progressbar" style="width: 33.33%">
+						<div class="percenters" id="gwpercentageLabel"></div>
+					</div>
+				</div>
+				<div class="progress col-md-8" style="height: 50px; width: 50%; margin: 20px 10px;">
+					<div class="progress-bar bg-liquor" id="vliquorbar" role="progressbar" style="width: 0%">
+						<div class="percenters" id="vlpercentageLabel"></div>
+					</div>
+					<div class="progress-bar bg-vermouth" id="vvermouthbar" role="progressbar" style="width: 0%">
+						<div class="percenters" id="vvpercentageLabel"></div>
+					</div>
+					<div class="progress-bar bg-water" id="vwaterbar" role="progressbar" style="width: 0%">
+						<div class="percenters" id="vwpercentageLabel"></div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

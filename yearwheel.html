@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Seasonal Symmetry Wheel</title>
+
+<style>
+
+body{
+background:#111;
+color:#ddd;
+font-family:sans-serif;
+padding:20px;
+}
+
+#container{
+display:flex;
+gap:40px;
+align-items:flex-start;
+}
+
+canvas{
+background:#181818;
+border:1px solid #333;
+}
+
+.result{
+font-size:18px;
+line-height:1.6;
+}
+
+.highlight{
+color:#4da3ff;
+font-weight:bold;
+}
+
+label{
+margin-bottom:12px;
+display:block;
+}
+
+.legend{
+margin-top:25px;
+font-size:16px;
+}
+
+.legend-row{
+display:flex;
+align-items:center;
+margin-bottom:6px;
+}
+
+.swatch{
+width:16px;
+height:16px;
+margin-right:8px;
+border:1px solid #555;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2>Seasonal Symmetry Wheel</h2>
+
+<label>
+Select date:
+<input type="date" id="datePicker">
+</label>
+
+<div id="container">
+
+<canvas id="wheel" width="440" height="440"></canvas>
+
+<div class="result" id="output"></div>
+
+</div>
+
+<script>
+
+const canvas=document.getElementById("wheel");
+const ctx=canvas.getContext("2d");
+
+const cx=220;
+const cy=220;
+const radius=180;
+
+function formatDate(d){
+
+let day=String(d.getDate()).padStart(2,'0');
+let month=String(d.getMonth()+1).padStart(2,'0');
+let year=d.getFullYear();
+
+return `${day}/${month}/${year}`;
+
+}
+
+function getSeasonPoints(year){
+
+return{
+
+summer:new Date(year,5,21),
+winter:new Date(year,11,21),
+spring:new Date(year,2,20),
+autumn:new Date(year,8,22)
+
+};
+
+}
+
+function daysBetween(a,b){
+
+const ms=1000*60*60*24;
+return Math.round((a-b)/ms);
+
+}
+
+function addDays(date,days){
+
+let d=new Date(date);
+d.setDate(d.getDate()+days);
+return d;
+
+}
+
+function dayOfYear(date){
+
+const start=new Date(date.getFullYear(),0,0);
+return Math.floor((date-start)/(1000*60*60*24));
+
+}
+
+function daysInYear(year){
+
+return ((year%4===0 && year%100!==0)||year%400===0)?366:365;
+
+}
+
+function angleForDate(date){
+
+const doy=dayOfYear(date);
+const total=daysInYear(date.getFullYear());
+
+return (doy/total)*Math.PI*2 - Math.PI/2;
+
+}
+
+function polar(angle,r){
+
+return{
+x:cx + Math.cos(angle)*r,
+y:cy + Math.sin(angle)*r
+};
+
+}
+
+function drawWheel(){
+
+ctx.clearRect(0,0,440,440);
+
+ctx.strokeStyle="#444";
+ctx.lineWidth=1;
+
+ctx.beginPath();
+ctx.arc(cx,cy,radius,0,Math.PI*2);
+ctx.stroke();
+
+const months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+ctx.fillStyle="#bbb";
+ctx.font="12px sans-serif";
+
+for(let m=0;m<12;m++){
+
+let d=new Date(2026,m,1);
+
+let a=angleForDate(d);
+
+let p=polar(a,radius+18);
+
+ctx.fillText(months[m],p.x-10,p.y);
+
+}
+
+}
+
+function drawAxis(date1,date2){
+
+let a1=angleForDate(date1);
+let a2=angleForDate(date2);
+
+let p1=polar(a1,radius);
+let p2=polar(a2,radius);
+
+ctx.strokeStyle="#555";
+ctx.setLineDash([6,6]);
+
+ctx.beginPath();
+ctx.moveTo(p1.x,p1.y);
+ctx.lineTo(p2.x,p2.y);
+ctx.stroke();
+
+ctx.setLineDash([]);
+
+}
+
+function drawPoint(date,color,size){
+
+let a=angleForDate(date);
+let p=polar(a,radius);
+
+ctx.beginPath();
+ctx.arc(p.x,p.y,size,0,Math.PI*2);
+ctx.fillStyle=color;
+ctx.fill();
+
+}
+
+function drawLabel(date,text,offset){
+
+let a=angleForDate(date);
+let p=polar(a,radius+offset);
+
+ctx.font="12px sans-serif";
+
+const padding=4;
+
+let metrics=ctx.measureText(text);
+
+let w=metrics.width+padding*2;
+let h=16;
+
+ctx.fillStyle="#000";
+ctx.fillRect(p.x-w/2,p.y-h/2,w,h);
+
+ctx.strokeStyle="#888";
+ctx.strokeRect(p.x-w/2,p.y-h/2,w,h);
+
+ctx.fillStyle="#fff";
+ctx.fillText(text,p.x-metrics.width/2,p.y+4);
+
+}
+
+function reflectAcrossSolstice(date,solstice){
+
+const diff=daysBetween(date,solstice);
+
+return addDays(solstice,-diff);
+
+}
+
+function calculate(){
+
+const picker=document.getElementById("datePicker");
+const selected=new Date(picker.value);
+
+const year=selected.getFullYear();
+
+const {summer,winter,spring,autumn}=getSeasonPoints(year);
+
+const diffSummer=daysBetween(selected,summer);
+const diffWinter=daysBetween(selected,winter);
+
+let closest="summer";
+
+if(Math.abs(diffWinter)<Math.abs(diffSummer)) closest="winter";
+
+let solstice=(closest==="summer")?summer:winter;
+
+let inverse=reflectAcrossSolstice(selected,solstice);
+
+drawWheel();
+
+drawAxis(summer,winter);
+drawAxis(spring,autumn);
+
+drawPoint(selected,"#ff4d4d",6);
+drawPoint(inverse,"#5cff8d",6);
+
+drawPoint(summer, closest==="summer"?"#4da3ff":"#555",8);
+drawPoint(winter, closest==="winter"?"#4da3ff":"#555",8);
+
+drawPoint(spring,"#c27cff",6);
+drawPoint(autumn,"#c27cff",6);
+
+drawLabel(summer,"Summer Solstice",60);
+drawLabel(winter,"Winter Solstice",60);
+
+drawLabel(spring,"Spring Equinox",80);
+drawLabel(autumn,"Autumn Equinox",80);
+
+document.getElementById("output").innerHTML=`
+
+<b>Selected date:</b> ${formatDate(selected)}<br><br>
+
+Days from Summer Solstice:
+<span class="${closest==="summer"?"highlight":""}">
+${diffSummer}
+</span><br>
+
+Days from Winter Solstice:
+<span class="${closest==="winter"?"highlight":""}">
+${diffWinter}
+</span><br><br>
+
+<b>Closest solstice:</b> ${closest==="summer"?"Summer":"Winter"}<br>
+
+<b>Inverse date:</b> ${formatDate(inverse)}
+
+<div class="legend">
+
+<b>Legend</b>
+
+<div class="legend-row">
+<div class="swatch" style="background:#ff4d4d"></div>Selected Date
+</div>
+
+<div class="legend-row">
+<div class="swatch" style="background:#5cff8d"></div>Inverse Date
+</div>
+
+<div class="legend-row">
+<div class="swatch" style="background:#4da3ff"></div>Closest Solstice
+</div>
+
+<div class="legend-row">
+<div class="swatch" style="background:#555"></div>Other Solstice
+</div>
+
+<div class="legend-row">
+<div class="swatch" style="background:#c27cff"></div>Equinoxes
+</div>
+
+<div class="legend-row">
+<div class="swatch" style="background:#555"></div>Seasonal Axes
+</div>
+
+</div>
+
+`;
+
+}
+
+const picker=document.getElementById("datePicker");
+
+const today=new Date();
+picker.value=today.toISOString().split("T")[0];
+
+picker.addEventListener("change",calculate);
+
+calculate();
+
+</script>
+
+</body>
+</html>

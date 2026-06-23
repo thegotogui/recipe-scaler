@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Adjuster</title>
+    <link rel="icon" type="image/svg+xml" href="./app_icons/adjuster.svg" sizes="any">
+    <link rel="stylesheet" href="./css/hollandstyles.css" />
+    <script src="js/scripts.js"></script>
+    <script src="adjuster1.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+        crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous">
+        </script>
+
+    <style>
+        :root {
+            --jet: #353535;
+            --darkJet: #242424;
+            --white: #faf0e6;
+            --caribbeanCurrent: #3c6e71;
+            --platinum: #d9d9d9;
+            --indigoDye: #284b63;
+            --darkIndigo: #0f141f;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: white;
+            background: url("/assets/img/rationatorBGdark.jpg");
+        }
+
+        .biggerLabels {
+            font-size: x-large;
+        }
+
+        .startColumn {
+            background-color: var(--jet);
+        }
+
+        .startRatio {
+            background-color: var(--indigoDye);
+        }
+
+        .startColumnData {
+            background-color: var(--jet);
+            padding-top: 13px;
+        }
+
+        .startColumnDelta {
+            background-color: var(--darkIndigo);
+            padding-top: 13px;
+        }
+
+        .headStartColumnDelta {
+            background-color: var(--indigoDye);
+            padding-top: 13px;
+        }
+
+        .labelRow {
+            text-align: center;
+            padding-top: 10px;
+            /* padding-bottom: 17px; */
+            font-size: x-large;
+            font-weight: bold;
+        }
+
+        .biggerLabels {
+            font-size: x-large;
+            font-weight: bold;
+        }
+    </style>
+
+    <link rel="stylesheet" href="css/navigation.css">
+</head>
+
+<body style="background-color: #0f1a33; font-family: Arial, Helvetica, sans-serif;" onload="initializeIt('Adjuster', './app_icons/adjuster.svg'); getRatio(1);">
+
+    <div id="navHead">
+    </div>
+
+    <div class="container-md" style="max-width: 1000px; background-color: #0e1420d4">
+
+        <div class="row" style="margin-top: 60px;">
+            <div class="col-md-12" style="text-align: center;">
+                <h1 style="font-weight: bold; padding-top: 25px;">The Adjuster</h1>
+            </div>
+        </div>
+
+        <!-- * Input values -->
+        <div class="row" style="margin-top: 20px; background: #333;">
+            <div class="col startColumn">
+                <label for="weightg" class="form-label biggerLabels">Start Val 1</label>
+                <input class="form-control" value="100" type="number" id="startValA" onclick="this.select();" oninput="applyRatio(1,2);"
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+            <div class="col startRatio">
+                <div id="sRatio" style="text-align: center; padding-top: 3px; font-size:x-large">
+                </div>
+            </div>
+            <div class="col startColumn">
+                <label for="weighto" class="form-label biggerLabels">Start Val 2</label>
+                <input class="form-control" type="number" value="50" id="startValB" onclick="this.select();" oninput="applyRatio(1,1);"
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+        </div>
+
+        <!-- * Row 1 -->
+        <div class="row headStartColumnDelta">
+            <div class="col-md-2 labelRow">
+                &#916;
+            </div>
+            <div class="col-md-4 labelRow">
+                Adj. value
+            </div>
+            <div class="col-md-4 labelRow">
+                Adj. value
+
+            </div>
+            <div class="col-md-2 labelRow">
+                &#916;
+            </div>
+        </div>
+
+        <div class="row startColumnDelta">
+            <div class="col-md-2 startColumnDelta" id="r1c1">
+                <input class="form-control" type="number" id="inc1A" readonly onclick="this.select();"
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+            <div class="col-md-4 startColumnDelta" id="r1c2">
+                <input class="form-control" type="number" id="val1A" onclick="this.select();" oninput="applyRatio(1, 1);"
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+            <div class="col-md-4 startColumnDelta" id="r1c3">
+                <input class="form-control" type="number" id="val1B" onclick="this.select();" oninput="applyRatio(1, 2);"
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+            <div class="col-md-2 startColumnDelta" id="r1c4">
+                <input class="form-control" value="" type="number" readonly onclick="this.select();" id="inc1B" oninput="calculateIt(1);" ;
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+        </div>
+
+        <!-- * Row 2 -->
+        <div class="row startColumnDelta">
+            <div class="col-md-2 startColumnDelta" id="r2c1">
+                <input class="form-control" value="" readonly type="number" onclick="this.select();" id="inc2A"
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+            <div class="col-md-4 startColumnDelta" id="r2c2">
+                <input class="form-control" value="" type="number" onclick="this.select();" id="val2A" oninput="applyRatio(2, 1);"
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+            <div class="col-md-4 startColumnDelta" id="r2c3">
+                <input class="form-control" value="" type="number" id="val2B" onclick="this.select();" oninput="applyRatio(2, 2);"
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+            <div class="col-md-2 startColumnDelta" id="r2c4">
+                <input class="form-control" value="" readonly type="number" id="inc2B" onclick="this.select();"
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+        </div>
+
+
+        <!-- * Row 3 -->
+        <div class="row startColumnDelta">
+            <div class="col-md-2 startColumnDelta" id="r3c1">
+                <input class="form-control" value="" readonly type="number" id="inc3A" style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+            <div class="col-md-4 startColumnDelta" id="r3c2">
+                <input class="form-control" value="" type="number" id="val3A" onclick="this.select();" oninput="applyRatio(3, 1);"
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+            <div class="col-md-4 startColumnDelta" id="r3c3">
+                <input class="form-control" value="" type="number" id="val3B" onclick="this.select();" oninput="applyRatio(3, 2);"
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+            <div class="col-md-2 startColumnDelta" id="r3c4">
+                <input class="form-control" value="" readonly type="number" id="inc3B" style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

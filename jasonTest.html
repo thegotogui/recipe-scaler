@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Import Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 0;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        #output {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border-left: 4px solid #007bff;
+        }
+
+        .user-card {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .user-card h3 {
+            margin-top: 0;
+            color: #007bff;
+        }
+
+        input[type="file"] {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>JSON Data Import Examples</h1>
+
+        <h2>Method 1: Inline JSON</h2>
+        <button onclick="loadInlineJSON()">Load Inline Data</button>
+
+        <h2>Method 2: Fetch from URL</h2>
+        <button onclick="loadFromURL()">Load from JSONPlaceholder API</button>
+
+        <h2>Method 3: File Upload</h2>
+        <input type="file" id="fileInput" accept=".json" onchange="loadFromFile(event)">
+
+        <div id="output"></div>
+    </div>
+
+    <script>
+        const output = document.getElementById('output');
+        var data;
+
+        // Method 2: Fetch JSON from external URL
+        async function loadFromURL() {
+            try {
+                output.innerHTML = '<p>Loading...</p>';
+
+                // Using a CORS-friendly API endpoint
+                const response = await fetch('test.json');
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                data = await response.json();
+                console.log(`data: ${data}`);
+                // Format the GitHub API response to match our display format
+                const formattedData = {
+                    users: [{
+                        name: data.users[0].name || data.login,
+                        email: data.users[0].email || 'Not public',
+                        role: data.users[0].role
+                    }]
+                };
+
+                displayData(formattedData);
+            } catch (error) {
+                output.innerHTML = `<p style="color: red;">Error: ${error.message}</p><p>This may be due to network restrictions or CORS policy. Try the file upload method instead.</p>`;
+            }
+        }
+
+        // Method 3: Load JSON from file upload
+        function loadFromFile(event) {
+            const file = event.target.files[0];
+
+            if (!file) return;
+
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    displayData(data);
+                } catch (error) {
+                    output.innerHTML = `<p style="color: red;">Error parsing JSON: ${error.message}</p>`;
+                }
+            };
+
+            reader.readAsText(file);
+        }
+
+        // Display the loaded data
+        function displayData(data) {
+            const users = data.users || data;
+
+            let html = '<h3>Loaded Data:</h3>';
+
+            if (Array.isArray(users)) {
+                users.forEach(user => {
+                    html += `
+                        <div class="user-card">
+                            <h3>${user.name || user.username}</h3>
+                            <p><strong>Email:</strong> ${user.email}</p>
+                            ${user.role ? `<p><strong>Role:</strong> ${user.role}</p>` : ''}
+                            ${user.phone ? `<p><strong>Phone:</strong> ${user.phone}</p>` : ''}
+                            ${user.company ? `<p><strong>Company:</strong> ${user.company}</p>` : ''}
+                            ${user.location ? `<p><strong>Location:</strong> ${user.location}</p>` : ''}
+                            ${user.bio ? `<p><strong>Bio:</strong> ${user.bio}</p>` : ''}
+                        </div>
+                    `;
+                });
+            } else {
+                html += `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            }
+
+            output.innerHTML = html;
+        }
+    </script>
+</body>
+
+</html>

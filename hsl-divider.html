@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HSL Color Divider</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.8rem;
+    color: #fff;
+    opacity: 0.9;
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    background: #16213e;
+    border: 1px solid #0f3460;
+    border-radius: 12px;
+    padding: 1.4rem 1.6rem;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    min-width: 110px;
+  }
+
+  .field label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #a0aec0;
+  }
+
+  .field input {
+    width: 100%;
+    padding: 0.5rem 0.7rem;
+    border-radius: 8px;
+    border: 1px solid #0f3460;
+    background: #0f3460;
+    color: #fff;
+    font-size: 1rem;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .field input:focus {
+    border-color: #e94560;
+    background: #1a1a2e;
+  }
+
+  .field input.invalid {
+    border-color: #e94560;
+    background: #3a0a15;
+  }
+
+  .field .range-hint {
+    font-size: 0.65rem;
+    color: #a0aec0;
+    text-align: center;
+  }
+
+  .divider-field input { accent-color: #e94560; }
+
+  /* Color preview bar */
+  #preview-bar {
+    height: 10px;
+    border-radius: 999px;
+    margin-bottom: 1.8rem;
+    transition: background 0.3s;
+  }
+
+  /* Swatches grid */
+  #swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.9rem;
+  }
+
+  .swatch-card {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.07);
+    background: #16213e;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.15s;
+  }
+
+  .swatch-card:hover { transform: translateY(-2px); }
+
+  .swatch-color {
+    height: 72px;
+    width: 100%;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .swatch-color::after {
+    content: 'Copy';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    opacity: 0;
+    background: rgba(0,0,0,0.25);
+    transition: opacity 0.15s;
+  }
+
+  .swatch-color:hover::after { opacity: 1; }
+
+  .swatch-info {
+    padding: 0.55rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.22rem;
+  }
+
+  .swatch-index {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #a0aec0;
+  }
+
+  .swatch-hex {
+    font-size: 0.95rem;
+    font-weight: 700;
+    font-family: monospace;
+    color: #fff;
+  }
+
+  .swatch-hsl {
+    font-size: 0.75rem;
+    font-family: monospace;
+    color: #a0aec0;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(60px);
+    background: #e94560;
+    color: #fff;
+    padding: 0.5rem 1.2rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0;
+    transition: all 0.3s;
+    pointer-events: none;
+    z-index: 99;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<h1>HSL Color Divider</h1>
+
+<div class="controls">
+  <div class="field">
+    <label>Hue</label>
+    <input type="number" id="hue" value="200" min="0" max="360">
+    <span class="range-hint">0 – 360</span>
+  </div>
+  <div class="field">
+    <label>Saturation %</label>
+    <input type="number" id="sat" value="70" min="0" max="100">
+    <span class="range-hint">0 – 100</span>
+  </div>
+  <div class="field">
+    <label>Lightness %</label>
+    <input type="number" id="lit" value="55" min="0" max="100">
+    <span class="range-hint">0 – 100</span>
+  </div>
+  <div class="field divider-field">
+    <label>Divisions</label>
+    <input type="number" id="divs" value="6" min="2" max="16">
+    <span class="range-hint">2 – 16</span>
+  </div>
+</div>
+
+<div id="preview-bar"></div>
+<div id="swatches"></div>
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  const hueEl  = $('hue');
+  const satEl  = $('sat');
+  const litEl  = $('lit');
+  const divsEl = $('divs');
+
+  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+  function hslToRgb(h, s, l) {
+    s /= 100; l /= 100;
+    const k = n => (n + h / 30) % 12;
+    const a = s * Math.min(l, 1 - l);
+    const f = n => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+    return [Math.round(f(0)*255), Math.round(f(8)*255), Math.round(f(4)*255)];
+  }
+
+  function toHex(r, g, b) {
+    return '#' + [r,g,b].map(v => v.toString(16).padStart(2,'0')).join('').toUpperCase();
+  }
+
+  function validate() {
+    const h = parseFloat(hueEl.value),
+          s = parseFloat(satEl.value),
+          l = parseFloat(litEl.value),
+          d = parseInt(divsEl.value);
+
+    hueEl.classList.toggle('invalid',  isNaN(h) || h < 0 || h > 360);
+    satEl.classList.toggle('invalid',  isNaN(s) || s < 0 || s > 100);
+    litEl.classList.toggle('invalid',  isNaN(l) || l < 0 || l > 100);
+    divsEl.classList.toggle('invalid', isNaN(d) || d < 2 || d > 16);
+
+    if ([h,s,l,d].some(isNaN)) return null;
+    return { h: clamp(h,0,360), s: clamp(s,0,100), l: clamp(l,0,100), d: clamp(d,2,16) };
+  }
+
+  function render() {
+    const v = validate();
+    if (!v) return;
+
+    const step = 360 / v.d;
+    const colors = Array.from({length: v.d}, (_, i) => {
+      const hue = ((v.h + step * i) % 360 + 360) % 360;
+      const [r, g, b] = hslToRgb(hue, v.s, v.l);
+      const hex = toHex(r, g, b);
+      return { hue: Math.round(hue * 10) / 10, s: v.s, l: v.l, hex };
+    });
+
+    // Preview bar
+    const stops = colors.map((c, i) => `${c.hex} ${(i / colors.length * 100).toFixed(1)}%`);
+    stops.push(`${colors[0].hex} 100%`);
+    $('preview-bar').style.background = `linear-gradient(to right, ${stops.join(', ')})`;
+
+    // Swatches
+    $('swatches').innerHTML = colors.map((c, i) => `
+      <div class="swatch-card">
+        <div class="swatch-color"
+             style="background:${c.hex}"
+             title="Click to copy hex"
+             onclick="copyHex('${c.hex}')"></div>
+        <div class="swatch-info">
+          <span class="swatch-index">Color ${i + 1} of ${v.d} &nbsp;·&nbsp; +${Math.round(step * i)}°</span>
+          <span class="swatch-hex">${c.hex}</span>
+          <span class="swatch-hsl">hsl(${c.hue}, ${c.s}%, ${c.l}%)</span>
+        </div>
+      </div>`).join('');
+  }
+
+  function copyHex(hex) {
+    navigator.clipboard.writeText(hex).then(() => {
+      const t = $('toast');
+      t.textContent = `Copied ${hex}`;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 1800);
+    });
+  }
+
+  [hueEl, satEl, litEl, divsEl].forEach(el => el.addEventListener('input', render));
+  render();
+</script>
+</body>
+</html>

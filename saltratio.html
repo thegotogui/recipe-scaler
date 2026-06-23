@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Salt Ratio</title>
+    <link rel="icon" type="image/svg+xml" href="./app_icons/NaCl.svg">
+    <!-- <link rel="icon" type="image/png" href="/sr/favicon.png"> -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+        crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous">
+        </script>
+
+    <script src="js/saltratio.js" async></script>
+    <script src="js/scripts.js" async></script>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navigation.css">
+
+    <style>
+        :root {
+            --pointLabels: #FFFFFF;
+            --pointFour: rgba(196, 231, 255);
+            --pointFive: rgba(161, 219, 255);
+            --pointSevenFive: rgba(110, 199, 255);
+            --one: rgba(64, 185, 255);
+            --oneFive: rgba(0, 172, 255);
+            --two: rgba(0, 187, 255);
+            --twoFive: rgba(0, 210, 255);
+            --three: rgb(39, 219, 255);
+            --threeFive: rgb(39, 255, 226);
+        }
+
+        .saltVolume {
+            font-family: Arial, Helvetica, sans-serif;
+            background: url("../assets/img/restaurant.jpg");
+            background-position: 0% 0%;
+            background-size: 125%;
+            background-repeat: no-repeat;
+            background-color: black;
+        }
+
+        .pointLabel {
+            color: var(--pointLabels);
+            font-size: 1.8em;
+        }
+
+        .pointFour {
+            color: var(--pointFour);
+        }
+
+        .pointFive {
+            color: var(--pointFive);
+        }
+
+        .pointSevenFive {
+            color: var(--pointSevenFive);
+        }
+
+        .one {
+            color: var(--one);
+        }
+
+        .oneFive {
+            color: var(--oneFive);
+        }
+
+        .two {
+            color: var(--two);
+        }
+
+        .twoFive {
+            color: var(--twoFive);
+        }
+
+        .three {
+            color: var(--three);
+        }
+
+        .threeFive {
+            color: var(--threeFive);
+        }
+
+        body {
+            background-color: var(--blue);
+        }
+
+        h2 {
+            border-bottom: 2px solid var(--blue);
+        }
+
+        .container {
+            color: var(--blue);
+            background-color: var(--white);
+        }
+
+        .row {
+            margin-right: 0px;
+            margin-left: 0px;
+        }
+
+        .bodyOfWater {
+            width: 80px;
+            height: 100%;
+            margin: 15px auto;
+            border-radius: 0px 0px 15px 15px;
+            border-style: solid;
+            border-top-style: none;
+            border-color: #fff;
+            background-color: rgb(0, 79, 90);
+        }
+
+        /* Create three equal columns that sit next to each other */
+        .column {
+            flex: 33.3333%;
+            max-width: 50%;
+        }
+
+        /* Responsive layout - makes a two column-layout instead of four columns */
+        @media (max-width: 800px) {
+            .column {
+                flex: 50%;
+                max-width: 50%;
+            }
+        }
+
+        /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+        @media (max-width: 600px) {
+            .column {
+                flex: 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body class="saltVolume" onload="initializeIt('Salt Level', './app_icons/NaCl.svg'); initializeNaCl();" ;>
+    <div id="navHead">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding:8px;">
+            <a class="navbar-brand" style="padding-left: 15px;" href="index.html">
+                <img src="dgreyholder.svg" width="50" height="50" class="d-inline-block align-top" alt="" id="pageIcon">
+                <span id="pageTitle" class="pageTitle"></span>
+            </a>
+
+            <div class="jumpButtons">
+                <div class="icons"><img class="icon" src="greyholder.svg" width="30px;" style="cursor: pointer;"></div>
+                <div class="icons"><img class="icon" src="greyholder.svg" width="30px;" style="cursor: pointer;"></div>
+                <div class="icons"><img class="icon" src="greyholder.svg" width="30px;" style="cursor: pointer;"></div>
+                <div class="icons"><img class="icon" src="greyholder.svg" width="30px;" style="cursor: pointer;"></div>
+                <div class="icons"><img class="icon" src="greyholder.svg" width="30px;" style="cursor: pointer;"></div>
+                <div class="icons"><img class="icon" src="greyholder.svg" width="30px;" style="cursor: pointer;"></div>
+                <div class="icons"><img class="icon" src="greyholder.svg" width="30px;" style="cursor: pointer;"></div>
+                <div class="icons"><img class="icon" src="greyholder.svg" width="30px;" style="cursor: pointer;"></div>
+                <div class="icons"><img class="icon" src="greyholder.svg" width="30px;" style="cursor: pointer;"></div>
+                <div class="icons"><img class="icon" src="greyholder.svg" width="30px;" style="cursor: pointer;"></div>
+            </div>
+        </nav>
+    </div>
+
+    <main class="main">
+        <section class="test-area">
+            <div class="origin-text">
+                <div style="text-align: center;">
+                    <select class="custom-select" id="pots" oninput="changePot();">
+                    </select>
+                </div>
+            </div>
+
+            <div class="row origin-text" style="display:flex; flex-wrap: nowrap;">
+                <div class=" column" style="max-width: 33%;">
+                    <div class=" deepnwide">Diameter (cm)
+                        <input id="diameterInput" type="number" value="0" step=".5" style="text-align: center; font-size: 24pt;" onclick="this.select();" oninput="calculateBoth();">
+                    </div>
+                </div>
+
+
+                <div class="column">
+                    <div class="deepnwide">Depth (cm)
+                        <input id="depthInput" type="number" value="0" step=".5" style="text-align: center; font-size: 24pt" onclick="this.select();" oninput="calculateBoth();">
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="deepnwide">Volume
+                        <input id="theVolume" type="number" value="500" style="text-align: center; font-size: 24pt" onclick="this.select();" oninput="calculateBoth(1);">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row origin-text" style="display:flex; flex-wrap: nowrap;">
+
+                <!-- * This is the graph of the pot-->
+                <div class="column" id="container" style="display: flex; flex-direction: column; height:200px; max-width: 33%; background-color: black; margin: 0 auto; align-items: center;">
+
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 230 180"
+                        style="enable-background:new 0 0 225.87 174.13;" xml:space="preserve">
+                        <defs>
+                            <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="80%">
+                                <stop offset="0%" style="stop-color:rgb(86, 190, 255);;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:rgb(0, 244, 208); stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <style type="text/css">
+                            svg {
+                                width: 180px;
+                                height: auto;
+                            }
+
+                            .water {
+                                clip-path: url(#container);
+                                stroke: none;
+                            }
+
+                            .container,
+                            .boundary {
+                                fill: none;
+                                stroke-width: 3;
+                                stroke-miterlimit: 10;
+                                stroke: white;
+                            }
+                        </style>
+                        <g id="graph">
+                            <path class="water" id="theWater" d="M 110 30" fill="url(#grad1)" />
+                            <path class="container" id="theContainer" d="M 110 30" />
+                        </g>
+                    </svg>
+                    <div id="vol" style="text-align: center; font-size: 2rem; color: white;"></div>
+                </div>
+            </div>
+
+            <div class="origin-text" style="border-radius: 0px 0px 20px 20px; padding-bottom: 20px;">
+                <table width=90% id="ratios" style="margin: 0 auto;">
+                    <tr style="background-color: rgba(65, 65, 65, .6)">
+                        <th class="saltDigitsLbl pointLabel" style="text-align: center;" width="30%">Use</th>
+                        <th class="saltDigitsLbl pointLabel" width="15%">Amt</th>
+                        <th class="saltDigits pointLabel" width="15%" style="text-align: right;">Wt.</th>
+                        <th class="saltDigits pointLabel" width="10%" style="text-align: right;"></th>
+                        <th class="saltDigits pointLabel lastColumnLbl" width="30%" style="text-align: center;" id="torT">Meas.</th>
+                    </tr>
+                    <tr>
+                        <td class="saltDigitsLbl pointFour">Low Salt Level</td>
+                        <td class="saltDigitsLbl pointFour">.40%</td>
+                        <td class="saltDigits pointFour" id="pointfour"></td>
+                        <td class="saltDigits pointFour"></td>
+                        <td class="saltDigits pointFour thirdColumn" id="pointfourTsp"></td>
+                    </tr>
+                    <tr style="background-color: rgba(65, 65, 65, .4)">
+                        <td class="saltDigitsLbl pointFive">Avg, rec</td>
+                        <td class="saltDigitsLbl pointFive">.50%</td>
+                        <td class="saltDigits pointFive" id="pointfive"></td>
+                        <td class="saltDigits pointFive"></td>
+                        <td class="saltDigits pointFive thirdColumn" id="pointfiveTsp"></td>
+                    </tr>
+                    <tr>
+                        <td class="saltDigitsLbl pointSevenFive">High Side</td>
+                        <td class="saltDigitsLbl pointSevenFive">.75%</td>
+                        <td class="saltDigits pointSevenFive" id="pointsevenfive"></td>
+                        <td class="saltDigits pointSevenFive"></td>
+                        <td class="saltDigits pointSevenFive thirdColumn" id="pointsevenfiveTsp"></td>
+                    </tr>
+                    <tr style="background-color: rgba(65, 65, 65, .4)">
+                        <td class="saltDigitsLbl one">Pasta Water</td>
+                        <td class="saltDigitsLbl one">1.00%</td>
+                        <td class="saltDigits one" id="oneper"></td>
+                        <td class="saltDigits one"></td>
+                        <td class="saltDigits one thirdColumn" id="oneperTsp"></td>
+                    </tr>
+                    <tr>
+                        <td class="saltDigitsLbl oneFive">High Pasta</td>
+                        <td class="saltDigitsLbl oneFive">1.50%</td>
+                        <td class="saltDigits oneFive" id="onefiveper"></td>
+                        <td class="saltDigits oneFive"></td>
+                        <td class="saltDigits oneFive thirdColumn" id="onefiveperTsp"></td>
+                    </tr>
+                    <tr style="background-color: rgba(65, 65, 65, .4)">
+                        <td class="saltDigitsLbl two">Vegetables</td>
+                        <td class="saltDigitsLbl two">2.00%</td>
+                        <td class="saltDigits two" id="twoper"></td>
+                        <td class="saltDigits two"></td>
+                        <td class="saltDigits two thirdColumn" id="twoperTsp"></td>
+                    </tr>
+                    <tr>
+                        <td class="saltDigitsLbl twoFive">&nbsp;</td>
+                        <td class="saltDigitsLbl twoFive">2.50%</td>
+                        <td class="saltDigits twoFive" id="twofiveper"></td>
+                        <td class="saltDigits twoFive"></td>
+                        <td class="saltDigits twoFive thirdColumn" id="twofiveperTsp"></td>
+                    </tr>
+                    <tr style="background-color: rgba(65, 65, 65, .4)">
+
+                        <td class="saltDigitsLbl three">&nbsp;</td>
+                        <td class="saltDigitsLbl three">3.00%</td>
+                        <td class="saltDigits three" id="threeper"></td>
+                        <td class="saltDigits three"></td>
+                        <td class="saltDigits three thirdColumn" id="threeperTsp"></td>
+                    </tr>
+                    <tr>
+                        <td class="saltDigitsLbl threeFive">Seawater</td>
+                        <td class="saltDigitsLbl threeFive">3.50%</td>
+                        <td class="saltDigits threeFive" id="threefiveper"></td>
+                        <td class="saltDigits threeFive"></td>
+                        <td class="saltDigits threeFive thirdColumn" id="threefiveperTsp"></td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

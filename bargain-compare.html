@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bargain Compare</title>
+  <link rel="icon" href="/app_icons/best-price.svg" sizes="any" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/navigation.css"> <!-- TiniCalc-specific Navigation CSS (keep this) -->
+
+  <style>
+    :root {
+      --bg: #f5f0e8;
+      --surface: #ffffff;
+      --ink: #1a1410;
+      --ink-muted: #7a6f62;
+      --accent: #c8400a;
+      --accent-light: #fde8df;
+      --gold: #c9a227;
+      --gold-light: #fdf5dc;
+      --border: #d8d0c4;
+      --rank-2: #5c7a6b;
+      --rank-2-light: #e0ede8;
+      --rank-3: #6b7a9a;
+      --rank-3-light: #e5e8f0;
+      --rank-worst: #b0a898;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      padding: 0 0 80px;
+    }
+
+    header {
+      background: var(--ink);
+      color: var(--bg);
+      padding: 28px 40px 24px;
+      display: flex;
+      align-items: flex-end;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      letter-spacing: 0.03em;
+      line-height: 1;
+      color: var(--bg);
+    }
+
+    header h1 span {
+      color: var(--accent);
+    }
+
+    .tagline {
+      font-size: 1rem;
+      color: #d2cfc9;
+      letter-spacing: 0.06em;
+      /* text-transform: uppercase; */
+      padding-bottom: 6px;
+    }
+
+    .main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 40px 20px 0;
+    }
+
+    /* --- Category row --- */
+    .category-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .category-row label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+
+    .category-row input {
+      font-family: "Source Sans Pro", sans-serif;
+      font-size: 1rem;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 4px;
+      padding: 8px 14px;
+      color: var(--ink);
+      width: 240px;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    .category-row input:focus {
+      border-color: var(--accent);
+    }
+
+    /* --- Item cards --- */
+    #items-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .item-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 18px 16px;
+      position: relative;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      animation: slideIn 0.25s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .item-card:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-light);
+    }
+
+    /* Rank badge */
+    .rank-badge {
+      position: absolute;
+      top: -11px;
+      left: 16px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      padding: 2px 10px;
+      border-radius: 20px;
+      transition: background 0.3s, color 0.3s;
+      white-space: nowrap;
+    }
+
+    .rank-badge.rank-1 {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    .rank-badge.rank-2 {
+      background: var(--rank-2);
+      color: #fff;
+    }
+
+    .rank-badge.rank-3 {
+      background: var(--rank-3);
+      color: #fff;
+    }
+
+    .rank-badge.rank-other {
+      background: var(--border);
+      color: var(--ink-muted);
+    }
+
+    .rank-badge.rank-none {
+      background: var(--border);
+      color: var(--ink-muted);
+    }
+
+    .item-card.best {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px var(--gold-light);
+    }
+
+    .field-label {
+      font-size: 1rem;
+      /* text-transform: uppercase; */
+      letter-spacing: 0.1em;
+      color: var(--ink-muted);
+      font-weight: 500;
+      margin-bottom: 4px;
+      margin-top: 14px;
+    }
+
+    .field-label:first-of-type {
+      margin-top: 10px;
+    }
+
+    .item-card input {
+      font-family: 'DM Mono', monospace;
+      font-size: 1rem;
+      background: transparent;
+      border: none;
+      border-bottom: 1.5px solid var(--border);
+      border-radius: 0;
+      padding: 4px 0 5px;
+      color: var(--ink);
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .item-card input:focus {
+      border-bottom-color: var(--accent);
+    }
+
+    .item-card input::placeholder {
+      color: #c0b8ac;
+      /* font-style: italic; */
+    }
+
+    .input-group {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      border-bottom: 1.5px solid var(--border);
+      transition: border-color 0.2s;
+    }
+
+    .input-group:focus-within {
+      border-bottom-color: var(--accent);
+    }
+
+    .input-group .prefix {
+      font-family: 'DM Mono', monospace;
+      color: var(--ink-muted);
+      font-size: 0.9rem;
+      padding-bottom: 5px;
+    }
+
+    .input-group input {
+      border-bottom: none;
+      padding-left: 2px;
+    }
+
+    .unit-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+    }
+
+    .unit-row input {
+      flex: 1;
+    }
+
+    .unit-select {
+      font-family: 'Soure Sans Pro', sans-serif;
+      font-size: 0.85rem;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 4px;
+      padding: 3px 6px;
+      color: var(--ink);
+      cursor: pointer;
+      outline: none;
+      margin-bottom: 5px;
+      transition: border-color 0.2s;
+    }
+
+    .unit-select:focus {
+      border-color: var(--accent);
+    }
+
+    /* cost-per display */
+    .cost-per-display {
+      margin-top: 16px;
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: var(--bg);
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      min-height: 38px;
+      transition: background 0.3s;
+    }
+
+    .cost-per-display .value {
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--ink);
+      display: block;
+    }
+
+    .item-card.best .cost-per-display {
+      background: var(--gold-light);
+    }
+
+    /* Remove button */
+    .remove-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--border);
+      font-size: 1.1rem;
+      line-height: 1;
+      padding: 2px 4px;
+      border-radius: 3px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .remove-btn:hover {
+      color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    /* --- Action buttons --- */
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .btn {
+      font-family: 'Soure Sans Pro', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      border: 1.5px solid var(--ink);
+      background: transparent;
+      color: var(--ink);
+      padding: 9px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .btn:hover {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    .btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .btn:disabled:hover {
+      background: transparent;
+      color: var(--ink);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .btn-accent:hover {
+      background: #a33208;
+      border-color: #a33208;
+      color: #fff;
+    }
+
+    /* --- Results panel --- */
+    #results {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    #results.hidden {
+      display: none;
+    }
+
+    .results-header {
+      background: var(--ink);
+      color: var(--bg);
+      padding: 14px 24px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+    }
+
+    .result-row {
+      display: flex;
+      align-items: center;
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--border);
+      gap: 16px;
+      transition: background 0.2s;
+      animation: slideIn 0.2s ease;
+    }
+
+    .result-row:last-child {
+      border-bottom: none;
+    }
+
+    .result-row:hover {
+      background: var(--bg);
+    }
+
+    .result-rank-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      width: 32px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .result-row.r1 .result-rank-num {
+      color: var(--gold);
+    }
+
+    .result-row.r2 .result-rank-num {
+      color: var(--rank-2);
+    }
+
+    .result-row.r3 .result-rank-num {
+      color: var(--rank-3);
+    }
+
+    .result-row.r4 .result-rank-num,
+    .result-row.r5 .result-rank-num {
+      color: var(--rank-worst);
+    }
+
+    .result-name {
+      flex: 1;
+      font-weight: 500;
+    }
+
+    .result-detail {
+      font-family: 'Soure Sans Pro', sans-serif;
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+    }
+
+    .result-cpm {
+      font-family: 'Soure Sans Pro', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      text-align: right;
+      min-width: 110px;
+    }
+
+    .result-row.r1 .result-cpm {
+      color: var(--gold);
+    }
+
+    .best-badge {
+      background: var(--gold);
+      color: #fff;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+
+    .savings-note {
+      font-size: 0.75rem;
+      color: var(--rank-2);
+      font-family: 'Source Sans Pro', sans-serif;
+      text-align: right;
+      padding: 0 24px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    @media (max-width: 500px) {
+      header {
+        padding: 20px;
+      }
+
+      .main {
+        padding: 24px 16px 0;
+      }
+
+      .result-detail {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body
+  onload="versionIt('Scaler HTML', '07-01-26 - Some tweaks to obsolete HTML were fixed; not sure if they were necessary for the portionator updates.'); initializeIt('Best Price', './app_icons/best-price.svg'); initializeArray(0);"
+  style="background-color: rgba(26, 42, 73, 0.0); padding: 0;">
+
+  <!-- This is filler material to force an accurate rendering of the page before Javascript generates the real one -->
+  <div id="navHead">
+    <nav class="" style="padding:8px; height: 76px;">
+      <a class="navbar-brand" style="padding-left: 15px;" href="index.html">
+        <span id="pageTitle" class="pageTitle"></span>
+      </a>
+    </nav>
+  </div>
+
+  <header>
+    <div>
+      <h1>Bargain<span>.</span>Compare</h1>
+      <p class="tagline">Unit price calculator — find the real deal</p>
+    </div>
+  </header>
+
+  <div class="main">
+
+    <!-- <div class="category-row">
+    <label>Comparing</label>
+    <input type="text" id="category" placeholder="e.g. Soy Sauce, Olive Oil…" />
+  </div> -->
+
+    <div id="items-container"></div>
+
+    <div class="actions">
+      <button class="btn btn-accent" id="add-btn" onclick="addItem()">+ Add Item</button>
+      <button class="btn" onclick="resetAll()">Reset</button>
+    </div>
+
+    <div id="results" class="hidden">
+      <div class="results-header">RANKED BY BEST VALUE · PRICE PER UNIT</div>
+      <div id="results-body"></div>
+    </div>
+
+  </div>
+
+  <script>
+    let items = [];
+    let nextId = 1;
+    const MAX_ITEMS = 10;
+    const UNITS = ['ml', 'L', 'g', 'kg', 'oz', 'lb', 'fl oz', 'unit'];
+
+    function normalizeToBase(amount, unit) {
+      // Normalize everything to base unit for comparison
+      const factor = { 'L': 1000, 'kg': 1000, 'lb': 453.592, 'oz': 28.3495, 'fl oz': 29.5735 };
+      return amount * (factor[unit] || 1);
+    }
+
+    function unitLabel(unit) {
+      const base = { 'L': 'ml', 'kg': 'g', 'lb': 'g', 'oz': 'g', 'fl oz': 'ml' };
+      return base[unit] || unit;
+    }
+
+    function formatCPU(cpu, unit) {
+      const lbl = unitLabel(unit);
+      if (cpu === null || isNaN(cpu) || !isFinite(cpu)) return null;
+      return { value: cpu.toFixed(4), label: `per ${lbl}` };
+    }
+
+    function addItem(name = '', price = '', amount = '', unit = 'ml') {
+      if (items.length >= MAX_ITEMS) return;
+      const id = nextId++;
+      items.push({ id, name, price, amount, unit });
+      renderCards();
+      updateAddButton();
+      requestAnimationFrame(calculate);
+    }
+
+    function removeItem(id) {
+      if (items.length <= 2) return; // keep minimum 2
+      items = items.filter(i => i.id !== id);
+      renderCards();
+      updateAddButton();
+      calculate();
+    }
+
+    function updateAddButton() {
+      const btn = document.getElementById('add-btn');
+      btn.disabled = items.length >= MAX_ITEMS;
+      btn.textContent = items.length >= MAX_ITEMS ? `Max ${MAX_ITEMS} Items` : '+ Add Item';
+    }
+
+    function renderCards() {
+      const container = document.getElementById('items-container');
+      container.innerHTML = '';
+      items.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = 'item-card';
+        card.id = `card-${item.id}`;
+        card.innerHTML = `
+        <span class="rank-badge rank-none" id="badge-${item.id}">—</span>
+        ${items.length > 2 ? `<button class="remove-btn" onclick="removeItem(${item.id})" title="Remove">✕</button>` : ''}
+
+        <div class="cost-per-display" id="cpu-${item.id}">
+          <span style="color:var(--ink-muted);font-size:0.78rem">Enter price & amount</span>
+        </div>
+        <div class="field-label">Label</div>
+        <input type="text" placeholder="Item ${idx + 1}" value="${escHtml(item.name)}"
+               oninput="updateField(${item.id},'name',this.value)" />
+
+        <div class="field-label">Price</div>
+        <div class="input-group">
+          <span class="prefix">$</span>
+          <input type="number" min="0" step="0.01" placeholder="0.00" value="${item.price}"
+                 oninput="updateField(${item.id},'price',this.value)" />
+        </div>
+
+        <div class="field-label">Amount</div>
+        <div class="unit-row">
+          <input type="number" min="0" step="any" placeholder="0" value="${item.amount}"
+                 oninput="updateField(${item.id},'amount',this.value)" />
+          <select class="unit-select" onchange="updateField(${item.id},'unit',this.value)">
+            ${UNITS.map(u => `<option value="${u}" ${u === item.unit ? 'selected' : ''}>${u}</option>`).join('')}
+          </select>
+        </div>
+
+      `;
+        container.appendChild(card);
+      });
+    }
+
+    function escHtml(s) {
+      return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function updateField(id, field, value) {
+      const item = items.find(i => i.id === id);
+      if (item) { item[field] = value; calculate(); }
+    }
+
+    function calculate() {
+      const computed = items.map(item => {
+        const price = parseFloat(item.price);
+        const amount = parseFloat(item.amount);
+        if (!price || !amount || price <= 0 || amount <= 0) return { ...item, cpu: null, baseAmount: null };
+        const baseAmount = normalizeToBase(amount, item.unit);
+        const cpu = price / baseAmount;
+        return { ...item, cpu, baseAmount };
+      });
+
+      const valid = computed.filter(i => i.cpu !== null).sort((a, b) => a.cpu - b.cpu);
+      const bestCpu = valid.length > 0 ? valid[0].cpu : null;
+
+      // Update each card's cost-per-unit display and badge
+      computed.forEach(item => {
+        const cpuEl = document.getElementById(`cpu-${item.id}`);
+        const badgeEl = document.getElementById(`badge-${item.id}`);
+        const card = document.getElementById(`card-${item.id}`);
+
+        // cpu display
+        if (item.cpu !== null) {
+          const formatted = formatCPU(item.cpu, item.unit);
+          cpuEl.innerHTML = `<span class="value">€${formatted.value}</span>${formatted.label}`;
+        } else {
+          cpuEl.innerHTML = `<span style="color:var(--ink-muted);font-size:0.78rem">Enter price &amp; amount</span>`;
+        }
+
+        // rank
+        const rank = item.cpu !== null ? valid.findIndex(v => v.id === item.id) + 1 : 0;
+        card.classList.remove('best');
+        badgeEl.className = 'rank-badge';
+
+        if (rank === 0) {
+          badgeEl.classList.add('rank-none');
+          badgeEl.textContent = '—';
+        } else if (rank === 1) {
+          badgeEl.classList.add('rank-1');
+          badgeEl.textContent = '★ BEST VALUE';
+          card.classList.add('best');
+        } else if (rank === 2) {
+          badgeEl.classList.add('rank-2');
+          badgeEl.textContent = `#${rank}`;
+        } else if (rank === 3) {
+          badgeEl.classList.add('rank-3');
+          badgeEl.textContent = `#${rank}`;
+        } else {
+          badgeEl.classList.add('rank-other');
+          badgeEl.textContent = `#${rank}`;
+        }
+      });
+
+      // Results panel
+      const resultsEl = document.getElementById('results');
+      const bodyEl = document.getElementById('results-body');
+
+      if (valid.length < 2) {
+        resultsEl.classList.add('hidden');
+        return;
+      }
+
+      resultsEl.classList.remove('hidden');
+      bodyEl.innerHTML = '';
+
+      valid.forEach((item, idx) => {
+        const rank = idx + 1;
+        const row = document.createElement('div');
+        row.className = `result-row r${rank}`;
+
+        const label = item.name || `Item ${items.findIndex(i => i.id === item.id) + 1}`;
+        const cpuStr = `€${formatCPU(item.cpu, item.unit).value} / ${unitLabel(item.unit)}`;
+        const detail = `€${parseFloat(item.price).toFixed(2)} for ${item.amount}${item.unit}`;
+
+        row.innerHTML = `
+        <span class="result-rank-num">${rank}</span>
+        <div>
+          <div class="result-name">${escHtml(label)}</div>
+          <div class="result-detail">${escHtml(detail)}</div>
+        </div>
+        ${rank === 1 ? '<span class="best-badge">Best Value</span>' : ''}
+        <div class="result-cpm">${cpuStr}</div>
+      `;
+        bodyEl.appendChild(row);
+      });
+
+      // Savings note vs worst
+      if (valid.length >= 2) {
+        const worst = valid[valid.length - 1];
+        const pctSavings = ((worst.cpu - bestCpu) / worst.cpu * 100).toFixed(1);
+        const note = document.createElement('div');
+        note.className = 'savings-note';
+        const bestLabel = valid[0].name || `Item ${items.findIndex(i => i.id === valid[0].id) + 1}`;
+        const worstLabel = worst.name || `Item ${items.findIndex(i => i.id === worst.id) + 1}`;
+        note.textContent = `Best value (${bestLabel}) saves ${pctSavings}% vs worst (${worstLabel})`;
+        bodyEl.insertBefore(note, bodyEl.firstChild);
+      }
+    }
+
+    function resetAll() {
+      items = [];
+      nextId = 1;
+      document.getElementById('category').value = '';
+      addItem();
+      addItem();
+    }
+
+    // Init with 2 items
+    addItem('', '', '', 'ml');
+    addItem('', '', '', 'ml');
+  </script>
+  <script src="js/scripts.js"></script>
+
+</body>
+
+</html>

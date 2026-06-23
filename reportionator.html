@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portion Calculator</title>
+    <link rel="icon" href="/app_icons/reportionator.png" sizes="any" type="image/svg+xml">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Bebas+Neue&display=swap');
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --gold: #c8a84b;
+            --gold-dim: rgba(200, 168, 75, 0.25);
+            --bg: #161614;
+            --card: #1e1e1b;
+            --border: #3a3a34;
+            --text: #ede5d0;
+            --muted: #888880;
+            --input-bg: #272724;
+            --input-ro: #202020;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            background: var(--bg);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: sans-serif;
+            color: var(--text);
+            padding: 2rem;
+        }
+
+        /* Subtle grid texture */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(200, 168, 75, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(200, 168, 75, 0.03) 1px, transparent 1px);
+            background-size: 48px 48px;
+            pointer-events: none;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-top: 5px solid var(--gold);
+            padding: 4rem 3rem;
+            width: min(960px, 100%);
+            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(200, 168, 75, 0.05);
+            position: relative;
+        }
+
+        h1 {
+            font-family: sans-serif;
+            font-size: 3.5rem;
+            color: var(--gold);
+            margin-bottom: 0.25rem;
+        }
+
+        .subtitle {
+            font-size: 2rem;
+            letter-spacing: 0.2em;
+            /* text-transform: uppercase; */
+            color: var(--muted);
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Column header row */
+        .col-headers {
+            display: grid;
+            grid-template-columns: 280px 1fr 3rem 1fr;
+            gap: 1rem;
+            margin-bottom: 0.6rem;
+            padding-right: 0.5rem;
+        }
+
+        .col-h {
+            font-size: 1.5rem;
+            letter-spacing: 0.18em;
+            /* text-transform: uppercase; */
+            color: #cfcfc5;
+            text-align: right;
+            padding-right: 0.75rem;
+        }
+
+        /* Each data row */
+        .row {
+            display: grid;
+            grid-template-columns: 500px 1fr 3rem 1fr;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .row.single {
+            grid-template-columns: 500px 1fr;
+        }
+
+        .row-label {
+            font-size: 2rem;
+            letter-spacing: 0.14em;
+            /* text-transform: uppercase; */
+            color: var(--muted);
+            text-align: right;
+            padding-right: 1.5rem;
+            border-right: 2px solid var(--border);
+            line-height: 1.4;
+        }
+
+        .sep {
+            color: var(--gold);
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            line-height: 1;
+        }
+
+        input[type="number"] {
+            background: var(--input-bg);
+            border: 1px solid #3a3a34;
+            border-bottom: 3px solid #555548;
+            color: var(--text);
+            font-family: sans-serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            padding: 0.8rem 1.2rem;
+            width: 100%;
+            text-align: right;
+            outline: none;
+            transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+            /* -moz-appearance: textfield; */
+            border-radius: 2px;
+            letter-spacing: 0.05em;
+        }
+
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+
+        input[type="number"]:focus {
+            border-color: var(--gold);
+            border-bottom-color: var(--gold);
+            background: #2c2c28;
+            box-shadow: 0 0 0 3px var(--gold-dim);
+        }
+
+        input[type="number"][readonly] {
+            background: var(--input-ro);
+            border-color: #2e2e2a;
+            border-bottom-color: rgba(200, 168, 75, 0.3);
+            color: var(--gold);
+            cursor: default;
+            font-size: 2.0rem;
+        }
+
+        input[type="number"]::placeholder {
+            color: #444440;
+            font-weight: 400;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px dashed #2e2e2a;
+            margin: 1rem 0 1.5rem;
+        }
+
+        .divider.thick {
+            border-top: 1px solid var(--border);
+            margin: 2rem 0 2.5rem;
+        }
+    </style>
+    <link rel="stylesheet" href="css/navigation.css">
+</head>
+
+<body onload="versionIt('Scaler HTML', '07-05-26 - Much Stuff.'); initializeIt('Reportionator', './app_icons/portionator.svg'); initializeArray(0);" style="background-color: rgb(26, 42, 73);">
+    <!-- This is filler material to force an accurate rendering of the page before Javascript generates the real one -->
+    <div id="navHead">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding:8px; height: 76px;">
+            <a class="navbar-brand" style="padding-left: 15px;" href="index.html">
+                <span id="pageTitle" class="pageTitle"></span>
+            </a>
+        </nav>
+    </div>
+    <br>
+    <div class="card">
+        <h1>Portion Re-Calculator</h1>
+        <p class="subtitle">Scale recipes with precision</p>
+
+        <!-- Column headers (for 4-col rows) -->
+        <div class="col-headers">
+            <span></span>
+            <span></span>
+            <span class="col-h">Amount</span>
+            <span class="col-h">Portions</span>
+        </div>
+
+        <!-- Row 1: Amount / Portions -->
+        <div class="row">
+            <span class="row-label"></span>
+            <input type="number" id="amount" min="0" step="any" placeholder="0">
+            <span class="sep">/</span>
+            <input type="number" id="portions" min="1" step="any" placeholder="1">
+        </div>
+
+        <hr class="divider thick">
+
+        <!-- Row 2: Servings (single field) -->
+        <div class="row single">
+            <span class="row-label">Servings</span>
+            <input type="number" id="servings" readonly placeholder="—">
+        </div>
+
+        <hr class="divider">
+
+        <!-- Row 3: Rounding Down -->
+        <div class="row">
+            <span class="row-label">Rounding Down</span>
+            <input type="number" id="roundDown" readonly placeholder="—">
+            <span class="sep">@</span>
+            <input type="number" id="amtPerRoundDown" readonly placeholder="—">
+        </div>
+
+        <!-- Row 4: Rounding Up -->
+        <div class="row">
+            <span class="row-label">Rounding Up</span>
+            <input type="number" id="roundUp" readonly placeholder="—">
+            <span class="sep">@</span>
+            <input type="number" id="amtPerRoundUp" readonly placeholder="—">
+        </div>
+    </div>
+
+    <script>
+        const amountEl = document.getElementById('amount');
+        const portionsEl = document.getElementById('portions');
+        const servingsEl = document.getElementById('servings');
+        const roundDownEl = document.getElementById('roundDown');
+        const amtPerDownEl = document.getElementById('amtPerRoundDown');
+        const roundUpEl = document.getElementById('roundUp');
+        const amtPerUpEl = document.getElementById('amtPerRoundUp');
+
+        function fmt(val) {
+            if (!isFinite(val) || isNaN(val)) return '';
+            return parseFloat(val.toFixed(2));
+        }
+
+        function calculate() {
+            const amount = parseFloat(amountEl.value);
+            const portions = parseFloat(portionsEl.value);
+
+            if (isNaN(amount) || isNaN(portions) || portions === 0) {
+                [servingsEl, roundDownEl, amtPerDownEl, roundUpEl, amtPerUpEl]
+                    .forEach(el => el.value = '');
+                return;
+            }
+
+            const servings = amount / portions;
+            const floorSrv = Math.floor(servings);
+            const ceilSrv = Math.ceil(servings);
+
+            servingsEl.value = fmt(servings);
+            roundDownEl.value = floorSrv;
+            amtPerDownEl.value = floorSrv > 0 ? fmt(amount / floorSrv) : '';
+            roundUpEl.value = ceilSrv;
+            amtPerUpEl.value = ceilSrv > 0 ? fmt(amount / ceilSrv) : '';
+        }
+
+        amountEl.addEventListener('input', calculate);
+        portionsEl.addEventListener('input', calculate);
+    </script>
+    <script src="js/scripts.js"></script>
+</body>
+
+</html>

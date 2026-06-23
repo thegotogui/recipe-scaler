@@ -1,0 +1,141 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 Times-Roman;\f1\fmodern\fcharset0 Courier;\f2\froman\fcharset0 Times-Bold;
+\f3\froman\fcharset0 TimesNewRomanPSMT;\f4\froman\fcharset0 Times-Italic;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
+\margl1440\margr1440\vieww30580\viewh17620\viewkind1
+\deftab720
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f0\fs24 \cf0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 The file is 3542+ lines \'97 let me get the truncated middle section.Now I have a thorough picture of the whole file. Let me also check for the 
+\f1\fs26 clog
+\f0\fs24  function quickly.Now I have everything I need. Let me compile a clear, accurate summary.Here's the breakdown.\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b \cf0 Overall structure
+\f0\b0 \
+The file has three main entry points that drive everything: 
+\f1\fs26 initializeArray
+\f0\fs24  (page startup), 
+\f1\fs26 resetAll
+\f0\fs24  (reset button), and 
+\f1\fs26 makeRecCards
+\f0\fs24 /
+\f1\fs26 makeJson
+\f0\fs24  (bulk export). All three funnel into 
+\f1\fs26 changeRecipe
+\f0\fs24 , which is the true central hub \'97 it loads a recipe and then calls about eleven other functions to populate the UI.\
+
+\f2\b The call chain for a recipe load
+\f0\b0 \
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\fs26 \cf0 changeRecipe
+\f0\fs24  
+\f3 \uc0\u8594 
+\f0  
+\f1\fs26 makeTable
+\f0\fs24  
+\f3 \uc0\u8594 
+\f0  
+\f1\fs26 shScaling
+\f0\fs24 \uc0\u8232 
+\f1\fs26 changeRecipe
+\f0\fs24  
+\f3 \uc0\u8594 
+\f0  
+\f1\fs26 colorIngs
+\f0\fs24 , 
+\f1\fs26 colorizeIngredients
+\f0\fs24 , 
+\f1\fs26 tallyIt
+\f0\fs24 , 
+\f1\fs26 colorSyncedFields
+\f0\fs24 , 
+\f1\fs26 portionIt
+\f0\fs24 , 
+\f1\fs26 butterAndSalt
+\f0\fs24 , 
+\f1\fs26 showRecipe
+\f0\fs24 , 
+\f1\fs26 clearSumChecks
+\f0\fs24 , 
+\f1\fs26 updateTotals
+\f0\fs24 , 
+\f1\fs26 updateMultiplier
+\f0\fs24 \
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b \cf0 Your redundancy suspicion is correct \'97 here are the main offenders:
+\f0\b0 \
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\fs26 \cf0 tallyIt
+\f0\fs24  is the biggest one. It's called directly from 
+\f1\fs26 changeRecipe
+\f0\fs24 , but also from 
+\f1\fs26 updateTotals
+\f0\fs24  (which 
+\f1\fs26 changeRecipe
+\f0\fs24  also calls), plus from 
+\f1\fs26 syncTheVals
+\f0\fs24 , 
+\f1\fs26 updateIngredient
+\f0\fs24 , 
+\f1\fs26 toggleFives
+\f0\fs24 , 
+\f1\fs26 copyScaled
+\f0\fs24 , and 
+\f1\fs26 captureValues
+\f0\fs24 . Every recipe load runs it at least twice.\
+
+\f1\fs26 portionIt
+\f0\fs24  is called by 
+\f1\fs26 changeRecipe
+\f0\fs24  directly 
+\f4\i and
+\f0\i0  again via 
+\f1\fs26 updateTotals
+\f0\fs24  (which 
+\f1\fs26 changeRecipe
+\f0\fs24  also calls) \'97 so it runs twice on every recipe load.\
+
+\f1\fs26 butterAndSalt
+\f0\fs24  runs on every field edit because 
+\f1\fs26 updateRS
+\f0\fs24  (the 
+\f1\fs26 oninput
+\f0\fs24  handler for every metric field) calls it, in addition to 
+\f1\fs26 changeRecipe
+\f0\fs24  and 
+\f1\fs26 backFromtTotal
+\f0\fs24 .\
+
+\f1\fs26 colorSyncedFields
+\f0\fs24  is called from five different places including inside 
+\f1\fs26 countChex
+\f0\fs24 , which iterates over all rows \'97 meaning it could fire several times in rapid succession on a single checkbox interaction.\
+
+\f1\fs26 updateMultiplier
+\f0\fs24  overlaps with 
+\f1\fs26 updateTotals
+\f0\fs24  \'97 both get called from 
+\f1\fs26 updateRS
+\f0\fs24 , and both do localStorage writes that cover similar keys.\
+
+\f1\fs26 makeThePie
+\f0\fs24  (pie chart re-render) is called from inside 
+\f1\fs26 tallyIt
+\f0\fs24 , which itself runs constantly. This means an SVG is being regenerated on every single field change.\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f2\b \cf0 One piece of dead code:
+\f0\b0  
+\f1\fs26 generatePieChartOld
+\f0\fs24  is defined but never called anywhere. It's been superseded by 
+\f1\fs26 generatePieChart
+\f0\fs24 , which 
+\f1\fs26 makeThePie
+\f0\fs24  uses. Safe to delete.\
+}

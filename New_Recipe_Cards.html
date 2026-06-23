@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Collection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #faf8f4;
+      --surface:   #ffffff;
+      --border:    #e8e2d9;
+      --accent:    #b85c38;
+      --accent-lt: #f5ede8;
+      --text:      #2c2520;
+      --muted:     #8a7f78;
+      --radius:    12px;
+      --gap:       1.5rem;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 2rem 1.25rem 5rem;
+    }
+
+    /* ── Page header ─────────────────────────────────────────── */
+    header {
+      max-width: 900px;
+      margin: 0 auto 2.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+    }
+
+    header h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    header p {
+      margin-top: 0.4rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    /* ── Table of Contents ───────────────────────────────────── */
+    .toc {
+      max-width: 900px;
+      margin: 0 auto 3rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem 2rem;
+    }
+
+    .toc__title {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .toc__category {
+      margin-bottom: 1.1rem;
+    }
+
+    .toc__category:last-child { margin-bottom: 0; }
+
+    .toc__category-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .toc__list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem 1.5rem;
+    }
+
+    .toc__list a {
+      font-size: 0.9rem;
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .toc__list a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* ── Responsive grid ─────────────────────────────────────── */
+    .recipe-grid {
+      display: grid;
+      gap: var(--gap);
+      max-width: 900px;
+      margin: 0 auto;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+    }
+
+    /* ── Recipe card ─────────────────────────────────────────── */
+    .recipe-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.5rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      scroll-margin-top: 1.5rem;
+    }
+
+    .recipe-card__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .recipe-card__title {
+      font-family: 'Lora', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .recipe-card__tag {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: var(--accent-lt);
+      color: var(--accent);
+      border-radius: 100px;
+      padding: 0.25em 0.7em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .recipe-card__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .recipe-card__desc {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--muted);
+      font-weight: 300;
+      font-style: italic;
+      padding-bottom: 0.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .recipe-section-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .ingredients-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .ingredients-list li {
+      font-size: 0.85rem;
+      line-height: 1.45;
+      color: var(--text);
+      padding-left: 1em;
+      position: relative;
+    }
+
+    .ingredients-list li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--muted);
+    }
+
+    .method-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      counter-reset: step;
+    }
+
+    .method-list li {
+      font-size: 0.85rem;
+      line-height: 1.55;
+      color: var(--text);
+      padding-left: 1.9em;
+      position: relative;
+      counter-increment: step;
+    }
+
+    .method-list li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0.05em;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-lt);
+      border-radius: 100px;
+      width: 1.35em;
+      height: 1.35em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .back-link {
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35em;
+      transition: color 0.15s;
+    }
+
+    .back-link:hover { color: var(--accent); }
+    .back-link::before { content: '↑'; }
+  </style>
+</head>
+<body>
+
+  <header id="top">
+    <h1>Recipe Collection</h1>
+    <p>A curated set of dishes for every occasion</p>
+  </header>
+
+  <!-- TABLE OF CONTENTS -->
+  <nav class="toc" aria-label="Table of contents">
+    <p class="toc__title">Contents</p>
+
+    <div class="toc__category">
+      <p class="toc__category-label">Starters</p>
+      <ul class="toc__list">
+        <li><a href="#roasted-tomato-soup">Roasted Tomato Soup</a></li>
+      </ul>
+    </div>
+
+    <div class="toc__category">
+      <p class="toc__category-label">Mains</p>
+      <ul class="toc__list">
+        <li><a href="#braised-short-ribs">Braised Short Ribs</a></li>
+        <li><a href="#lemon-ricotta-pasta">Lemon Ricotta Pasta</a></li>
+      </ul>
+    </div>
+
+    <div class="toc__category">
+      <p class="toc__category-label">Sides &amp; Sauces</p>
+      <ul class="toc__list">
+        <li><a href="#miso-glazed-aubergine">Miso Glazed Aubergine</a></li>
+        <li><a href="#classic-vinaigrette">Classic Vinaigrette</a></li>
+      </ul>
+    </div>
+
+    <div class="toc__category">
+      <p class="toc__category-label">Desserts</p>
+      <ul class="toc__list">
+        <li><a href="#flourless-chocolate-torte">Flourless Chocolate Torte</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- RECIPE GRID -->
+  <main class="recipe-grid">
+
+    <!-- 1. Roasted Tomato Soup -->
+    <article class="recipe-card" id="roasted-tomato-soup">
+      <div class="recipe-card__header">
+        <h2 class="recipe-card__title">Roasted Tomato Soup</h2>
+        <span class="recipe-card__tag">Starter</span>
+      </div>
+      <div class="recipe-card__meta">
+        <span>⏱ 50 min</span>
+        <span>👤 4 servings</span>
+      </div>
+      <p class="recipe-card__desc">
+        Slow-roasted plum tomatoes blended with garlic confit and a swirl of cream.
+        Deep, sweet, and effortlessly comforting.
+      </p>
+      <div>
+        <p class="recipe-section-label">Ingredients</p>
+        <ul class="ingredients-list">
+          <li>1 kg plum tomatoes, halved</li>
+          <li>1 whole head of garlic</li>
+          <li>1 medium onion, roughly chopped</li>
+          <li>30 ml olive oil</li>
+          <li>600 ml vegetable stock</li>
+          <li>60 ml double cream</li>
+          <li>5 g fresh thyme leaves</li>
+          <li>Salt and black pepper to taste</li>
+        </ul>
+      </div>
+      <div>
+        <p class="recipe-section-label">Method</p>
+        <ol class="method-list">
+          <li>Preheat the oven to 200 °C. Arrange the tomatoes cut-side up on a baking tray. Slice the top off the garlic head to expose the cloves. Drizzle everything with olive oil and season generously. Roast for 35 minutes until caramelised.</li>
+          <li>Squeeze the roasted garlic cloves out of their skins into a large saucepan. Add the onion and sauté over medium heat for 5 minutes until soft.</li>
+          <li>Add the roasted tomatoes and all their juices to the pan along with the stock. Simmer for 10 minutes.</li>
+          <li>Blend until smooth using a stick blender. Pass through a sieve for an extra-smooth finish if desired.</li>
+          <li>Stir in the cream, adjust seasoning, and serve with a drizzle of oil and fresh thyme.</li>
+        </ol>
+      </div>
+      <a href="#top" class="back-link">Back to top</a>
+    </article>
+
+    <!-- 2. Braised Short Ribs -->
+    <article class="recipe-card" id="braised-short-ribs">
+      <div class="recipe-card__header">
+        <h2 class="recipe-card__title">Braised Short Ribs</h2>
+        <span class="recipe-card__tag">Main</span>
+      </div>
+      <div class="recipe-card__meta">
+        <span>⏱ 3 hr 30 min</span>
+        <span>👤 4 servings</span>
+      </div>
+      <p class="recipe-card__desc">
+        Fall-off-the-bone beef short ribs braised low and slow in red wine and stock
+        with aromatic vegetables and fresh thyme.
+      </p>
+      <div>
+        <p class="recipe-section-label">Ingredients</p>
+        <ul class="ingredients-list">
+          <li>1.5 kg bone-in beef short ribs</li>
+          <li>30 ml vegetable oil</li>
+          <li>2 carrots, diced</li>
+          <li>2 celery stalks, diced</li>
+          <li>1 onion, diced</li>
+          <li>4 garlic cloves, crushed</li>
+          <li>30 g tomato paste</li>
+          <li>375 ml dry red wine</li>
+          <li>500 ml beef stock</li>
+          <li>5 g fresh thyme sprigs</li>
+          <li>2 bay leaves</li>
+          <li>Salt and black pepper</li>
+        </ul>
+      </div>
+      <div>
+        <p class="recipe-section-label">Method</p>
+        <ol class="method-list">
+          <li>Season the ribs generously on all sides. Heat the oil in a large Dutch oven over high heat and sear the ribs in batches until well-browned, about 3–4 minutes per side. Set aside.</li>
+          <li>Reduce heat to medium. Add the onion, carrots, and celery and cook for 5 minutes until softened. Add the garlic and tomato paste and stir for 1 minute.</li>
+          <li>Pour in the red wine and scrape up any browned bits from the base. Simmer for 5 minutes, then add the stock, thyme, and bay leaves.</li>
+          <li>Return the ribs to the pot, meat-side down. Bring to a simmer, cover, and transfer to a 150 °C oven for 3 hours.</li>
+          <li>Remove the ribs carefully. Strain and reduce the braising liquid on the hob until slightly syrupy. Spoon over the ribs to serve.</li>
+        </ol>
+      </div>
+      <a href="#top" class="back-link">Back to top</a>
+    </article>
+
+    <!-- 3. Lemon Ricotta Pasta -->
+    <article class="recipe-card" id="lemon-ricotta-pasta">
+      <div class="recipe-card__header">
+        <h2 class="recipe-card__title">Lemon Ricotta Pasta</h2>
+        <span class="recipe-card__tag">Main</span>
+      </div>
+      <div class="recipe-card__meta">
+        <span>⏱ 20 min</span>
+        <span>👤 2 servings</span>
+      </div>
+      <p class="recipe-card__desc">
+        A quick weeknight dish of pasta tossed with whipped ricotta, bright lemon zest,
+        black pepper, and a handful of fresh basil.
+      </p>
+      <div>
+        <p class="recipe-section-label">Ingredients</p>
+        <ul class="ingredients-list">
+          <li>200 g dried spaghetti or linguine</li>
+          <li>200 g full-fat ricotta</li>
+          <li>1 lemon, zested and juiced</li>
+          <li>40 g Parmesan, finely grated, plus extra to serve</li>
+          <li>30 ml extra virgin olive oil</li>
+          <li>1 garlic clove, finely grated</li>
+          <li>10 g fresh basil leaves</li>
+          <li>Salt and plenty of black pepper</li>
+        </ul>
+      </div>
+      <div>
+        <p class="recipe-section-label">Method</p>
+        <ol class="method-list">
+          <li>Cook the pasta in generously salted boiling water according to pack instructions. Reserve 120 ml of pasta water before draining.</li>
+          <li>While the pasta cooks, whisk together the ricotta, lemon zest, lemon juice, grated garlic, and olive oil until smooth. Season well.</li>
+          <li>Stir in the Parmesan.</li>
+          <li>Drain the pasta and immediately toss with the ricotta sauce, adding pasta water a splash at a time until you have a loose, silky coating.</li>
+          <li>Serve at once topped with torn basil, extra Parmesan, and a crack of black pepper.</li>
+        </ol>
+      </div>
+      <a href="#top" class="back-link">Back to top</a>
+    </article>
+
+    <!-- 4. Flourless Chocolate Torte -->
+    <article class="recipe-card" id="flourless-chocolate-torte">
+      <div class="recipe-card__header">
+        <h2 class="recipe-card__title">Flourless Chocolate Torte</h2>
+        <span class="recipe-card__tag">Dessert</span>
+      </div>
+      <div class="recipe-card__meta">
+        <span>⏱ 1 hr</span>
+        <span>👤 8 servings</span>
+      </div>
+      <p class="recipe-card__desc">
+        An intensely rich, fudgy torte made with dark chocolate and eggs —
+        naturally gluten-free, best served with crème fraîche.
+      </p>
+      <div>
+        <p class="recipe-section-label">Ingredients</p>
+        <ul class="ingredients-list">
+          <li>200 g dark chocolate (70%), chopped</li>
+          <li>150 g unsalted butter, cubed</li>
+          <li>180 g caster sugar</li>
+          <li>4 large eggs</li>
+          <li>30 g unsweetened cocoa powder</li>
+          <li>2 g fine salt</li>
+          <li>5 ml vanilla extract</li>
+          <li>Crème fraîche, to serve</li>
+        </ul>
+      </div>
+      <div>
+        <p class="recipe-section-label">Method</p>
+        <ol class="method-list">
+          <li>Preheat the oven to 175 °C. Grease a 22 cm springform tin and line the base with baking paper.</li>
+          <li>Melt the chocolate and butter together in a heatproof bowl over barely simmering water, stirring until smooth. Cool for 5 minutes.</li>
+          <li>Whisk the sugar into the chocolate mixture, then beat in the eggs one at a time until fully incorporated.</li>
+          <li>Sift in the cocoa and salt, add the vanilla, and fold until just combined.</li>
+          <li>Pour into the prepared tin and bake for 22–25 minutes until the edges are set but the centre has a slight wobble. Cool completely before slicing.</li>
+        </ol>
+      </div>
+      <a href="#top" class="back-link">Back to top</a>
+    </article>
+
+    <!-- 5. Miso Glazed Aubergine -->
+    <article class="recipe-card" id="miso-glazed-aubergine">
+      <div class="recipe-card__header">
+        <h2 class="recipe-card__title">Miso Glazed Aubergine</h2>
+        <span class="recipe-card__tag">Side</span>
+      </div>
+      <div class="recipe-card__meta">
+        <span>⏱ 35 min</span>
+        <span>👤 4 servings</span>
+      </div>
+      <p class="recipe-card__desc">
+        Charred aubergine halves lacquered with white miso, mirin, and sesame —
+        a satisfying vegetarian centrepiece.
+      </p>
+      <div>
+        <p class="recipe-section-label">Ingredients</p>
+        <ul class="ingredients-list">
+          <li>2 medium aubergines, halved lengthways</li>
+          <li>45 g white (shiro) miso paste</li>
+          <li>30 ml mirin</li>
+          <li>15 ml sake or dry sherry</li>
+          <li>10 g caster sugar</li>
+          <li>15 ml sesame oil</li>
+          <li>10 g sesame seeds, toasted</li>
+          <li>3 spring onions, thinly sliced</li>
+        </ul>
+      </div>
+      <div>
+        <p class="recipe-section-label">Method</p>
+        <ol class="method-list">
+          <li>Score the cut surface of each aubergine half in a crosshatch pattern without piercing the skin. Brush with sesame oil and place cut-side down on a hot griddle for 5 minutes until charred.</li>
+          <li>Flip and cook skin-side down for a further 5 minutes. Transfer to a baking tray, cut-side up.</li>
+          <li>Whisk together the miso, mirin, sake, and sugar until smooth. Spoon generously over the cut surface of each half.</li>
+          <li>Place under a hot grill for 5–7 minutes until the glaze is bubbling and caramelised in spots.</li>
+          <li>Scatter with sesame seeds and spring onions. Serve immediately.</li>
+        </ol>
+      </div>
+      <a href="#top" class="back-link">Back to top</a>
+    </article>
+
+    <!-- 6. Classic Vinaigrette -->
+    <article class="recipe-card" id="classic-vinaigrette">
+      <div class="recipe-card__header">
+        <h2 class="recipe-card__title">Classic Vinaigrette</h2>
+        <span class="recipe-card__tag">Sauce</span>
+      </div>
+      <div class="recipe-card__meta">
+        <span>⏱ 5 min</span>
+        <span>👤 6 servings</span>
+      </div>
+      <p class="recipe-card__desc">
+        A properly emulsified Dijon vinaigrette — the one you'll make on autopilot
+        once you've done it three times.
+      </p>
+      <div>
+        <p class="recipe-section-label">Ingredients</p>
+        <ul class="ingredients-list">
+          <li>10 g Dijon mustard</li>
+          <li>30 ml red wine vinegar</li>
+          <li>90 ml extra virgin olive oil</li>
+          <li>3 g honey</li>
+          <li>1 small garlic clove, finely grated</li>
+          <li>2 g fine salt</li>
+          <li>1 g freshly ground black pepper</li>
+        </ul>
+      </div>
+      <div>
+        <p class="recipe-section-label">Method</p>
+        <ol class="method-list">
+          <li>Combine the mustard, vinegar, honey, garlic, salt, and pepper in a small bowl or jar and mix until combined.</li>
+          <li>While whisking constantly, drizzle in the olive oil in a slow, steady stream to form a smooth, emulsified dressing.</li>
+          <li>Taste and adjust — more vinegar for sharpness, a touch more honey for balance. Store in a sealed jar in the fridge for up to 1 week. Shake well before using.</li>
+        </ol>
+      </div>
+      <a href="#top" class="back-link">Back to top</a>
+    </article>
+
+  </main>
+
+</body>
+</html>

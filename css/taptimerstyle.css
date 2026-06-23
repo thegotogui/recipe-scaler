@@ -1,0 +1,450 @@
+* {
+	box-sizing: border-box;
+}
+
+/* .whitebg {
+	background-color: aliceblue;
+} */
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700");
+
+#show_timer {
+	font-size: 28px;
+}
+
+#hours,
+#min,
+#sec {
+	font-size: 28px;
+	width: 100%;
+	text-align: center;
+}
+
+.headling {
+	font-weight: bold;
+}
+
+.page_title {
+	font-weight: bold;
+	color: white;
+}
+
+td.timerHeaders,
+.timerDigits,
+.timerButtons,
+.timerControls,
+.currentTime {
+	background-color: #ddd;
+	padding: 12px;
+	/* text-align: center; */
+	width: 33%;
+}
+
+.currentTime {
+	background-color: #fff;
+}
+
+#timerTable,
+.timerDigits,
+#show_timer {
+	margin: 24px;
+}
+
+#startBtn,
+#pauseBtn,
+#resetBtn {
+	padding: 10px 10% 10px 10%;
+	margin: 0, 18px, 0, 18px;
+	font-weight: bold;
+}
+
+td.timerHeaders,
+.timerDigits {
+	font-size: 24px;
+}
+
+#show_timer {
+	font-size: 48px;
+}
+
+.head {
+	background-color: rgba(36, 57, 63, 0.7);
+	box-shadow: 0px 10px 10px grey;
+}
+
+.grid-container {
+	display: grid;
+	grid-template-columns: auto auto auto auto;
+	max-width: 960px;
+	justify-content: center;
+	margin: auto, 0;
+}
+
+.data-grid-container {
+	display: grid;
+	grid-template-columns:
+		minmax(0px, 1000px) minmax(100px, 400px) minmax(100px, 400px)
+		minmax(0px, 1000px);
+	grid-gap: 0px;
+}
+
+.grid-nav {
+	grid-column-start: 2;
+	grid-column-end: 5;
+	text-align: center;
+}
+
+.grid-item {
+	grid-column-start: 2;
+	grid-column-end: 4;
+}
+
+.grid-item-left,
+.grid-item-right,
+.grid-item {
+	font-size: 24px;
+	padding: 15px;
+	color: white;
+}
+
+.grid-item-left {
+	grid-column-start: 2;
+	grid-column-end: 3;
+	text-align: right;
+}
+
+.grid-item-right {
+	grid-column-start: 3;
+	grid-column-end: 4;
+}
+
+label {
+	color: white;
+}
+
+.centering {
+	box-shadow: 0px 5px 5px grey;
+}
+
+#vpercentageLabel #wpercentageLabel .percenters .tempPercenters .progress-bar {
+	color: black;
+}
+
+/*--------------------------------------------------------------
+Typography
+--------------------------------------------------------------*/
+
+.tempPercenters {
+	padding-left: 5px;
+}
+
+.left {
+	text-align: right;
+}
+
+.link {
+	color: #c4c49e;
+}
+
+.link:hover {
+	color: #e6e6cd;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+	font-family: "Source Sans Pro", "Helvetica", Arial, sans-serif;
+	font-size: 18px;
+	line-height: 1.5;
+}
+
+.form-control {
+	background-color: black;
+	color: white;
+}
+
+h1 {
+	font-size: 3.5rem;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+}
+
+h3 {
+	margin-bottom: 0px;
+}
+
+:root {
+	--bg-color-1: #22223b;
+	--bg-color-2: #4a4e69;
+	--bg-color-3: #9a8c98;
+	--bg-color-4: #c9ada7;
+	--bg-color-5: #f2e9e4;
+}
+
+.color1 {
+	background-color: var(--bg-color-1);
+}
+
+.color2 {
+	background-color: var(--bg-color-2);
+}
+
+.color3 {
+	background-color: var(--bg-color-3);
+}
+
+.color4 {
+	background-color: var(--bg-color-4);
+}
+
+.color5 {
+	background-color: var(--bg-color-5);
+}
+
+input {
+	background-color: var(--bg-color-);
+	color: white;
+	border: 0;
+	padding: 5px 10px 5px 10px;
+	box-sizing: border-box;
+	font-size: 24px;
+}
+
+.specificTimer {
+	background: url("../assets/img/timer.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.timeTape {
+	min-height: 90px;
+	color: white;
+	padding: 0px 20px 20px 20px;
+}
+
+.custom-select,
+.indicator {
+	background-color: rgba(37, 46, 59, 0.8);
+	color: white;
+	height: 37px;
+}
+
+select {
+	padding-right: 29px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	clear: both;
+}
+
+p {
+	margin-bottom: 1.5em;
+}
+
+b,
+strong {
+	font-weight: bold;
+}
+
+blockquote {
+	margin: 0 1.5em;
+}
+
+small {
+	font-size: 75%;
+}
+
+big {
+	font-size: 125%;
+}
+
+.labelSpacer {
+	padding-bottom: 0px;
+}
+
+.labeler {
+	height: 25px;
+	padding-left: 20px;
+	padding-top: 6px;
+	padding-bottom: 36px;
+	background-color: rgba(50, 50, 50, 0.7);
+	border-radius: 0;
+	color: #ffffff;
+}
+/*--------------------------------------------------------------
+Layout
+--------------------------------------------------------------*/
+
+body {
+	margin: 0;
+	padding: 0;
+	background-repeat: no-repeat;
+	background-color: rgba(13, 27, 46, 0.8);
+}
+
+.progress {
+	background-color: rgba(13, 27, 46, 0.8);
+}
+
+.masthead {
+	padding: 1em 1.5em;
+	background-color: rgba(13, 27, 46, 0.8);
+	color: white;
+}
+
+.intro {
+	padding: 5px 5px;
+	color: #ffffff;
+}
+
+.fieldDarker {
+	background-color: rgba(37, 46, 59, 1);
+}
+
+.intro p,
+.test-area {
+	margin: 0 auto;
+}
+
+.main {
+	background-color: rgba(13, 27, 46, 0.5);
+}
+
+.test-area {
+	margin-bottom: 4em;
+	padding: 0 2em;
+	max-width: 750px;
+}
+
+.test-wrapper {
+	border: 10px solid grey;
+	border-radius: 10px;
+}
+
+.origin-text {
+	margin: 0px 0px 10px 0px;
+	padding: 8px;
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+.origin-text p {
+	margin: 0;
+}
+
+.flex-item-weight {
+	background-color: rgba(37, 46, 59, 0.8);
+	margin: 20px;
+}
+
+.test-wrapper {
+	display: flex;
+}
+
+.test-wrapper textarea {
+	flex: 1;
+}
+
+.ratioText {
+	font-size: 1.5em;
+	font-weight: bold;
+	color: white;
+	margin-bottom: 25px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+#reset {
+	padding: 0.5em 1em;
+	font-size: 1.2em;
+	font-weight: bold;
+	color: #e95d0f;
+	background: white;
+	border: 10px solid #e95d0f;
+}
+
+.tainer2 {
+	box-shadow: 10px 10px 5px white;
+	flex-wrap: wrap;
+}
+
+.container {
+	max-width: 720px;
+	padding-left: 0px;
+	padding-right: 0px;
+	flex-wrap: wrap;
+	border-radius: 18px;
+}
+
+.theBigContainer {
+	padding: 5vh 0vh 5vh 0vh;
+}
+
+.deepnwide {
+	color: white;
+	font-size: 24pt;
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0.8);
+	margin-bottom: 30px;
+}
+
+.saltDigitsLbl {
+	text-align: right;
+}
+
+.saltDigits {
+	text-align: left;
+}
+
+.prefsWindow {
+	background-color: rgba(56, 62, 72, 0.7);
+	display: none;
+	margin: 10 auto;
+}
+
+.show-modal {
+	display: block;
+}
+
+.innerModal {
+	border-radius: 5px;
+	background-color: rgba(0, 0, 0, 0.9);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	position: relative;
+	top: 1rem;
+	margin: 10 auto;
+	overflow: hidden;
+	max-width: 525px;
+	animation-name: modalopen;
+	animation-duration: 0.5s;
+}
+
+@media (max-width: 750px) {
+	.innerModal {
+		background-color: rgba(0, 0, 0, 0.9);
+		width: 90%;
+	}
+}
+
+.hideMe {
+	display: none;
+}
+
+@keyframes modalopen {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+.icons {
+	padding: 0px 20px 0px 20px;
+}

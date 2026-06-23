@@ -1,0 +1,9 @@
+{
+	"editor.snippetSuggestions": "top",
+	"editor.quickSuggestions": {
+		"other": true,
+		"comments": false,
+		"strings": false
+	},
+	"editor.suggest.snippetsPreventQuickSuggestions": false
+}

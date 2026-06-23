@@ -1,0 +1,240 @@
+@import "https://unpkg.com/open-props" layer(design.system);
+@import "https://unpkg.com/open-props/normalize.min.css" layer(demo.support);
+@import "https://unpkg.com/open-props/buttons.min.css" layer(demo.support);
+
+:root {
+	--backdrop: #144e73;
+	--unithilight: #4a4e69;
+	--fieldcolor: #9a8c98;
+	--bg-color-4: #c9ada7;
+	--bg-color-5: #f2e9e4;
+}
+
+.thisUnit {
+	background-color: rgba(20, 78, 126, 0.7);
+}
+
+body {
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+}
+
+.sectionHeader {
+	padding-top: 10px;
+}
+.grid-container {
+	/* display: grid; */
+	grid-template-columns: auto auto auto auto;
+	background-color: rgba(20, 78, 126, 0.7);
+	color: white;
+	padding: 20px 80px 20px 80px;
+	max-width: 960px;
+	text-align: center;
+	backdrop-filter: blur(8px);
+}
+
+.containerSelect {
+	grid-column-start: 1;
+	grid-column-end: 5;
+}
+
+.multiplier {
+	display: none;
+	grid-column-start: 1;
+	grid-column-end: 5;
+	padding: 10px 5px;
+	margin: 0px 120px 0px 120px;
+}
+
+.cweightO,
+.cweightG {
+	margin-top: 20px;
+	border-radius: 10px 10px 0px 0px;
+}
+
+.cweightO,
+.cweightG,
+.sweightG,
+.sweightO,
+.diffG,
+.diffO {
+	padding: 10px;
+}
+
+.cweightG {
+	grid-column-start: 1;
+	grid-column-end: 3;
+}
+
+.cweightO {
+	grid-column-start: 3;
+	grid-column-end: 5;
+}
+
+.sweightG {
+	grid-column-start: 1;
+	grid-column-end: 3;
+}
+
+.sweightO {
+	grid-column-start: 3;
+	grid-column-end: 5;
+}
+
+.diffG {
+	grid-column-start: 1;
+	grid-column-end: 3;
+	border-radius: 0px 0px 10px 10px;
+}
+
+.diffO {
+	grid-column-start: 3;
+	grid-column-end: 5;
+	border-radius: 0px 0px 10px 10px;
+}
+
+.portions,
+.portionResult {
+	padding: 10px;
+	margin-bottom: 0px;
+}
+
+.portions {
+	border-radius: 0px 0px 0px 10px;
+}
+
+.portionResult {
+	border-radius: 0px 0px 10px 0px;
+}
+
+.portions,
+.portionResult {
+	padding-bottom: 25px;
+}
+
+.subSection-mid {
+	background-color: rgba(20, 78, 126, 0.7);
+	color: white;
+	/* border-radius: 0px 0px 15px 15px; */
+	backdrop-filter: blur(8px);
+}
+
+.subSection-bot {
+	color: white;
+	background-color: rgba(20, 78, 126, 0.7);
+	border-radius: 0px 0px 15px 15px;
+	backdrop-filter: blur(8px);
+}
+
+.portions,
+.fractions,
+.fracUp,
+.scale,
+.half,
+.third,
+.quarter,
+.fifth,
+.sixth,
+.eighth,
+.tenth,
+.twelfth,
+.sixteenth,
+.arbPortIn,
+.arbPortOut,
+.arbScaleIn,
+.arbScaleOut,
+.distributorThis {
+	padding: 10px;
+	background-color: rgba(155, 181, 191, 0.4);
+	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.5);
+	flex: 1 0 120px;
+	text-align: center;
+	color: white;
+	margin: 10px;
+	border-radius: 10px;
+}
+
+.distributorThis {
+	background-color: rgba(100, 184, 217, 0.4);
+}
+
+.arbScaleInDis,
+.arbScaleOutDis {
+	padding: 10px;
+	background-color: rgba(32, 71, 102, 0);
+	flex: 1 0 120px;
+	text-align: center;
+	color: white;
+	margin: 10px;
+	border-radius: 10px;
+}
+
+.flex-container {
+	display: flex;
+	flex-wrap: wrap;
+	max-width: 960px;
+	justify-content: center;
+	margin: auto, 0;
+}
+.reg-container {
+	/* display: flex; */
+	flex-wrap: wrap;
+	max-width: 960px;
+	justify-content: center;
+	margin: auto, 0;
+}
+
+.feelDarker {
+	text-align: center;
+	background-color: #12161c;
+	border-radius: 5px;
+}
+
+.distCell {
+	margin: 5px;
+	width: 94%;
+}
+
+.middleIt {
+	/* max-width: 720px; */
+	margin: 0 auto;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show > .btn-primary.dropdown-toggle {
+	color: #fff;
+	background-color: #42637c;
+	border-color: #42637c;
+}
+
+.btn-primary {
+	color: #fff;
+	background-color: #103153;
+	border-color: #103153;
+}
+
+.distTableL {
+	padding: 0px 5px 10px 10px;
+}
+
+.distTable {
+	padding: 0px 5px 10px 5px;
+}
+
+.distTableR {
+	padding: 0px 10px 10px 5px;
+}
+
+.inputRow {
+	background-color: #00314466;
+}
+
+.checkRow {
+	text-align: center;
+	padding: 10px 0px 0px 0px;
+}
+
+.outputRows {
+	background-color: #3f6e9d78;
+}

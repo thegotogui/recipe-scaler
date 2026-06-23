@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Weights</title>
+
+    <link rel="icon" type="image/svg+xml" href="./app_icons/scale.svg">
+
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+    </script>
+    <script src="https://kit.fontawesome.com/c90f708bd9.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/weight.css">
+    <link rel="stylesheet" href="css/navigation.css">
+
+</head>
+
+<body class="bodyWeight"
+    onload="versionIt('14-02-26 Portionator can now include the container weight to allow for zeroing and then portioning.'); initializeIt('Weight', './app_icons/scale.svg'); calculateAll();"
+    style="background-color: rgb(83,97,105); background-image: url('./app_backgrounds/weight_bg.jpg');">
+
+    <div id="navHead">
+    </div>
+
+    <div class="flex-container middleIt"
+        style="background-color: rgba(20, 78, 126, .7); backdrop-filter: blur(8px); width: 100%; padding: 15px; color:white; margin-top: 15px; border-radius: 15px 15px 15px 15px;">
+        <div class="btn-group" role="group">
+            <label class="btn btn-primary" id="option1">
+                <input type="radio" class="btn-check" autocomplete="off" onclick="scaleFlip(1);">Weight</label>
+            <label class="btn btn-primary" id="option2">
+                <input type="radio" class="btn-check" autocomplete="off" onclick="scaleFlip(2);">Scale</label>
+            <label class="btn btn-primary" id="option3">
+                <input type="radio" class="btn-check" autocomplete="off" onclick="scaleFlip(3);">Portionator™</label>
+            <label class="btn btn-primary" id="option4">
+                <input type="radio" class="btn-check" autocomplete="off" onclick="scaleFlip(4);">CakeULator™</label>
+            <label class="btn btn-primary" id="option5">
+                <input type="radio" class="btn-check" autocomplete="off" onclick="scaleFlip(5);">Distributor</label>
+            <label class="btn btn-primary" id="option6">
+                <input type="radio" class="btn-check" autocomplete="off" onclick="scaleFlip(6);">NewDist</label>
+        </div>
+
+        <div class="btn-group" role="group" style="margin-left: 2rem;">
+            <label class="btn btn-primary active" id="optionG">
+                <input type="radio" class="btn-check" autocomplete="off" onclick="scaleFlip(10);">Grams</label>
+            <label class="btn btn-primary" id="optionO">
+                <input type="radio" class="btn-check" autocomplete="off" onclick="scaleFlip(11);">Ounces</label>
+        </div>
+    </div>
+
+    <!-- * The Weight -->
+    <div class="grid-container middleIt" id="theWeight" style="margin-top: 20px; border-radius: 15px;">
+        <div class="containerSelect">
+            <select class="custom-select" id="weightSelect" oninput="updateWeight();" style="text-align: center; margin: 0px;">
+                <option value="0" selected>Container or ingredient weight</option>
+                <option value="0">Pyrex ---------------------</option>
+                <option value="29">&nbsp;&nbsp;&nbsp;&nbsp;50ml Beaker - 29g</option>
+                <option value="49">&nbsp;&nbsp;100ml Beaker - 49g</option>
+                <option value="104">&nbsp;&nbsp;250ml Beaker - 104g</option>
+                <option value="160">&nbsp;&nbsp;400ml Beaker - 160g</option>
+                <option value="211">&nbsp;&nbsp;600ml Beaker - 211g</option>
+                <option value="401">&nbsp;&nbsp;1l Beaker - 401g</option>
+                <option value="0">Weck ---------------------</option>
+                <option value="174">&nbsp;&nbsp;11 - 174g</option>
+                <!-- <option value="82">&nbsp;&nbsp;11 lid (80) - 82g</option> -->
+                <!-- <option value="255">&nbsp;&nbsp;11+lid (80) - 255g</option> -->
+                <option value="148">&nbsp;&nbsp;Chubby (80?) - 148g</option>
+                <option value="314">&nbsp;&nbsp;15 - 314g</option>
+                <!-- <option value="129">&nbsp;&nbsp;15 lid (100) - 129g</option> -->
+                <!-- <option value="442">&nbsp;&nbsp;15+Lid (100) - 442g</option> -->
+                <option value="132">&nbsp;&nbsp;18 - 132g</option>
+                <!-- <option value="82">&nbsp;&nbsp;18 lid (80) - 82g</option> -->
+                <!-- <option value="213">&nbsp;&nbsp;18+lid (80) - 213g</option> -->
+                <option value="404">&nbsp;&nbsp;08 (Liter?) - 404g</option>
+                <!-- <option value="129">&nbsp;&nbsp;08 Lid (100) - 129g</option> -->
+                <!-- <option value="532">&nbsp;&nbsp;08+Lid (100) - 532g</option> -->
+                <option value="79">&nbsp;&nbsp;Tiny - 79g</option>
+                <option value="110">&nbsp;&nbsp;Big plastic measuring - 110g</option>
+                <option value="0">-----Plastic Bowls ----------</option>
+                <option value="51">&nbsp;&nbsp;Plastic Semi-clear bowl 51g</option>
+                <option value="29">&nbsp;&nbsp;Orange NO Ridge 29g</option>
+                <option value="26">&nbsp;&nbsp;Orange Ridged 26g</option>
+                <option value="147">&nbsp;&nbsp;BIG plastic Semi-clear bowl 147g</option>
+                <option value="0">-----Stainless Bowls ----------</option>
+                <option value="84">&nbsp;&nbsp;Mini Rubber Bottoms - 84g</option>
+                <option value="250">&nbsp;&nbsp;Medium - 250g</option>
+                <option value="372">&nbsp;&nbsp;Big - 372g</option>
+                <option value="274">&nbsp;&nbsp;Shiny Stainless Steel Bowl(s) - 274g</option>
+                <option value="118">&nbsp;&nbsp;Gorilla Grip - 118g</option>
+                <option value="0">Frothing Pitchers ---------</option>
+                <option value="226">&nbsp;&nbsp;Small steaming pitcher (200ml) - 226g</option>
+                <option value="248">&nbsp;&nbsp;Small steaming pitcher w/thermometer - 248g</option>
+                <option value="294">&nbsp;&nbsp;Big steaming pitcher (500ml) - 294g</option>
+                <option value="203">&nbsp;&nbsp;New steaming pitcher (???ml) - 203g</option>
+
+                <option value="0">Storage ---------------------</option>
+                <option value="16">&nbsp;&nbsp;200ml Grey Top - 16g</option>
+                <option value="28">&nbsp;&nbsp;200ml Grey Top w/lid - 28g</option>
+                <option value="27">&nbsp;&nbsp;500ml Grey Top - 27g</option>
+                <option value="47">&nbsp;&nbsp;500ml Grey Top w/lid - 47g</option>
+                <option value="62">&nbsp;&nbsp;Corner Dip 750ml - 62g</option>
+                <option value="94">&nbsp;&nbsp;Corner Dip 750ml w/lid - 94g</option>
+                <option value="446">&nbsp;&nbsp;Glad Jar, Grey Top ???ml - 446g</option>
+                <option value="55">&nbsp;&nbsp;1.4l Grey Top (This might be high) - 55g</option>
+                <option value="86">&nbsp;&nbsp;1.4l Grey Top w/lid (This might be high) - 86g</option>
+
+                <option value="0">Beverages ---------------------</option>
+                <option value="606">&nbsp;&nbsp;Poncy cocktail glass - 606g</option>
+                <option value="258">&nbsp;&nbsp;BIG White Line shot glass - 258g</option>
+                <option value="133">&nbsp;&nbsp;LITTLE white line glass - 133g</option>
+                <option value="12">&nbsp;&nbsp;OXO jigger (Plastic) - 12g</option>
+                <option value="116">&nbsp;&nbsp;Rippled Squat Glass (175ml) - 116g</option>
+                <option value="103">&nbsp;&nbsp;Cocktail Kingdom Glass (123ml) - 103g</option>
+                <option value="81">&nbsp;&nbsp;Starburst Glass (81ml) - 81g</option>
+                <option value="104">&nbsp;&nbsp;"Dad's Glass" (??ml) - 104g</option>
+
+                <option value="0">Appliance Containers ---------------------</option>
+                <option value="159">&nbsp;&nbsp;Cuisnart Blender Carafe - 159g</option>
+                <option value="262">&nbsp;&nbsp;Ice Trays - 262g</option>
+                <option value="200">&nbsp;&nbsp;Ice Tray capacity - 200g</option>
+                <option value="200">&nbsp;&nbsp;Full Ice Trays - 200g</option>
+                <option value="691">&nbsp;&nbsp;Russell Howard Cooker Bowl - 691g</option>
+                <option value="1228">&nbsp;&nbsp;Russell Howard Cooker Bowl - 1228g</option>
+
+                <option value="0">Misc ---------------------</option>
+                <option value="16.8">&nbsp;&nbsp;Pepper(s) grinder tops - 16.8g</option>
+                <option value="400">&nbsp;&nbsp;Chrome Collander - 400g</option>
+                <option value="400">&nbsp;&nbsp;Chrome Collander - 400g</option>
+                <option value="214">&nbsp;&nbsp;Stanley Cup - 214g</option>
+                <option value="0">Ingredients ---------------------</option>
+                <option value="236.59">&nbsp;&nbsp;1 Cup Water - 236.59g</option>
+                <option value="210.1">&nbsp;&nbsp;1 Cup Rice - 210.1g</option>
+                <option value="120">&nbsp;&nbsp;1 Cup Flour - 120g</option>
+                <option value="220">&nbsp;&nbsp;1 Cup Lentils - 220g</option>
+                <option value="7.5">&nbsp;&nbsp;1 Tbsp Cumin/powder - 7.5g</option>
+                <option value="13">&nbsp;&nbsp;1 Tbsp Sugar - 13g</option>
+
+                <option value="0">Pots n Pans --------------</option>
+                <option value="987">&nbsp;&nbsp;All Clad 1998 Anniversary Pot - 987g</option>
+                <option value="306">&nbsp;&nbsp;Spouted Kuchenprofi pot (750ml) - 306g</option>
+            </select>
+        </div>
+
+        <div class="cweightG grammy" id="cweightG"><i id="lockToggle" class="bi bi-unlock-fill" onclick="toggleContainerLock();"></i>Container Weight (g):<button class="btn btn-sm btn-info"
+                style="margin-left: 15px;" onclick="copyValues();">Copy</button>
+            <input id="inGrams" class="fieldDarker" tabindex="1" onClick="this.select();" oninput="manualWeight('g'); difWeight('g', false);" type="number" value="0" style="text-align: center;" />
+        </div>
+
+        <div class="cweightO ouncy" id="cweightO">Container Weight (oz):<input id="inOunces" tabindex="4" class="fieldDarker" onClick="this.select();"
+                oninput="manualWeight('o'); difWeight('o', false);" type="number" value="0" style="text-align: center;" />
+        </div>
+
+        <div class="sweightG grammy" id="sweightG"><span id="ScaleReadLabelG">Scale Reading (g):</span><input id="scaleReadingG" tabindex="2" class="fieldDarker" type="number" value="0"
+                onClick="this.select();" oninput="calWeightG(0);" style="text-align: center;" />
+        </div>
+
+        <div class="sweightO ouncy" id="sweightO"><span id="ScaleReadLabelO">Scale Reading (oz):</span><input id="scaleReadingO" tabindex="5" class="fieldDarker" type="number" value="0"
+                onClick="this.select();" oninput="calWeightO(0);" style="text-align: center;" />
+        </div>
+
+        <div class="diffG grammy" id="diffG"><span id="contentsLabelG">Contents' Weight (g):</span>
+            <input id="differenceG" class="fieldDarker" type="number" value="0" tabindex="3" oninput="difWeight('g', true);" onClick="this.select();" style="text-align: center;" />
+        </div>
+
+        <div class="diffO ouncy" id="diffO"><span id="contentsLabelO">Contents' Weight (oz):</span>
+            <input id="differenceO" class="fieldDarker" type="number" value="0" tabindex="6" oninput="difWeight('o', true);" onClick="this.select();" />
+        </div>
+    </div>
+
+    <!-- * PORTIONS  -->
+    <div id="thePortions" style="display: none; margin-bottom: 30px;">
+        <div class="flex-container middleIt subSection-mid">
+            <h3 class="sectionHeader">Portions:</h3>
+        </div>
+        <div class="flex-container middleIt subSection-mid">
+            <div class="half" id="thirdC">
+                <h4>2:</h4>
+                <input id="ratio1" type="text" disabled value="" class="feelDarker" />
+            </div>
+            <div class="portions" id="thirdC">
+                <h4>3:</h4>
+                <input id="ratio2" type="text" disabled value="" class="feelDarker" />
+            </div>
+            <div class="portions" id="fourthC">
+                <h4>4:</h4>
+                <input id="ratio3" type="text" disabled value="" class="feelDarker" />
+            </div>
+            <div class="portions" id="sixthC">
+                <h4>6:</h4>
+                <input id="ratio4" type="text" disabled value="" class="feelDarker" />
+            </div>
+        </div>
+        <div class="flex-container middleIt subSection-bot">
+            <div class="portions" id="eighthC">
+                <h4>8:</h4>
+                <input id="ratio5" type="text" disabled value="" class="feelDarker" />
+            </div>
+            <div class="portions" id="tenthC">
+                <h4>10:</h4>
+                <input id="ratio6" type="text" disabled value="" class="feelDarker" />
+            </div>
+            <div class="portions" id="twelfthC">
+                <h4>12:</h4>
+                <input id="ratio7" type="text" disabled value="" class="feelDarker" />
+            </div>
+            <div class="portions" id="sixteenthC">
+                <h4>16:</h4>
+                <input id="ratio8" type="text" disabled value="" class="feelDarker" />
+            </div>
+        </div>
+    </div>
+
+
+    <!--* Scale -->
+    <div id="theScale" style="display: none; margin-bottom: 30px;">
+        <div class="flex-container middleIt subSection-mid">
+            <!-- Row 1-->
+            <div class="scale">
+                x2:
+                <input id="scalex1" type="text" disabled class="feelDarker" />
+            </div>
+            <div class="scale">
+                x3:
+                <input id="scalex2" type="text" disabled class="feelDarker" />
+            </div>
+            <div class="scale">
+                x4:
+                <input id="scalex3" type="text" disabled class="feelDarker" />
+            </div>
+            <div class="scale">
+                x5:
+                <input id="scalex4" type="text" disabled class="feelDarker" />
+            </div>
+        </div>
+
+        <div class="flex-container middleIt subSection-bot">
+            <div class="scale">
+                x6:
+                <input id="scalex5" type="text" disabled class="feelDarker" />
+            </div>
+            <div class="scale">
+                x7:
+                <input id="scalex6" type="text" disabled class="feelDarker" />
+            </div>
+            <div class="scale">
+                x8:
+                <input id="scalex7" type="text" disabled class="feelDarker" />
+            </div>
+            <div class="scale">
+                x9:
+                <input id="scalex8" type="text" disabled class="feelDarker" />
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!--* Distribute THIS  -->
+    <div id="dtit" style="margin-bottom: 30px; display: none;">
+        <div class="flex-container middleIt subSection-mid">
+            <h3 class="sectionHeader">Distributor:</h3>
+        </div>
+        <div class="flex-container middleIt subSection-mid">
+            <table>
+                <tr>
+                    <td width="20%" style="text-align: right; padding: 10px 22px 0px 0px;">Divide this</td>
+                    <td><input id="distThis" type="number" value="300" oninput="calculateAll();" onClick="this.select();" class="fieldDarker" /></br>
+                    </td>
+                    <td width="20%" style="text-align: center;">Equally</td>
+                    <td width="20%" style="text-align: center;">Proportionately</td>
+                    <td width="20%" style="text-align: center;">Max Value</td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; padding: 10px 22px 0px 0px;">Into These</td>
+                    <td><input id="distIntoST1" type="number" oninput="calculateAll();" value="30" class="fieldDarker"></td>
+                    <td><input id="distIntoEP1" type="number" disabled value="" class="fieldDarker"></td>
+                    <td><input id="distIntoPR1" type="number" disabled value="" class="fieldDarker"></td>
+                    <td><input id="distIntoMX1" type="number" disabled value="" class="fieldDarker"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;"></td>
+                    <td><input id="distIntoST2" type="number" oninput="calculateAll();" value="20" class="fieldDarker"></td>
+                    <td><input id="distIntoEP2" type="number" disabled value="" class="fieldDarker"></td>
+                    <td><input id="distIntoPR2" type="number" disabled value="" class="fieldDarker"></td>
+                    <td><input id="distIntoMX2" type="number" disabled value="" class="fieldDarker"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;"></td>
+                    <td><input id="distIntoST3" type="number" oninput="calculateAll();" value="60" class="fieldDarker"></td>
+                    <td><input id="distIntoEP3" type="number" disabled value="" class="fieldDarker"></td>
+                    <td><input id="distIntoPR3" type="number" disabled value="" class="fieldDarker"></td>
+                    <td><input id="distIntoMX3" type="number" disabled value="" class="fieldDarker"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;"></td>
+                    <td><input id="distIntoST4" type="number" oninput="calculateAll();" value="90" class="fieldDarker"></td>
+                    <td><input id="distIntoEP4" type="number" disabled value="" class="fieldDarker"></td>
+                    <td><input id="distIntoPR4" type="number" disabled value="" class="fieldDarker"></td>
+                    <td><input id="distIntoMX4" type="number" disabled value="" class="fieldDarker"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;"></td>
+                    <td><input id="distIntoST5" type="number" oninput="calculateAll();" value="2.5" class="fieldDarker"></td>
+                    <td><input id="distIntoEP5" type="number" disabled value="" class="fieldDarker"></td>
+                    <td><input id="distIntoPR5" type="number" disabled value="" class="fieldDarker"></td>
+                    <td><input id="distIntoMX5" type="number" disabled value="" class="fieldDarker"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;"></td>
+                    <td><input id="distIntoST6" type="number" oninput="calculateAll();" value="1.25" class="fieldDarker"></td>
+                    <td><input id="distIntoEP6" type="number" disabled value="" class="fieldDarker"></td>
+                    <td><input id="distIntoPR6" type="number" disabled value="" class="fieldDarker"></td>
+                    <td><input id="distIntoMX6" type="number" disabled value="" class="fieldDarker"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;"></td>
+                    <td><input id="distIntoST7" type="number" oninput="calculateAll();" value="" class="fieldDarker"></td>
+                    <td><input id="distIntoEP7" type="number" disabled value="" class="fieldDarker"></td>
+                    <td><input id="distIntoPR7" type="number" disabled value="" class="fieldDarker"></td>
+                    <td><input id="distIntoMX7" type="number" disabled value="" class="fieldDarker"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;"></td>
+                    <td><input id="distIntoST8" type="number" oninput="calculateAll();" value="" class="fieldDarker"></td>
+                    <td><input id="distIntoEP8" type="number" disabled value="" class="fieldDarker"></td>
+                    <td><input id="distIntoPR8" type="number" disabled value="" class="fieldDarker"></td>
+                    <td><input id="distIntoMX8" type="number" disabled value="" class="fieldDarker"></td>
+                </tr>
+                <tr>
+                    <td id="subtotalTitle" style="text-align: right; padding: 10px 22px 0px 0px;">Subtotal</td>
+                    <td><input id="subTotal" type="number" disabled value="" class="fieldDarker"></td>
+                    <td><input id="subTotalEP" type="number" disabled value="" class="fieldDarker"></td>
+                    <td><input id="subTotalPR" type="number" disabled value="" class="fieldDarker"></td>
+                    <td><input id="subTotalMX" type="number" disabled value="" class="fieldDarker"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; padding: 10px 22px 0px 0px;">Grand Total</td>
+                    <td><input id="grandTotal" type="number" disabled value="" class="fieldDarker"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; padding: 10px 22px 0px 0px;">Portioner</td>
+                    <td><input id="distPortion" type="number" disabled value="" class="fieldDarker"></td>
+                    <td><input id="distPortions" type="number" disabled value="" class="fieldDarker"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!--* Storage -->
+    <div id="storage" style="margin-bottom: 30px; display: none;">
+        <div class="flex-container middleIt subSection-mid">
+            <h3 class="sectionHeader">Storage:</h3>
+        </div>
+
+        <div class="flex-container middleIt subSection-mid">
+            <div class="arbScaleIn">
+                32 oz.
+                <input id="32oz" type="number" readonly class="fieldDarker" /></br>
+            </div>
+            <div class="arbScaleOut">
+                16 oz.
+                <input id="16oz" type="number" readonly class="fieldDarker">
+            </div>
+
+            <div class="arbScaleIn">
+                12 oz.
+                <input id="12oz" type="number" readonly class="fieldDarker" /></br>
+            </div>
+
+            <div class="arbScaleOut">
+                8 oz.
+                <input id="8oz" type="number" readonly class="fieldDarker" />
+            </div>
+        </div>
+        <div class="flex-container middleIt subSection-mid">
+            <div class="arbScaleIn">
+                5.5 oz.
+                <input id="5p5oz" type="number" readonly class="fieldDarker" /></br>
+            </div>
+            <div class="arbScaleOut">
+                2.5 oz.
+                <input id="2p5oz" type="number" readonly class="fieldDarker">
+            </div>
+
+            <div class="arbScaleIn">
+                2 oz.
+                <input id="2oz" type="number" readonly class="fieldDarker" /></br>
+            </div>
+
+            <div class="arbScaleOut">
+                .75 oz.
+                <input id="p75oz" type="number" readonly class="fieldDarker" />
+            </div>
+        </div>
+    </div>
+
+    <!--* Arbitrary / Portionator -->
+    <div id="arbitrary" style="display: block; margin-bottom: 30px;">
+        <!--* Header row with buttons etc -->
+        <div class="flex-container middleIt subSection-mid" style="padding-top: 20px;">
+            <h3 class="sectionHeader">Portionator™</h3><button class="btn btn-success" onclick="toggleAscDesc();" style="margin-left: 22px;"><i id="adToggleButt" style="padding: 0px 10px 0px 10px;"
+                    class="bi bi-sort-numeric-down"></i></button>
+            <button class="btn btn-success" id="containerToggle" onclick="toggleContainer();" style="margin-left: 22px;"><i id="contToggleButt" style="padding: 0px 10px 0px 10px;"
+                    class="bi bi-cup"></i></button>
+        </div>
+
+        <div class="flex-container middleIt subSection-mid">
+            <div class="arbScaleIn">
+                Weight:
+                <input id="amount" type="number" readonly class="fieldDarker" /></br>
+            </div>
+            <div class="arbScaleIn">
+                Portions:
+                <input id="dividedBy" type="number" value="2" oninput="calculateAll();" onClick="this.select();" class="fieldDarker" /></br>
+            </div>
+            <div class="arbScaleOut">
+                Wt. of each:<input id="portions" type="text" readonly value="" class="fieldDarker">
+            </div>
+        </div>
+
+
+        <!--* The Portionator Zone -->
+        <!-- (formerly known as the BoopBoop Div -->
+        <div class="flex-container middleIt subSection-mid" id="portionatorZone">
+        </div>
+    </div>
+
+    <!--* Cakeulator -->
+    <div id="cakeulator" style="display: block; margin-bottom: 30px;">
+        <div class="flex-container middleIt subSection-mid" style="padding-top: 20px; width: 26rem;">
+            <h3 class="sectionHeader">Cakeulator™</h3>
+        </div>
+
+        <div class="flex-container middleIt subSection-mid" style="width: 26rem;">
+            <div class="arbScaleIn">
+                Recipe Pan Diameter:
+                <input id="rPanDiameter" type="number" value="2" min="1" oninput="cakeulateAll('rdi');" onClick="this.select();" class="fieldDarker" /></br>
+            </div>
+        </div>
+        <div class="flex-container middleIt subSection-mid" style="width: 26rem;">
+            <div class="arbScaleIn">
+                Recipe Volume:
+                <input id="rVolume" type="number" value="2" min="1" oninput="cakeulateAll('rv');" onClick="this.select();" class="fieldDarker" /></br>
+            </div>
+        </div>
+        <div class="flex-container middleIt subSection-mid" style="width: 26rem;">
+            <div class="arbScaleIn">
+                Recipe Depth:
+                <input id="rDepth" type="number" value="2" oninput="cakeulateAll('rdp');" onClick="this.select();" class="fieldDarker" /></br>
+            </div>
+        </div>
+        <div class="flex-container middleIt subSection-mid" style="width: 26rem;">
+            <div class="arbScaleIn">
+                Available Pan Diameter:
+                <input id="aPanDiameter" type="number" value="2" oninput="cakeulateAll('rdi');" onClick="this.select();" class="fieldDarker" /></br>
+            </div>
+        </div>
+        <div class="flex-container middleIt subSection-mid" style="width: 26rem;">
+            <div class="arbScaleIn">
+                New Volume:
+                <input id="newVol" type="number" value="2" onClick="this.select();" class="fieldDarker" /></br>
+            </div>
+        </div>
+        <div class="flex-container middleIt subSection-mid" style="width: 26rem;">
+            <div class="arbScaleIn">
+                Scale Recipe By:
+                <!--* This field is set to text so it can contain a percentage symbol -->
+                <input id="scaleItBy" type="text" value="2" onClick="this.select();" class="fieldDarker" /></br>
+            </div>
+        </div>
+
+        <div class="flex-container middleIt subSection-mid" style="width: 52rem;">
+            <canvas id="myCanvas" width="600" height="200" style="border:1px solid black;">
+                Sorry, your browser does not support canvas.
+            </canvas>
+
+            <script>
+                // const canvas = document.getElementById("myCanvas");
+                // const ctx = canvas.getContext("2d");
+                // // ctx.fillRect(0, 0, 150, 75);
+                // // ctx.fillStyle = "blue";
+
+                // ctx.beginPath();
+                // // ctx.arc(95, 50, 40, 0, 2 * Math.PI);
+                // let center1 = (600 / 6) * 2;
+                // let center2 = (600 / 6) * 4;
+
+                // ctx.arc(center1, 100, 100, 0, 2 * Math.PI);
+                // ctx.fillStyle = "rgba(155, 181, 191, 0.4)";
+                // ctx.fill();
+                // ctx.strokeStyle = "blue";
+                // ctx.stroke();
+                // ctx.arc(center2, 100, 100, 0, 2 * Math.PI);
+                // ctx.fillStyle = "rgba(155, 181, 191, 0.4)";
+                // ctx.fill();
+                // ctx.strokeStyle = "blue";
+                // ctx.stroke();
+
+            </script>
+        </div>
+
+
+    </div>
+
+
+    <!--* The Portionator Zone -->
+    <!-- (formerly known as the BoopBoop Div -->
+    <div class="flex-container middleIt subSection-mid" id="portionatorZone">
+    </div>
+    </div>
+
+
+
+    <!--* NEW Distributor  -->
+    <div id="newDistThing" style="margin-bottom: 30px; display: none;">
+        <div class="flex-container middleIt subSection-mid">
+            <h3 class="sectionHeader">New Distributor:</h3>
+        </div>
+        <div class="flex-container middleIt subSection-mid">
+            <button class="btn btn-primary" style="background-color: chocolate" ; onclick="blankIt(2)"><i class="fas fa-history fa-lg iconNudge"></i>
+                Reset</button>
+        </div>
+        <div class="flex-container middleIt subSection-mid">
+            <table style="margin: 0rem 2rem 2rem 2rem;">
+                <tr>
+                    <td colspan="1" style="text-align: center;">
+                    </td>
+                    <td colspan="1" style="text-align: center; font-size: larger; padding: 9px 4px 0px 0px; text-align: right;">
+                        Total:
+                    </td>
+                    <td colspan="1" style="text-align: center;">
+                        <input id="distTotal" type="number" disabled class="fieldDarker">
+                    </td>
+                    <td colspan="1" style="text-align: center;">
+                        Average:
+                    </td>
+                    <td colspan="1" style="text-align: center; font-size: larger; padding: 9px 4px 0px 0px; text-align: right;">
+                        <input id="averageVal" type="number" disabled class="fieldDarker">
+                    </td>
+                    <td colspan="2" style="text-align: center;">
+                    </td>
+                <tr class="inputRow">
+                    <td width="16.67%" id="newDistCheck1" class="checkRow"><input type="checkbox" id="newDistEnable1" class="checkbox" checked onclick="return false;">1</td>
+                    <td width="16.67%" id="newDistCheck2" class="checkRow"><input type="checkbox" id="newDistEnable2" class="checkbox" checked onclick="return false;">2</td>
+                    <td width="16.67%" id="newDistCheck3" class="checkRow"><input type="checkbox" id="newDistEnable3" class="checkbox" checked onclick="analyzeChecks(3);">3</td>
+                    <td width="16.67%" id="newDistCheck4" class="checkRow"><input type="checkbox" id="newDistEnable4" class="checkbox" checked onclick="analyzeChecks(4);">4</td>
+                    <td width="16.67%" id="newDistCheck5" class="checkRow"><input type="checkbox" id="newDistEnable5" class="checkbox" checked onclick="analyzeChecks(5);">5</td>
+                    <td width="16.67%" id="newDistCheck6" class="checkRow"><input type="checkbox" id="newDistEnable6" class="checkbox" checked onclick="analyzeChecks(6);">6</td>
+                </tr>
+                <tr>
+                    <td class="distTableL inputRow" id="newDistCell1"><input id="newDistIn1" type="number" value="91" class="fieldDarker" oninput="newDist()"></td>
+                    <td class="distTable inputRow" id="newDistCell2"><input id="newDistIn2" type="number" value="20" class="fieldDarker" oninput="newDist()"></td>
+                    <td class="distTable inputRow" id="newDistCell3"><input id="newDistIn3" type="number" value="30" class="fieldDarker" oninput="newDist()"></td>
+                    <td class="distTable inputRow" id="newDistCell4"><input id="newDistIn4" type="number" value="71" class="fieldDarker" oninput="newDist()"></td>
+                    <td class="distTable inputRow" id="newDistCell5"><input id="newDistIn5" type="number" value="50" class="fieldDarker" oninput="newDist()"></td>
+                    <td class="distTableR inputRow" id="newDistCell6"><input id="newDistIn6" type="number" value="60" class="fieldDarker" oninput="newDist()"></td>
+                </tr>
+                <tr id="distRow1">
+                    <td class="distTableL outputRows" id="newDistDiv11"><input id="newDistOp11" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTable outputRows" id="newDistDiv12"><input id="newDistOp12" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTable outputRows" id="newDistDiv13"><input id="newDistOp13" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTable outputRows" id="newDistDiv14"><input id="newDistOp14" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTable outputRows" id="newDistDiv15"><input id="newDistOp15" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTableR outputRows" id="newDistDiv16"><input id="newDistOp16" type="number" readonly value="" class="fieldDarker"></td>
+                </tr>
+                <tr id="distRow2">
+                    <td class="distTableL outputRows" id="newDistDiv21"><input id="newDistOp21" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTable outputRows" id="newDistDiv22"><input id="newDistOp22" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTable outputRows" id="newDistDiv23"><input id="newDistOp23" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTable outputRows" id="newDistDiv24"><input id="newDistOp24" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTable outputRows" id="newDistDiv25"><input id="newDistOp25" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTableR outputRows" id="newDistDiv26"><input id="newDistOp26" type="number" readonly value="" class="fieldDarker"></td>
+                </tr>
+                <tr id="distRow3">
+                    <td class="distTableL outputRows" id="newDistDiv31"><input id="newDistOp31" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTable outputRows" id="newDistDiv32"><input id="newDistOp32" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTable outputRows" id="newDistDiv33"><input id="newDistOp33" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTable outputRows" id="newDistDiv34"><input id="newDistOp34" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTable outputRows" id="newDistDiv35"><input id="newDistOp35" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTableR outputRows" id="newDistDiv36"><input id="newDistOp36" type="number" readonly value="" class="fieldDarker"></td>
+                </tr>
+                <tr id="distRow4">
+                    <td class="distTableL outputRows" id="newDistDiv41"><input id="newDistOp41" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTable outputRows" id="newDistDiv42"><input id="newDistOp42" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTable outputRows" id="newDistDiv43"><input id="newDistOp43" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTable outputRows" id="newDistDiv44"><input id="newDistOp44" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTable outputRows" id="newDistDiv45"><input id="newDistOp45" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTableR outputRows" id="newDistDiv46"><input id="newDistOp46" type="number" readonly value="" class="fieldDarker"></td>
+                </tr>
+                <tr id="distRow5">
+                    <td class="distTableL outputRows" id="newDistDiv51"><input id="newDistOp51" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTable outputRows" id="newDistDiv52"><input id="newDistOp52" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTable outputRows" id="newDistDiv53"><input id="newDistOp53" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTable outputRows" id="newDistDiv54"><input id="newDistOp54" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTable outputRows" id="newDistDiv55"><input id="newDistOp55" type="number" readonly value="" class="fieldDarker"></td>
+                    <td class="distTableR outputRows" id="newDistDiv56"><input id="newDistOp56" type="number" readonly value="" class="fieldDarker"></td>
+                </tr>
+            </table>
+
+        </div>
+</body>
+<!-- Test -->
+<script src="js/scripts.js"></script>
+<script src="js/weightscript.js"></script>
+<script>
+
+    // let theDivs = ["sweightG", "cweightO", "sweightG", "sweightO", "diffG", "diffO"];
+    // let theVariables = ["calWeightG", "calWeightO", "calWeightG", "calWeightO", "calWeightG", "calWeightO"];
+
+    // for (let divs = 0; divs < theDivs.length - 1; divs++) {
+    //     document.getElementById(theDivs[divs]).addEventListener("click", theVariables[divs]);
+    // }
+
+    document.getElementById("sweightG").addEventListener("click", calWeightG);
+    document.getElementById("sweightO").addEventListener("click", calWeightO);
+    document.getElementById("cweightO").addEventListener("click", calWeightO);
+    document.getElementById("cweightG").addEventListener("click", calWeightG);
+    document.getElementById("diffG").addEventListener("click", calWeightG);
+    document.getElementById("diffO").addEventListener("click", calWeightO);
+</script>
+
+</html>

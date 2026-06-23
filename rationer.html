@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Rationer</title>
+    <link rel="icon" type="image/svg+xml" href="./app_icons/rationer.svg">
+    <link rel="stylesheet" href="./css/hollandstyles.css" />
+    <script src="js/scripts.js"></script>
+    <script src="rationer.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+        crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous">
+        </script>
+
+    <style>
+        /* CSS HEX */
+
+        :root {
+            --charcoal-blue: #466e92ff;
+            --rusty-spice: #b64116ff;
+            --dark-cyan: #2f8987ff;
+            --palm-leaf: #8e9b66ff;
+            --golden-orange: #c78728ff;
+            --tiger-orange: #cd6d0dff;
+            --color1: #466e92ff;
+            --color2: #2f8987ff;
+            --color3: #8e9b66ff;
+            --color4: #c78728ff;
+            --color5: #cd6d0dff;
+            --color6: #b64116ff;
+            --color7: #5190b7ee;
+        }
+
+        /* Color Theme Swatches in Hex */
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: white;
+            background: url("/assets/img/rationatorBGdark.jpg");
+        }
+
+        .biggerLabels {
+            font-size: x-large;
+        }
+
+        .startColumn {
+            background-color: var(--color7);
+            text-align: center;
+        }
+
+        .startRatio {
+            background-color: #5f9ea088;
+        }
+
+        .startColumnDataIn {
+            padding-top: 13px;
+        }
+
+        .startColumnDataOut {
+            background-color: #6D8089;
+            padding-top: 13px;
+        }
+
+        .startColumnDelta {
+            background-color: #38627c65;
+            /* padding-top: 13px; */
+            justify-content: center;
+        }
+
+        .startColumnDeltaLast {
+            /* padding-bottom: 30px; */
+        }
+
+        .labelRow {
+            text-align: center;
+            padding-top: 10px;
+            /* padding-bottom: 17px; */
+            font-size: x-large;
+        }
+
+        /* Something about bar charts */
+        .nerf {
+            height: 75px;
+            text-align: center;
+            position: relative;
+        }
+
+        .barPercents {
+            top: 30%;
+            font-size: x-large;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .pctFields {
+            width: 80%;
+            display: inline-block;
+        }
+
+        .col1 {
+            background-color: var(--color1);
+        }
+
+        .col2 {
+            background-color: var(--color2);
+        }
+
+        .col3 {
+            background-color: var(--color3);
+        }
+
+        .col4 {
+            background-color: var(--color4);
+        }
+
+        .col5 {
+            background-color: var(--color5);
+        }
+
+        .col6 {
+            background-color: var(--color6);
+        }
+    </style>
+
+    <link rel="stylesheet" href="css/navigation.css">
+</head>
+
+<body style="background-color: #0f1a33; font-family: Arial, Helvetica, sans-serif;"
+    onload="versionIt('07-01-26 - Unrecalled tweaks relating to fixed or variable total'); initializeIt('Rationer', './app_icons/rationer.svg'); calculate();">
+
+    <div id="navHead">
+    </div>
+
+    <div class="container-md" style="max-width: 1000px; background-color: black;">
+
+        <div class="row" style="margin-top: 60px;">
+            <div class="col-md-12" style="text-align: center;">
+                <h1 style="font-weight: bold; padding-top: 25px;">The Rationer</h1>
+            </div>
+        </div>
+
+        <!-- * Input values -->
+        <div class="row justify-content-center">
+            <div class="col-3 startColumn" style="padding: 12px 12px 12px 55px;">
+                <div class="form-check" style="text-align: left">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="calculate();" id="fixedRadio" checked>
+                    <label class="form-check-label" for="fixedRadio">
+                        Fixed Total
+                    </label>
+                </div>
+                <div class="form-check" style="text-align: left">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="calculate();" id="flexRadio">
+                    <label class="form-check-label" for="flexRadio">
+                        Variable Total
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-3 startColumn">
+                <label for="weighto" class="form-label biggerLabels">Amount</label>
+                <input class="form-control" type="number" value="50" id="inval" oninput="calculate();"
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+            <div class="col-3 startColumn">
+                <label for="weighto" class="form-label biggerLabels">Portions</label>
+                <input class="form-control" type="number" min="2" max="6" value="2" id="portions" oninput="calculate();"
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+        </div>
+
+        <!-- *Ratio inputs */-->
+        <div class="row startColumnDelta">
+            <div class="col-md-12 labelRow">
+                <label for="weightg" class="form-label biggerLabels">Ratio Inputs</label>
+            </div>
+        </div>
+        <div class="row startColumnDelta">
+            <div class="col-md-2 startColumnDataIn col1" id="inc1Adiv">
+                <!-- <label for="weightg" class="form-label biggerLabels"><i class="bi bi-plus-slash-minus"></i></label> -->
+                <input class="form-control" type="number" step=".1" value="1" id="inp1" oninput="calculate()" ;
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+            <div class="col-md-2 startColumnDataIn col2">
+                <!-- <label for="weightg" class="form-label biggerLabels">&nbsp;</label> -->
+                <input class="form-control" type="number" step=".1" value="1" id="inp2" oninput="calculate()" ;
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+            <div class="col-md-2 startColumnDataIn col3">
+                <!-- <label for="weightg" class="form-label biggerLabels">&nbsp;</label> -->
+                <input class="form-control" type="number" step=".1" value="1" id="inp3" oninput="calculate()" ;
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+            <div class="col-md-2 startColumnDataIn col4">
+                <!-- <label for="weightg" class="form-label biggerLabels">&nbsp;</label> -->
+                <input class="form-control" type="number" step=".1" value="1" id="inp4" oninput="calculate()" ;
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+            <div class="col-md-2 startColumnDataIn col5">
+                <!-- <label for="weightg" class="form-label biggerLabels">&nbsp;</label> -->
+                <input class="form-control" type="number" step=".1" value="1" id="inp5" oninput="calculate()" ;
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+            <div class="col-md-2 startColumnDataIn col6">
+                <!-- <label for="weightg" class="form-label biggerLabels"><i class="bi bi-plus-slash-minus"></i></label> -->
+                <input class="form-control" type="number" step=".1" value="1" id="inp6" oninput="calculate()" ;
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+        </div>
+
+        <!--* Percentage Fields -->
+        <div class="row startColumnDelta">
+            <div class="col-md-12 labelRow">
+                <label for="weightg" class="form-label biggerLabels">Percentages Inputs</label>
+            </div>
+        </div>
+        <div class="row startColumnDelta">
+            <div class="col-md-2 startColumnDataOut col1" id="outCont1">
+                <input class="form-control pctFields" type="number" oninput="changePercent(1)" id="pct1"
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">%
+            </div>
+            <div class="col-md-2 startColumnDataOut col2" id="outCont2">
+                <input class="form-control pctFields" type="number" oninput="changePercent(2)" id="pct2"
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">%
+            </div>
+            <div class="col-md-2 startColumnDataOut col3" id="outCont3">
+                <input class="form-control pctFields" type="number" oninput="changePercent(3)" id="pct3"
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">%
+            </div>
+            <div class="col-md-2 startColumnDataOut col4" id="outCont4">
+                <input class="form-control pctFields" type="number" oninput="changePercent(4)" id="pct4"
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">%
+            </div>
+            <div class="col-md-2 startColumnDataOut col5" id="outCont5">
+                <input class="form-control pctFields" type="number" oninput="changePercent(5)" id="pct5"
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">%
+            </div>
+            <div class="col-md-2 startColumnDataOut col6" id="outCont6">
+                <input class="form-control pctFields" type="number" oninput="changePercent(6)" id="pct6"
+                    style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">%
+            </div>
+        </div>
+
+        <div class="row startColumnDelta">
+            <div class="col-md-12 labelRow">
+                <label for="weightg" class="form-label biggerLabels">Resulting Amounts</label>
+            </div>
+        </div>
+
+        <div class="row startColumnDelta">
+            <div class="col-md-2 startColumnDataOut col1" id="outCont1">
+                <!-- <label for="weightg" class="form-label biggerLabels"><i class="bi bi-plus-slash-minus"></i></label> -->
+                <input class="form-control" type="number" readonly id="out1" style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+            <div class="col-md-2 startColumnDataOut col2" id="outCont2">
+                <!-- <label for="weightg" class="form-label biggerLabels">&nbsp;</label> -->
+                <input class="form-control" type="number" readonly id="out2" style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+            <div class="col-md-2 startColumnDataOut col3" id="outCont3">
+                <!-- <label for="weightg" class="form-label biggerLabels">&nbsp;</label> -->
+                <input class="form-control" type="number" readonly id="out3" style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+            <div class="col-md-2 startColumnDataOut col4" id="outCont4">
+                <!-- <label for="weightg" class="form-label biggerLabels">&nbsp;</label> -->
+                <input class="form-control" type="number" readonly id="out4" style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+            <div class="col-md-2 startColumnDataOut col5" id="outCont5">
+                <!-- <label for="weightg" class="form-label biggerLabels">&nbsp;</label> -->
+                <input class="form-control" type="number" readonly id="out5" style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+            <div class="col-md-2 startColumnDataOut col6" id="outCont6">
+                <!-- <label for="weightg" class="form-label biggerLabels"><i class="bi bi-plus-slash-minus"></i></label> -->
+                <input class="form-control" type="number" readonly id="out6" style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+        </div>
+
+        <div class="row startColumnDelta startColumnDeltaLast">
+            <div class="nerf" id="bar1" style="background-color: var(--color1);">
+                <div id="pvalue1" class="barPercents">XX%</div>
+            </div>
+            <div class="nerf" id="bar2" style="background-color: var(--color2)">
+                <div id="pvalue2" class="barPercents">XX%</div>
+            </div>
+            <div class="nerf" id="bar3" style="background-color: var(--color3)">
+                <div id="pvalue3" class="barPercents">XX%</div>
+            </div>
+            <div class="nerf" id="bar4" style="background-color: var(--color4);">
+                <div id="pvalue4" class="barPercents">XX%</div>
+            </div>
+            <div class="nerf" id="bar5" style="background-color: var(--color5);">
+                <div id="pvalue5" class="barPercents">XX%</div>
+            </div>
+            <div class="nerf" id="bar6" style="background-color: var(--color6);">
+                <div id="pvalue6" class="barPercents">XX%</div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center" id="newAmtRow">
+            <div class="col-3 startColumn" id="newAmt1">
+                <label for="weighto" class="form-label biggerLabels">New Amount</label>
+                <input class="form-control" type="number" value="50" id="newVal" style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+            <div class="col-3 startColumn" id="newAmt2">
+                <label for="weighto" class="form-label biggerLabels"><i class="bi bi-triangle-fill"></i>Add</label>
+                <input class="form-control" type="number" value="" id="delta" style="text-align: right; background-color: #1c1c1f; color: white; font-size: larger; border: 0;">
+            </div>
+        </div>
+
+        <div class="row startColumnDelta startColumnDeltaLast">
+            <div class="col-md-12">
+                <div style="text-align: center;"><i class="bi bi-info-circle"></i></div>
+            </div>
+        </div>
+        <div class="row startColumnDelta startColumnDeltaLast">
+            <div class="col-md-6">
+                <div>The idea here is that you have a given weight of food. By default, the app will evenly divide that weight. From there, you can "bias" the portions such that one person gets
+                    maybe
+                    10% more than the others, or one gets 10% more, another 15% less, and the third gets the remainder.</div>
+                <div>The ratio units are genuine ratios rather than percentages (for now). Hence, the units don't need to add up to anything in particular. They can simply be amounts for portioning
+                    purposes.</div>
+                <div>&nbsp;</div>
+                <div>The Variable TOtal option allows you to manually specify what percentage a particular serving should consist of.</div>
+                <div>For example, if all portions are equal, and indicative of what an average serving should be, this mode allows you to override the original total in favor of one larger serving
+                    size. It also indicates how much should be added to hit that target.</div>
+                <div>&nbsp;</div>
+            </div>
+        </div>
+</body>
+
+</html>

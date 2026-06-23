@@ -1,0 +1,2630 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Conversions</title>
+	<link rel="icon" type="image/svg+xml" href="./app_icons/conversions.svg">
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+	</script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+		crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous">
+		</script>
+
+	<script src="js/scripts.js"></script>
+	<script src="convert.js"></script>
+
+	<style>
+		.right {
+			text-align: right;
+		}
+
+		.left {
+			text-align: left;
+		}
+
+		.quarter {
+			width: 25%;
+		}
+
+		.half {
+			width: 50%;
+		}
+
+		th {
+			text-align: center;
+		}
+
+		body {
+			background-color: black;
+			color: white;
+		}
+
+		tr:nth-child(even) {
+			background-color: #222;
+		}
+
+		th,
+		td {
+			color: white;
+		}
+	</style>
+	<link rel="stylesheet" href="css/navigation.css">
+
+</head>
+
+<body onload="initializeIt('Conversions', './app_icons/conversions.svg')">
+	<div id="navHead">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" style="padding-left: 15px;" href="index.html">
+				<img src="./sc/favicon-32x32.png" width="50" height="50" class="d-inline-block align-top" alt="">
+				<span id="pageTitle" style="color: white; font-size: 2rem; padding-left: 15px;"></span></a>
+			<div class="dropdown" style="margin: 0px 15px 0px auto;">
+				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #202529;"
+					oninput="hyperLink(which);">
+					KitchenHopper
+				</button>
+				<ul class="dropdown-menu" id="navbarContent" aria-labelledby="dropdownMenuButton1">
+				</ul>
+			</div>
+		</nav>
+	</div>
+
+	<div class="container">
+		<div class="tainer" style="height: 10vh; margin-top: 2rem;">
+			<div class="row">
+				<div class="col-12">
+					<div id="div1">
+						<table class="table" style="border: 5px solid white;" width=100%>
+							<tr>
+								<td class="half">Ounces:<input id="arbOz" style="width: 50%;" class="form-control" step="1.0" type="number" onClick="this.select();" tabindex="1" oninput="calcOz()">
+								</td>
+								<td class="half">Farenheit:<input id="tempF" style="width: 50%;" class="form-control" step="1.0" type="number" onClick="this.select();" tabindex="3" oninput="calcF()">
+								</td>
+							</tr>
+							<tr>
+								<td class="half">Grams:<input id="arbG" style="width: 50%;" class="form-control" step="1.0" type="number" onClick="this.select();" tabindex="2" oninput="calcG()"></td>
+								<td class="half">Celsius<input id="tempC" style="width: 50%;" class="form-control" step="1.0" type="number" onClick="this.select();" tabindex="4" oninput="calcC()">
+								</td>
+							</tr>
+						</table>
+						<table>
+							<tbody>
+								<tr>
+									<th colspan="4">
+										<h3 style="padding-top: 10px;">Liquid</h3>
+									</th>
+								</tr>
+
+								<tr>
+									<th>Measurement</th>
+									<th>Standard Unit(s)</th>
+									<th>Fluid Ounces</th>
+									<th>Metric Unit(s)</th>
+								</tr>
+
+								<tr>
+									<td class="right">1/4 tsp</td>
+									<td class="right">15 drops</td>
+									<td class="right">.0425 fl. oz.</td>
+									<td class="right">(1.2) 1.232 ml</td>
+								</tr>
+
+								<tr>
+									<td class="right">1/2 tsp</td>
+									<td class="right">30 drops</td>
+									<td class="right">.085 fl. oz.</td>
+									<td class="right">(2.5) 2.4645 ml</td>
+								</tr>
+
+								<tr>
+									<td class="right">1 tsp</td>
+									<td class="right">60 drops</td>
+									<td class="right">.17 fl. oz.</td>
+									<td class="right">(5) 4.929 ml</td>
+								</tr>
+
+								<tr>
+									<td class="right">1 tbsp</td>
+									<td class="right">3 tsp</td>
+									<td class="right">.5 fl. oz.</td>
+									<td class="right">(15) 14.787 ml</td>
+								</tr>
+
+								<tr>
+									<td class="right">1/8 cup</td>
+									<td class="right">2 Tbsp</td>
+									<td class="right">1 fl. oz.</td>
+									<td class="right">28.35ml</td>
+								</tr>
+
+								<tr>
+									<td class="right">1/4 cup</td>
+									<td class="right">4 Tbsp</td>
+									<td class="right">2 fl. oz.</td>
+									<td class="right">(60) 59.148 ml</td>
+								</tr>
+
+								<tr>
+									<td class="right">1/3 cup</td>
+									<td class="right">5 Tbsp + 1 tsp</td>
+									<td class="right">2.67 oz.</td>
+									<td class="right">(79) 78.863 ml</td>
+								</tr>
+
+								<tr>
+									<td class="right">1/2 cup</td>
+									<td class="right">8 Tbsp</td>
+									<td class="right">4 fl. oz.</td>
+									<td class="right">(118) 118.295 ml</td>
+								</tr>
+
+								<tr>
+									<td class="right">2/3 cup</td>
+									<td class="right">12 Tbsp</td>
+									<td class="right">5.33 fl. oz.</td>
+									<td class="right">151.11 ml</td>
+								</tr>
+								<tr>
+									<td class="right">3/4 cup</td>
+									<td class="right">12 Tbsp</td>
+									<td class="right">6 fl. oz.</td>
+									<td class="right">180 ml</td>
+								</tr>
+
+								<tr>
+									<td class="right">1 cup</td>
+									<td class="right">16 Tbsp</td>
+									<td class="right">8 fl. oz.</td>
+									<td class="right">236.59 ml</td>
+								</tr>
+
+								<tr>
+									<td class="right">1 pint</td>
+									<td class="right">2 cups</td>
+									<td class="right">16 fl. oz.</td>
+									<td class="right">473.18 ml</td>
+								</tr>
+
+								<tr>
+									<td class="right">1 quart</td>
+									<td class="right">2 pints</td>
+									<td class="right">32 fl. oz.</td>
+									<td class="right">946.35 ml</td>
+								</tr>
+
+								<tr>
+									<td class="right">1 gallon</td>
+									<td class="right">4 quarts</td>
+									<td class="right">128 fl. oz.</td>
+									<td class="right">3.79 liters</td>
+								</tr>
+
+								<tr>
+									<th colspan="4">
+										<h3 style="padding-top: 10px;">Dry</h3>
+									</th>
+								</tr>
+
+								<tr>
+									<th>Measurement</th>
+									<th>Standard Unit(s)</th>
+									<th>Dry Ounces</th>
+									<th>Metric Unit(s)</th>
+								</tr>
+
+								<tr>
+									<td class="right">1 smidgen</td>
+									<td class="right">1/32 tsp</td>
+									<td class="right"> </td>
+									<td class="right"> </td>
+								</tr>
+
+								<tr>
+									<td class="right">1 pinch</td>
+									<td class="right">1/16 tsp</td>
+									<td class="right"> </td>
+									<td class="right"> </td>
+								</tr>
+
+								<tr>
+									<td class="right">1 dash</td>
+									<td class="right">1/8 tsp</td>
+									<td class="right"> </td>
+									<td class="right"> </td>
+								</tr>
+
+								<tr>
+									<td class="right">1 tsp</td>
+									<td class="right">8 dashes</td>
+									<td class="right">.02oz</td>
+									<td class="right">4.8 g</td>
+								</tr>
+
+								<tr>
+									<td class="right">1 tbsp</td>
+									<td class="right">3 tsp</td>
+									<td class="right">.5oz</td>
+									<td class="right">14.3 g</td>
+								</tr>
+
+								<tr>
+									<td class="right">1 cup</td>
+									<td class="right">16 Tbsp</td>
+									<td class="right">8oz</td>
+									<td class="right">236.5882 g</td>
+								</tr>
+
+								<tr>
+									<td class="right">1 pound</td>
+									<td class="right">8 cups</td>
+									<td class="right">16oz</td>
+									<td class="right">452.8 g</td>
+								</tr>
+
+								<tr>
+									<th colspan="2">
+										<h3 style="padding-top: 10px;">US Dry Volume</h3>
+									</th>
+									<th colspan="2">
+										<h3 style="padding-top: 10px;">US Liquid Volume</h3>
+									</th>
+								</tr>
+
+								<tr>
+									<td class="right quarter">8 fl.oz. (236.58g)</td>
+									<td class="quarter">1 Cup</td>
+									<td class="right quarter">1 Pint</td>
+									<td class="quarter">2 Cups (16 fl.oz., 473.17ml)</td>
+								</tr>
+
+								<tr>
+									<td class="right">1/16 tsp</td>
+									<td class="quarter">dash</td>
+									<td class="right">1/8 tsp</td>
+									<td>a pin</td>
+								</tr>
+
+								<tr>
+									<td class="right">3 tsp</td>
+									<td>1 Tbsp</td>
+									<td class="right">1 Quart</td>
+									<td>2 Pints (4 cups, 32 fl.oz., 946.35ml)</td>
+								</tr>
+
+								<tr>
+									<td class="right">1/8 cup</td>
+									<td>2 Tbsp</td>
+									<td class="right">1 Gallon</td>
+									<td>4 Quarts (16 cups, 128 fl.oz., 3785.41ml)</td>
+								</tr>
+
+								<tr>
+									<td class="right">1/4 cup</td>
+									<td>4 Tbsp</td>
+									<td colspan="2" rowspan="6"></td>
+								</tr>
+
+								<tr>
+									<td class="right">1/3 cup</td>
+									<td>5 Tbsp + 1 tsp</td>
+								</tr>
+
+								<tr>
+									<td class="right">1/2 cup</td>
+									<td>8 Tbsp</td>
+								</tr>
+
+								<tr>
+									<td class="right">3/4 cup</td>
+									<td>12 Tbsp</td>
+								</tr>
+
+								<tr>
+									<td class="right">1 cup</td>
+									<td>16 Tbsp</td>
+								</tr>
+
+								<tr>
+									<td class="right">1 pound</td>
+									<td>16 oz</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div id="div2">
+						<table class="table">
+
+							<tr>
+								<th colspan="2">
+									<h3>US to Metric Conversions</h3>
+								</th>
+							</tr>
+
+
+							<tr>
+								<td class="right half">1/5 tsp</td>
+								<td>.97 ml</td>
+							</tr>
+
+							<tr>
+								<td class="right">1/2 tsp (1/12th oz)</td>
+								<td>2.43333 ml</td>
+							</tr>
+							<tr>
+								<td class="right">1 tsp (1/6th oz)</td>
+								<td>4.9 ml</td>
+							</tr>
+
+							<tr>
+								<td class="right">1 Tbsp (1/2 oz)</td>
+								<td>14.8 ml</td>
+							</tr>
+
+							<tr>
+								<td class="right">1/4 cup</td>
+								<td>59.1 ml</td>
+							</tr>
+
+
+							<tr>
+								<td class="right">1/3 cup</td>
+								<td>78.9 ml</td>
+							</tr>
+
+							<tr>
+								<td class="right">1/2 cup</td>
+								<td>118.3 ml</td>
+							</tr>
+
+							<tr>
+								<td class="right">3/4 cup</td>
+								<td>177.4 ml</td>
+							</tr>
+							<tr>
+								<td class="right">1 cup</td>
+								<td>236.6 ml</td>
+							</tr>
+
+
+							<tr>
+								<td class="right">2 cups (1 pint)</td>
+								<td>473.2 ml</td>
+							</tr>
+
+							<tr>
+								<td class="right">4 cups (1 quart)</td>
+								<td>946.4 ml</td>
+							</tr>
+
+							<tr>
+								<td class="right">4 quarts (1 gal.)</td>
+								<td>3785.4 ml</td>
+							</tr>
+
+							<tr>
+								<td class="right">1/8 fl.oz.</td>
+								<td>3.5 ml</td>
+							</tr>
+
+							<tr>
+								<td class="right">1/4 fl.oz.</td>
+								<td>7.4 ml</td>
+							</tr>
+
+							<tr>
+								<td class="right">1/3 fl.oz.</td>
+								<td>9.9 ml</td>
+							</tr>
+
+							<tr>
+								<td class="right">1/2 fl.oz.</td>
+								<td>14.8 ml</td>
+							</tr>
+
+							<tr>
+								<td class="right">1 fl.oz.</td>
+								<td>29.6 ml</td>
+							</tr>
+
+							<tr>
+								<td class="right">1 pound</td>
+								<td>452.8g</td>
+							</tr>
+						</table>
+					</div>
+
+					<div id="div3">
+						<table class="table">
+
+							<tr>
+								<th colspan="2">
+									<h3>Metric to US Conversions</h3>
+								</th>
+							</tr>
+
+							<tr>
+								<td class="right half">.97 ml</td>
+								<td class="half">1/5 tsp</td>
+							</tr>
+
+							<tr>
+								<td class="right">4.86667 ml</td>
+								<td class="half">1 tsp</td>
+							</tr>
+
+							<tr>
+								<td class="right">14.6 ml</td>
+								<td class="half">1 Tbsp</td>
+							</tr>
+
+							<tr>
+								<td class="right">28.3 ml</td>
+								<td class="half">1 fl.oz.</td>
+							</tr>
+
+							<tr>
+								<td class="right">100 ml</td>
+								<td class="half">3.5336 fl.oz.</td>
+							</tr>
+
+							<tr>
+								<td class="right">236.59 ml</td>
+								<td class="half">1 cup</td>
+							</tr>
+
+							<tr>
+								<td class="right half">1 liter</td>
+								<td class="half">34 fl.oz., 4.2 cups, 2.1 pints, 1.06 quarts, .26gallon</td>
+							</tr>
+
+							<tr>
+								<td class="right half">1g</td>
+								<td class="half">.035 oz</td>
+							</tr>
+
+							<tr>
+								<td class="right">100g</td>
+								<td>3.5 oz</td>
+							</tr>
+
+							<tr>
+								<td class="right">500g</td>
+								<td>1.10 pounds</td>
+							</tr>
+
+							<tr>
+								<td class="right">1 kg</td>
+								<td>2.205 pounds</td>
+							</tr>
+
+							<tr>
+								<td class="right">1 kg</td>
+								<td>35 oz.</td>
+							</tr>
+						</table>
+					</div>
+
+					<div id="div4">
+						<table class="table">
+
+							<tbody style="border: 4px solid white;">
+								<tr>
+									<th colspan="4">
+										<h3 style="margin-top: 10px;">Weights of Ingredients</h3>
+									</th>
+								</tr>
+								<tr>
+									<th colspan="4">
+										<h3>Flour</h3>
+									</th>
+								</tr>
+								<tr>
+									<td colspan="2" class="right">1 cup</td>
+									<td colspan="2" class="left">120g</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="right">3/4 cup</td>
+									<td colspan="2" class="left">90g</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="right">1/2 cup</td>
+									<td colspan="2" class="left">60g</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="right">1/3 cup</td>
+									<td colspan="2" class="left">40g</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="right">1/4 cup</td>
+									<td colspan="2" class="left">30g</td>
+								</tr>
+								<tr>
+									<th colspan="4">
+										<h3>Salt</h3>
+									</th>
+								</tr>
+								<tr>
+									<td colspan="2" class="right">1 tsp table</td>
+									<td colspan="2" class="left">.25 oz / 7g</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="right">1 tsp Morton's</td>
+									<td colspan="2" class="left">.175 oz / 6.6667g</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="right">1 tsp table</td>
+									<td colspan="2" class="left">.125 oz / 3.5g</td>
+								</tr>
+
+								<tr>
+									<th colspan="4">
+										<h3>Butter</h3>
+									</th>
+								</tr>
+								<tr>
+									<td class="quarter">1 T.<br>
+										1 stick</td>
+									<td class="quarter">14g<br>
+										4 oz = 113g</td>
+									<td class="quarter">1 Tbsp<br>
+										8 Tbsp</td>
+									<td class="quarter">½ cup</td>
+								</tr>
+								<tr>
+									<td>4 sticks</td>
+									<td>16 oz=452g</td>
+									<td>32 Tbsp</td>
+									<td>2 cups</td>
+								</tr>
+								<tr>
+									<th colspan="4">
+										<h3>Lemon</h3>
+									</th>
+								</tr>
+								<tr>
+									<td colspan=2 class="right">1 lemon</td>
+									<td colspan=2>1 to 3 Tbsp juice, 1 to 1½ tsp grated zest</td>
+								</tr>
+								<tr>
+									<td colspan=2 class="right">4 large lemons</td>
+									<td colspan=2>1 cup juice, ¼ cup grated zest</td>
+								</tr>
+								<tr>
+									<th colspan="4">
+										<h3>Frozen Peas/Corn</h3>
+									</th>
+								</tr>
+								<tr>
+									<td colspan="2" class="right">1/2 cup</td>
+									<td colspan="2">35g</td>
+								</tr>
+								<tr>
+									<th colspan="4">
+										<h3>Chocolate</h3>
+									</th>
+								</tr>
+								<tr>
+									<td colspan="2" class="right">1 oz</td>
+									<td colspan="2">¼ cup grated (40g)</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="right">6 oz chips</td>
+									<td colspan="2">1 cup chips (160g)</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="right">cocoa powder</td>
+									<td colspan="2">1 cup (115g)</td>
+								</tr>
+								<tr>
+									<th colspan="4">
+										<h3>Creams</h3>
+									</th>
+								</tr>
+								<tr>
+									<td colspan="2" class="right">Half and half</td>
+									<td colspan="2">10.5 to 18% butterfat</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="right">Light cream</td>
+									<td colspan="2">18 % butterfat</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="right">Light whipping cream</td>
+									<td colspan="2">26-30 % butterfat</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="right">Heavy cream</td>
+									<td colspan="2">36 % or more butterfat</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="right">Double cream</td>
+									<td colspan="2">42 % butterfat</td>
+								</tr>
+							</tbody>
+						</table>
+						<table>
+
+							<div class="brick brick--type--text brick--id--2091 semi-indented remove-space-above weight-chart-table brick--text">
+								<div class="brick--text__inner">
+									<table class="table">
+										<thead>
+											<tr>
+												<th>Ingredient</th>
+												<th>Volume</th>
+												<th>Ounces</th>
+												<th>Grams</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<th>'00' Pizza Flour</a></th>
+												<td>1 cup</td>
+												<td>4</td>
+												<td>116</td>
+											</tr>
+											<tr>
+												<th>Agave syrup</th>
+												<td>1/4 cup</td>
+												<td>3</td>
+												<td>84</td>
+											</tr>
+											<tr>
+												<th>All-Purpose Baking Mix</a></th>
+												<td>1 cup</td>
+												<td>4 1/4</td>
+												<td>120</td>
+											</tr>
+											<tr>
+												<th>All-Purpose Flour</a></th>
+												<td>1 cup</td>
+												<td>4 1/4</td>
+												<td>120</td>
+											</tr>
+											<tr>
+												<th>Almond butter</th>
+												<td>1/4 cup</td>
+												<td>2 1/3</td>
+												<td>68</td>
+											</tr>
+											<tr>
+												<th>Almond Flour</a></th>
+												<td>1 cup</td>
+												<td>3 3/8</td>
+												<td>96</td>
+											</tr>
+											<tr>
+												<th>Almond meal</th>
+												<td>1 cup</td>
+												<td>3</td>
+												<td>84</td>
+											</tr>
+											<tr>
+												<th>Almond paste</a> (packed)</th>
+												<td>1 cup</td>
+												<td>9 1/8</td>
+												<td>259</td>
+											</tr>
+											<tr>
+												<th>Almonds (sliced)</th>
+												<td>1/2 cup</td>
+												<td>1 1/2</td>
+												<td>43</td>
+											</tr>
+											<tr>
+												<th>Almonds (slivered)</th>
+												<td>1/2 cup</td>
+												<td>2</td>
+												<td>57</td>
+											</tr>
+											<tr>
+												<th>Almonds, whole (unblanched)</th>
+												<td>1 cup</td>
+												<td>5</td>
+												<td>142</td>
+											</tr>
+											<tr>
+												<th>Amaranth flour</th>
+												<td>1 cup</td>
+												<td>3 5/8</td>
+												<td>103</td>
+											</tr>
+											<tr>
+												<th>Apple juice concentrate</th>
+												<td>1/4 cup</td>
+												<td>2 1/2</td>
+												<td>70</td>
+											</tr>
+											<tr>
+												<th>Apples (dried, diced)</th>
+												<td>1 cup</td>
+												<td>3</td>
+												<td>85</td>
+											</tr>
+											<tr>
+												<th>Apples (peeled, sliced)</th>
+												<td>1 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Applesauce</th>
+												<td>1 cup</td>
+												<td>9</td>
+												<td>255</td>
+											</tr>
+											<tr>
+												<th>Apricots (dried, diced)</th>
+												<td>1/2 cup</td>
+												<td>2 1/4</td>
+												<td>64</td>
+											</tr>
+											<tr>
+												<th>Artisan Bread Flour</a></th>
+												<td>1 cup</td>
+												<td>4 1/4</td>
+												<td>120</td>
+											</tr>
+											<tr>
+												<th>Artisan Bread Topping</a></th>
+												<td>1/4 cup</td>
+												<td>1 1/2</td>
+												<td>43</td>
+											</tr>
+											<tr>
+												<th>Baker's Cinnamon Filling</a></th>
+												<td>1 cup</td>
+												<td>5 3/8</td>
+												<td>152</td>
+											</tr>
+											<tr>
+												<th>Baker's Fruit Blend</a></th>
+												<td>1 cup</td>
+												<td>4 1/2</td>
+												<td>128</td>
+											</tr>
+											<tr>
+												<th>Baker's Special Sugar (superfine sugar, castor sugar)</a></th>
+												<td>1 cup</td>
+												<td>6 3/4</td>
+												<td>190</td>
+											</tr>
+											<tr>
+												<th>Baking powder</th>
+												<td>1 tea­spoon</td>
+												<td>1/8</td>
+												<td>4</td>
+											</tr>
+											<tr>
+												<th>Baking soda</th>
+												<td>1/2 tea­spoon</td>
+												<td>1/10</td>
+												<td>3</td>
+											</tr>
+											<tr>
+												<th>Baking Sugar Alternative</th>
+												<td>1 cup</td>
+												<td>6</td>
+												<td>170</td>
+											</tr>
+											<tr>
+												<th>Bananas (mashed)</th>
+												<td>1 cup</td>
+												<td>8</td>
+												<td>227</td>
+											</tr>
+											<tr>
+												<th>Barley (cooked)</th>
+												<td>1 cup</td>
+												<td>7 5/8</td>
+												<td>215</td>
+											</tr>
+											<tr>
+												<th>Barley (pearled)</th>
+												<td>1 cup</td>
+												<td>7 1/2</td>
+												<td>213</td>
+											</tr>
+											<tr>
+												<th>Barley flakes</th>
+												<td>1/2 cup</td>
+												<td>1 5/8</td>
+												<td>46</td>
+											</tr>
+											<tr>
+												<th>Barley flour</th>
+												<td>1 cup</td>
+												<td>3</td>
+												<td>85</td>
+											</tr>
+											<tr>
+												<th>Barley malt syrup</th>
+												<td>2 tablespoons</td>
+												<td>1 1/2</td>
+												<td>42</td>
+											</tr>
+											<tr>
+												<th>Basil pesto</th>
+												<td>2 table­spoons</td>
+												<td>1</td>
+												<td>28</td>
+											</tr>
+											<tr>
+												<th>Bell peppers (fresh)</th>
+												<td>1 cup</td>
+												<td>5</td>
+												<td>142</td>
+											</tr>
+											<tr>
+												<th>Berries (frozen)</th>
+												<td>1 cup</td>
+												<td>5</td>
+												<td>142</td>
+											</tr>
+											<tr>
+												<th>Better Cheddar Cheese Powder</a></th>
+												<td>1/2 cup</td>
+												<td>2</td>
+												<td>57</td>
+											</tr>
+											<tr>
+												<th>Blueberries (dried)</th>
+												<td>1 cup</td>
+												<td>5 1/2</td>
+												<td>156</td>
+											</tr>
+											<tr>
+												<th>Blueberries (fresh or frozen)</th>
+												<td>1 cup</td>
+												<td>5 to 6</td>
+												<td>140 to 170</td>
+											</tr>
+											<tr>
+												<th>Blueberry juice</th>
+												<td>1 cup</td>
+												<td>8 1/2</td>
+												<td>241</td>
+											</tr>
+											<tr>
+												<th>Boiled cider</a></th>
+												<td>1/4 cup</td>
+												<td>3</td>
+												<td>85</td>
+											</tr>
+											<tr>
+												<th>Bran cereal</th>
+												<td>1 cup</td>
+												<td>2 1/8</td>
+												<td>60</td>
+											</tr>
+											<tr>
+												<th>Breadcrumbs (dried)</th>
+												<td>1/4 cup</td>
+												<td>1</td>
+												<td>28</td>
+											</tr>
+											<tr>
+												<th>Breadcrumbs (fresh)</th>
+												<td>1/4 cup</td>
+												<td>3/4</td>
+												<td>21</td>
+											</tr>
+											<tr>
+												<th>Breadcrumbs (Japanese Panko)</th>
+												<td>1 cup</td>
+												<td>1 3/4</td>
+												<td>50</td>
+											</tr>
+											<tr>
+												<th>Bread Flour</a></th>
+												<td>1 cup</td>
+												<td>4 1/4</td>
+												<td>120</td>
+											</tr>
+											<tr>
+												<th>Brown rice (cooked)</th>
+												<td>1 cup</td>
+												<td>6</td>
+												<td>170</td>
+											</tr>
+											<tr>
+												<th>Brown rice flour</th>
+												<td>1 cup</td>
+												<td>4 1/2</td>
+												<td>128</td>
+											</tr>
+											<tr>
+												<th>Brown sugar (dark or light, packed)</th>
+												<td>1 cup</td>
+												<td>7 1/2</td>
+												<td>213</td>
+											</tr>
+											<tr>
+												<th>Buckwheat (whole)</th>
+												<td>1 cup</td>
+												<td>6</td>
+												<td>170</td>
+											</tr>
+											<tr>
+												<th>Buckwheat Flour</a></th>
+												<td>1 cup</td>
+												<td>4 1/4</td>
+												<td>120</td>
+											</tr>
+											<tr>
+												<th>Bulgur</th>
+												<td>1 cup</td>
+												<td>5 3/8</td>
+												<td>152</td>
+											</tr>
+											<tr>
+												<th>Butter</th>
+												<td>8 table­spoons (1/2 cup)</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Buttermilk</th>
+												<td>1 cup</td>
+												<td>8</td>
+												<td>227</td>
+											</tr>
+											<tr>
+												<th>Buttermilk Biscuit Flour Blend</a></th>
+												<td>1 cup</td>
+												<td>3 7/8&nbsp;</td>
+												<td>110</td>
+											</tr>
+											<tr>
+												<th>Buttermilk powder</a></th>
+												<td>2 tablespoons</td>
+												<td>2/3</td>
+												<td>18</td>
+											</tr>
+											<tr>
+												<th>Cacao nibs</th>
+												<td>1 cup</td>
+												<td>4 1/4</td>
+												<td>120</td>
+											</tr>
+											<tr>
+												<th>Cake Enhancer</a></th>
+												<td>2 table­spoons</td>
+												<td>1/2</td>
+												<td>14</td>
+											</tr>
+											<tr>
+												<th>Candied Lemon Peel</th>
+												<td>1/4 cup</td>
+												<td>1 1/3</td>
+												<td>37</td>
+											</tr>
+											<tr>
+												<th>Candied Orange Peel</th>
+												<td>1/4 cup</td>
+												<td>7/8</td>
+												<td>25</td>
+											</tr>
+											<tr>
+												<th>Caramel (14-16 individual pieces, 1" squares)</th>
+												<td>1/2 cup</td>
+												<td>5</td>
+												<td>142</td>
+											</tr>
+											<tr>
+												<th>Caramel bits (chopped Heath or toffee)</th>
+												<td>1 cup</td>
+												<td>5 1/2</td>
+												<td>156</td>
+											</tr>
+											<tr>
+												<th>Caraway seeds</th>
+												<td>2 table­spoons</td>
+												<td>5/8</td>
+												<td>18</td>
+											</tr>
+											<tr>
+												<th>Carrots (cooked and puréed)</th>
+												<td>1/2 cup</td>
+												<td>4 1/2</td>
+												<td>128</td>
+											</tr>
+											<tr>
+												<th>Carrots (diced)</th>
+												<td>1 cup</td>
+												<td>5</td>
+												<td>142</td>
+											</tr>
+											<tr>
+												<th>Carrots (grated)</th>
+												<td>1 cup</td>
+												<td>3 1/2</td>
+												<td>99</td>
+											</tr>
+											<tr>
+												<th>Cashews (chopped)</th>
+												<td>1 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Cashews (whole)</th>
+												<td>1 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Celery (diced)</th>
+												<td>1 cup</td>
+												<td>5</td>
+												<td>142</td>
+											</tr>
+											<tr>
+												<th>Cheese (Feta)</th>
+												<td>1/2 cup</td>
+												<td>2</td>
+												<td>57</td>
+											</tr>
+											<tr>
+												<th>Cheese (grated cheddar, jack, mozzarella, or Swiss)</th>
+												<td>1 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Cheese (grated Parmesan)</th>
+												<td>1/2 cup</td>
+												<td>1 3/4</td>
+												<td>50</td>
+											</tr>
+											<tr>
+												<th>Cheese (Ricotta)</th>
+												<td>1 cup</td>
+												<td>8</td>
+												<td>227</td>
+											</tr>
+											<tr>
+												<th>Cherries (candied)</th>
+												<td>1/4 cup</td>
+												<td>1 3/4</td>
+												<td>50</td>
+											</tr>
+											<tr>
+												<th>Cherries (dried)</th>
+												<td>1/2 cup</td>
+												<td>2 1/2</td>
+												<td>71</td>
+											</tr>
+											<tr>
+												<th>Cherries (fresh, pitted, chopped)</th>
+												<td>1/2 cup</td>
+												<td>2 7/8</td>
+												<td>80</td>
+											</tr>
+											<tr>
+												<th>Cherries (frozen)</th>
+												<td>1 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Cherry Concentrate</a></th>
+												<td>2 tablespoons</td>
+												<td>1 1/2</td>
+												<td>42</td>
+											</tr>
+											<tr>
+												<th>Chia seeds</th>
+												<td>1/4 cup</td>
+												<td>1 1/3</td>
+												<td>37</td>
+											</tr>
+											<tr>
+												<th>Chickpea flour</th>
+												<td>1 cup</td>
+												<td>3</td>
+												<td>85</td>
+											</tr>
+											<tr>
+												<th>Chives (fresh)</th>
+												<td>1/2 cup</td>
+												<td>3/4</td>
+												<td>21</td>
+											</tr>
+											<tr>
+												<th>Chocolate (chopped)</th>
+												<td>1 cup</td>
+												<td>6</td>
+												<td>170</td>
+											</tr>
+											<tr>
+												<th>Chocolate Chips</a></th>
+												<td>1 cup</td>
+												<td>6</td>
+												<td>170</td>
+											</tr>
+											<tr>
+												<th>Chocolate Chunks</a></th>
+												<td>1 cup</td>
+												<td>6</td>
+												<td>170</td>
+											</tr>
+											<tr>
+												<th>Chocolate Mousse Mix</a></th>
+												<td>1/4 cup</td>
+												<td>1</td>
+												<td>28</td>
+											</tr>
+											<tr>
+												<th>Cinnamon Sweet Bits</a></th>
+												<td>1/4 cup</td>
+												<td>1 1/4</td>
+												<td>35</td>
+											</tr>
+											<tr>
+												<th>Cinnamon-Sugar</a></th>
+												<td>1/4 cup</td>
+												<td>1 3/4</td>
+												<td>50</td>
+											</tr>
+											<tr>
+												<th>Climate Blend Flour</a></th>
+												<td>1 cup</td>
+												<td>4</td>
+												<td>115</td>
+											</tr>
+											<tr>
+												<th>Cocoa (unsweetened)</a></th>
+												<td>1/2 cup</td>
+												<td>1 1/2</td>
+												<td>42</td>
+											</tr>
+											<tr>
+												<th>Coconut (sweetened, shredded)</th>
+												<td>1 cup</td>
+												<td>3</td>
+												<td>85</td>
+											</tr>
+											<tr>
+												<th>Coconut (toasted)</th>
+												<td>1 cup</td>
+												<td>3</td>
+												<td>85</td>
+											</tr>
+											<tr>
+												<th>Coconut (unsweetened, desiccated)</th>
+												<td>1 cup</td>
+												<td>3</td>
+												<td>85</td>
+											</tr>
+											<tr>
+												<th>Coconut (unsweetened, large flakes)</th>
+												<td>1 cup</td>
+												<td>2 1/8</td>
+												<td>60</td>
+											</tr>
+											<tr>
+												<th>Coconut (unsweetened, shredded)</th>
+												<td>1 cup</td>
+												<td>1 7/8</td>
+												<td>53</td>
+											</tr>
+											<tr>
+												<th>Coconut cream&nbsp;(unsweetened)</th>
+												<td>1 cup&nbsp;</td>
+												<td>10</td>
+												<td>284</td>
+											</tr>
+											<tr>
+												<th>Coconut Flour</th>
+												<td>1 cup</td>
+												<td>4 1/2</td>
+												<td>128</td>
+											</tr>
+											<tr>
+												<th>Coconut milk; canned, well shaken</th>
+												<td>1 cup</td>
+												<td>8 1/2</td>
+												<td>241</td>
+											</tr>
+											<tr>
+												<th>Coconut milk&nbsp;(evaporated)</th>
+												<td>1 cup&nbsp;</td>
+												<td>8 1/2</td>
+												<td>242</td>
+											</tr>
+											<tr>
+												<th>Coconut Milk Powder</th>
+												<td>1/2 cup</td>
+												<td>2</td>
+												<td>57</td>
+											</tr>
+											<tr>
+												<th>Coconut oil</th>
+												<td>1/2 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Coconut sugar</th>
+												<td>1/2 cup</td>
+												<td>2 3/4</td>
+												<td>77</td>
+											</tr>
+											<tr>
+												<th>Confectioners' sugar (unsifted)</th>
+												<td>1 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Cookie butter</th>
+												<td>1/4 cup</td>
+												<td>2 1/2</td>
+												<td>72</td>
+											</tr>
+											<tr>
+												<th>Cookie crumbs</th>
+												<td>1 cup</td>
+												<td>3</td>
+												<td>85</td>
+											</tr>
+											<tr>
+												<th>Corn (fresh or frozen)&nbsp;</th>
+												<td>1/4 cup</td>
+												<td>1 1/3</td>
+												<td>38</td>
+											</tr>
+											<tr>
+												<th>Corn (popped)</th>
+												<td>4 cups</td>
+												<td>3/4</td>
+												<td>21</td>
+											</tr>
+											<tr>
+												<th>Corn syrup</th>
+												<td>1 cup</td>
+												<td>11</td>
+												<td>312</td>
+											</tr>
+											<tr>
+												<th>Cornmeal (whole)</th>
+												<td>1 cup</td>
+												<td>4 7/8</td>
+												<td>138</td>
+											</tr>
+											<tr>
+												<th>Cornmeal (yellow, Quaker)</th>
+												<td>1 cup</td>
+												<td>5 1/2</td>
+												<td>156</td>
+											</tr>
+											<tr>
+												<th>Cornstarch</th>
+												<td>1/4 cup</td>
+												<td>1</td>
+												<td>28</td>
+											</tr>
+											<tr>
+												<th>Cottage cheese</th>
+												<td>1/2 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Cracked wheat</th>
+												<td>1 cup</td>
+												<td>5 1/4</td>
+												<td>149</td>
+											</tr>
+											<tr>
+												<th>Cranberries (dried)</th>
+												<td>1/2 cup</td>
+												<td>2</td>
+												<td>57</td>
+											</tr>
+											<tr>
+												<th>Cranberries (fresh or frozen)</th>
+												<td>1 cup</td>
+												<td>3 1/2</td>
+												<td>99</td>
+											</tr>
+											<tr>
+												<th>Cream (heavy cream, light cream, or half &amp; half)</th>
+												<td>1 cup</td>
+												<td>8</td>
+												<td>227</td>
+											</tr>
+											<tr>
+												<th>Cream cheese</th>
+												<td>1 cup</td>
+												<td>8</td>
+												<td>227</td>
+											</tr>
+											<tr>
+												<th>Cream of coconut</th>
+												<td>1/2 cup</td>
+												<td>5</td>
+												<td>142</td>
+											</tr>
+											<tr>
+												<th>Crème fraiche</th>
+												<td>1/2 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Currants</th>
+												<td>1 cup</td>
+												<td>5</td>
+												<td>142</td>
+											</tr>
+											<tr>
+												<th>Dates (chopped)</th>
+												<td>1 cup</td>
+												<td>5 1/4</td>
+												<td>149</td>
+											</tr>
+											<tr>
+												<th>Demerara sugar</th>
+												<td>1 cup</td>
+												<td>7 3/4</td>
+												<td>220</td>
+											</tr>
+											<tr>
+												<th>Dried Blueberry Powder</a></th>
+												<td>1/4 cup</td>
+												<td>1</td>
+												<td>28</td>
+											</tr>
+											<tr>
+												<th>Dried milk (Baker's Special Dry Milk)</a></th>
+												<td>1/4 cup</td>
+												<td>1</td>
+												<td>28</td>
+											</tr>
+											<tr>
+												<th>Dried nonfat milk (powdered)</th>
+												<td>1/4 cup</td>
+												<td>1</td>
+												<td>28</td>
+											</tr>
+											<tr>
+												<th>Dried potato flakes (instant mashed potatoes)</th>
+												<td>1/2 cup</td>
+												<td>1 1/2</td>
+												<td>43</td>
+											</tr>
+											<tr>
+												<th>Dried whole milk (powdered)</a></th>
+												<td>1/2 cup</td>
+												<td>1 3/4</td>
+												<td>50</td>
+											</tr>
+											<tr>
+												<th>Durum Flour</a></th>
+												<td>1 cup</td>
+												<td>4 3/8</td>
+												<td>124</td>
+											</tr>
+											<tr>
+												<th>Easy Roll Dough Improver</a></th>
+												<td>2 table­spoons</td>
+												<td>5/8</td>
+												<td>18</td>
+											</tr>
+											<tr>
+												<th>Egg (fresh)</th>
+												<td>1 large</td>
+												<td>1 3/4</td>
+												<td>50</td>
+											</tr>
+											<tr>
+												<th>Egg white (fresh)</th>
+												<td>1 large</td>
+												<td>1 to 1 1/4</td>
+												<td>30 to 35</td>
+											</tr>
+											<tr>
+												<th>Egg whites (dried)</th>
+												<td>2 table­spoons</td>
+												<td>3/8</td>
+												<td>11</td>
+											</tr>
+											<tr>
+												<th>Egg yolk (fresh)</th>
+												<td>1 large</td>
+												<td>1/2</td>
+												<td>14</td>
+											</tr>
+											<tr>
+												<th>Espresso Powder</a></th>
+												<td>1 table­spoon</td>
+												<td>1/4</td>
+												<td>7</td>
+											</tr>
+											<tr>
+												<th>Everything Bagel Topping</a></th>
+												<td>1/4 cup</td>
+												<td>1 1/4</td>
+												<td>35</td>
+											</tr>
+											<tr>
+												<th>Figs (dried, chopped)</th>
+												<td>1 cup</td>
+												<td>5 1/4</td>
+												<td>149</td>
+											</tr>
+											<tr>
+												<th>First Clear Flour</th>
+												<td>1 cup</td>
+												<td>3 3/4</td>
+												<td>106</td>
+											</tr>
+											<tr>
+												<th>Flax meal</th>
+												<td>1/2 cup</td>
+												<td>1 3/4</td>
+												<td>50</td>
+											</tr>
+											<tr>
+												<th>Flaxseed</th>
+												<td>1/4 cup</td>
+												<td>1 1/4</td>
+												<td>35</td>
+											</tr>
+											<tr>
+												<th>Formaggio Italiano Cheese and Herb Blend</a></th>
+												<td>1/4 cup</td>
+												<td>1</td>
+												<td>30</td>
+											</tr>
+											<tr>
+												<th>French-Style Flour</th>
+												<td>1 cup</td>
+												<td>4 1/4</td>
+												<td>120</td>
+											</tr>
+											<tr>
+												<th>Fruitcake Fruit Blend</a></th>
+												<td>1 cup</td>
+												<td>4 1/4</td>
+												<td>120</td>
+											</tr>
+											<tr>
+												<th>Garlic (cloves, in skin for roasting)</th>
+												<td>1 large head</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Garlic (minced)</th>
+												<td>2 table­spoons</td>
+												<td>1</td>
+												<td>28</td>
+											</tr>
+											<tr>
+												<th>Garlic (peeled and sliced)</th>
+												<td>1 cup</td>
+												<td>5 1/4</td>
+												<td>149</td>
+											</tr>
+											<tr>
+												<th>Ghee</th>
+												<td>1/4 cup</td>
+												<td>1 1/2</td>
+												<td>44</td>
+											</tr>
+											<tr>
+												<th>Ginger (fresh, sliced)</th>
+												<td>1/4 cup</td>
+												<td>2</td>
+												<td>57</td>
+											</tr>
+											<tr>
+												<th>Gluten-Free Pizza Flour</a></th>
+												<td>1 cup</td>
+												<td>3 1/2</td>
+												<td>100</td>
+											</tr>
+											<tr>
+												<th>Gluten-Free All-Purpose Baking Mix</a></th>
+												<td>1 cup</td>
+												<td>4 1/4</td>
+												<td>120</td>
+											</tr>
+											<tr>
+												<th>Gluten-Free All-Purpose Flour</a></th>
+												<td>1 cup</td>
+												<td>5 1/2</td>
+												<td>156</td>
+											</tr>
+											<tr>
+												<th>Gluten-Free Bread Flour</a></th>
+												<td>1 cup</td>
+												<td>4 1/4</td>
+												<td>120</td>
+											</tr>
+											<tr>
+												<th>Gluten-Free Measure for Measure Flour</a></th>
+												<td>1 cup</td>
+												<td>4 1/4</td>
+												<td>120</td>
+											</tr>
+											<tr>
+												<th>Gluten-Free sourdough starter (made with Gluten-Free Bread Flour</a>)</th>
+												<td>1 cup</td>
+												<td>6 to 6 1/2</td>
+												<td>170 to 185</td>
+											</tr>
+											<tr>
+												<th>Gluten-Free sourdough starter (made with Gluten-Free Measure
+													for
+													Measure Flour</a>)</th>
+												<td>1 cup</td>
+												<td>8 to 8 1/2</td>
+												<td>227 to 241</td>
+											</tr>
+											<tr>
+												<th>Glutinous rice flour</th>
+												<td>1 cup</td>
+												<td>4 1/4</td>
+												<td>120</td>
+											</tr>
+											<tr>
+												<th>Golden Wheat Flour</a></th>
+												<td>1 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Graham cracker crumbs (store-bought or crushed from whole)</th>
+												<td>1 cup (6 to 7 crackers)</td>
+												<td>3 1/2</td>
+												<td>100</td>
+											</tr>
+											<tr>
+												<th>Granola</th>
+												<td>1 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Grape Nuts</th>
+												<td>1/2 cup</td>
+												<td>2</td>
+												<td>57</td>
+											</tr>
+											<tr>
+												<th>Guava paste</th>
+												<td>1/4 cup</td>
+												<td>3 1/2</td>
+												<td>100</td>
+											</tr>
+											<tr>
+												<th>Harvest Grains Blend</a></th>
+												<td>1/2 cup</td>
+												<td>2 5/8</td>
+												<td>74</td>
+											</tr>
+											<tr>
+												<th>Hazelnut flour</th>
+												<td>1 cup</td>
+												<td>3 1/8</td>
+												<td>89</td>
+											</tr>
+											<tr>
+												<th>Hazelnut Praline Paste</th>
+												<td>1/2 cup</td>
+												<td>5 1/2</td>
+												<td>156</td>
+											</tr>
+											<tr>
+												<th>Hazelnut spread</th>
+												<td>1/2 cup</td>
+												<td>5 5/8</td>
+												<td>160</td>
+											</tr>
+											<tr>
+												<th>Hazelnuts (whole)</th>
+												<td>1 cup</td>
+												<td>5</td>
+												<td>142</td>
+											</tr>
+											<tr>
+												<th>Hi-Maize Natural Fiber</th>
+												<td>1/4 cup</td>
+												<td>1 1/8</td>
+												<td>32</td>
+											</tr>
+											<tr>
+												<th>High-Gluten Flour</a></th>
+												<td>1 cup</td>
+												<td>4 1/4</td>
+												<td>120</td>
+											</tr>
+											<tr>
+												<th>Honey</th>
+												<td>1 table­spoon</td>
+												<td>3/4</td>
+												<td>21</td>
+											</tr>
+											<tr>
+												<th>Instant Clearjel</a></th>
+												<td>1 table­spoon</td>
+												<td>3/8</td>
+												<td>11</td>
+											</tr>
+											<tr>
+												<th>Irish-Style Flour</a></th>
+												<td>1 cup</td>
+												<td>3 7/8</td>
+												<td>110</td>
+											</tr>
+											<tr>
+												<th>Italian Herb Seasoning</a></th>
+												<td>2 tablespoons</td>
+												<td>1/2</td>
+												<td>14</td>
+											</tr>
+											<tr>
+												<th>Italian-Style Flour</a></th>
+												<td>1 cup</td>
+												<td>3 3/4</td>
+												<td>106</td>
+											</tr>
+											<tr>
+												<th>Jam or preserves</th>
+												<td>1/4 cup</td>
+												<td>3</td>
+												<td>85</td>
+											</tr>
+											<tr>
+												<th>Jammy Bits</a></th>
+												<td>1 cup</td>
+												<td>6 1/2</td>
+												<td>184</td>
+											</tr>
+											<tr>
+												<th>Keto Wheat Flour</a></th>
+												<td>1 cup</td>
+												<td>4 1/4</td>
+												<td>120</td>
+											</tr>
+											<tr>
+												<th>Keto Wheat Pizza Crust Mix</a></th>
+												<td>1 cup</td>
+												<td>3 7/8</td>
+												<td>110</td>
+											</tr>
+											<tr>
+												<th>Key Lime Juice</a></th>
+												<td>1 cup</td>
+												<td>8</td>
+												<td>227</td>
+											</tr>
+											<tr>
+												<th>Lard</th>
+												<td>1/2 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Leeks (diced)</th>
+												<td>1 cup</td>
+												<td>3 1/4</td>
+												<td>92</td>
+											</tr>
+											<tr>
+												<th>Lemon Crumbles</a></th>
+												<td>1 cup</td>
+												<td>6 1/3</td>
+												<td>180</td>
+											</tr>
+											<tr>
+												<th>Lemon Curd</a></th>
+												<td>1/2 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Lemon juice</th>
+												<td>1 tablespoon</td>
+												<td>1/2</td>
+												<td>14</td>
+											</tr>
+											<tr>
+												<th>Lemon Juice Powder</a></th>
+												<td>2 table­spoons</td>
+												<td>5/8</td>
+												<td>18</td>
+											</tr>
+											<tr>
+												<th>Lime Juice Powder</th>
+												<td>2 table­spoons</td>
+												<td>5/8</td>
+												<td>18</td>
+											</tr>
+											<tr>
+												<th>Macadamia nuts (whole)</th>
+												<td>1 cup</td>
+												<td>5 1/4</td>
+												<td>149</td>
+											</tr>
+											<tr>
+												<th>Malt syrup</th>
+												<td>2 table­spoons</td>
+												<td>1 1/2</td>
+												<td>43</td>
+											</tr>
+											<tr>
+												<th>Malted Milk Powder</a></th>
+												<td>1/4 cup</td>
+												<td>1 1/4</td>
+												<td>35</td>
+											</tr>
+											<tr>
+												<th>Malted Wheat Flakes</a></th>
+												<td>1/2 cup</td>
+												<td>2 1/4</td>
+												<td>64</td>
+											</tr>
+											<tr>
+												<th>Maple Cinnamon French Toast Sugar</a></th>
+												<td>1/4 cup</td>
+												<td>1 2/3</td>
+												<td>48</td>
+											</tr>
+											<tr>
+												<th>Maple Cream</a></th>
+												<td>2 tablespoons</td>
+												<td>1 1/2</td>
+												<td>42</td>
+											</tr>
+											<tr>
+												<th>Maple sugar</a></th>
+												<td>1/2 cup</td>
+												<td>2 3/4</td>
+												<td>78</td>
+											</tr>
+											<tr>
+												<th>Maple syrup</a></th>
+												<td>1/2 cup</td>
+												<td>5 1/2</td>
+												<td>156</td>
+											</tr>
+											<tr>
+												<th>Marshmallow spread, homemade</a></th>
+												<td>1 cup</td>
+												<td>2 1/2</td>
+												<td>72</td>
+											</tr>
+											<tr>
+												<th>Marshmallow spread, store-bought</th>
+												<td>1 cup</td>
+												<td>4 1/3</td>
+												<td>123</td>
+											</tr>
+											<tr>
+												<th>Marshmallow Fluff®</th>
+												<td>1 cup</td>
+												<td>4 1/2</td>
+												<td>128</td>
+											</tr>
+											<tr>
+												<th>Marshmallows (mini)</th>
+												<td>1 cup</td>
+												<td>1 1/2</td>
+												<td>43</td>
+											</tr>
+											<tr>
+												<th>Marzipan</th>
+												<td>1 cup</td>
+												<td>10 1/8</td>
+												<td>290</td>
+											</tr>
+											<tr>
+												<th>Masa Harina</a></th>
+												<td>1 cup</td>
+												<td>3 1/4</td>
+												<td>93</td>
+											</tr>
+											<tr>
+												<th>Mascarpone cheese</th>
+												<td>1 cup</td>
+												<td>8</td>
+												<td>227</td>
+											</tr>
+											<tr>
+												<th>Mashed potatoes</th>
+												<td>1 cup</td>
+												<td>7 1/2</td>
+												<td>213</td>
+											</tr>
+											<tr>
+												<th>Mashed sweet potatoes</th>
+												<td>1 cup</td>
+												<td>8 1/2</td>
+												<td>240</td>
+											</tr>
+											<tr>
+												<th>Matcha powder</th>
+												<td>2 tablespoons</td>
+												<td>3/8</td>
+												<td>12</td>
+											</tr>
+											<tr>
+												<th>Mayonnaise</th>
+												<td>1/2 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Medium Rye Flour</a></th>
+												<td>1 cup</td>
+												<td>3 3/4</td>
+												<td>106</td>
+											</tr>
+											<tr>
+												<th>Meringue powder</a></th>
+												<td>1/4 cup</td>
+												<td>1 1/2</td>
+												<td>43</td>
+											</tr>
+											<tr>
+												<th>Milk (evaporated)</th>
+												<td>1/2 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Milk (fresh)</th>
+												<td>1 cup</td>
+												<td>8</td>
+												<td>227</td>
+											</tr>
+											<tr>
+												<th>Millet (whole)</th>
+												<td>1/2 cup</td>
+												<td>3 5/8</td>
+												<td>103</td>
+											</tr>
+											<tr>
+												<th>Mini chocolate chips</a></th>
+												<td>1 cup</td>
+												<td>6 1/4</td>
+												<td>177</td>
+											</tr>
+											<tr>
+												<th>Mini Diced Ginger</a></th>
+												<td>1/2 cup</td>
+												<td>2 1/2</td>
+												<td>73</td>
+											</tr>
+											<tr>
+												<th>Molasses</th>
+												<td>1/4 cup</td>
+												<td>3</td>
+												<td>85</td>
+											</tr>
+											<tr>
+												<th>Mushrooms (sliced)</th>
+												<td>1 cup</td>
+												<td>2 3/4</td>
+												<td>78</td>
+											</tr>
+											<tr>
+												<th>Non-Diastatic Malt Powder</a></th>
+												<td>2 table­spoons</td>
+												<td>5/8</td>
+												<td>18</td>
+											</tr>
+											<tr>
+												<th>Nutella</th>
+												<td>1/2 cup</td>
+												<td>5 1/4</td>
+												<td>149</td>
+											</tr>
+											<tr>
+												<th>Oat bran</th>
+												<td>1/2 cup</td>
+												<td>1 7/8</td>
+												<td>53</td>
+											</tr>
+											<tr>
+												<th>Oat Flour</a></th>
+												<td>1 cup</td>
+												<td>3 1/4</td>
+												<td>92</td>
+											</tr>
+											<tr>
+												<th>Oats (King Arthur Rolled)</a></th>
+												<td>1 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Oats (old-fashioned or quick-cooking)</th>
+												<td>1 cup</td>
+												<td>3 1/8</td>
+												<td>89</td>
+											</tr>
+											<tr>
+												<th>Oats (prepared)&nbsp;</th>
+												<td>1 cup&nbsp;</td>
+												<td>5 1/8</td>
+												<td>147</td>
+											</tr>
+											<tr>
+												<th>Olive oil</th>
+												<td>1/4 cup</td>
+												<td>1 3/4</td>
+												<td>50</td>
+											</tr>
+											<tr>
+												<th>Olives (sliced)</th>
+												<td>1 cup</td>
+												<td>5</td>
+												<td>142</td>
+											</tr>
+											<tr>
+												<th>Onions (fresh, diced)</th>
+												<td>1 cup</td>
+												<td>5</td>
+												<td>142</td>
+											</tr>
+											<tr>
+												<th>Paleo Baking Flour</th>
+												<td>1 cup</td>
+												<td>3 5/8</td>
+												<td>104</td>
+											</tr>
+											<tr>
+												<th>Palm shortening</th>
+												<td>1/4 cup</td>
+												<td>1 1/2</td>
+												<td>45</td>
+											</tr>
+											<tr>
+												<th>Passion fruit purée&nbsp;</th>
+												<td>1/3 cup</td>
+												<td>2 1/8</td>
+												<td>60</td>
+											</tr>
+											<tr>
+												<th>Pasta Flour Blend</a></th>
+												<td>1 cup</td>
+												<td>5 1/8</td>
+												<td>145</td>
+											</tr>
+											<tr>
+												<th>Pastry Flour</a></th>
+												<td>1 cup</td>
+												<td>3 3/4</td>
+												<td>106</td>
+											</tr>
+											<tr>
+												<th>Pastry Flour Blend</a></th>
+												<td>1 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Peaches (peeled and diced)</th>
+												<td>1 cup</td>
+												<td>6</td>
+												<td>170</td>
+											</tr>
+											<tr>
+												<th>Peanut butter</th>
+												<td>1/2 cup</td>
+												<td>4 3/4</td>
+												<td>135</td>
+											</tr>
+											<tr>
+												<th>Peanuts (whole, shelled)</th>
+												<td>1 cup</td>
+												<td>5</td>
+												<td>142</td>
+											</tr>
+											<tr>
+												<th>Pears (peeled and diced)</th>
+												<td>1 cup</td>
+												<td>5 3/4</td>
+												<td>163</td>
+											</tr>
+											<tr>
+												<th>Pecan Meal</th>
+												<td>1 cup</td>
+												<td>2 3/4</td>
+												<td>80</td>
+											</tr>
+											<tr>
+												<th>Pecans (diced)</th>
+												<td>1/2 cup</td>
+												<td>2</td>
+												<td>57</td>
+											</tr>
+											<tr>
+												<th>Pecans (whole)</th>
+												<td>1 cup</td>
+												<td>3 3/4</td>
+												<td>105</td>
+											</tr>
+											<tr>
+												<th>Pie Filling Enhancer</a></th>
+												<td>1/4 cup</td>
+												<td>1 5/8</td>
+												<td>46</td>
+											</tr>
+											<tr>
+												<th>Pine nuts</th>
+												<td>1/2 cup</td>
+												<td>2 1/2</td>
+												<td>71</td>
+											</tr>
+											<tr>
+												<th>Pineapple (crushed, drained)</th>
+												<td>1 cup</td>
+												<td>9</td>
+												<td>256</td>
+											</tr>
+											<tr>
+												<th>Pineapple (dried)</th>
+												<td>1/2 cup</td>
+												<td>2 1/2</td>
+												<td>71</td>
+											</tr>
+											<tr>
+												<th>Pineapple (fresh or canned, diced)</th>
+												<td>1 cup</td>
+												<td>6</td>
+												<td>170</td>
+											</tr>
+											<tr>
+												<th>Pistachio nuts (shelled)</th>
+												<td>1/2 cup</td>
+												<td>2 1/8</td>
+												<td>60</td>
+											</tr>
+											<tr>
+												<th>Pistachio Paste</th>
+												<td>1/4 cup</td>
+												<td>2 3/4</td>
+												<td>78</td>
+											</tr>
+											<tr>
+												<th>Pizza Dough Flavor</a></th>
+												<td>2 tablespoons</td>
+												<td>4/10</td>
+												<td>12</td>
+											</tr>
+											<tr>
+												<th>Pizza Flour Blend</a></th>
+												<td>1 cup</td>
+												<td>4 3/8</td>
+												<td>124</td>
+											</tr>
+											<tr>
+												<th>Pizza sauce</th>
+												<td>1/4 cup</td>
+												<td>2</td>
+												<td>57</td>
+											</tr>
+											<tr>
+												<th>Pizza Seasoning</a></th>
+												<td>2 tablespoons</td>
+												<td>1/3</td>
+												<td>10</td>
+											</tr>
+											<tr>
+												<th>Polenta (coarse ground cornmeal)</th>
+												<td>1 cup</td>
+												<td>5 3/4</td>
+												<td>163</td>
+											</tr>
+											<tr>
+												<th>Poppy seeds</th>
+												<td>2 table­spoons</td>
+												<td>5/8</td>
+												<td>18</td>
+											</tr>
+											<tr>
+												<th>Potato Flour</a></th>
+												<td>1/4 cup</td>
+												<td>1 5/8</td>
+												<td>46</td>
+											</tr>
+											<tr>
+												<th>Potato starch</th>
+												<td>1 cup</td>
+												<td>5 3/8</td>
+												<td>152</td>
+											</tr>
+											<tr>
+												<th>Pumpernickel Flour</a></th>
+												<td>1 cup</td>
+												<td>3 3/4</td>
+												<td>106</td>
+											</tr>
+											<tr>
+												<th>Pumpkin purée&nbsp;</th>
+												<td>1 cup</td>
+												<td>8</td>
+												<td>227</td>
+											</tr>
+											<tr>
+												<th>Pumpkin seeds</th>
+												<td>1/4 cup</td>
+												<td>1 3/8</td>
+												<td>40</td>
+											</tr>
+											<tr>
+												<th>Queso fresco</th>
+												<td>1/2 cup</td>
+												<td>2</td>
+												<td>57</td>
+											</tr>
+											<tr>
+												<th>Quinoa (cooked)</th>
+												<td>1 cup</td>
+												<td>6 1/2</td>
+												<td>184</td>
+											</tr>
+											<tr>
+												<th>Quinoa (whole)</th>
+												<td>1 cup</td>
+												<td>6 1/4</td>
+												<td>177</td>
+											</tr>
+											<tr>
+												<th>Quinoa flour</th>
+												<td>1 cup</td>
+												<td>3 7/8</td>
+												<td>110</td>
+											</tr>
+											<tr>
+												<th>Raisins (loose)</th>
+												<td>1 cup</td>
+												<td>5 1/4</td>
+												<td>149</td>
+											</tr>
+											<tr>
+												<th>Raisins (packed)</th>
+												<td>1/2 cup</td>
+												<td>3</td>
+												<td>85</td>
+											</tr>
+											<tr>
+												<th>Raspberries (fresh)</th>
+												<td>1 cup</td>
+												<td>4 1/4</td>
+												<td>120</td>
+											</tr>
+											<tr>
+												<th>Rhubarb (sliced, 1/2" slices)</th>
+												<td>1 cup</td>
+												<td>4 1/4 to 5</td>
+												<td>120 to 140</td>
+											</tr>
+											<tr>
+												<th>Rice (long grain, dry)</th>
+												<td>1/2 cup</td>
+												<td>3 1/2</td>
+												<td>99</td>
+											</tr>
+											<tr>
+												<th>Rice flour (white)</th>
+												<td>1 cup</td>
+												<td>5</td>
+												<td>142</td>
+											</tr>
+											<tr>
+												<th>Rice Krispies</th>
+												<td>1 cup</td>
+												<td>1</td>
+												<td>28</td>
+											</tr>
+											<tr>
+												<th>Rye Bread Improver</a></th>
+												<td>2 tablespoons</td>
+												<td>1/2</td>
+												<td>14</td>
+											</tr>
+											<tr>
+												<th>Rye Chops</th>
+												<td>1 cup</td>
+												<td>4 1/4</td>
+												<td>120</td>
+											</tr>
+											<tr>
+												<th>Rye flakes</th>
+												<td>1 cup</td>
+												<td>4 3/8</td>
+												<td>124</td>
+											</tr>
+											<tr>
+												<th>Rye Flour Blend</a></th>
+												<td>1 cup</td>
+												<td>3 3/4</td>
+												<td>106</td>
+											</tr>
+											<tr>
+												<th>Salt (Kosher, Diamond Crystal)</th>
+												<td>1 table­spoon</td>
+												<td>1/4</td>
+												<td>8</td>
+											</tr>
+											<tr>
+												<th>Salt (Kosher, Morton's)</th>
+												<td>1 table­spoon</td>
+												<td>1/2</td>
+												<td>16</td>
+											</tr>
+											<tr>
+												<th>Salt (table)</th>
+												<td>1 table­spoon</td>
+												<td>2/3</td>
+												<td>18</td>
+											</tr>
+											<tr>
+												<th>Scallions (sliced)</th>
+												<td>1 cup</td>
+												<td>2 1/4</td>
+												<td>64</td>
+											</tr>
+											<tr>
+												<th>Self-Rising Flour</a></th>
+												<td>1 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Semolina Flour</a></th>
+												<td>1 cup</td>
+												<td>5 3/4</td>
+												<td>163</td>
+											</tr>
+											<tr>
+												<th>Sesame seeds</th>
+												<td>1/2 cup</td>
+												<td>2 1/2</td>
+												<td>71</td>
+											</tr>
+											<tr>
+												<th>Shallots (peeled and sliced)</th>
+												<td>1 cup</td>
+												<td>5 1/2</td>
+												<td>156</td>
+											</tr>
+											<tr>
+												<th>Six-Grain Blend</th>
+												<td>1 cup</td>
+												<td>4 1/2</td>
+												<td>128</td>
+											</tr>
+											<tr>
+												<th>Snow White Non-Melting Topping Sugar</a></th>
+												<td>1/2 cup</td>
+												<td>2</td>
+												<td>57</td>
+											</tr>
+											<tr>
+												<th>Sorghum flour</th>
+												<td>1 cup</td>
+												<td>4 7/8</td>
+												<td>138</td>
+											</tr>
+											<tr>
+												<th>Sour cream</th>
+												<td>1 cup</td>
+												<td>8</td>
+												<td>227</td>
+											</tr>
+											<tr>
+												<th>Sourdough starter</a></th>
+												<td>1 cup</td>
+												<td>8 to 8 1/2</td>
+												<td>227 to 241</td>
+											</tr>
+											<tr>
+												<th>Soy flour</th>
+												<td>1/4 cup</td>
+												<td>1 1/4</td>
+												<td>35</td>
+											</tr>
+											<tr>
+												<th>Sparkling Sugar</a></th>
+												<td>1/4 cup</td>
+												<td>2</td>
+												<td>57</td>
+											</tr>
+											<tr>
+												<th>Spelt Flour</th>
+												<td>1 cup</td>
+												<td>3 1/2</td>
+												<td>99</td>
+											</tr>
+											<tr>
+												<th>Sprouted Wheat Flour</th>
+												<td>1 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Steel cut oats</th>
+												<td>1/2 cup</td>
+												<td>2 1/2</td>
+												<td>70</td>
+											</tr>
+											<tr>
+												<th>Sticky Bun Sugar</th>
+												<td>1 cup</td>
+												<td>3 1/2</td>
+												<td>99</td>
+											</tr>
+											<tr>
+												<th>Strawberries (fresh sliced)</th>
+												<td>1 cup</td>
+												<td>5 7/8</td>
+												<td>167</td>
+											</tr>
+											<tr>
+												<th>Sugar (granulated white)</th>
+												<td>1 cup</td>
+												<td>7</td>
+												<td>198</td>
+											</tr>
+											<tr>
+												<th>Sugar substitute (Splenda)</th>
+												<td>1 cup</td>
+												<td>7/8</td>
+												<td>25</td>
+											</tr>
+											<tr>
+												<th>Sundried tomatoes (dry pack)</th>
+												<td>1 cup</td>
+												<td>6</td>
+												<td>170</td>
+											</tr>
+											<tr>
+												<th>Sunflower seeds</th>
+												<td>1/4 cup</td>
+												<td>1 1/4</td>
+												<td>35</td>
+											</tr>
+											<tr>
+												<th>Super 10 Blend</a></th>
+												<td>1 cup</td>
+												<td>3 3/4</td>
+												<td>106</td>
+											</tr>
+											<tr>
+												<th>Swedish Pearl Sugar</a></th>
+												<td>1/4 cup</td>
+												<td>1 3/4</td>
+												<td>49</td>
+											</tr>
+											<tr>
+												<th>Sweetened condensed coconut milk</th>
+												<td>1 cup</td>
+												<td>10 1/8</td>
+												<td>288</td>
+											</tr>
+											<tr>
+												<th>Sweetened condensed milk</th>
+												<td>1/4 cup</td>
+												<td>2 3/4</td>
+												<td>78</td>
+											</tr>
+											<tr>
+												<th>Tahini paste</th>
+												<td>1/2 cup</td>
+												<td>4 1/2</td>
+												<td>128</td>
+											</tr>
+											<tr>
+												<th>Tapioca starch or flour</th>
+												<td>1 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Tapioca (quick cooking)</th>
+												<td>2 table­spoons</td>
+												<td>3/4</td>
+												<td>21</td>
+											</tr>
+											<tr>
+												<th>Teff flour</th>
+												<td>1 cup</td>
+												<td>4 3/4</td>
+												<td>135</td>
+											</tr>
+											<tr>
+												<th>The Works Bread Topping</a></th>
+												<td>1/4 cup</td>
+												<td>1 1/4</td>
+												<td>35</td>
+											</tr>
+											<tr>
+												<th>Toasted Almond Flour</th>
+												<td>1 cup</td>
+												<td>3 3/8</td>
+												<td>96</td>
+											</tr>
+											<tr>
+												<th>Toffee chunks</th>
+												<td>1 cup</td>
+												<td>5 1/2</td>
+												<td>156</td>
+											</tr>
+											<tr>
+												<th>Tomato paste</th>
+												<td>2 tablespoons</td>
+												<td>1</td>
+												<td>29</td>
+											</tr>
+											<tr>
+												<th>Tropical Fruit Blend</th>
+												<td>1 cup</td>
+												<td>4 1/2 to 5</td>
+												<td>128 to 142</td>
+											</tr>
+											<tr>
+												<th>Turbinado sugar (raw)</th>
+												<td>1 cup</td>
+												<td>6 3/8</td>
+												<td>180</td>
+											</tr>
+											<tr>
+												<th>Unbleached Cake Flour</a></th>
+												<td>1 cup</td>
+												<td>4 1/4</td>
+												<td>120</td>
+											</tr>
+											<tr>
+												<th>Vanilla Extract</a></th>
+												<td>1 table­spoon</td>
+												<td>1/2</td>
+												<td>14</td>
+											</tr>
+											<tr>
+												<th>Vegetable oil</th>
+												<td>1 cup</td>
+												<td>7</td>
+												<td>198</td>
+											</tr>
+											<tr>
+												<th>Vegetable shortening</th>
+												<td>1/4 cup</td>
+												<td>1 5/8</td>
+												<td>46</td>
+											</tr>
+											<tr>
+												<th>Vital Wheat Gluten</a></th>
+												<td>2 table­spoons</td>
+												<td>5/8</td>
+												<td>18</td>
+											</tr>
+											<tr>
+												<th>Walnuts (chopped)</th>
+												<td>1 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Walnuts (whole)</th>
+												<td>1/2 cup</td>
+												<td>2 1/4</td>
+												<td>64</td>
+											</tr>
+											<tr>
+												<th>Water</th>
+												<td>1 cup</td>
+												<td>8</td>
+												<td>227</td>
+											</tr>
+											<tr>
+												<th>Wheat berries (red)</th>
+												<td>1 cup</td>
+												<td>6 1/2</td>
+												<td>184</td>
+											</tr>
+											<tr>
+												<th>Wheat bran</th>
+												<td>1/2 cup</td>
+												<td>1 1/8</td>
+												<td>32</td>
+											</tr>
+											<tr>
+												<th>Wheat germ</th>
+												<td>1/4 cup</td>
+												<td>1</td>
+												<td>28</td>
+											</tr>
+											<tr>
+												<th>White Chocolate Chips</th>
+												<td>1 cup</td>
+												<td>6</td>
+												<td>170</td>
+											</tr>
+											<tr>
+												<th>White Rye Flour</th>
+												<td>1 cup</td>
+												<td>3 3/4</td>
+												<td>106</td>
+											</tr>
+											<tr>
+												<th>Whole Grain Flour Blend</th>
+												<td>1 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Whole Wheat Flour (Premium 100%)</a></th>
+												<td>1 cup</td>
+												<td>4</td>
+												<td>113</td>
+											</tr>
+											<tr>
+												<th>Whole Wheat Pastry Flour / Graham
+													Flour</a>
+												</th>
+												<td>1 cup</td>
+												<td>3 3/8</td>
+												<td>96</td>
+											</tr>
+											<tr>
+												<th>Yeast (instant)</a></th>
+												<td>2 tea­spoons</td>
+												<td>1/5</td>
+												<td>6</td>
+											</tr>
+											<tr>
+												<th>Yeast (instant)</a></th>
+												<td>2 1/4 teaspoons</td>
+												<td>1/4</td>
+												<td>7</td>
+											</tr>
+											<tr>
+												<th>Yeast (instant)</a></th>
+												<td>1 tablespoon</td>
+												<td>1/3</td>
+												<td>9</td>
+											</tr>
+											<tr>
+												<th>Yogurt</th>
+												<td>1 cup</td>
+												<td>8</td>
+												<td>227</td>
+											</tr>
+											<tr>
+												<th>Yuletide Cheer Fruit Blend</th>
+												<td>1 cup</td>
+												<td>4 1/2</td>
+												<td>130</td>
+											</tr>
+											<tr>
+												<th>Zucchini (shredded)</th>
+												<td>1 cup</td>
+												<td>4 1/4 to 5 1/4</td>
+												<td>121 to 150</td>
+											</tr>
+										</tbody>
+									</table>
+
+								</div>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

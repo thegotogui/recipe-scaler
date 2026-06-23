@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Dashboard</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: system-ui, sans-serif;
+            background: #111;
+            color: #eee;
+        }
+
+        header {
+            text-align: center;
+            padding: 14px;
+        }
+
+        .controls {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        input[type="date"] {
+            font-size: 16px;
+            padding: 4px;
+        }
+
+        /* ---------- Responsive layout ---------- */
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            flex: 1 1 600px;
+            max-width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: #000;
+            border: 1px solid #444;
+        }
+
+        /* stack on narrow screens */
+        @media (max-width:800px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h2>Solar Dashboard</h2>
+        <div class="controls">
+            Date:
+            <input type="date" id="dateInput">
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="panel">
+            <h3>Solstice Offset Wheel</h3>
+            <canvas id="wheel" width="500" height="500"></canvas>
+        </div>
+
+        <div class="panel">
+            <h3>Solar Analemma</h3>
+            <canvas id="analemma" width="500" height="700"></canvas>
+        </div>
+    </div>
+
+    <script>
+        /* ======================================================
+           Shared Date Handling
+        ====================================================== */
+
+        const dateInput = document.getElementById("dateInput");
+
+        function setToday() {
+            const d = new Date();
+            dateInput.value = d.toISOString().slice(0, 10);
+        }
+        setToday();
+
+        function getSelectedDate() {
+            return new Date(dateInput.value);
+        }
+
+        dateInput.addEventListener("change", drawAll);
+
+        /* ======================================================
+           Astronomy Helpers
+        ====================================================== */
+
+        function dayOfYear(date) {
+            const start = new Date(date.getFullYear(), 0, 0);
+            return Math.floor((date - start) / 86400000);
+        }
+
+        function solarDeclination(N) {
+            return 23.44 * Math.sin((2 * Math.PI / 365) * (N - 81));
+        }
+
+        function equationOfTime(N) {
+            const B = (2 * Math.PI / 365) * (N - 81);
+            return 9.87 * Math.sin(2 * B)
+                - 7.53 * Math.cos(B)
+                - 1.5 * Math.sin(B);
+        }
+
+        /* ======================================================
+           SOLSTICE OFFSET WHEEL
+        ====================================================== */
+
+        const wheelCanvas = document.getElementById("wheel");
+        const wctx = wheelCanvas.getContext("2d");
+
+        function drawWheel(date) {
+
+            const W = wheelCanvas.width;
+            const H = wheelCanvas.height;
+            const cx = W / 2, cy = H / 2;
+            const r = Math.min(W, H) * 0.42;
+
+            wctx.clearRect(0, 0, W, H);
+
+            // outer circle
+            wctx.strokeStyle = "#888";
+            wctx.beginPath();
+            wctx.arc(cx, cy, r, 0, Math.PI * 2);
+            wctx.stroke();
+
+            // months
+            const months = [
+                "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+            ];
+
+            wctx.fillStyle = "#aaa";
+            wctx.font = "14px sans-serif";
+
+            months.forEach((m, i) => {
+                const angle = (i / 12) * Math.PI * 2 - Math.PI / 2;
+                const x = cx + Math.cos(angle) * (r + 15);
+                const y = cy + Math.sin(angle) * (r + 15);
+                wctx.fillText(m, x - 12, y + 5);
+            });
+
+            // current day marker
+            const N = dayOfYear(date);
+            const angle = (N / 365) * Math.PI * 2 - Math.PI / 2;
+
+            const x = cx + Math.cos(angle) * r;
+            const y = cy + Math.sin(angle) * r;
+
+            wctx.fillStyle = "#ff5252";
+            wctx.beginPath();
+            wctx.arc(x, y, 6, 0, Math.PI * 2);
+            wctx.fill();
+
+            wctx.fillStyle = "#fff";
+            wctx.fillText(date.toDateString(), 20, 25);
+        }
+
+        /* ======================================================
+           SOLAR ANALEMMA
+        ====================================================== */
+
+        const aCanvas = document.getElementById("analemma");
+        const actx = aCanvas.getContext("2d");
+
+        function drawAnalemma(date) {
+
+            const W = aCanvas.width;
+            const H = aCanvas.height;
+            const cx = W / 2;
+            const cy = H / 2;
+
+            actx.clearRect(0, 0, W, H);
+
+            let minE = Infinity, maxE = -Infinity;
+            let minD = Infinity, maxD = -Infinity;
+
+            for (let N = 1; N <= 365; N++) {
+                const e = equationOfTime(N);
+                const d = solarDeclination(N);
+                minE = Math.min(minE, e);
+                maxE = Math.max(maxE, e);
+                minD = Math.min(minD, d);
+                maxD = Math.max(maxD, d);
+            }
+
+            const margin = 0.05;
+            const usableW = W * (1 - 2 * margin);
+            const usableH = H * (1 - 2 * margin);
+
+            const xScale = usableW / (maxE - minE);
+            const yScale = usableH / (maxD - minD);
+
+            function toCanvas(e, d) {
+                return {
+                    x: cx + (e - (minE + maxE) / 2) * xScale,
+                    y: cy - (d - (minD + maxD) / 2) * yScale
+                };
+            }
+
+            // axes
+            actx.strokeStyle = "#333";
+            actx.beginPath();
+            actx.moveTo(cx, 0);
+            actx.lineTo(cx, H);
+            actx.moveTo(0, cy);
+            actx.lineTo(W, cy);
+            actx.stroke();
+
+            // analemma curve
+            actx.strokeStyle = "#00bcd4";
+            actx.lineWidth = 2;
+            actx.beginPath();
+
+            for (let N = 1; N <= 365; N++) {
+                const p = toCanvas(equationOfTime(N), solarDeclination(N));
+                if (N === 1) actx.moveTo(p.x, p.y);
+                else actx.lineTo(p.x, p.y);
+            }
+            actx.stroke();
+
+            // month ticks
+            const months = [
+                ["Jan", 15], ["Feb", 46], ["Mar", 74], ["Apr", 105],
+                ["May", 135], ["Jun", 166], ["Jul", 196], ["Aug", 227],
+                ["Sep", 258], ["Oct", 288], ["Nov", 319], ["Dec", 349]
+            ];
+
+            actx.fillStyle = "#bbb";
+            actx.font = "11px sans-serif";
+
+            months.forEach(([m, d]) => {
+                const p = toCanvas(equationOfTime(d), solarDeclination(d));
+                actx.beginPath();
+                actx.arc(p.x, p.y, 2.5, 0, Math.PI * 2);
+                actx.fill();
+                actx.fillText(m, p.x + 6, p.y - 4);
+            });
+
+            // today marker
+            const N = dayOfYear(date);
+            const e = equationOfTime(N);
+            const d = solarDeclination(N);
+            const p = toCanvas(e, d);
+
+            actx.fillStyle = "#ff5252";
+            actx.beginPath();
+            actx.arc(p.x, p.y, 6, 0, Math.PI * 2);
+            actx.fill();
+
+            actx.fillStyle = "#fff";
+            actx.fillText(date.toDateString(), p.x + 8, p.y + 14);
+            actx.fillText(
+                `${e.toFixed(1)} min ${e > 0 ? "ahead" : "behind"}`,
+                p.x + 8, p.y + 30
+            );
+            actx.fillText(`Declination: ${d.toFixed(1)}°`, p.x + 8, p.y + 46);
+        }
+
+        /* ======================================================
+           MASTER DRAW
+        ====================================================== */
+
+        function drawAll() {
+            const date = getSelectedDate();
+            drawWheel(date);
+            drawAnalemma(date);
+        }
+
+        drawAll();
+
+    </script>
+</body>
+
+</html>

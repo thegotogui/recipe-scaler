@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>TapTimer! - 00:00</title>
+    <link rel="icon" type="image/svg+xml" href="/ti/clock.svg">
+    <link rel="manifest" href="/ti/site.webmanifest">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+        crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous">
+        </script>
+    <link rel="stylesheet" href="css/taptimerstyle.css">
+
+    <script src="https://kit.fontawesome.com/c90f708bd9.js" crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/tapTimerScripts.js"></script>
+
+    <style>
+        .flex-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+
+        .flex-item-1,
+        .flex-item-2,
+        .flex-item-3,
+        .flex-item-4,
+        .flex-item-5,
+        .flex-item-6 {
+            width: fit-content;
+            order: 0;
+            flex: 1 1 auto;
+            align-self: auto;
+        }
+
+        .flex-item-7,
+        .flex-item-9,
+        .flex-item-10,
+        .flex-item-11 {
+            order: 0;
+            flex: 2 0 auto;
+            align-self: auto;
+        }
+
+        .flex-item-8,
+        .flex-item-12,
+        .flex-item-13 {
+            order: 0;
+            flex: 3 0 auto;
+            align-self: auto;
+        }
+
+        /* Solid border */
+        hr.solid {
+            border-top: 3px solid #bbb;
+            margin: 20px 15px 0px 13px;
+        }
+
+        .iconNudge {
+            margin-right: 5px;
+        }
+
+        .blurry {
+            backdrop-filter: blur(8px);
+        }
+
+        .padIcon {
+            margin-right: 8px;
+        }
+
+        .clockParts {
+            position: absolute;
+        }
+    </style>
+    <link rel="stylesheet" href="css/navigation.css">
+</head>
+
+<body class="specificTimer" onload="initializeIt('TapTimer', 'app_icons/headClock.svg'); timerStartUp();">
+
+    <div id="navHead">
+    </div>
+
+    <div class="theBigContainer">
+
+        <!-- Preferences Modal Dialog Box -->
+        <div class="outerModal" id="outerModal" style="display: none; margin-left: 25%;">
+            <div class="innerModal">
+                <div style="background-color: rgba(200, 200, 200, 0.3); border-radius: 5px; color:snow; padding: 10px 15px; display: flex; justify-content: space-between;">
+                    <h4 style="margin-top: 8px;">Preferences:</h4><button type="button" class="btn btn-primary btn-sm" style="height: 31px; margin-top: 7px;" id="close"><i class="fas fa-times"></i>
+                        Close</button>
+                </div>
+                <form>
+                    <div style="color: white; padding-left: 15px; padding-top: 20px; padding-bottom: 5px;">Require confirmation on:</div>
+
+                    <div class="form-check" style="padding-left: 65px;">
+                        <input class="form-check-input" onclick="getPreferences(1);" type="checkbox" value="" id="resetConf">
+                        <label class="form-check-label" style="padding-top: 4px;" for="resetConf">Reset All</label>
+                    </div>
+                    <div class="form-check" style="padding-left: 65px;">
+                        <input class="form-check-input" onclick="getPreferences(1);" type="checkbox" value="" id="logConf">
+                        <label class="form-check-label" style="padding-top: 4px;" for="logConf">Clear Log</label>
+                    </div>
+
+                    <div>
+                        <hr class="solid" style="margin-bottom: 10px">
+                    </div>
+
+                    <div class="form-check" style="padding-left: 65px;">
+                        <input class="form-check-input" onclick="getPreferences(1);" type="checkbox" value="" id="autostart">
+                        <label class="form-check-label" style="padding-top: 4px;" for="autostart">Autostart timer after entering values</label>
+                    </div>
+
+                    <div>
+                        <hr class="solid">
+                    </div>
+
+                    <div style="color: white;  padding-left: 15px; padding-top: 20px; padding-bottom: 12px;">Alert Sounds:</div>
+
+                    <div class="input-group mb-3" style="padding: 0px 15px 0px 30px;">
+                        <button onclick="clink(1);" class="btn btn-secondary" type="button"><i class="fas fa-volume-up"></i>&nbsp;&nbsp;Expiration</button>
+                        <select class="form-select" id="expSound" oninput="soundChoice(1);">
+                            <option value="1">Shimmer Chime</option>
+                            <option value="2">Vibra</option>
+                            <option value="3">Boop boop!</option>
+                            <option value="4">Mwah!</option>
+                            <option value="5">Clink!</option>
+                        </select>
+                    </div>
+                    <div class="form-check" style="padding-left: 65px; margin-bottom: 25px;">
+                        <input class="form-check-input" onclick="getPreferences(1);" type="checkbox" value="" id="reminderConf">
+                        <label class="form-check-label" style="padding-top: 4px;" for="reminder">
+                            Sound reminder alarms after expiration
+                        </label>
+                    </div>
+                    <div class="input-group mb-3" style="padding: 0px 15px 0px 30px;">
+                        <button onclick="clink(2);" class="btn btn-secondary" type="button"><i class="fas fa-volume-up"></i>&nbsp;&nbsp;Reminder</button>
+                        <select class="form-select" id="remSound" oninput="soundChoice(2);">
+                            <option value="1">Shimmer Chime</option>
+                            <option value="2">Vibra</option>
+                            <option value="3">Boop boop!</option>
+                            <option value="4">Mwah!</option>
+                            <option value="5">Clink!</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3" style="padding: 0px 15px 0px 30px;">
+                        <button onclick="clink(3);" class="btn btn-secondary" type="button"><i class="fas fa-volume-up"></i>&nbsp;&nbsp;Loop Mode</button>
+                        <select class="form-select" id="loopSound" oninput="soundChoice(3);">
+                            <option value="1">Quack</option>
+                            <option value="2">Pop</option>
+                            <option value="3">Clink</option>
+                        </select>
+                    </div>
+            </div>
+        </div>
+
+
+
+        <div class="container blurry" style="border-radius: 10px;">
+
+            <div class="labeler labelSpacer" id="labeler" style="border-radius: 15px 15px 0px 0px;">
+                <button type="button" onclick="toggleAnalog(1)" class="btn-sm btn-success" style="background-color: rgba(20,20,20,1); border-width: 0px;"><i class="fas fa-clock"></i></button>
+                <button type="button" onclick="toggleAnalog(2)" class="btn-sm btn-success" style="background-color: rgba(20,20,20,1); border-width: 0px;"><i class="fas fa-barcode"></i></button>
+                <span style="padding-left: 8px;">Clock</span>
+                <button type="button" id="loopButton" onclick="toggleLoop();" class="btn-sm btn-info" style=" color: white; background-color: rgb(20, 20, 20); border-width: 0px; margin-left: 45px;"><i
+                        class="fas fa-undo iconNudge"></i>Loop</button>
+
+                <button type="button" class="btn-sm btn-info" style=" color: white; background-color: rgb(20, 20, 20); border-width: 0px; margin-left: 45px;" id="prefs"><i
+                        class="fas fa-cogs iconNudge"></i>Prefs</button>
+                <button type="button" onclick="clink(1);" class="btn-sm btn-info" style="color: white; background-color: rgb(20, 20, 20); border-width: 0px; margin-left: 45px;"><i
+                        class="fas fa-volume-up iconNudge"></i>Test Audio</button>
+            </div>
+
+            <div class="title">
+                <input id='timerTitle' onClick="this.select();" onblur="logIt('title',10);" value="" placeholder="Timer Title"
+                    style="background-color: rgba(0, 0, 0, .58); text-align: center; width: 100%; padding: 10px;"></input>
+            </div>
+            <div class="justify-content-center analogClock" id="analogClock" style="padding: 20px 0px 20px 0px; margin: 0 auto; height: 238px; background-color: rgba(10, 10, 10, .8);">
+                <div style="position: relative; background: linear-gradient(146deg, rgba(0, 0, 0, .3) 0%, rgba(60, 60, 60, 0) 100%); width: 200px; height: 200px; border-radius: 50%; margin: 0 auto;">
+                    <div id="second" class="clockParts" ; style="z-index: 3;"></div>
+                    <div id="minute" class="clockParts" ; style="z-index: 2;"></div>
+                    <div id="hour" class="clockParts" ; style="z-index: 1;">
+                        <svg width="200" height="200">
+                            <polygon id="minuteHand" points="94,124 96,3 104,3 106,124" fill="#000000"></polygon>
+                            <polygon id="hourHand" points="93,125 95,33 105,33 107,125" fill="#000000"></polygon>
+
+                            <g id="secondHand3">
+                                <circle id="secondHand1" cx="100" cy="18" r="9" fill="#ee0000"></circle>
+                                <polygon id="secondHand2" points="98,125 98,19 102,19 102,125" fill="#ee0000"></polygon>
+                            </g>
+
+                            <circle cx="100" cy="100" r="5" fill="#ee0000"></circle>
+                        </svg>
+
+                    </div>
+                    <div id="clockBack" class="clockParts" style="z-index: 0; background-color: white; border-radius: 50%;"><img src="./mondaine/watchface.svg" height="200px" width="200px"></div>
+                </div>
+            </div>
+            <H1 class="display-4" id="theClock"
+                style="height: 140px; font-weight: bold; font-size: 7rem; color: rgb(190, 190, 190); background-color: rgba(0, 0, 0, .70); text-align: center; margin-bottom: 0px">
+            </h1>
+        </div>
+
+        <div id="pauseClockDiv" class="container" style="display: none;">
+            <H3 id="pauseClock" style="font-weight: bold; font-size: 4rem; color: rgb(255, 255, 255); background-color: rgba(0, 0, 0, .70); text-align: center;">
+                00:00
+            </h3>
+        </div>
+        <div class="container blurry">
+            <div id="extract" class="labeler" onclick="hideShowPause();">
+                <i class="fas fa-angle-right" ;></i><span style="padding-left: 8px;">Pause Clock</span>
+            </div>
+        </div>
+
+        <div class="container blurry">
+            <div class="row" style="background-color:rgba(0, 0, 0, .58); margin: 0; padding-top: 15px;">
+                <div class="col" style="padding-left: 10px;">
+                    <button type="button" onclick="setTime(1200);" style="font-size: x-large; font-weight: bolder; background-color: rgb(47, 99, 186);" class="btn-lg btn-primary"
+                        id="twenty">20m</button>
+                </div>
+                <div class="col">
+                    <button type="button" onclick="setTime(300);" style="font-size: x-large; font-weight: bolder; background-color: rgb(47, 99, 186);" class="btn-lg btn-primary" id="five">5m</button>
+                </div>
+                <div class="col">
+                    <button type="button" onclick="setTime(120);" style="font-size: x-large; font-weight: bolder; background-color: rgb(47, 99, 186);" class="btn-lg btn-primary" id="two">2m</button>
+                </div>
+                <div class="col">
+                    <button type="button" onclick="setTime(60);" style="font-size: x-large; font-weight: bolder; background-color: rgb(47, 99, 186);" class="btn-lg btn-primary" id="one">1m</button>
+                </div>
+                <div class="col">
+                    <button type="button" onclick="setTime(30);" style="font-size: x-large; font-weight: bolder; background-color: rgb(47, 99, 186);" class="btn-lg btn-primary"
+                        id="thirty">30s</button>
+                </div>
+                <div class="col">
+                    <button type="button" onclick="setTime(5);" style="font-size: x-large; font-weight: bolder; background-color: rgb(47, 99, 186);" class="btn-lg btn-primary" id="fives">5s</button>
+                </div>
+                <div class="col">
+                    <button type="button" onclick="toggleAdd();" class="btn-sm btn-success" id="checkBaxlbl"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+
+            <!-- Second row of buttons – Lap, Start/Stop, Reset, Log Note, Text Log -->
+            <div class="row justify-content-md-center" style="background-color:rgba(0, 0, 0, .58); color: white; padding-top: 10px; margin: 0px 0px 0px 0px; border-radius: 0px 0px 15px 15px;">
+
+                <div class="col-md-auto">
+                    <button type="button" onclick="lapIt();" class="btn-lg btn-success" id="lapbtn" style="background-color: rgb(23, 104, 23)"><i
+                            class="fas fa-stopwatch fa-lg iconNudge"></i>Lap</button>
+                </div>
+                <div class="col-md-auto">
+                    <button type="button" onclick="startStopIt();" class="btn-lg btn-success" id="startStop" style="background-color: rgb(23, 104, 23); width: 140px;"><i
+                            class="fas fa-play fa-lg iconNudge"></i>Start</button>
+                </div>
+                <div class="col-md-auto">
+                    <button type="button" onclick="resetItAll(0);" class="btn-lg btn-danger" id="resetAll" style="background-color: rgb(208 , 47, 47)"><i
+                            class="fas fa-history fa-lg iconNudge"></i>Reset</button>
+                </div>
+
+                <!-- Third row of buttons - test audio, show pause clock, undo add, Prefs -->
+                <div class="flex-item-12" style="padding-top: 15px; padding-left: 15%; justify-content: space-around; align-items: center;">
+                    <button type="button" onclick="undoAdd();" class="btn-sm btn-info" style="color: white; background-color: rgb(47, 99, 186); margin-left: 45px;"><i
+                            class="fas fa-undo iconNudge"></i>Undo Add</button>
+                </div>
+
+                <!-- Text-only version of the log for copy/paste/export -->
+                <div class="form-group" id="theTextArea" style="width: 100%; background-color: rgba(0, 0, 0, .4); color: white; display:none; margin: 20px; padding:10px 20px;">
+                    <textarea rows="4" onClick="this.select();" style="background-color: black; color: white; display: none; white-space: pre-wrap;"></textarea>
+                </div>
+
+                <!-- Log window, label, and various buttons -->
+                <div class="form-group" style="float: left; width: 100%; background-color: rgba(0, 0, 0, .2); border-radius: 15px; margin: 20px;">
+                    <div
+                        style="background-color: rgba(0, 0, 0, .4); color: white;  border-radius: 10px 10px 0px 0px; padding: 5px 20px; width:100%; display: flex; justify-content: space-between; font-size: 1.3rem; font-weight: bold;">
+                        <span style="padding-top: 5px;">Time Log:</span>
+                        <button type="button" onclick="clearLog();" class="btn-sm btn-warning" style="margin-left: 15px; margin-top: 5px; height:32px;" id="clearLog"><i
+                                class="fas fa-eraser iconNudge"></i>Clear</button>
+                        <button type="button" onclick="logNote(0);" class="btn-sm btn-success" id="logNote" style="background-color: rgb(23, 104, 23); margin-top: 5px; height:32px;"><i
+                                class="fas fa-clipboard iconNudge"></i>Add Note</button>
+                        <button type="button" onclick="logNote(1);" class="btn-sm btn-success" id="logTime" style="background-color: rgb(23, 104, 23); margin-top: 5px; height:32px;"><i
+                                class="fas fa-clipboard iconNudge"></i>Note the Time</button>
+                        <button type="button" onclick="textizeLog();" class="btn-sm btn-success" id="textLog" style="background-color: rgb(23, 104, 23); margin-top: 5px; height:32px;"><i
+                                class="fa fa-file-text-o iconNudge"></i>Text Log</button>
+                    </div>
+                    <div id="timeTape" class="timeTape"></div>
+                </div>
+            </div>
+
+            </form>
+        </div>
+
+    </div>
+    <!-- <script>
+        document.getElementById('timerTitle').addEventListener('keyup', function (e) {
+            if (e.which == 13) this.blur();
+        });
+
+        document.getElementById('clockAnalogBut').addEventListener('click', toggleAnalog);
+    </script> -->
+</body>
+
+</html>

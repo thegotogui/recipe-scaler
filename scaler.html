@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<title>Scaler</title>
+	<!-- <link rel="icon" type="image/svg+xml" href="/tc/martini.svg"> -->
+	<link rel="icon" href="/app_icons/piechart.svg" sizes="any" type="image/svg+xml">
+
+	<link rel="stylesheet" href="css/navigation.css">
+	<link rel="stylesheet" href="https://https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		.title,
+		.category {
+			padding-top: 10px;
+		}
+
+		.spaced {
+			padding-top: 5px;
+			font-size: 1.5rem;
+		}
+
+		.recipeStepsAmt,
+		.recipeStepsIng {
+			font-size: x-large;
+			padding: 10px;
+		}
+
+		.recipeStepsAmt {
+			text-align: right;
+		}
+
+		recipeStepsIng {
+			text-align: left;
+		}
+
+		label {
+			font-size: larger;
+		}
+
+		legend {
+			font-weight: bold;
+		}
+
+		.rightAlign {
+			text-align: right;
+		}
+
+		.centerAlign {
+			text-align: center;
+		}
+
+		body {
+			background: url('./assets/img/ratios.svg');
+			background-position: 50% 20%;
+			background-size: 250%;
+			background-repeat: no-repeat;
+			background-color: black;
+		}
+
+		.columnHeads {
+			text-align: center;
+		}
+
+		/* .syncBox {
+			/* margin: 30px 10px 0px 0px; */
+		/* } */
+
+		*/ .buttonx {
+			border: none;
+			color: white;
+			padding: 10px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+		}
+
+		.notSyncButton,
+		.syncButton {
+			border: none;
+			color: white;
+			padding: 10px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+		}
+
+		.notSyncButton {
+			border: none;
+			background-color: #078d1f;
+		}
+
+		.syncButton {
+			background-color: #005e83;
+		}
+
+		.tColumn1,
+		.tColumn2,
+		.tColumn3,
+		.tColumn4 {
+			background-color: rgba(36, 52, 36, 0.4);
+		}
+
+		.totColumn1,
+		.totColumn2,
+		.totColumn3 {
+			padding: 0px 7px 0px 9px;
+			background-color: rgba(36, 52, 36, 0.2);
+		}
+
+		.tColumn1,
+		.totColumn1 {
+			/* padding: 0px 7px 0px 14px; */
+			display: flex;
+		}
+
+		.totColumn1,
+		.totColumn2,
+		.totColumn3,
+		.totColumn4 {
+			border-top-style: solid;
+			border-top-color: white;
+			border-top-width: 1px;
+		}
+
+		.theBlocksL,
+		.theBlocksMet,
+		.theBlocksSc,
+		.theBlocksImp,
+		.theBlocksMetPort,
+		.theBlocksImpPort {
+			display: block;
+			width: 100%;
+			padding: .375rem .75rem;
+			margin: 10px 0px;
+			color: white;
+			border-radius: 5px;
+			background: #27344e;
+			border-style: hidden;
+			font-size: x-large;
+		}
+
+		.tColumn1,
+		.tColumn2,
+		.tColumn3,
+		.tColumn4 {
+			padding: 0px 8px 0px 8px;
+		}
+
+		.asyncer {
+			padding: 0px 8px 0px 8px;
+			display: flex;
+		}
+
+		.button-toolbar {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.35rem;
+			align-items: center;
+			justify-content: flex-start;
+		}
+
+		.button-toolbar .btn {
+			margin: 0;
+			flex: 0 1 auto;
+			min-width: 90px;
+			max-width: 160px;
+			padding: 0.35rem 0.7rem;
+			white-space: nowrap;
+		}
+
+		@media (max-width: 760px) {
+			.button-toolbar {
+				justify-content: center;
+			}
+
+			.button-toolbar .btn {
+				flex: 1 1 auto;
+				min-width: 0;
+				max-width: none;
+			}
+		}
+
+		@media (max-width: 520px) {
+			.button-toolbar .btn {
+				flex: 1 1 100%;
+			}
+		}
+
+		@media (max-width: 700px) {
+			.button-toolbar .btn {
+				flex: 1 1 45%;
+				min-width: 0;
+			}
+		}
+
+		.darkened {
+			color: #42587f;
+		}
+
+		ul,
+		ol {
+			font-size: 20px;
+		}
+
+		blockquote {
+			padding-top: 20px;
+		}
+
+		li {
+			padding-top: 13px;
+		}
+
+		.attributeHeaders {
+			font-size: 1.8rem;
+			padding: 8px 17px 0px 17px;
+		}
+
+		@media (min-width: 1000px) {
+			body {
+				font-size: 1.4em;
+			}
+
+			.columnHeads {
+				font-size: 1.8em;
+			}
+		}
+
+
+		@media (max-width: 999px) {
+			body {
+				font-size: 1rem;
+			}
+
+			.columnHeads {
+				font-size: 1.5em;
+			}
+
+			.theBlocksL,
+			.theBlocksMet,
+			.theBlocksImpPort,
+			.theBlocksMetPort {
+				font-size: 1.5em;
+			}
+		}
+
+		@media (max-width: 600px) {
+			body {
+				font-size: .75em;
+			}
+
+			.columnHeads {
+				font-size: .75em;
+			}
+
+			.theBlocksL,
+			.theBlocksMet,
+			.theBlocksMetPort,
+			.theBlocksImpPort {
+				font-size: .75em;
+			}
+		}
+	</style>
+	<script src="https://kit.fontawesome.com/c90f708bd9.js" crossorigin="anonymous"></script>
+</head>
+
+<body onload="versionIt('Scaler HTML', '07-05-26 - Much Stuff.'); initializeIt('Scaler', './app_icons/piechart.svg'); initializeArray(0);" style="background-color: rgb(26, 42, 73);">
+
+	<!-- This is filler material to force an accurate rendering of the page before Javascript generates the real one -->
+	<div id="navHead">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding:8px; height: 76px;">
+			<a class="navbar-brand" style="padding-left: 15px;" href="index.html">
+				<span id="pageTitle" class="pageTitle"></span>
+			</a>
+		</nav>
+	</div>
+
+	<div class="container" style="align-items: center; display: flex; justify-content: center; color:white; margin-bottom: 100px;">
+		<div style="backdrop-filter: blur(4px);">
+			<form method="post" novalidate>
+
+				<!-- Row 1 -->
+				<div class="row" style="padding: 30px 0px 20px 0px; max-width: 700px; width: 100%; margin: 0 auto;">
+					<div class="col-11">
+						<select class="theBlocksL" id="recipeSelect" autofocus oninput="changeRecipe();" style="text-align: center; margin: 0px; width: 100%; padding: 0.5rem 1rem;">
+							<option selected>Choose a recipe</option>
+							<option>BREADS----------</option>
+							<option>&nbsp;&nbsp;Baguette</option>
+							<option>&nbsp;&nbsp;Biscuits</option>
+							<option>&nbsp;&nbsp;Blinis</option>
+							<option>&nbsp;&nbsp;Cornbread</option>
+							<option>&nbsp;&nbsp;Classic Crepes</option>
+							<option>&nbsp;&nbsp;Focaccia</option>
+							<option>&nbsp;&nbsp;Ti Couz Crepes</option>
+							<option>&nbsp;&nbsp;Sourdough Crepes</option>
+							<option>&nbsp;&nbsp;Dutch Baby</option>
+							<option>&nbsp;&nbsp;Injeera</option>
+							<option>&nbsp;&nbsp;Naan</option>
+							<option>&nbsp;&nbsp;Pita Bread</option>
+							<option>&nbsp;&nbsp;Classic Pizza Dough</option>
+							<option>&nbsp;&nbsp;Sourdough Pizza Dough</option>
+							<option>&nbsp;&nbsp;Vito's Pizza Dough</option>
+							<option>&nbsp;&nbsp;Neapolitan Pizza Dough</option>
+							<option>&nbsp;&nbsp;Sourdough Bread</option>
+							<option>&nbsp;&nbsp;Levain for Bread</option>
+							<option>&nbsp;&nbsp;Bread for Bread</option>
+							<option>&nbsp;&nbsp;Tatty Scones</option>
+							<option>&nbsp;&nbsp;Tortillas</option>
+							<option>&nbsp;&nbsp;Sonoran Flour Tortillas</option>
+							<option>&nbsp;&nbsp;Welsh Rarebit</option>
+							<option>DRESSINGS----------</option>
+							<option>&nbsp;&nbsp;Caesar Dressing</option>
+							<option>&nbsp;&nbsp;Niçoise Dressing</option>
+							<option>&nbsp;&nbsp;Ranch</option>
+							<option>&nbsp;&nbsp;Ginger Sesame</option>
+							<option>&nbsp;&nbsp;Miso Roasted Pak Choi</option>
+							<option>&nbsp;&nbsp;Garlic and Soy</option>
+							<option>SAUCES----------</option>
+							<option>&nbsp;&nbsp;Pasta Sauce</option>
+							<option>&nbsp;&nbsp;Gnocchi Sauce</option>
+							<option>&nbsp;&nbsp;Bechamel</option>
+							<option>&nbsp;&nbsp;Chimichurri</option>
+							<option>&nbsp;&nbsp;Salsa Verde</option>
+							<option>&nbsp;&nbsp;Puerto Rican Garlic Sauce</option>
+							<option>&nbsp;&nbsp;Zhug</option>
+							<option>&nbsp;&nbsp;Bolognese</option>
+							<option>&nbsp;&nbsp;Hollandaise</option>
+							<option>&nbsp;&nbsp;Miso</option>
+							<option>&nbsp;&nbsp;Pesto</option>
+							<option>&nbsp;&nbsp;Ponzu</option>
+							<option>&nbsp;&nbsp;Ssamjang</option>
+							<option>&nbsp;&nbsp;Tonnato</option>
+							<option>&nbsp;&nbsp;Trapanese</option>
+							<option>&nbsp;&nbsp;Wasabi Mayo Sauce for Ahi Tuna</option>
+							<option>PASTAS DOUGHS---------</option>
+							<option>&nbsp;&nbsp;Agnolotti</option>
+							<option>&nbsp;&nbsp;Al Dente</option>
+							<option>&nbsp;&nbsp;All Durum</option>
+							<option>&nbsp;&nbsp;Basic dough egg and flour</option>
+							<option>&nbsp;&nbsp;Basic Semolina egg and flour</option>
+							<option>&nbsp;&nbsp;Cavatelli</option>
+							<option>&nbsp;&nbsp;Chitarra</option>
+							<option>&nbsp;&nbsp;Culurgione Pasta Dough</option>
+							<option>&nbsp;&nbsp;Culurgione Filling</option>
+							<option>&nbsp;&nbsp;Potato Gnocchi</option>
+							<option>&nbsp;&nbsp;Ricotta Gnocchi</option>
+							<option>&nbsp;&nbsp;Ravioli</option>
+							<option>&nbsp;&nbsp;Stracciatella</option>
+							<option>&nbsp;&nbsp;Uncooked vs Cooked Dry Pasta</option>
+							<option>MAINS----------</option>
+							<option>&nbsp;&nbsp;Albondigas</option>
+							<option>&nbsp;&nbsp;Burger</option>
+							<option>&nbsp;&nbsp;Chicken Karaage</option>
+							<option>&nbsp;&nbsp;Meatballs</option>
+							<option>&nbsp;&nbsp;Risotto</option>
+							<option>&nbsp;&nbsp;Shakshuka</option>
+							<option>&nbsp;&nbsp;Turmeric Chicken</option>
+							<option>&nbsp;&nbsp;Turkey Masala</option>
+							<option>SIDES----------</option>
+							<option>&nbsp;&nbsp;Egg Topping</option>
+							<option>&nbsp;&nbsp;Farro</option>
+							<option>&nbsp;&nbsp;Kale</option>
+							<option>&nbsp;&nbsp;Lentils</option>
+							<option>&nbsp;&nbsp;Masa Dumplings</option>
+							<option>&nbsp;&nbsp;Mashed Potatoes</option>
+							<option>&nbsp;&nbsp;Pickled Onion</option>
+							<option>&nbsp;&nbsp;Polenta</option>
+							<option>RICES----------</option>
+							<option>&nbsp;&nbsp;Jasmine/Basmati</option>
+							<option>&nbsp;&nbsp;Roma</option>
+							<option>&nbsp;&nbsp;Spanish</option>
+							<option>&nbsp;&nbsp;Sushi</option>
+							<option>&nbsp;&nbsp;White Rice</option>
+							<option>DRINKS----------</option>
+							<option>&nbsp;&nbsp;Bloody Mary</option>
+							<option>&nbsp;&nbsp;Bullshot</option>
+							<option>&nbsp;&nbsp;Cable Car</option>
+							<option>&nbsp;&nbsp;Campari Spritz</option>
+							<option>&nbsp;&nbsp;Julep</option>
+							<option>&nbsp;&nbsp;Jungle Bird</option>
+							<option>&nbsp;&nbsp;Lemonade Spritzer</option>
+							<option>&nbsp;&nbsp;Margarita</option>
+							<option>&nbsp;&nbsp;Mai Tai</option>
+							<option>&nbsp;&nbsp;Mexican</option>
+							<option>&nbsp;&nbsp;Mojito</option>
+							<option>&nbsp;&nbsp;Sangrita</option>
+							<option>&nbsp;&nbsp;Soda</option>
+							<option>&nbsp;&nbsp;Tea</option>
+							<option>TEST</option>
+							<option>MISMATCH</option>
+						</select>
+
+					</div>
+					<div class="col-1">
+						<button type="button" class="btn btn-info" onclick="changeRecipe();">Apply</button>
+					</div>
+				</div>
+
+				<!--* Buttons Row-->
+				<div class="row">
+					<div class="col-12">
+						<div class="table-responsive">
+							<table class="XtableIt">
+								<thead>
+									<!-- (Labels)-->
+									<tr style="color: white;">
+										<td colspan="2">
+											<div class="btn-toolbar button-toolbar" role="toolbar" aria-label="Recipe controls">
+												<div class="btn-group" role="group" aria-label="Main controls">
+													<button type="button" class="btn btn-info" style="border: none; background-color: #078d1f; color: white;" onclick="shPortions();"><i
+															class="fa fa-solid fa-chart-pie"></i> Portions</button>
+													<button type="button" class="btn btn-info" style="border: none; background-color: #c09300; color: white;" onclick="shScaling('toggle');"><i
+															class="bi bi-bar-chart-line-fill"></i> Scaling</button>
+													<button type="button" class="btn btn-info" style="border: none; background-color: #007da3; color: white;" onclick="shHydration();"><i
+															class="bi bi-moisture"></i> Hydration</button>
+													<button type="button" class="btn btn-info" style="border: none; background-color: #9b00d3; color: white;"
+														onclick="document.getElementById('recipeSteps').scrollIntoView({behavior: 'smooth' })"><i class="bi bi-fork-knife"></i> Recipe</button>
+													<button type="button" class="btn btn-info" id="justToAlignt" onclick="toggleBarChart();"
+														style="background-color: #002e83; color: white; border: none;">Pie Chart</button>
+													<button type="button" class="btn btn-info" id="justToAlignt" onclick="resetAll();"
+														style="background-color: #830000; color: white; border: none;">Reset!</button>
+												</div>
+											</div>
+										</td>
+										<td colspan="2" style="text-align: center;">
+											<button type="button" class="btn btn-info" id="syncButton" onclick="syncTheVals();"
+												style="color: white; border: none; margin-right: 6%; width: 100%;">Synced!</button>
+										</td>
+										<td class="tColumn4" style="text-align: center;">
+											<button type="button" class="btn btn-info" id="addRowBut" onclick="copyScaled();"
+												style="margin-right: 3%; background-color: #078d1f; color: white; border: none;"><i class="bi bi-arrow-bar-left"></i>
+											</button>
+											<!-- <button type="button" class="btn btn-info" id="addRowBut" onclick="setoneone();"
+										style="margin-right: 3%; background-color: #078d1f; color: white; border: none;">1:1</button> -->
+										</td>
+									</tr>
+
+									<!--* Title of the recipe row -->
+									<tr>
+										<td colspan="6" class="title" style="display: none;" id="titleRow">
+											<h1 id="recipeTitle"></h1>
+										</td>
+									</tr>
+
+									<!--* Column Headers and 5/1 switch -->
+									<tr style="color: white; border-style: none;">
+										<td width="40%" class="columnHeads">Ingredient</td>
+										<td width="15%" class="columnHeads"><input type="checkbox" class="syncBox" id="fivesCheck" oninput="toggleFives();"> ~5|1</td>
+										<td width="15%" class="columnHeads tColumn2"><input type="checkbox" class="syncBox" id="dimMet" checked oninput="masterDimmer('dimMet', 'theBlocksMet');"><span
+												onclick="clearSumChecks('sumCheckBox', false);"> g<i class="bi bi-clipboard-x" style="padding-left: 10px;"></i></span><span
+												onclick="checkSumChecks();"><i class="bi bi-clipboard-check"></i></span></td>
+										<td width="15%" class="columnHeads tColumn3"><input type="checkbox" class="syncBox" id="dimImp" oninput="masterDimmer('dimImp', 'theBlocksImp');"> Oz</span>
+										</td>
+										<td width="15%" class="columnHeads tColumn4"><input type="checkbox" class="syncBox" id="dimScale" oninput="masterDimmer('dimScale', 'theBlocksSc');"> Scaled
+										</td>
+									</tr>
+								</thead>
+
+								<!--* The rows will be generated by Javascript -->
+								<tbody id="tableBody">
+								</tbody>
+
+								<!-- Totals of stuff -->
+								<tr id="totalrow">
+									<td class="totColumn1" id="checkRowTot">
+										<div style="width: 12px; margin: 18px 6px 20px 0px;"><i class="fa fa-plus-circle" aria-hidden="true" onclick="addRow();"></i></div>
+										<span class="attributeHeaders">Totals</span>
+
+										<button type="button" class="btn btn-info" style="border: none; background-color: #078d1f; color: white; height: 38px; margin-top: 15px;"
+											onclick="sendToWeight();" id="capture">Send Weight</button>
+									</td>
+									<td class="totColumn2"><input class="theBlocksL rightAlign" type="text" id="totalPerc" readonly></td>
+									<td class="totColumn3" id="syncable11">
+										<input class="theBlocksMet rightAlign" type="number" id="totalOrig" oninput="backFromtTotal('g');">
+									</td>
+									<td class="totColumn2">
+										<input class="theBlocksImp rightAlign" type="number" id="totalImp" oninput="backFromtTotal('oz');">
+									</td>
+									<td class="totColumn4 tColumn4" id="youWantRow11">
+										<input class="theBlocksSc rightAlign" type="number" id="totalScaled" readonly>
+									</td>
+								</tr>
+
+
+								<!-- Portionator -->
+								<!-- Portionator in Ounces I SAID OUNCES -->
+								<tr id="portionatorRow" style="background-color: rgba(31, 183, 26, 0.49);">
+									<td class="tColumn1" id="checkRow13">
+										<div style="width: 23px;"></div>
+										<span class="attributeHeaders">Portions</span>
+									</td>
+									<td class="tColumn3">
+										<input class="theBlocksL centerAlign" type="number" id="portions" value="2" oninput="portionIt();">
+									</td>
+
+									<td class="tColumn2">
+										<input class="theBlocksMetPort rightAlign" type="number" id="weightEachG" readonly>
+									</td>
+
+									<td class="tColumn3" id="syncable13">
+										<input class="theBlocksImpPort rightAlign" type="number" id="weightEachO" readonly>
+									</td>
+									<td class="tColumn4" id="youWantRow13">
+										<!-- <input class="theBlocksSc rightAlign" type="number" id="weightEachSoz" disabled> -->
+									</td>
+								</tr>
+
+								<!--* Hydration Calculation -->
+								<tr id="hydrationRow" style="background-color: #141c2c7c">
+									<td class="tColumn1">
+										<div style="width: 23px;"></div>
+										<span class="attributeHeaders">Hydration</span>
+									</td>
+									<td class="tColumn2" colspan="3">
+										<input class="theBlocksL centerAlign" type="text" id="hydration">
+									</td>
+									<!-- <td class="tColumn3"></td> -->
+								</tr>
+
+								<!--* Wet/Dry Calculation -->
+								<tr id="wetDryRow" style="background-color: #141c2c7c">
+									<td class="tColumn1">
+										<div style="width: 23px;"></div>
+										<span class="attributeHeaders">Wet/Dry</span>
+									</td>
+									<!-- <td class="tColumn3"></td> -->
+									<td class="tColumn2" colspan="2" width: 50%;">
+										<input width="50%" class="theBlocksL centerAlign" type="text" id="dryDration" readonly>
+									</td>
+									<td class="tColumn2" colspan="2" width: 50%;">
+										<input width="50%" class="theBlocksL centerAlign" type="text" id="wetDration" readonly>
+									</td>
+									<!-- <td class="tColumn3"></td> -->
+									<!-- <td class="tColumn4"> -->
+									<!-- </td> -->
+								</tr>
+							</table>
+						</div>
+					</div>
+
+					<!--* Scaling Area -->
+					<div class="row justify-content-md-center" id="scalerArea" style="border-top: none;">
+
+						<div class="col row">
+							<span class="attributeHeaders">Scaling</span><button type="button" class="btn btn-info" id="addRowBut" onclick="setoneone();"
+								style="margin-right: 3%; background-color: #c09300; color: white; border: none;">1:1</button>
+						</div>
+						<div class="col row">
+							<label for="originalScale" class="spaced col col-form-label" style="text-align: right;">Original</label>
+							<div class="col">
+								<input class="theBlocksL rightAlign" type="number" min="1" id="originalScale" oninput="multiChange(1);" onclick="this.select();" value="1">
+							</div>
+						</div>
+						<div class="col row">
+							<label for="newScale" class="spaced col col-form-label" style="text-align: right;">Scaled</label>
+							<div class="col">
+								<input class="theBlocksL rightAlign" type="number" min="1" value="1" id="newScale" oninput="multiChange(2);" onclick="this.select();">
+							</div>
+						</div>
+						<div class="col row">
+							<label for="multiplier" class="spaced col col-form-label" style="text-align: right;">Multiplier</label>
+							<div class="col">
+								<input class="theBlocksL rightAlign" type="number" value="1" min="1" id="multiplier" oninput="multiChange(3);" onclick="this.select();">
+							</div>
+						</div>
+					</div>
+
+					<!--* Recipe Steps Area -->
+					<div class="form-row" style="margin-top: 0px; display:block; background-color: #08142eaa; padding: 27px;">
+						<div class="col-12" id="recipeSteps">
+						</div>
+					</div>
+
+					<!--* Pie Chart Area-->
+					<div id="thePieChart" class="form-row" style="margin-top: 0px; display:none; background-color: #08142eaa; padding: 27px;">
+						<div class="col-12" id="pieChartArea">
+						</div>
+					</div>
+
+
+
+
+			</form>
+		</div>
+	</div>
+	<script src="js/scalerRecipes.js"></script>
+	<script src="js/scalerCore.js"></script>
+	<script src="js/scripts.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+		crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</body>
+
+</html>

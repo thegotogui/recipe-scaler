@@ -1,0 +1,24 @@
+html * {
+	color: #000;
+	font-family: "Libre Baskerville";
+}
+
+.spaceSteps {
+	padding-bottom: 20px;
+}
+
+.ingBox {
+	background: var(--bs-success-bg-subtle);
+	padding-bottom: calc(var(--bs-gutter-x) * 0.5);
+	border: double;
+	border-width: 3px;
+	margin-top: 2rem;
+}
+.proBox {
+	background: var(--bs-success-bg-subtle);
+	padding-bottom: calc(var(--bs-gutter-x) * 0.5);
+	border: double;
+	border-color: white;
+	border-width: 3px;
+	margin-top: 2rem;
+}

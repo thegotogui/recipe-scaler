@@ -1,0 +1,41 @@
+#!/bin/bash
+sudo cp *.js /Library/WebServer/Documents
+echo '*.js'
+
+sudo cp *.html /Library/WebServer/Documents
+echo '*.html'
+sudo cp *.svg /Library/WebServer/Documents
+echo '*.svg'
+sudo cp *.gif /Library/WebServer/Documents
+echo '*.gif'
+sudo cp *.css /Library/WebServer/Documents
+echo '*.css'
+cd sc
+sudo cp *.* /Library/WebServer/Documents/sc
+echo 'sc Folder'
+
+cd ../css
+echo '*css/*.css'
+sudo cp *.css /Library/Webserver/Documents/css/
+
+cd ../js
+echo '*.js'
+sudo cp *.js /Library/Webserver/Documents/js/
+
+cd ../assets/img
+echo '../assets/img'
+sudo cp *.* /Library/WebServer/Documents/assets/img
+
+cd ../../portionator/assets/img
+echo 'cd ../../portionator/assets/img'
+sudo cp *.* /Library/Webserver/Documents/portionator/assets/img
+
+cd ../../../bs
+sudo cp *.* /Library/Webserver/Documents/bs
+
+cd ..
+echo '-R css /Library/Webserver/Documents/css'
+cp -R css /Library/Webserver/Documents/css
+cd tc
+sudo cp *.* /Library/Webserver/Documents/tc
+echo 'TC Folder'

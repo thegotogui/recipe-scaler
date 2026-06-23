@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Container Equalizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-bg:               #0f1117;
+      --color-surface:          #181c26;
+      --color-surface-2:        #1f2436;
+      --color-border:           #2a2f45;
+      --color-border-soft:      #222740;
+      --color-text-primary:     #eef0f8;
+      --color-text-secondary:   #8b90aa;
+      --color-text-tertiary:    #555b76;
+      --color-accent:           #2F8FFF;
+      --font-sans:              'DM Sans', sans-serif;
+      --font-mono:              'DM Mono', monospace;
+      --radius-sm:              6px;
+      --radius-md:              10px;
+      --radius-lg:              14px;
+    }
+
+    body {
+      background: var(--color-bg);
+      color: var(--color-text-primary);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    .page {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--color-text-primary);
+    }
+
+    header p {
+      margin-top: 0.35rem;
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-tertiary);
+      margin-bottom: 0.75rem;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .row label {
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      min-width: 140px;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 140px;
+      height: 4px;
+      background: var(--color-border);
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      cursor: pointer;
+    }
+
+    .slider-val {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      min-width: 20px;
+      font-family: var(--font-mono);
+    }
+
+    .containers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(88px, 1fr));
+      gap: 8px;
+      margin-top: 0.75rem;
+    }
+
+    .container-box {
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border-soft);
+      border-radius: var(--radius-md);
+      padding: 10px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .container-box span {
+      font-size: 0.7rem;
+      color: var(--color-text-tertiary);
+      font-family: var(--font-mono);
+    }
+
+    .container-box input[type="number"] {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 500;
+      font-family: var(--font-mono);
+      color: var(--color-text-primary);
+      -moz-appearance: textfield;
+    }
+
+    .container-box input[type="number"]::-webkit-inner-spin-button,
+    .container-box input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+    }
+
+    .avg-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .avg-row .label {
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+    }
+
+    .avg-value {
+      font-size: 1.375rem;
+      font-weight: 500;
+      font-family: var(--font-mono);
+      color: var(--color-text-primary);
+    }
+
+    .avg-value span {
+      font-size: 0.8125rem;
+      color: var(--color-text-tertiary);
+    }
+
+    .btn {
+      background: var(--color-surface-2);
+      color: var(--color-text-secondary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 7px 16px;
+      font-size: 0.8125rem;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .btn:hover {
+      background: var(--color-border);
+      color: var(--color-text-primary);
+    }
+
+    .sankey-section { margin-top: 1rem; }
+
+    .sankey-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: var(--radius-md);
+    }
+
+    #sankeysvg { display: block; }
+
+    .summary {
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      margin-top: 0.75rem;
+      padding: 0.625rem 1rem;
+      background: var(--color-surface-2);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border-soft);
+    }
+
+    .summary strong { color: var(--color-text-primary); }
+
+    .empty-msg {
+      font-size: 0.875rem;
+      color: var(--color-text-tertiary);
+      text-align: center;
+      padding: 2rem;
+      font-family: var(--font-mono);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Container Equalizer</h1>
+      <p>Enter the weight of each container. The optimal sequence of moves to equalize them is shown below as a Sankey chart — reciprocal pairs are resolved first.</p>
+    </header>
+
+    <div class="card">
+      <div class="row" style="margin-bottom:1.25rem;">
+        <label>Number of containers</label>
+        <input type="range" min="2" max="8" value="4" id="numContainers">
+        <span class="slider-val" id="numOut">4</span>
+        <button class="btn" onclick="randomize()">Randomize</button>
+      </div>
+
+      <div class="section-label">Weight in each container (grams)</div>
+      <div class="containers-grid" id="inputsGrid"></div>
+    </div>
+
+    <div class="card">
+      <div class="avg-row">
+        <span class="label">Target average weight</span>
+        <span class="avg-value" id="avgDisplay">— <span>g</span></span>
+      </div>
+    </div>
+
+    <div class="card sankey-section">
+      <div class="section-label">Equalization moves</div>
+      <div class="sankey-wrap"><svg id="sankeysvg" width="100%"></svg></div>
+      <div class="summary" id="summaryCard" style="display:none;"></div>
+    </div>
+  </div>
+
+  <script>
+    const numSlider = document.getElementById('numContainers');
+    const numOut    = document.getElementById('numOut');
+    const inputsGrid = document.getElementById('inputsGrid');
+    const avgDisplay = document.getElementById('avgDisplay');
+
+    const PALETTE = [
+      '#2F8FFF','#00C48C','#FF5722','#9C6FFF',
+      '#FFB300','#F0407A','#4CAF50','#A0A0A0'
+    ];
+
+    const weights = {};
+
+    function buildInputs(n) {
+      inputsGrid.innerHTML = '';
+      for (let i = 0; i < n; i++) {
+        if (weights[i] === undefined) {
+          weights[i] = Math.round(Math.random() * 300 + 50);
+        }
+        const box = document.createElement('div');
+        box.className = 'container-box';
+        box.innerHTML = `
+          <span>Container ${i+1}</span>
+          <input type="number" min="0" max="9999" value="${weights[i]}" id="c${i}" oninput="onWeightInput(${i})">
+        `;
+        inputsGrid.appendChild(box);
+      }
+      update();
+    }
+
+    function onWeightInput(i) {
+      const v = parseFloat(document.getElementById('c' + i).value);
+      weights[i] = isNaN(v) ? 0 : v;
+      update();
+    }
+
+    function getValues() {
+      const n = parseInt(numSlider.value);
+      return Array.from({ length: n }, (_, i) => weights[i] !== undefined ? weights[i] : 0);
+    }
+
+    function rnd(v) { return Math.round(v * 100) / 100; }
+
+    function solve(vals) {
+      const n = vals.length;
+      const total = vals.reduce((a, b) => a + b, 0);
+      const avg = total / n;
+      const state = vals.map((v, i) => ({ id: i + 1, weight: v }));
+      const steps = [];
+      const MAX = 200; let iter = 0;
+      function isEq() { return state.every(c => Math.abs(rnd(c.weight) - rnd(avg)) < 0.01); }
+      while (!isEq() && iter < MAX) {
+        iter++;
+        const overs  = state.filter(c => rnd(c.weight) > rnd(avg)).sort((a, b) => b.weight - a.weight);
+        const unders = state.filter(c => rnd(c.weight) < rnd(avg)).sort((a, b) => a.weight - b.weight);
+        if (!overs.length || !unders.length) break;
+        let cO = null, cU = null, recip = false;
+        outer: for (const o of overs) {
+          for (const u of unders) {
+            if (Math.abs(rnd(o.weight - avg) - rnd(avg - u.weight)) < 0.01) {
+              cO = o; cU = u; recip = true; break outer;
+            }
+          }
+        }
+        if (!cO) { cO = overs[0]; cU = unders[0]; }
+        const move = rnd(Math.min(rnd(cO.weight - avg), rnd(avg - cU.weight)));
+        cO.weight = rnd(cO.weight - move);
+        cU.weight = rnd(cU.weight + move);
+        steps.push({ from: cO.id, to: cU.id, amount: move, reciprocal: recip });
+      }
+      return { steps, avg };
+    }
+
+    function update() {
+      const vals  = getValues();
+      const total = vals.reduce((a, b) => a + b, 0);
+      const avg   = total / vals.length;
+      const avgStr = avg % 1 === 0 ? avg : avg.toFixed(2);
+      avgDisplay.innerHTML = `${avgStr} <span>g</span>`;
+      const { steps } = solve(vals);
+      drawSankey(steps, vals.length, avg, vals);
+    }
+
+    function drawSankey(steps, n, avg, vals) {
+      const svg    = document.getElementById('sankeysvg');
+      const sumEl  = document.getElementById('summaryCard');
+      const W      = 680;
+      const nodeW  = 36;
+      const padX   = 60;
+      const padTop = 48;
+      const padBot = 48;
+
+      if (!steps.length) {
+        svg.setAttribute('viewBox', '0 0 680 90');
+        svg.setAttribute('height', '90');
+        svg.innerHTML = `
+          <text x="340" y="48" text-anchor="middle"
+            font-size="14" fill="#555b76"
+            font-family="'DM Mono', monospace">
+            All containers already equal — no moves needed.
+          </text>`;
+        sumEl.style.display = 'none';
+        return;
+      }
+
+      const stepCount = steps.length;
+      const rowH = 68;
+      const H    = padTop + stepCount * rowH + padBot;
+
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      svg.setAttribute('height', H);
+
+      const colW = n > 1 ? (W - padX * 2 - nodeW) / (n - 1) : 0;
+      function xOf(id) { return padX + (id - 1) * colW + nodeW / 2; }
+
+      let out = '';
+
+      /* column rails + labels */
+      for (let i = 0; i < n; i++) {
+        const x   = xOf(i + 1);
+        const col = PALETTE[i % PALETTE.length];
+        out += `<rect x="${x - nodeW/2}" y="${padTop}" width="${nodeW}"
+                      height="${H - padTop - padBot}" rx="6"
+                      fill="${col}" opacity="0.14"/>`;
+        out += `<text x="${x}" y="${padTop - 14}"
+                      text-anchor="middle" font-size="14" font-weight="500"
+                      fill="${col}" font-family="'DM Sans', sans-serif">C${i+1}</text>`;
+        out += `<text x="${x}" y="${H - padBot + 22}"
+                      text-anchor="middle" font-size="13" font-weight="500"
+                      fill="${col}" font-family="'DM Mono', monospace">${rnd(vals[i])}g</text>`;
+      }
+
+      const avgStr     = avg % 1 === 0 ? avg : avg.toFixed(2);
+      const recipCount = steps.filter(s => s.reciprocal).length;
+
+      steps.forEach((step, idx) => {
+        const y      = padTop + idx * rowH + rowH / 2;
+        const x1     = xOf(step.from);
+        const x2     = xOf(step.to);
+        const fromCol = PALETTE[(step.from - 1) % PALETTE.length];
+        const toCol   = PALETTE[(step.to   - 1) % PALETTE.length];
+        const thick   = Math.max(5, Math.min(26, Math.round(step.amount / avg * 30)));
+        const cpx     = (x1 + x2) / 2;
+        const amtLbl  = step.amount % 1 === 0 ? step.amount : step.amount.toFixed(1);
+
+        if (step.reciprocal) {
+          out += `<path d="M${x1},${y} C${cpx},${y-22} ${cpx},${y-22} ${x2},${y}"
+                        fill="none" stroke="${fromCol}" stroke-width="${thick}"
+                        stroke-opacity="0.82" stroke-linecap="round"/>`;
+          const bw = 68, bh = 20;
+          const bx = cpx - bw/2, by = y - thick/2 - 15;
+          out += `<rect x="${bx}" y="${by}" width="${bw}" height="${bh}" rx="10"
+                        fill="${fromCol}" opacity="0.72"/>`;
+          out += `<text x="${cpx}" y="${by + 14}"
+                        text-anchor="middle" font-size="12" font-weight="600"
+                        fill="#ffffff" font-family="'DM Mono', monospace">${amtLbl}g ⇄</text>`;
+        } else {
+          out += `<path d="M${x1},${y} C${cpx},${y-16} ${cpx},${y-16} ${x2},${y}"
+                        fill="none" stroke="${fromCol}" stroke-width="${thick}"
+                        stroke-opacity="0.72" stroke-linecap="round"/>`;
+          const bw = 50, bh = 18;
+          const bx = cpx - bw/2, by = y - thick/2 - 13;
+          out += `<rect x="${bx}" y="${by}" width="${bw}" height="${bh}" rx="9"
+                        fill="${fromCol}" opacity="0.72"/>`;
+          out += `<text x="${cpx}" y="${by + 13}"
+                        text-anchor="middle" font-size="12" font-weight="600"
+                        fill="#ffffff" font-family="'DM Mono', monospace">${amtLbl}g</text>`;
+        }
+
+        out += `<circle cx="${x2}" cy="${y}" r="5" fill="${toCol}" opacity="0.9"/>`;
+        out += `<text x="${padX - 12}" y="${y + 5}"
+                      text-anchor="end" font-size="13" font-weight="500"
+                      fill="#555b76" font-family="'DM Mono', monospace">${idx + 1}</text>`;
+      });
+
+      svg.innerHTML = out;
+
+      const recStr = recipCount
+        ? ` &nbsp;·&nbsp; <strong>${recipCount}</strong> reciprocal pair${recipCount !== 1 ? 's' : ''}`
+        : '';
+      sumEl.innerHTML = `<strong>${stepCount}</strong> move${stepCount !== 1 ? 's' : ''} total${recStr} &nbsp;·&nbsp; target <strong>${avgStr}g</strong> per container`;
+      sumEl.style.display = 'block';
+    }
+
+    numSlider.oninput = () => {
+      const n = parseInt(numSlider.value);
+      numOut.textContent = n;
+      buildInputs(n);
+    };
+
+    function randomize() {
+      const n = parseInt(numSlider.value);
+      for (let i = 0; i < n; i++) {
+        weights[i] = Math.round(Math.random() * 300 + 50);
+      }
+      buildInputs(n);
+    }
+
+    buildInputs(4);
+  </script>
+</body>
+</html>

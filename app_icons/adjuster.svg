@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 850.4 850.4">
+  <!-- Generator: Adobe Illustrator 29.8.3, SVG Export Plug-In . SVG Version: 2.1.1 Build 3)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #284b63;
+      }
+
+      .st1, .st2 {
+        fill: #fff;
+      }
+
+      .st3 {
+        fill: #3f7ea9;
+      }
+
+      .st4 {
+        fill: #737373;
+      }
+
+      .st5 {
+        fill: #353535;
+      }
+
+      .st6 {
+        fill: #333;
+      }
+
+      .st2 {
+        isolation: isolate;
+        opacity: .7;
+      }
+    </style>
+  </defs>
+  <g id="Layer_11">
+    <g id="Layer_4">
+      <rect class="st5" y="0" width="283.5" height="205.5"/>
+      <rect class="st0" x="283.5" y="0" width="283.5" height="205.5"/>
+      <rect class="st5" x="566.9" y="0" width="283.5" height="205.5"/>
+      <rect class="st6" y="205.5" width="850.4" height="644.9"/>
+    </g>
+    <g id="Layer_6">
+      <polygon points="35.5 78.1 242.77 77.9 242.77 120.4 35.5 120.6 35.5 78.1"/>
+      <rect x="603.13" y="78" width="211.03" height="42.5"/>
+      <rect class="st2" x="355.2" y="138.5" width="145.8" height="42.5"/>
+      <rect class="st2" x="355" y="19.5" width="145.8" height="42.5"/>
+      <rect class="st0" y="205.5" width="850.4" height="90.33"/>
+      <rect class="st4" x="35.5" y="357.16" width="127.5" height="69.69"/>
+      <rect class="st4" x="184.25" y="357.16" width="215.15" height="69.69"/>
+      <rect class="st3" x="684.08" y="357.16" width="127.5" height="69.69" transform="translate(1495.66 784) rotate(180)"/>
+      <rect class="st3" x="447.68" y="357.16" width="215.15" height="69.69" transform="translate(1110.51 784) rotate(180)"/>
+      <rect class="st3" x="35.5" y="496.03" width="127.5" height="69.69"/>
+      <rect class="st3" x="184.25" y="496.03" width="215.15" height="69.69"/>
+      <rect class="st4" x="684.08" y="496.03" width="127.5" height="69.69" transform="translate(1495.66 1061.75) rotate(180)"/>
+      <rect class="st4" x="447.68" y="496.03" width="215.15" height="69.69" transform="translate(1110.51 1061.75) rotate(180)"/>
+      <rect class="st4" x="35.5" y="634.91" width="127.5" height="69.69"/>
+      <rect class="st4" x="184.25" y="634.91" width="215.15" height="69.69"/>
+      <rect class="st3" x="684.08" y="634.91" width="127.5" height="69.69" transform="translate(1495.66 1339.5) rotate(180)"/>
+      <rect class="st3" x="447.68" y="634.91" width="215.15" height="69.69" transform="translate(1110.51 1339.5) rotate(180)"/>
+    </g>
+  </g>
+  <circle class="st1" cx="425.2" cy="102.8" r="25.8"/>
+</svg>
