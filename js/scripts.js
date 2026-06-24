@@ -270,7 +270,7 @@ function linkJump(which) {
 			break;
 
 		case 9:
-			window.open("./recipeCard.html", '_blank').focus();
+			window.open("./recipecard.html", '_blank').focus();
 			break;
 
 		case 10:
