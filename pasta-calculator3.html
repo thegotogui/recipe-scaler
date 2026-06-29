@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +9,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     :root {
       --cream: #f5f0e8;
@@ -20,7 +27,9 @@
       --white: #faf8f4;
     }
 
-    html { font-size: 18px; }
+    html {
+      font-size: 18px;
+    }
 
     body {
       background-color: var(--cream);
@@ -29,14 +38,20 @@
       min-height: 100vh;
       padding: 2rem 1rem 4rem;
       background-image:
-        radial-gradient(ellipse at 20% 0%, rgba(184,74,30,0.06) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 100%, rgba(107,99,88,0.08) 0%, transparent 60%);
+        radial-gradient(ellipse at 20% 0%, rgba(184, 74, 30, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 100%, rgba(107, 99, 88, 0.08) 0%, transparent 60%);
     }
 
-    .page { max-width: 520px; margin: 0 auto; }
+    .page {
+      max-width: 520px;
+      margin: 0 auto;
+    }
 
     /* ── Header ── */
-    header { text-align: center; margin-bottom: 1.75rem; }
+    header {
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
 
     h1 {
       font-family: 'Playfair Display', Georgia, serif;
@@ -46,7 +61,11 @@
       letter-spacing: -0.01em;
       white-space: nowrap;
     }
-    h1 em { font-style: italic; color: var(--rust); }
+
+    h1 em {
+      font-style: italic;
+      color: var(--rust);
+    }
 
     .subtitle {
       margin-top: 0.35rem;
@@ -72,7 +91,7 @@
       border-radius: 4px;
       padding: 1.1rem 1.4rem;
       margin-bottom: 1rem;
-      box-shadow: 0 1px 4px rgba(30,26,20,0.06);
+      box-shadow: 0 1px 4px rgba(30, 26, 20, 0.06);
     }
 
     /* ── Row inside card ── */
@@ -82,11 +101,13 @@
       justify-content: space-between;
       gap: 1rem;
     }
-    .card-row + .card-row {
+
+    .card-row+.card-row {
       margin-top: 0.9rem;
       padding-top: 0.9rem;
       border-top: 1px solid var(--border);
     }
+
     .card-row-label {
       font-size: 0.85rem;
       font-weight: 500;
@@ -94,6 +115,7 @@
       flex-shrink: 0;
       line-height: 1.3;
     }
+
     .card-row-label .sub {
       display: block;
       font-size: 0.7rem;
@@ -104,10 +126,15 @@
     }
 
     /* ── Inputs ── */
-    .input-row { display: flex; gap: 0.5rem; align-items: stretch; }
+    .input-row {
+      display: flex;
+      gap: 0.5rem;
+      align-items: stretch;
+    }
 
     input[type="number"] {
-      flex: 1; min-width: 0;
+      flex: 1;
+      min-width: 0;
       padding: 0.6rem 0.75rem;
       border: 1.5px solid var(--border);
       border-radius: 3px;
@@ -116,13 +143,23 @@
       font-family: 'Lora', serif;
       font-size: 1rem;
       transition: border-color 0.15s;
-      -webkit-appearance: none; appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
     }
-    input[type="number"]:focus { outline: none; border-color: var(--rust); background: var(--white); }
-    input[type="number"]::placeholder { color: var(--border); }
+
+    input[type="number"]:focus {
+      outline: none;
+      border-color: var(--rust);
+      background: var(--white);
+    }
+
+    input[type="number"]::placeholder {
+      color: var(--border);
+    }
 
     .unit-badge {
-      display: flex; align-items: center;
+      display: flex;
+      align-items: center;
       padding: 0 0.7rem;
       background: var(--paper);
       border: 1.5px solid var(--border);
@@ -142,8 +179,10 @@
       overflow: hidden;
       margin-bottom: 1rem;
     }
+
     .seg-toggle button {
-      flex: 1; padding: 0.48rem 0.4rem;
+      flex: 1;
+      padding: 0.48rem 0.4rem;
       border: none;
       background: var(--cream);
       color: var(--warm-gray);
@@ -154,61 +193,127 @@
       letter-spacing: 0.03em;
       line-height: 1.3;
     }
-    .seg-toggle button:not(:last-child) { border-right: 1.5px solid var(--border); }
-    .seg-toggle.unit button.active  { background: var(--rust); color: #fff; }
-    .seg-toggle.mode button.active  { background: var(--ink);  color: var(--cream); }
+
+    .seg-toggle button:not(:last-child) {
+      border-right: 1.5px solid var(--border);
+    }
+
+    .seg-toggle.unit button.active {
+      background: var(--rust);
+      color: #fff;
+    }
+
+    .seg-toggle.mode button.active {
+      background: var(--ink);
+      color: var(--cream);
+    }
 
     /* ── Toggle switch ── */
     .toggle-switch {
-      position: relative; width: 44px; height: 24px; flex-shrink: 0;
+      position: relative;
+      width: 44px;
+      height: 24px;
+      flex-shrink: 0;
     }
-    .toggle-switch input { opacity: 0; width: 0; height: 0; position: absolute; }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      position: absolute;
+    }
+
     .toggle-slider {
-      position: absolute; inset: 0;
-      background: var(--border); border-radius: 24px;
-      cursor: pointer; transition: background 0.2s;
+      position: absolute;
+      inset: 0;
+      background: var(--border);
+      border-radius: 24px;
+      cursor: pointer;
+      transition: background 0.2s;
     }
+
     .toggle-slider::before {
-      content: ''; position: absolute;
-      width: 18px; height: 18px; left: 3px; top: 3px;
-      background: white; border-radius: 50%;
-      transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      left: 3px;
+      top: 3px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.2s;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     }
-    .toggle-switch input:checked + .toggle-slider { background: var(--rust); }
-    .toggle-switch input:checked + .toggle-slider::before { transform: translateX(20px); }
+
+    .toggle-switch input:checked+.toggle-slider {
+      background: var(--rust);
+    }
+
+    .toggle-switch input:checked+.toggle-slider::before {
+      transform: translateX(20px);
+    }
 
     /* ── Collapsible ── */
     .collapsible {
-      overflow: hidden; max-height: 0; opacity: 0;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
       transition: max-height 0.3s ease, opacity 0.25s ease;
     }
-    .collapsible.visible { max-height: 160px; opacity: 1; }
+
+    .collapsible.visible {
+      max-height: 160px;
+      opacity: 1;
+    }
+
     .collapsible-inner {
       padding-top: 0.9rem;
       border-top: 1px solid var(--border);
       margin-top: 0.9rem;
     }
+
     .collapsible-inner label {
-      display: block; font-size: 0.82rem; font-weight: 500;
-      color: var(--ink); margin-bottom: 0.4rem;
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
     }
 
     /* ── Stepper ── */
     .stepper {
-      display: flex; align-items: center;
-      border: 1.5px solid var(--border); border-radius: 3px; overflow: hidden;
+      display: flex;
+      align-items: center;
+      border: 1.5px solid var(--border);
+      border-radius: 3px;
+      overflow: hidden;
     }
+
     .stepper button {
-      width: 36px; height: 36px; border: none;
-      background: var(--paper); color: var(--ink); font-size: 1.1rem;
-      cursor: pointer; transition: background 0.15s;
-      display: flex; align-items: center; justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .stepper button:active { background: var(--border); }
+
+    .stepper button:active {
+      background: var(--border);
+    }
+
     .stepper .count {
-      min-width: 42px; text-align: center;
+      min-width: 42px;
+      text-align: center;
       font-family: 'Playfair Display', serif;
-      font-size: 1.05rem; font-weight: 600; color: var(--ink);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink);
       border-left: 1.5px solid var(--border);
       border-right: 1.5px solid var(--border);
       line-height: 36px;
@@ -216,299 +321,340 @@
 
     /* ── Results ── */
     .results-card {
-      background: var(--ink); color: var(--cream);
-      border-radius: 4px; padding: 1.4rem 1.4rem;
-      margin-top: 1rem; position: relative; overflow: hidden;
+      background: var(--ink);
+      color: var(--cream);
+      border-radius: 4px;
+      padding: 1.4rem 1.4rem;
+      margin-top: 1rem;
+      position: relative;
+      overflow: hidden;
     }
+
     .results-card::before {
-      content: ''; position: absolute;
-      top: -40px; right: -40px; width: 130px; height: 130px;
-      border-radius: 50%; background: rgba(184,74,30,0.15); pointer-events: none;
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: rgba(184, 74, 30, 0.15);
+      pointer-events: none;
     }
 
     .results-header {
-      font-size: 0.67rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: rgba(245,240,232,0.4); margin-bottom: 0.9rem;
+      font-size: 0.67rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.4);
+      margin-bottom: 0.9rem;
     }
 
     .result-line {
-      display: flex; justify-content: space-between; align-items: baseline;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
       padding: 0.5rem 0;
-      border-bottom: 1px solid rgba(245,240,232,0.1);
+      border-bottom: 1px solid rgba(245, 240, 232, 0.1);
     }
-    .result-line:last-child { border-bottom: none; padding-bottom: 0; }
-    .result-line:first-of-type { padding-top: 0; }
+
+    .result-line:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .result-line:first-of-type {
+      padding-top: 0;
+    }
 
     .result-name {
-      font-size: 0.8rem; color: rgba(245,240,232,0.58);
-      font-style: italic; padding-right: 1rem;
+      font-size: 0.8rem;
+      color: rgba(245, 240, 232, 0.58);
+      font-style: italic;
+      padding-right: 1rem;
     }
+
     .result-value {
       font-family: 'Playfair Display', serif;
-      font-size: 1.05rem; font-weight: 600;
-      color: var(--cream); text-align: right; white-space: nowrap;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--cream);
+      text-align: right;
+      white-space: nowrap;
     }
-    .result-value.highlight { color: #e8855a; font-size: 1.25rem; }
+
+    .result-value.highlight {
+      color: #e8855a;
+      font-size: 1.25rem;
+    }
 
     .result-divider {
-      border: none; border-top: 1px solid rgba(245,240,232,0.12);
+      border: none;
+      border-top: 1px solid rgba(245, 240, 232, 0.12);
       margin: 0.35rem 0 0.45rem;
     }
 
     .empty-state {
-      text-align: center; padding: 0.6rem 0 0.2rem;
-      color: rgba(245,240,232,0.28); font-size: 0.82rem; font-style: italic;
+      text-align: center;
+      padding: 0.6rem 0 0.2rem;
+      color: rgba(245, 240, 232, 0.28);
+      font-size: 0.82rem;
+      font-style: italic;
     }
 
     /* ── Note ── */
     .note {
-      font-size: 0.7rem; color: var(--warm-gray);
-      font-style: italic; line-height: 1.6;
-      margin-top: 1.1rem; text-align: center;
+      font-size: 0.7rem;
+      color: var(--warm-gray);
+      font-style: italic;
+      line-height: 1.6;
+      margin-top: 1.1rem;
+      text-align: center;
     }
 
     input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
-    input[type=number] { -moz-appearance: textfield; }
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+    }
   </style>
 </head>
+
 <body>
-<div class="page">
+  <div class="page">
 
-  <header>
-    <h1>La <em>Pasta</em> Calculator</h1>
-    <p class="subtitle">Dry to cooked · per serving</p>
-  </header>
+    <header>
+      <h1>La <em>Pasta</em> Calculator</h1>
+      <p class="subtitle">Dry to cooked · per serving</p>
+    </header>
 
-  <!-- Units -->
-  <p class="section-label">Units</p>
-  <div class="seg-toggle unit">
-    <button class="active" onclick="setUnit('g')">Grams (g)</button>
-    <button onclick="setUnit('oz')">Ounces (oz)</button>
-  </div>
+    <!-- Units -->
+    <p class="section-label">Units</p>
+    <div class="seg-toggle unit">
+      <button class="active" onclick="setUnit('g')">Grams (g)</button>
+      <button onclick="setUnit('oz')">Ounces (oz)</button>
+    </div>
 
-  <!-- Mode -->
-  <p class="section-label">Mode</p>
-  <div class="seg-toggle mode">
-    <button class="active" onclick="setMode('servings')">By servings</button>
-    <button onclick="setMode('target')">By target weight</button>
-  </div>
+    <!-- Mode -->
+    <p class="section-label">Mode</p>
+    <div class="seg-toggle mode">
+      <button class="active" onclick="setMode('servings')">By servings</button>
+      <button onclick="setMode('target')">By target weight</button>
+    </div>
 
-  <!-- Main input card: servings/target + protein -->
-  <div class="card">
+    <!-- Main input card: servings/target + protein -->
+    <div class="card">
 
-    <!-- Servings + protein toggle in one row -->
-    <div class="card-row" id="servings-row">
-      <span class="card-row-label">Servings</span>
-      <div style="display:flex;align-items:center;gap:1rem">
-        <div class="stepper">
-          <button onclick="changeServings(-1)">−</button>
-          <div class="count" id="servings-display">2</div>
-          <button onclick="changeServings(1)">+</button>
+      <!-- Servings + protein toggle in one row -->
+      <div class="card-row" id="servings-row">
+        <span class="card-row-label">Servings</span>
+        <div style="display:flex;align-items:center;gap:1rem">
+          <div class="stepper">
+            <button onclick="changeServings(-1)">−</button>
+            <div class="count" id="servings-display">2</div>
+            <button onclick="changeServings(1)">+</button>
+          </div>
+          <span style="font-size:0.72rem;color:var(--warm-gray);letter-spacing:0.04em;white-space:nowrap">+ protein</span>
+          <label class="toggle-switch" style="margin:0">
+            <input type="checkbox" id="protein-toggle" onchange="toggleProtein()" />
+            <span class="toggle-slider"></span>
+          </label>
         </div>
-        <span style="font-size:0.72rem;color:var(--warm-gray);letter-spacing:0.04em;white-space:nowrap">+ protein</span>
-        <label class="toggle-switch" style="margin:0">
-          <input type="checkbox" id="protein-toggle" onchange="toggleProtein()" />
-          <span class="toggle-slider"></span>
-        </label>
+      </div>
+
+      <!-- Target weight + protein toggle in one row -->
+      <div class="card-row" id="target-row" style="display:none">
+        <span class="card-row-label">
+          Target weight
+          <span class="sub">finished dish, total</span>
+        </span>
+        <div style="display:flex;align-items:center;gap:0.75rem">
+          <div class="input-row" style="max-width:120px">
+            <input type="number" id="target-input" min="0" step="10" placeholder="e.g. 700" oninput="calculate()" />
+            <span class="unit-badge" id="target-unit">g</span>
+          </div>
+          <span style="font-size:0.72rem;color:var(--warm-gray);letter-spacing:0.04em;white-space:nowrap">+ protein</span>
+          <label class="toggle-switch" style="margin:0">
+            <input type="checkbox" id="protein-toggle-b" onchange="syncProtein(this)" />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Protein weight (collapsible) -->
+      <div class="collapsible" id="protein-field">
+        <div class="collapsible-inner">
+          <label>Cooked protein weight — <em id="protein-hint" style="font-weight:400;color:var(--warm-gray);font-size:0.78rem">per serving</em></label>
+          <div class="input-row">
+            <input type="number" id="protein-input" min="0" step="5" placeholder="e.g. 120" oninput="calculate()" />
+            <span class="unit-badge" id="protein-unit">g</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Results -->
+    <div class="results-card">
+      <p class="results-header">Your recipe</p>
+      <div id="results">
+        <p class="empty-state">Adjust the settings above to begin.</p>
       </div>
     </div>
 
-    <!-- Target weight + protein toggle in one row -->
-    <div class="card-row" id="target-row" style="display:none">
-      <span class="card-row-label">
-        Target weight
-        <span class="sub">finished dish, total</span>
-      </span>
-      <div style="display:flex;align-items:center;gap:0.75rem">
-        <div class="input-row" style="max-width:120px">
-          <input type="number" id="target-input" min="0" step="10"
-            placeholder="e.g. 700" oninput="calculate()" />
-          <span class="unit-badge" id="target-unit">g</span>
-        </div>
-        <span style="font-size:0.72rem;color:var(--warm-gray);letter-spacing:0.04em;white-space:nowrap">+ protein</span>
-        <label class="toggle-switch" style="margin:0">
-          <input type="checkbox" id="protein-toggle-b" onchange="syncProtein(this)" />
-          <span class="toggle-slider"></span>
-        </label>
-      </div>
-    </div>
-
-    <!-- Protein weight (collapsible) -->
-    <div class="collapsible" id="protein-field">
-      <div class="collapsible-inner">
-        <label>Cooked protein weight — <em id="protein-hint" style="font-weight:400;color:var(--warm-gray);font-size:0.78rem">per serving</em></label>
-        <div class="input-row">
-          <input type="number" id="protein-input" min="0" step="5"
-            placeholder="e.g. 120" oninput="calculate()" />
-          <span class="unit-badge" id="protein-unit">g</span>
-        </div>
-      </div>
-    </div>
+    <p class="note">
+      70 g dry → 170 g cooked per serving (5 oz dry → 12 oz cooked for 2).<br>
+      Protein weight is subtracted from the target before calculating pasta.
+    </p>
 
   </div>
+  <script>
+    // ── Constants (internal oz) ──────────────────────────────────
+    const DRY_OZ = 2.5;
+    const COOKED_OZ = 6;
+    const RATIO = DRY_OZ / COOKED_OZ;
 
-  <!-- Results -->
-  <div class="results-card">
-    <p class="results-header">Your recipe</p>
-    <div id="results">
-      <p class="empty-state">Adjust the settings above to begin.</p>
-    </div>
-  </div>
+    // ── State ────────────────────────────────────────────────────
+    let unit = 'g';
+    let mode = 'servings';
+    let servings = 2;
+    let hasProtein = false;
 
-  <p class="note">
-    70 g dry → 170 g cooked per serving (5 oz dry → 12 oz cooked for 2).<br>
-    Protein weight is subtracted from the target before calculating pasta.
-  </p>
+    // ── Helpers ──────────────────────────────────────────────────
+    const toG = oz => oz * 28.3495;
+    const toOz = g => g / 28.3495;
+    const inToOz = val => unit === 'g' ? toOz(val) : val;
 
-</div>
-<script>
-  // ── Constants (internal oz) ──────────────────────────────────
-  const DRY_OZ    = 2.5;
-  const COOKED_OZ = 6;
-  const RATIO     = DRY_OZ / COOKED_OZ;
-
-  // ── State ────────────────────────────────────────────────────
-  let unit       = 'g';
-  let mode       = 'servings';
-  let servings   = 2;
-  let hasProtein = false;
-
-  // ── Helpers ──────────────────────────────────────────────────
-  const toG    = oz  => oz * 28.3495;
-  const toOz   = g   => g  / 28.3495;
-  const inToOz = val => unit === 'g' ? toOz(val) : val;
-
-  function fmt(oz) {
-    return unit === 'g'
-      ? Math.round(toG(oz)) + ' g'
-      : oz.toFixed(1) + ' oz';
-  }
-
-  // ── Unit ─────────────────────────────────────────────────────
-  function setUnit(u) {
-    const prev = unit;
-    unit = u;
-    document.querySelectorAll('.seg-toggle.unit button').forEach((b, i) => {
-      b.classList.toggle('active', (i === 0 && u === 'g') || (i === 1 && u === 'oz'));
-    });
-    document.querySelectorAll('.unit-badge').forEach(b => b.textContent = u);
-
-    convertInput('protein-input', prev, u, u === 'g' ? 'e.g. 120' : 'e.g. 4');
-    convertInput('target-input',  prev, u, u === 'g' ? 'e.g. 700' : 'e.g. 24');
-    calculate();
-  }
-
-  function convertInput(id, from, to, ph) {
-    const el  = document.getElementById(id);
-    const val = parseFloat(el.value);
-    if (!isNaN(val) && val > 0) {
-      el.value = to === 'g' ? Math.round(toG(from === 'oz' ? val : val))
-                            : +toOz(from === 'g' ? val : val).toFixed(1);
-      if (from === 'oz' && to === 'g')  el.value = Math.round(toG(val));
-      if (from === 'g'  && to === 'oz') el.value = +toOz(val).toFixed(1);
+    function fmt(oz) {
+      return unit === 'g'
+        ? Math.round(toG(oz)) + ' g'
+        : oz.toFixed(1) + ' oz';
     }
-    el.placeholder = ph;
-  }
 
-  // ── Mode ─────────────────────────────────────────────────────
-  function setMode(m) {
-    mode = m;
-    document.querySelectorAll('.seg-toggle.mode button').forEach((b, i) => {
-      b.classList.toggle('active', (i === 0 && m === 'servings') || (i === 1 && m === 'target'));
-    });
-    document.getElementById('servings-row').style.display = m === 'servings' ? '' : 'none';
-    document.getElementById('target-row').style.display   = m === 'target'   ? '' : 'none';
-    document.getElementById('protein-hint').textContent   = m === 'servings' ? 'per serving' : 'total';
-    calculate();
-  }
+    // ── Unit ─────────────────────────────────────────────────────
+    function setUnit(u) {
+      const prev = unit;
+      unit = u;
+      document.querySelectorAll('.seg-toggle.unit button').forEach((b, i) => {
+        b.classList.toggle('active', (i === 0 && u === 'g') || (i === 1 && u === 'oz'));
+      });
+      document.querySelectorAll('.unit-badge').forEach(b => b.textContent = u);
 
-  // ── Servings ─────────────────────────────────────────────────
-  function changeServings(delta) {
-    servings = Math.max(1, servings + delta);
-    document.getElementById('servings-display').textContent = servings;
-    calculate();
-  }
+      convertInput('protein-input', prev, u, u === 'g' ? 'e.g. 120' : 'e.g. 4');
+      convertInput('target-input', prev, u, u === 'g' ? 'e.g. 700' : 'e.g. 24');
+      calculate();
+    }
 
-  // ── Protein ──────────────────────────────────────────────────
-  function toggleProtein() {
-    hasProtein = document.getElementById('protein-toggle').checked;
-    // Keep the target-mode toggle in sync
-    const b = document.getElementById('protein-toggle-b');
-    if (b) b.checked = hasProtein;
-    document.getElementById('protein-field').classList.toggle('visible', hasProtein);
-    if (!hasProtein) document.getElementById('protein-input').value = '';
-    calculate();
-  }
-  function syncProtein(el) {
-    document.getElementById('protein-toggle').checked = el.checked;
-    toggleProtein();
-  }
-
-  // ── Calculate ────────────────────────────────────────────────
-  function calculate() {
-    const el = document.getElementById('results');
-    let totalDry, totalCooked, totalProtein = 0;
-
-    if (mode === 'servings') {
-      let proteinOzPS = 0;
-      if (hasProtein) {
-        const raw = parseFloat(document.getElementById('protein-input').value);
-        if (!isNaN(raw) && raw > 0) proteinOzPS = inToOz(raw);
+    function convertInput(id, from, to, ph) {
+      const el = document.getElementById(id);
+      const val = parseFloat(el.value);
+      if (!isNaN(val) && val > 0) {
+        el.value = to === 'g' ? Math.round(toG(from === 'oz' ? val : val))
+          : +toOz(from === 'g' ? val : val).toFixed(1);
+        if (from === 'oz' && to === 'g') el.value = Math.round(toG(val));
+        if (from === 'g' && to === 'oz') el.value = +toOz(val).toFixed(1);
       }
-      const cookedPastaPS = Math.max(0, COOKED_OZ - proteinOzPS);
-      totalDry     = cookedPastaPS * RATIO * servings;
-      totalCooked  = cookedPastaPS * servings;
-      totalProtein = proteinOzPS   * servings;
+      el.placeholder = ph;
+    }
 
-    } else {
-      const targetRaw = parseFloat(document.getElementById('target-input').value);
-      if (isNaN(targetRaw) || targetRaw <= 0) {
-        el.innerHTML = '<p class="empty-state">Enter a target weight above.</p>';
+    // ── Mode ─────────────────────────────────────────────────────
+    function setMode(m) {
+      mode = m;
+      document.querySelectorAll('.seg-toggle.mode button').forEach((b, i) => {
+        b.classList.toggle('active', (i === 0 && m === 'servings') || (i === 1 && m === 'target'));
+      });
+      document.getElementById('servings-row').style.display = m === 'servings' ? '' : 'none';
+      document.getElementById('target-row').style.display = m === 'target' ? '' : 'none';
+      document.getElementById('protein-hint').textContent = m === 'servings' ? 'per serving' : 'total';
+      calculate();
+    }
+
+    // ── Servings ─────────────────────────────────────────────────
+    function changeServings(delta) {
+      servings = Math.max(1, servings + delta);
+      document.getElementById('servings-display').textContent = servings;
+      calculate();
+    }
+
+    // ── Protein ──────────────────────────────────────────────────
+    function toggleProtein() {
+      hasProtein = document.getElementById('protein-toggle').checked;
+      // Keep the target-mode toggle in sync
+      const b = document.getElementById('protein-toggle-b');
+      if (b) b.checked = hasProtein;
+      document.getElementById('protein-field').classList.toggle('visible', hasProtein);
+      if (!hasProtein) document.getElementById('protein-input').value = '';
+      calculate();
+    }
+    function syncProtein(el) {
+      document.getElementById('protein-toggle').checked = el.checked;
+      toggleProtein();
+    }
+
+    // ── Calculate ────────────────────────────────────────────────
+    function calculate() {
+      const el = document.getElementById('results');
+      let totalDry, totalCooked, totalProtein = 0;
+
+      if (mode === 'servings') {
+        let proteinOzPS = 0;
+        if (hasProtein) {
+          const raw = parseFloat(document.getElementById('protein-input').value);
+          if (!isNaN(raw) && raw > 0) proteinOzPS = inToOz(raw);
+        }
+        const cookedPastaPS = Math.max(0, COOKED_OZ - proteinOzPS);
+        totalDry = cookedPastaPS * RATIO * servings;
+        totalCooked = cookedPastaPS * servings;
+        totalProtein = proteinOzPS * servings;
+
+      } else {
+        const targetRaw = parseFloat(document.getElementById('target-input').value);
+        if (isNaN(targetRaw) || targetRaw <= 0) {
+          el.innerHTML = '<p class="empty-state">Enter a target weight above.</p>';
+          return;
+        }
+        const targetOz = inToOz(targetRaw);
+        if (hasProtein) {
+          const raw = parseFloat(document.getElementById('protein-input').value);
+          if (!isNaN(raw) && raw > 0) totalProtein = inToOz(raw);
+        }
+        totalCooked = Math.max(0, targetOz - totalProtein);
+        totalDry = totalCooked * RATIO;
+      }
+
+      if (totalDry <= 0) {
+        el.innerHTML = `<p class="empty-state" style="color:rgba(232,133,90,0.7)">
+        Protein exceeds the target — no pasta needed!</p>`;
         return;
       }
-      const targetOz = inToOz(targetRaw);
-      if (hasProtein) {
-        const raw = parseFloat(document.getElementById('protein-input').value);
-        if (!isNaN(raw) && raw > 0) totalProtein = inToOz(raw);
+
+      let html = '';
+      html += row('Dry pasta needed', fmt(totalDry), true);
+      html += row('Cooked pasta (yield)', fmt(totalCooked), false);
+
+      if (hasProtein && totalProtein > 0) {
+        html += row('Protein', fmt(totalProtein), false);
+        html += row('Total dish weight', fmt(totalCooked + totalProtein), false);
       }
-      totalCooked = Math.max(0, targetOz - totalProtein);
-      totalDry    = totalCooked * RATIO;
+
+      if (mode === 'servings' && servings > 1) {
+        html += '<hr class="result-divider">';
+        html += row('Dry pasta per serving', fmt(totalDry / servings), false);
+        if (hasProtein && totalProtein > 0)
+          html += row('Protein per serving', fmt(totalProtein / servings), false);
+      }
+
+      el.innerHTML = html;
     }
 
-    if (totalDry <= 0) {
-      el.innerHTML = `<p class="empty-state" style="color:rgba(232,133,90,0.7)">
-        Protein exceeds the target — no pasta needed!</p>`;
-      return;
-    }
-
-    let html = '';
-    html += row('Dry pasta needed',      fmt(totalDry),    true);
-    html += row('Cooked pasta (yield)',  fmt(totalCooked), false);
-
-    if (hasProtein && totalProtein > 0) {
-      html += row('Protein',             fmt(totalProtein),                 false);
-      html += row('Total dish weight',   fmt(totalCooked + totalProtein),   false);
-    }
-
-    if (mode === 'servings' && servings > 1) {
-      html += '<hr class="result-divider">';
-      html += row('Dry pasta per serving', fmt(totalDry / servings), false);
-      if (hasProtein && totalProtein > 0)
-        html += row('Protein per serving', fmt(totalProtein / servings), false);
-    }
-
-    el.innerHTML = html;
-  }
-
-  function row(name, value, highlight) {
-    return `<div class="result-line">
+    function row(name, value, highlight) {
+      return `<div class="result-line">
       <span class="result-name">${name}</span>
       <span class="result-value${highlight ? ' highlight' : ''}">${value}</span>
     </div>`;
-  }
+    }
 
-  calculate();
-</script>
+    calculate();
+  </script>
 </body>
+
 </html>

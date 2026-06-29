@@ -102,6 +102,22 @@ function goGetRecipe(name) {
     ];
   }
 
+
+  // * Caper Sauce
+  else if (name.includes("Caper Sauce")) {
+    recipe = [
+      ['Capers (rinsed)', 30],
+      ['Garlic Clove (finely chopped)', 4],
+      ['White Wine', 60],
+      ['Olive Oil', 50],
+      ['Breadcrumbs (whole-wheat)', 30],
+      ['Fresh Parsley', 9],
+      ['Salt', 1.5],
+      ['Black Pepper', 0.25]
+    ];
+  }
+
+
   // * Caesar Dressing
   else if (name.includes("Caesar")) {
     recipe = [
@@ -116,6 +132,7 @@ function goGetRecipe(name) {
     ];
   }
 
+
   // * Nicoise Dressing
   else if (name.includes("Niçoise")) {
     recipe = [
@@ -126,6 +143,7 @@ function goGetRecipe(name) {
       ['Dijon Mustard', 6, "w"]
     ];
   }
+
 
   // * Ranch Dressing
   else if (name.includes("Ranch")) {
@@ -143,6 +161,7 @@ function goGetRecipe(name) {
     ];
   }
 
+
   // * Ginger Sesame Pak Choi
   else if (name.includes("Ginger Sesame")) {
     recipe = [
@@ -156,6 +175,7 @@ function goGetRecipe(name) {
       ['Roasted Sesame Seeds', 37, "d"],
     ];
   }
+
 
   // * Miso Roasted Pak Choi with Edamame
   else if (name.includes("Miso Roasted")) {

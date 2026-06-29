@@ -157,9 +157,6 @@ function initializeArray(mode) {
 }
 
 
-
-
-
 function updateAllDimmers() {
   masterDimmer('dimImp', 'theBlocksImp');
   masterDimmer('dimMet', 'theBlocksMet');
