@@ -1,4 +1,5 @@
-console.log(`02-04-26 - Fixed the issue where modifying the container weight would destroy the Scale Reading G field. Also, the Scale Reading fields are no longer zeroed out when the difference fields are manually modified because that was distracting and unnecessary.
+console.log(`Version 05-07-26 - Improved linking between scaler and weight.
+Version 02-04-26 - Fixed the issue where modifying the container weight would destroy the Scale Reading G field. Also, the Scale Reading fields are no longer zeroed out when the difference fields are manually modified because that was distracting and unnecessary.
 Version 28-02-26 - Cakeulator now shows the correct scale between the two pans using the larger as the max and then scaling the smaller one. Bug remains in showing or hiding the main weight function.
 Version 22-02-26 The Container add-on function now works correctly.
 Version 18-01-26 - Added ability to lock the container weight to retro-calculate
@@ -6,6 +7,8 @@ Version 03-01-26 - Added manual adjustments in Portionator with color coding to 
 Version 11-03-25 - added versioning declaration`);
 
 const gramConversion = 28.349523125;
+const round2 = num => parseFloat(num.toFixed(2));
+
 
 var wtDifferenceG,
     wtDifferenceO,
@@ -387,7 +390,7 @@ function calWeightO(mode) {
 //*  Calculate everything backwards if a value is entered in either "difference" field.
 //* ------------------------------------------------------------------------------------------------
 
-function difWeight(unit, zeroFlag) {
+function difWeight(unit, zeroFlag, scalerStat) {
 
     // If unit is grams, do grams.
     if (unit == 'g') {
@@ -414,7 +417,11 @@ function difWeight(unit, zeroFlag) {
         wtDifferenceG = oEquiv.toFixed(2);
         scaleReadingG = wtDifferenceG;
         document.getElementById("differenceG").value = wtDifferenceG;
-        document.getElementById("amount").value = wtDifferenceG;
+
+        //* If the scalerStat flag is not true, then update the "amount" field to reflect the new difference value.
+        if (scalerStat != true) {
+            document.getElementById("amount").value = wtDifferenceG;
+        };
 
         // Set a multiplier and a field label for the other fields 
         multiplierVal = gramConversion;
@@ -479,7 +486,6 @@ function storageValues() {
 // The exception is the two "difference" fields which can be manually updated for portioning.
 // If they are updated, then the fields are not auto-populated.
 function calculateAll() {
-
 
     dividedBy = parseInt(getObj('dividedBy').value);
     gWeight = getObj("inGrams").value;
@@ -674,8 +680,7 @@ function calculateAll() {
                 // Display the quantity as a negative number
                 temp = ascendingValue * -1;
             }
-
-            document.getElementById("thisPortion" + x).value = temp.toFixed(2);
+            document.getElementById("thisPortion" + x).value = round2(temp);
             document.getElementById("thisPortion" + x).style.color = fieldColor;
             portionList[x - 1] = temp;
             document.getElementById("labelPortion" + x).innerHTML = "";
@@ -704,13 +709,11 @@ function calculateAll() {
 
     // Now that all calculation has been done on the current values, check to see if something is being sent from scaler and respond accordingly.
     if (localStorage.getItem("fromScaler") == "true") {
-        let x = localStorage.getItem("fromScaler");
-        localStorage.setItem("fromScaler", "false");
-        x = localStorage.getItem("fromScaler");
+        localStorage.setItem("fromScaler", "false"); // Reset the flag so that it doesn't keep reloading the values over and over again.
         document.getElementById("differenceG").value = localStorage.getItem("fromScalerTotal");
         document.getElementById("dividedBy").value = localStorage.getItem("reciPortions");
         difWeight("g");
-        scaleFlip(6);
+        scaleFlip(3);
     }
 }
 
@@ -1156,4 +1159,11 @@ function cakeulateAll(mode) {
     ctx.fill();
     ctx.strokeStyle = "blue";
     ctx.stroke();
+}
+
+
+function changePortWeight() {
+    console.log("Port weight changed");
+    document.getElementById("differenceG").value = Number(document.getElementById("amount").value);
+    difWeight('g', true)
 }

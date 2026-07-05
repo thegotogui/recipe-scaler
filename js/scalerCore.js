@@ -53,6 +53,7 @@ var amounts = [],
 
 function versions() {
   console.log(`--VERSION----TWEAKS & CHANGES----
+05-07-2026 - Improved linking between scaler and weight, smart addition of "## Process" at the beginning of recipe markdowns and active detection of portion values.
 23-06-2026 - Constant values are now defined as such. Other tweaks made by Copilot are also integrated.
 31.05.2026 - Recipes are now an external file taking up far less room in the core JS file.
 07.04.2026 - Reset now ALSO correctly resets the background colors to clear.
@@ -274,6 +275,13 @@ function changeRecipe(isItResetting) {
   if (recipeData) {
     recipe = recipeData.recipe;
     markdown = recipeData.markdown ?? "";
+
+    // If it's not blank, ensure that the markdown starts with a "## Process" header. If it already has one, it will remain unchanged; if not, the header will be prepended.
+    if (markdown != "") {
+      markdown = ensureProcessHeader(markdown);
+    }
+
+
     headers = recipeData.headers ?? [];
     reciPortions = recipeData.reciPortions ?? 0;
     synced = true;
@@ -386,6 +394,7 @@ Hydration Station - What's your function
     document.getElementById("portions").value = reciPortions;
     portionIt();
     shPortions(true);
+    sendToWeight(1);
   }
 
   // * Do a tally of the various variables
@@ -398,6 +407,15 @@ Hydration Station - What's your function
   // * Update all dimmers
   updateAllDimmers();
 }
+
+// Claude's function to ensure that the markdown instructions always start with a "## Process" header. If the header is already present, it returns the markdown unchanged; otherwise, it prepends the header to the markdown content.
+function ensureProcessHeader(markdown) {
+  if (/^## Process\s*$/m.test(markdown)) {
+    return markdown;
+  }
+  return `## Process\n\n${markdown.trimStart()}`;
+}
+
 
 
 function populateTable() {
@@ -497,7 +515,6 @@ function showRecipe(params) {
 }
 
 
-
 function colorizeIngredients() {
   if (ingredientColorMode == 1) {
     let targetId;
@@ -506,7 +523,6 @@ function colorizeIngredients() {
       targetId = ingredients[x - 1];
       let thisIngColor = getIngredientColor(targetId);
       document.getElementById("checkRow" + x).style.backgroundColor = thisIngColor;
-      // console.log(`${targetId} is ${thisIngColor}, row is ${x}`);
     }
   }
 }
@@ -782,8 +798,8 @@ function portionIt(which) {
   // document.getElementById("weightEachS").value = parseFloat(ttl2.toFixed(1));
 
   if (portions > 1) {
-    let x1 = ttl1 / OZ_TO_GRAMS;
-    document.getElementById("weightEachO").value = parseFloat(x1.toFixed(2));
+    let temp = ttl1 / OZ_TO_GRAMS;
+    document.getElementById("weightEachO").value = parseFloat(temp.toFixed(2));
   }
 }
 
@@ -1315,17 +1331,13 @@ function resetAll() {
 
 
   // Uncheck any checkboxes
-  // writeChecks("rowCheck", false);
   writeChecks("sumCheckBox", false);
 
   document.getElementById("multiplier").value = multiplier;
-  // localStorage.setItem("multiplier", multiplier);
 
   document.getElementById("originalScale").value = 1;
-  // localStorage.setItem("originalScale", 1);
 
   document.getElementById("newScale").value = 1;
-  // localStorage.setItem("newScale", 1);
 
   document.getElementById("portions").value = 1;
   portionIt();
@@ -1386,8 +1398,9 @@ function clearWindow(which) {
   }
 }
 
-
-function sendToWeight() {
+// This function is called when the "Send to Weight" button is clicked or is called for by certain recipes.
+// It stores the current state of the scaler in local storage and opens the weight.html page in a new tab.
+function sendToWeight(openOrNot) {
   localStorage.setItem("fromScaler", true);
   let reciportions = document.getElementById("portions").value;
   localStorage.setItem("reciPortions", reciportions);
@@ -1414,7 +1427,6 @@ function spitit(item, index, arr) {
   let rando = arr;
   let temp = item * 100;
   let temp2 = parseFloat(temp.toFixed(1));
-  // console.log(`${ingredients[index]} - ${temp2} % `);
   percString += `${ingredients[index]} - ${temp2} %\n`;
 }
 
@@ -1986,8 +1998,6 @@ function checkSumChecks() {
 }
 
 
-
-
 // * Generic checkbox tool - Will apply specified state to all checkboxes of a given class name. Used for clearing sum checks and sync checks.
 function writeChecks(className, state) {
   document.querySelectorAll(`.${className} `).forEach(cb => cb.checked = state);
@@ -2122,7 +2132,6 @@ function makeThePie() {
   const slices = percentages.map((percent, i) => ({ label: labels[i], percent }));
   document.getElementById("pieChartArea").innerHTML = generatePieChart(slices);
 }
-
 
 
 

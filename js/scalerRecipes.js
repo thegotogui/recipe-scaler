@@ -403,8 +403,7 @@ function goGetRecipe(name) {
       ['Yeast', 2, "d"],
       ['Salt', 8, "d"],
     ];
-    markdown = `## Process
-### Part 1
+    markdown = `### Part 1
 - Mix all the ingredients together until combined, you will see the dough will amalgamate into a ball, this should not take more than 2mn.
 - Cover and let it rise for 8 to 10 hours, I leave the dough in the cold oven.
           
@@ -852,21 +851,22 @@ Try a few different bread flours to see which one gives you the best result.`;
   // * Meatballs
   else if (name.includes("Meatballs")) {
     recipe = [
-      ['Ground Beef', 280, "d"],
-      ['Milk', 100, "w"],
-      ['Bread Crumbs', 40, "w"],
-      ['Onion', 40, "d"],
-      ['Egg', 30, "w"],
-      ['Parmesan', 30, "d"],
+      ['Ground Beef', 250, "d"],
+      ['Milk', 90, "w"],
+      ['Bread Crumbs', 35, "w"],
+      ['Onion', 35, "d"],
+      ['Egg', 27, "w"],
+      ['Parmesan', 20, "d"],
       ['Parsley', 5, "d"],
-      ['Salt', 4, "d"],
+      ['Salt', 3, "d"],
       ['Garlic Powder', 3, "d"]
     ];
+    reciPortions = 12;
     markdown = `1. Mix milk and breadcrumbs together and allow to sit 15-20 minutes.
 2. Combine all ingredients and knead until evenly distributed. Meatballs should be wet and somewhat sticky.
 3. In a medium-heat pan, brown meatballs on all sides.
 4. Combine meatballs and sauce to a pan over a simmer. Cover and cook 10-15 minutes, turning halfway through.
-5. Combine with pasta and serve
+5. Combine with pasta and serve as desired.
 
 Alternatively, they can be baked at 350° for 15 minutes`;
   }
@@ -885,7 +885,7 @@ Alternatively, they can be baked at 350° for 15 minutes`;
       ['Salt', 4, "d"],
       ['Garlic Powder', 3, "d"]
     ];
-    markdown = `## Process
+    markdown = `
   ### It's a little hard to believe this is going to stay together, but it does.
   1. Mix milk and breadcrumbs together and allow to sit 15-20 minutes.
   2. Combine all ingredients and knead until ingredients are distributed. Meatballs should be wet and somewhat sticky.
@@ -1245,8 +1245,6 @@ Alternatively, they can be baked at 350° for 15 minutes`;
 - Garnish with a sprig of mint and a lime wedge.`;
   }
 
-
-
   // * Campari Spritz
   else if (name.includes("Campari Spritz")) {
     recipe = [
@@ -1337,6 +1335,23 @@ Alternatively, they can be baked at 350° for 15 minutes`;
     ];
   }
 
+  // * Bread Crumbs
+  else if (name.includes("Bread Crumbs")) {
+    recipe = [
+      ['Bread', 44.28, "d"],
+      ['Toasted Crumbs', 36, "d"]
+    ];
+    markdown = `## Process
+- Toast bread until golden brown and dry.
+- Pulse in a food processor until fine crumbs are formed.
+
+Note that the ratios here are 69 > 56
+
+56/69 = 0.812
+
+1/.812 = 1.232`;
+  }
+
   // * Test mode
   else if (name.includes("TEST")) {
     recipe = [
@@ -1354,6 +1369,6 @@ Alternatively, they can be baked at 350° for 15 minutes`;
       ['K', 11], ['L', 12], ['M', 13], ['N', 14], ['O'],
     ];
   }
-
+  console.log(`reciPortions: ${reciPortions}`);
   return recipe ? { recipe, markdown, headers, reciPortions } : null;
 }

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proportional Extraction Calculator</title>
+  <style>
+    :root {
+      --cream: #1b1712;
+      --panel: #242019;
+      --ink: #efe6d8;
+      --rust: #d97a52;
+      --rust-light: #4a3226;
+      --line: #3a332a;
+      --muted: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-variant-numeric: lining-nums;
+    }
+
+    body {
+      margin: 0;
+      padding: 2.5rem 1.25rem;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 760px;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      margin: 0 0 0.25rem;
+      border-bottom: 2px solid var(--rust);
+      padding-bottom: 0.6rem;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin: 0 0 1.75rem;
+      font-style: italic;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      font-size: 1rem;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+
+    input[type=number] {
+      font-family: inherit;
+      font-size: 1rem;
+      font-feature-settings: "lnum" 1, "onum" 0;
+      padding: 0.5rem 0.6rem;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      width: 100%;
+      background: var(--cream);
+      color: var(--ink);
+    }
+
+    input[type=number]:focus {
+      outline: none;
+      border-color: var(--rust);
+    }
+
+    .field-small {
+      flex: 1 1 160px;
+    }
+
+    #bottleFields {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.85rem;
+      margin-top: 0.75rem;
+    }
+
+    .bottle-field label {
+      margin-bottom: 0.25rem;
+      font-size: 1rem;
+    }
+
+    button {
+      font-family: inherit;
+      background: var(--rust);
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.3rem;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+    }
+
+    button:hover {
+      background: #c2683f;
+    }
+
+    button.secondary {
+      background: transparent;
+      color: var(--rust);
+      border: 1px solid var(--rust);
+    }
+
+    button.secondary:hover {
+      background: var(--rust-light);
+    }
+
+    .actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1.25rem;
+      font-size: 0.92rem;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 0.5rem 0.6rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    th {
+      color: var(--muted);
+      font-weight: 400;
+      font-size: 0.92rem;
+    }
+
+    td.num,
+    th.num {
+      text-align: right;
+    }
+
+    tfoot td {
+      border-top: 2px solid var(--rust);
+      border-bottom: none;
+      font-weight: bold;
+    }
+
+    .warn {
+      color: var(--rust);
+      font-size: 0.85rem;
+      margin-top: 0.75rem;
+      display: none;
+    }
+
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .bar-label {
+      font-size: 12px;
+      fill: var(--ink);
+      font-family: sans-serif;
+      font-variant-numeric: lining-nums;
+    }
+
+    .bar-value {
+      font-size: 12px;
+      fill: #fff;
+      font-family: sans-serif;
+      font-variant-numeric: lining-nums;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <h1>Proportional Extraction Calculator</h1>
+    <p class="subtitle">Draw a target amount from several containers, split in proportion to each one's volume.</p>
+
+    <div class="panel">
+      <div class="row">
+        <div class="field-small">
+          <label style="margin-top:0.25rem; font-weight: bold;" for="bottleCount">Number of containers</label>
+          <input type="number" id="bottleCount" min="1" max="30" value="4">
+        </div>
+        <div class="field-small">
+          <label style="margin-top:0.25rem; font-weight: bold;" for="extractAmount">Amount to extract (ml)</label>
+          <input type="number" id="extractAmount" min="0" step="0.1" value="50">
+        </div>
+      </div>
+
+      <label style="margin-top:0.25rem; font-weight: bold;">Container volumes (ml)</label>
+      <div id="bottleFields"></div>
+
+      <div class="actions">
+        <button class="secondary" id="resetBtn">Reset</button>
+      </div>
+
+      <div class="warn" id="warnMsg"></div>
+    </div>
+
+    <div class="panel" id="resultsPanel" style="display:none;">
+      <table>
+        <thead>
+          <tr>
+            <th>Container</th>
+            <th class="num">Volume (ml)</th>
+            <th class="num">Share</th>
+            <th class="num">Extract (ml)</th>
+            <th class="num">Remaining (ml)</th>
+          </tr>
+        </thead>
+        <tbody id="resultsBody"></tbody>
+        <tfoot>
+          <tr>
+            <td>Total</td>
+            <td class="num" id="totalVol"></td>
+            <td class="num">100%</td>
+            <td class="num" id="totalExtract"></td>
+            <td class="num" id="totalRemain"></td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <div id="chartWrap" style="margin-top:1.5rem;"></div>
+    </div>
+  </div>
+
+  <script>
+    const bottleCountEl = document.getElementById('bottleCount');
+    const bottleFieldsEl = document.getElementById('bottleFields');
+    const extractAmountEl = document.getElementById('extractAmount');
+    const resetBtn = document.getElementById('resetBtn');
+    const warnMsg = document.getElementById('warnMsg');
+    const resultsPanel = document.getElementById('resultsPanel');
+    const resultsBody = document.getElementById('resultsBody');
+    const totalVol = document.getElementById('totalVol');
+    const totalExtract = document.getElementById('totalExtract');
+    const totalRemain = document.getElementById('totalRemain');
+    const chartWrap = document.getElementById('chartWrap');
+
+    const RUST = '#d97a52';
+    const RUST_LIGHT = '#4a3226';
+    const INK = '#efe6d8';
+
+    const defaultVolumes = [750, 500, 330, 1000];
+
+    // Formats a number to `decimals` places, then strips trailing zeros (and a trailing dot).
+    function fmt(n, decimals) {
+      return Number(n.toFixed(decimals)).toString();
+    }
+
+    function buildBottleFields() {
+      const n = Math.max(1, Math.min(30, parseInt(bottleCountEl.value) || 1));
+      bottleCountEl.value = n;
+      bottleFieldsEl.innerHTML = '';
+      for (let i = 0; i < n; i++) {
+        const div = document.createElement('div');
+        div.className = 'bottle-field';
+        const val = defaultVolumes[i] !== undefined ? defaultVolumes[i] : 500;
+        div.innerHTML = `
+      <label for="bv${i}">Container ${i + 1}</label>
+      <input type="number" id="bv${i}" class="bottle-vol" min="0" step="1" value="${val}">
+    `;
+        bottleFieldsEl.appendChild(div);
+      }
+      bottleFieldsEl.querySelectorAll('.bottle-vol').forEach(inp => {
+        inp.addEventListener('input', calculate);
+      });
+    }
+
+    function getVolumes() {
+      return Array.from(document.querySelectorAll('.bottle-vol')).map(inp => parseFloat(inp.value) || 0);
+    }
+
+    function calculate() {
+      const volumes = getVolumes();
+      const extract = parseFloat(extractAmountEl.value) || 0;
+      const totalVolume = volumes.reduce((a, b) => a + b, 0);
+
+      warnMsg.style.display = 'none';
+
+      if (totalVolume <= 0) {
+        warnMsg.textContent = 'Enter at least one container with volume greater than zero.';
+        warnMsg.style.display = 'block';
+        resultsPanel.style.display = 'none';
+        return;
+      }
+
+      if (extract > totalVolume) {
+        warnMsg.textContent = `Requested ${fmt(extract, 2)} ml exceeds total available volume of ${fmt(totalVolume, 2)} ml.`;
+        warnMsg.style.display = 'block';
+      }
+
+      const shares = volumes.map(v => v / totalVolume);
+      const extracted = volumes.map((v, i) => extract * shares[i]);
+      const remaining = volumes.map((v, i) => v - extracted[i]);
+
+      // populate table
+      resultsBody.innerHTML = '';
+      volumes.forEach((v, i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+      <td>Container ${i + 1}</td>
+      <td class="num">${fmt(v, 1)}</td>
+      <td class="num">${fmt(shares[i] * 100, 1)}%</td>
+      <td class="num">${fmt(extracted[i], 2)}</td>
+      <td class="num">${fmt(remaining[i], 2)}</td>
+    `;
+        resultsBody.appendChild(tr);
+      });
+      totalVol.textContent = fmt(totalVolume, 1);
+      totalExtract.textContent = fmt(extracted.reduce((a, b) => a + b, 0), 2);
+      totalRemain.textContent = fmt(remaining.reduce((a, b) => a + b, 0), 2);
+
+      drawChart(volumes, extracted);
+
+      resultsPanel.style.display = 'block';
+    }
+
+    function drawChart(volumes, extracted) {
+      const n = volumes.length;
+      const barHeight = 34;
+      const gap = 14;
+      const leftLabelW = 110;
+      const chartW = 560;
+      const chartH = n * (barHeight + gap) + gap;
+      const maxVol = Math.max(...volumes, 1);
+
+      let svg = `<svg viewBox="0 0 ${chartW} ${chartH}" xmlns="http://www.w3.org/2000/svg">`;
+
+      volumes.forEach((v, i) => {
+        const y = gap + i * (barHeight + gap);
+        const fullBarMaxW = chartW - leftLabelW - 80;
+        const barW = (v / maxVol) * fullBarMaxW;
+        const extractedW = v > 0 ? (extracted[i] / v) * barW : 0;
+
+        // label
+        svg += `<text x="0" y="${y + barHeight / 2 + 4}" class="bar-label">Container ${i + 1}</text>`;
+
+        // full volume bar (background)
+        svg += `<rect x="${leftLabelW}" y="${y}" width="${barW}" height="${barHeight}" rx="4" fill="${RUST_LIGHT}" />`;
+
+        // extracted portion overlay
+        svg += `<rect x="${leftLabelW}" y="${y}" width="${extractedW}" height="${barHeight}" rx="4" fill="${RUST}" />`;
+
+        // value text
+        const valX = leftLabelW + barW + 8;
+        svg += `<text x="${valX}" y="${y + barHeight / 2 + 4}" class="bar-label">${fmt(extracted[i], 1)} of ${fmt(v, 0)}</text>`;
+      });
+
+      svg += `</svg>`;
+      chartWrap.innerHTML = svg;
+    }
+
+    resetBtn.addEventListener('click', () => {
+      bottleCountEl.value = 4;
+      extractAmountEl.value = 50;
+      buildBottleFields();
+      calculate();
+    });
+
+    bottleCountEl.addEventListener('input', () => {
+      buildBottleFields();
+      calculate();
+    });
+    extractAmountEl.addEventListener('input', calculate);
+
+    buildBottleFields();
+    calculate();
+  </script>
+</body>
+
+</html>

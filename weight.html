@@ -167,7 +167,7 @@
         </div>
 
         <div class="diffG grammy" id="diffG"><span id="contentsLabelG">Contents' Weight (g):</span>
-            <input id="differenceG" class="fieldDarker" type="number" value="0" tabindex="3" oninput="difWeight('g', true);" onClick="this.select();" style="text-align: center;" />
+            <input id="differenceG" class="fieldDarker" type="number" value="0" tabindex="3" oninput="difWeight('g', true, true);" onClick="this.select();" style="text-align: center;" />
         </div>
 
         <div class="diffO ouncy" id="diffO"><span id="contentsLabelO">Contents' Weight (oz):</span>
@@ -414,7 +414,7 @@
         <div class="flex-container middleIt subSection-mid">
             <div class="arbScaleIn">
                 Weight:
-                <input id="amount" type="number" readonly class="fieldDarker" /></br>
+                <input id="amount" oninput="changePortWeight();" type="number" class="fieldDarker" /></br>
             </div>
             <div class="arbScaleIn">
                 Portions:
