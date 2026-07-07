@@ -436,7 +436,7 @@ function makeTable() { // Make the table rows for the ingredients. We have to do
 
   console.log(`MakeTable has been triggered`);
 
-  // *Go get the (blank) table body so we can write the rows into it.
+  //* Go get the (blank) table body so we can write the rows into it.
   let theBody = document.getElementById('tableBody');
 
   // Clear out any prior rows that may have been left from before
