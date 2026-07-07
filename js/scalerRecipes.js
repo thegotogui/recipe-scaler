@@ -1,5 +1,5 @@
-// recipes.js
-// Contains all recipe data, extracted from scaler.js.
+// scalerRecipes.js
+//* Contains all recipe data, extracted from scaler.js.
 // Call goGetRecipe(name) with the dropdown-selected recipe name string.
 // Returns an object: { recipe, markdown, headers, reciPortions }
 // or null if no recipe matches.
@@ -57,7 +57,6 @@ function goGetRecipe(name) {
 
   // * Salsa Verde
   else if (name.includes("Salsa Verde")) {
-
     recipe = [
       ['Olive oil', 90, 'w'],
       ['Parsley', 80, 'd'],
