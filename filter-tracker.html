@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filter Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #14171a;
+    --card: #1b1f23;
+    --card-border: #262b30;
+    --text: #e9ebed;
+    --text-muted: #8c959d;
+    --text-faint: #5b6268;
+    --water: #4a9edd;
+    --water-glow: #6fb8ea;
+    --droplet-empty-fill: #21262b;
+    --droplet-empty-stroke: #333a41;
+    --caution: #c07a5b;
+    --caution-border: #4a3730;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin:0;
+    padding:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+    font-variant-numeric: lining-nums;
+    min-height: 100vh;
+  }
+
+  body{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 32px 16px;
+  }
+
+  .card{
+    width: 100%;
+    max-width: 480px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 32px 28px 28px;
+  }
+
+  .eyebrow{
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--water-glow);
+    margin: 0 0 4px;
+  }
+
+  h1{
+    font-size: 25px;
+    font-weight: 800;
+    margin: 0 0 2px;
+    letter-spacing: -0.01em;
+  }
+
+  .installed-line{
+    font-size: 15px;
+    color: var(--text-muted);
+    margin: 0 0 22px;
+  }
+
+  /* Droplet grid */
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+
+  .droplet{
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+  }
+
+  .droplet svg{
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .droplet.filled{
+    animation: dropIn 0.4s ease;
+  }
+
+  @keyframes dropIn{
+    0%{ transform: scale(0.4) translateY(-6px); opacity: 0; }
+    60%{ transform: scale(1.15) translateY(0); opacity: 1; }
+    100%{ transform: scale(1); }
+  }
+
+  .stats{
+    display:flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 4px;
+  }
+
+  .stats .used{
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  .stats .used span{ color: var(--water-glow); }
+
+  .stats .remaining{
+    font-size: 15px;
+    color: var(--text-muted);
+  }
+
+  .estimate{
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--text-muted);
+    margin: 0 0 24px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--card-border);
+  }
+
+  .estimate strong{
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  button{
+    font-family: inherit;
+    font-variant-numeric: lining-nums;
+    border: none;
+    cursor: pointer;
+    border-radius: 12px;
+    width: 100%;
+  }
+
+  .refill-btn{
+    background: var(--water);
+    color: #0d1a24;
+    font-size: 18px;
+    font-weight: 800;
+    padding: 16px;
+    margin-bottom: 10px;
+    transition: background 0.15s ease, transform 0.1s ease;
+  }
+
+  .refill-btn:hover{ background: var(--water-glow); }
+  .refill-btn:active{ transform: scale(0.98); }
+
+  .replace-btn{
+    background: transparent;
+    color: var(--caution);
+    border: 1px solid var(--caution-border);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 11px;
+  }
+
+  .replace-btn:hover{ border-color: var(--caution); }
+
+  .history{
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--card-border);
+  }
+
+  .history-title{
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--text-faint);
+    margin: 0 0 10px;
+  }
+
+  .history-row{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    color: var(--text-muted);
+    padding: 6px 0;
+  }
+
+  .history-row:last-child .undo{ display:inline-block; }
+
+  .undo{
+    display:none;
+    background:none;
+    border:none;
+    color: var(--text-faint);
+    font-size: 12px;
+    width:auto;
+    padding: 2px 6px;
+    text-decoration: underline;
+  }
+  .undo:hover{ color: var(--caution); }
+
+  .empty-note{
+    font-size: 13px;
+    color: var(--text-faint);
+    padding: 6px 0;
+  }
+
+  /* Modal */
+  .overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(10,12,14,0.75);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding: 20px;
+    z-index: 10;
+  }
+
+  .overlay.show{ display:flex; }
+
+  .modal{
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 24px;
+    max-width: 360px;
+    width:100%;
+  }
+
+  .modal h2{
+    font-size: 18px;
+    margin: 0 0 8px;
+  }
+
+  .modal p{
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0 0 20px;
+  }
+
+  .modal-actions{
+    display:flex;
+    gap: 10px;
+  }
+
+  .modal-actions button{
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .cancel-btn{
+    background: var(--droplet-empty-fill);
+    color: var(--text);
+  }
+  .cancel-btn:hover{ background: #2a3036; }
+
+  .confirm-btn{
+    background: var(--caution);
+    color: #241511;
+  }
+  .confirm-btn:hover{ filter: brightness(1.1); }
+
+  button:focus-visible, .undo:focus-visible{
+    outline: 2px solid var(--water-glow);
+    outline-offset: 2px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <p class="eyebrow">Espresso Machine</p>
+  <h1>Water Filter</h1>
+  <p class="installed-line" id="installedLine">Installed today</p>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="stats">
+    <span class="used" id="usedText"><span>0 L</span> used</span>
+    <span class="remaining" id="remainingText">70 L remaining</span>
+  </div>
+
+  <p class="estimate" id="estimateText">Log a refill to start estimating your usage rate.</p>
+
+  <button class="refill-btn" id="refillBtn">Refill!</button>
+  <button class="replace-btn" id="replaceBtn">Replacement…</button>
+
+  <div class="history" id="historySection" style="display:none;">
+    <p class="history-title">Recent refills</p>
+    <div id="historyList"></div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <h2>Replace the filter?</h2>
+    <p id="modalBody">This resets the tracker to a fresh 70 L cycle. Your usage rate so far will be remembered to improve future estimates.</p>
+    <div class="modal-actions">
+      <button class="cancel-btn" id="cancelBtn">Cancel</button>
+      <button class="confirm-btn" id="confirmBtn">Replace filter</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'espressoFilterTracker';
+  const TANK_LITERS = 2;
+  const FILTER_CAPACITY_LITERS = 70;
+  const ICON_COUNT = FILTER_CAPACITY_LITERS / TANK_LITERS; // 35 — 1 icon per tank refill
+
+  function loadState(){
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      try{ return JSON.parse(raw); }catch(e){ /* fall through */ }
+    }
+    return {
+      filterStartDate: new Date().toISOString(),
+      refills: [],
+      history: []
+    };
+  }
+
+  function saveState(){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  let state = loadState();
+
+  const gridEl = document.getElementById('grid');
+  const usedTextEl = document.getElementById('usedText');
+  const remainingTextEl = document.getElementById('remainingText');
+  const estimateTextEl = document.getElementById('estimateText');
+  const installedLineEl = document.getElementById('installedLine');
+  const historySection = document.getElementById('historySection');
+  const historyList = document.getElementById('historyList');
+  const overlay = document.getElementById('overlay');
+  const modalBody = document.getElementById('modalBody');
+
+  function dropletSVG(filled){
+    const fill = filled ? 'var(--water)' : 'var(--droplet-empty-fill)';
+    const stroke = filled ? 'var(--water)' : 'var(--droplet-empty-stroke)';
+    return `<svg viewBox="0 0 24 30" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 1 C12 1 21 14 21 20.5 C21 25.5 17 29 12 29 C7 29 3 25.5 3 20.5 C3 14 12 1 12 1 Z"
+        fill="${fill}" stroke="${stroke}" stroke-width="1"/>
+    </svg>`;
+  }
+
+  function litersUsed(){
+    return Math.min(state.refills.length * TANK_LITERS, FILTER_CAPACITY_LITERS);
+  }
+
+  function daysBetween(iso1, iso2){
+    return (new Date(iso2) - new Date(iso1)) / (1000 * 60 * 60 * 24);
+  }
+
+  function formatDate(iso){
+    return new Date(iso).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  function relativeDay(iso){
+    const days = Math.floor(daysBetween(iso, new Date().toISOString()));
+    if(days <= 0) return 'today';
+    if(days === 1) return 'yesterday';
+    return `${days} days ago`;
+  }
+
+  function averageHistoryRate(){
+    if(state.history.length === 0) return null;
+    const rates = state.history.filter(h => h.litersPerDay > 0).map(h => h.litersPerDay);
+    if(rates.length === 0) return null;
+    return rates.reduce((a,b) => a+b, 0) / rates.length;
+  }
+
+  function render(){
+    // grid
+    gridEl.innerHTML = '';
+    const filledCount = Math.min(state.refills.length, ICON_COUNT);
+    for(let i = 0; i < ICON_COUNT; i++){
+      const filled = i < filledCount;
+      const wrap = document.createElement('div');
+      wrap.className = 'droplet' + (filled ? ' filled' : '');
+      wrap.innerHTML = dropletSVG(filled);
+      gridEl.appendChild(wrap);
+    }
+
+    // stats
+    const used = litersUsed();
+    const remaining = FILTER_CAPACITY_LITERS - used;
+    usedTextEl.innerHTML = `<span>${used} L</span> used`;
+    remainingTextEl.textContent = `${remaining} L remaining`;
+
+    installedLineEl.textContent = `Installed ${formatDate(state.filterStartDate)}`;
+
+    // estimate
+    const now = new Date().toISOString();
+    const daysElapsed = daysBetween(state.filterStartDate, now);
+
+    if(state.refills.length === 0){
+      const avgRate = averageHistoryRate();
+      if(avgRate){
+        const projectedDays = FILTER_CAPACITY_LITERS / avgRate;
+        const projectedDate = new Date(new Date(state.filterStartDate).getTime() + projectedDays * 86400000);
+        estimateTextEl.innerHTML = `Based on past usage, next change around <strong>${formatDate(projectedDate.toISOString())}</strong>.`;
+      } else {
+        estimateTextEl.textContent = 'Log a refill to start estimating your usage rate.';
+      }
+    } else if(daysElapsed < 0.5){
+      estimateTextEl.textContent = 'Tracking started today — check back after a few refills for an estimate.';
+    } else {
+      const rate = used / daysElapsed; // liters per day
+      const projectedDays = FILTER_CAPACITY_LITERS / rate;
+      const projectedDate = new Date(new Date(state.filterStartDate).getTime() + projectedDays * 86400000);
+      estimateTextEl.innerHTML = `About <strong>${rate.toFixed(2)} L/day</strong> — next change around <strong>${formatDate(projectedDate.toISOString())}</strong>.`;
+    }
+
+    // history (last 5 refills)
+    if(state.refills.length === 0){
+      historySection.style.display = 'none';
+    } else {
+      historySection.style.display = 'block';
+      historyList.innerHTML = '';
+      const recent = state.refills.slice(-5).reverse();
+      recent.forEach((iso, idx) => {
+        const row = document.createElement('div');
+        row.className = 'history-row';
+        const isLatest = idx === 0;
+        row.innerHTML = `<span>${formatDate(iso)} · ${relativeDay(iso)}</span>` +
+          (isLatest ? `<button class="undo" id="undoBtn">undo</button>` : '');
+        historyList.appendChild(row);
+      });
+      const undoBtn = document.getElementById('undoBtn');
+      if(undoBtn){
+        undoBtn.addEventListener('click', () => {
+          state.refills.pop();
+          saveState();
+          render();
+        });
+      }
+    }
+
+    saveState();
+  }
+
+  document.getElementById('refillBtn').addEventListener('click', () => {
+    state.refills.push(new Date().toISOString());
+    saveState();
+    render();
+  });
+
+  document.getElementById('replaceBtn').addEventListener('click', () => {
+    const used = litersUsed();
+    const daysElapsed = Math.max(daysBetween(state.filterStartDate, new Date().toISOString()), 0);
+    if(state.refills.length > 0){
+      modalBody.textContent = `This resets the tracker to a fresh 70 L cycle. This filter lasted ${Math.round(daysElapsed)} days across ${state.refills.length} refills (${used} L) — that rate will be remembered.`;
+    } else {
+      modalBody.textContent = 'This resets the tracker to a fresh 70 L cycle. No refills were logged for this filter, so no usage rate will be saved.';
+    }
+    overlay.classList.add('show');
+  });
+
+  document.getElementById('cancelBtn').addEventListener('click', () => {
+    overlay.classList.remove('show');
+  });
+
+  document.getElementById('confirmBtn').addEventListener('click', () => {
+    const used = litersUsed();
+    const daysElapsed = daysBetween(state.filterStartDate, new Date().toISOString());
+    if(state.refills.length > 0 && daysElapsed > 0){
+      state.history.push({
+        startDate: state.filterStartDate,
+        endDate: new Date().toISOString(),
+        totalRefills: state.refills.length,
+        totalLiters: used,
+        days: daysElapsed,
+        litersPerDay: used / daysElapsed
+      });
+      if(state.history.length > 10) state.history = state.history.slice(-10);
+    }
+    state.filterStartDate = new Date().toISOString();
+    state.refills = [];
+    saveState();
+    overlay.classList.remove('show');
+    render();
+  });
+
+  overlay.addEventListener('click', (e) => {
+    if(e.target === overlay) overlay.classList.remove('show');
+  });
+
+  render();
+</script>
+
+</body>
+</html>

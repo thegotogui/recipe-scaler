@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wordle Solver — Green Letters</title>
+<style>
+  :root {
+    --bg: #F6F1E7;
+    --ink: #2A2420;
+    --muted: #7A6F63;
+    --line: #DCD2C2;
+    --tile-bg: #FFFFFF;
+    --accent: #C1633B;
+    --accent-ink: #FFFFFF;
+    --solved: #5B8266;
+    --solved-ink: #FFFFFF;
+    --error: #B23A34;
+  }
+
+  * {
+    box-sizing: border-box;
+    font-variant-numeric: lining-nums;
+    font-feature-settings: "lnum" 1;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 48px 20px 80px;
+  }
+
+  main {
+    width: 100%;
+    max-width: 620px;
+  }
+
+  h1 {
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0 0 4px;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin: 0 0 40px;
+    line-height: 1.5;
+  }
+
+  section {
+    margin-bottom: 34px;
+  }
+
+  .label {
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  .tiles {
+    display: flex;
+    gap: 10px;
+  }
+
+  .tile {
+    width: 58px;
+    height: 58px;
+    border: 2px solid var(--line);
+    border-radius: 8px;
+    background: var(--tile-bg);
+    text-align: center;
+    font-family: Georgia, "Iowan Old Style", serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+  }
+
+  .tile:focus {
+    border-color: var(--accent);
+  }
+
+  .tile.solved {
+    background: var(--solved);
+    border-color: var(--solved);
+    color: var(--solved-ink);
+  }
+
+  .toggle-row {
+    display: inline-flex;
+    border: 2px solid var(--line);
+    border-radius: 8px;
+    padding: 3px;
+    margin-bottom: 14px;
+    gap: 3px;
+  }
+
+  .toggle-btn {
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+  }
+
+  .toggle-btn.active {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  .pool-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  input[type="text"].pool-input {
+    flex: 1;
+    padding: 14px 16px;
+    border: 2px solid var(--line);
+    border-radius: 8px;
+    background: var(--tile-bg);
+    font-family: Georgia, "Iowan Old Style", serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+    outline: none;
+  }
+
+  input[type="text"].pool-input:focus {
+    border-color: var(--accent);
+  }
+
+  .hint {
+    color: var(--muted);
+    font-size: 0.82rem;
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  .derived {
+    margin-top: 12px;
+    font-family: Georgia, "Iowan Old Style", serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    background: var(--tile-bg);
+    border: 1.5px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: none;
+  }
+
+  .derived .derived-label {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 34px;
+  }
+
+  button {
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 13px 22px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.15s ease, transform 0.05s ease;
+  }
+
+  button:active {
+    transform: translateY(1px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--muted);
+    border: 2px solid var(--line);
+  }
+
+  .btn-secondary:hover {
+    color: var(--ink);
+    border-color: var(--muted);
+  }
+
+  .btn-tertiary {
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+
+  #results-section {
+    border-top: 1px solid var(--line);
+    padding-top: 28px;
+  }
+
+  .results-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .count {
+    font-family: Georgia, "Iowan Old Style", serif;
+    font-size: 1.05rem;
+  }
+
+  .count strong {
+    font-size: 1.3rem;
+  }
+
+  .message {
+    font-size: 0.9rem;
+    padding: 14px 16px;
+    border-radius: 8px;
+    line-height: 1.5;
+  }
+
+  .message.error {
+    background: #F5E2DF;
+    color: var(--error);
+  }
+
+  .message.empty {
+    background: transparent;
+    color: var(--muted);
+    padding: 14px 0;
+  }
+
+  .message.notice {
+    background: #EFE7D8;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+
+  .message.overlap {
+    background: #F3E7D2;
+    color: #8A5A2B;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    padding: 10px 14px;
+  }
+
+  .word-grid {
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    gap: 28px 44px;
+  }
+
+  .word-chip {
+    display: flex;
+    gap: 2px;
+    padding: 6px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  .word-chip .mini {
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Georgia, serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    background: var(--tile-bg);
+    border: 1.5px solid var(--line);
+    color: var(--ink);
+  }
+
+  .word-chip .mini.solved {
+    background: var(--solved);
+    border-color: var(--solved);
+    color: var(--solved-ink);
+  }
+
+  .word-list-plain {
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    gap: 14px 44px;
+    font-family: Georgia, "Iowan Old Style", serif;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    max-height: 340px;
+    overflow-y: auto;
+    padding: 4px 2px;
+  }
+
+  .word-list-plain .w {
+    padding: 4px 8px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.5);
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Green Letter Solver</h1>
+  <p class="subtitle">Enter the letters you've already solved in their correct box, then tell it which letters are still in play. The list below updates as you type.</p>
+
+  <section>
+    <div class="label">Solved boxes</div>
+    <div class="tiles" id="tiles"></div>
+    <div class="hint">Type a letter into a box if you know its position. Leave a box blank if it's still unsolved.</div>
+  </section>
+
+  <section>
+    <div class="toggle-row" id="mode-toggle">
+      <button type="button" class="toggle-btn active" data-mode="remaining">Enter remaining letters</button>
+      <button type="button" class="toggle-btn" data-mode="rejected">Enter rejected letters</button>
+    </div>
+    <div class="label" id="pool-label">Remaining letters</div>
+    <div class="pool-row">
+      <input type="text" class="pool-input" id="pool-input" placeholder="e.g. C R O S U A T" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="hint" id="pool-hint">List every letter that's still in play — not yet greyed out. Include a letter twice if you suspect it appears twice (e.g. type it as "AA").</div>
+    <div class="message overlap" id="overlap-notice" style="display:none;"></div>
+    <div class="derived" id="derived-box">
+      <span class="derived-label">Still in play</span>
+      <span id="derived-text"></span>
+    </div>
+  </section>
+
+  <div class="actions">
+    <button class="btn-secondary" id="reset-btn">Reset</button>
+  </div>
+
+  <section id="results-section" style="display:none;">
+    <div class="results-header">
+      <div class="count" id="count-line"></div>
+      <button class="btn-tertiary" id="copy-btn" style="display:none;">Copy list</button>
+    </div>
+    <div id="notice" style="display:none;" class="message notice"></div>
+    <div id="results-body"></div>
+  </section>
+</main>
+
+<script>
+  const NUM_BOXES = 5;
+  const HARD_CAP = 5000;
+  const TILE_THRESHOLD = 150;
+  const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  const DEBOUNCE_MS = 120;
+
+  const tilesContainer = document.getElementById('tiles');
+  const poolInput = document.getElementById('pool-input');
+  const poolLabel = document.getElementById('pool-label');
+  const poolHint = document.getElementById('pool-hint');
+  const derivedBox = document.getElementById('derived-box');
+  const derivedText = document.getElementById('derived-text');
+  const overlapNotice = document.getElementById('overlap-notice');
+  const modeToggle = document.getElementById('mode-toggle');
+  const resetBtn = document.getElementById('reset-btn');
+  const resultsSection = document.getElementById('results-section');
+  const countLine = document.getElementById('count-line');
+  const noticeEl = document.getElementById('notice');
+  const resultsBody = document.getElementById('results-body');
+  const copyBtn = document.getElementById('copy-btn');
+
+  let mode = 'remaining';
+  let lastWords = [];
+  let debounceTimer = null;
+
+  // Build the 5 solved-letter boxes
+  const tileInputs = [];
+  for (let i = 0; i < NUM_BOXES; i++) {
+    const inp = document.createElement('input');
+    inp.className = 'tile';
+    inp.maxLength = 1;
+    inp.setAttribute('aria-label', 'Box ' + (i + 1));
+    inp.dataset.index = i;
+
+    inp.addEventListener('input', () => {
+      const clean = inp.value.replace(/[^a-zA-Z]/g, '').toUpperCase().slice(0, 1);
+      inp.value = clean;
+      inp.classList.toggle('solved', clean.length === 1);
+      if (clean.length === 1 && i < NUM_BOXES - 1) {
+        tileInputs[i + 1].focus();
+      }
+      scheduleGenerate();
+    });
+
+    inp.addEventListener('keydown', (e) => {
+      if (e.key === 'Backspace' && inp.value === '' && i > 0) {
+        tileInputs[i - 1].focus();
+      }
+    });
+
+    tilesContainer.appendChild(inp);
+    tileInputs.push(inp);
+  }
+
+  modeToggle.addEventListener('click', (e) => {
+    const btn = e.target.closest('.toggle-btn');
+    if (!btn) return;
+    mode = btn.dataset.mode;
+    [...modeToggle.querySelectorAll('.toggle-btn')].forEach(b => b.classList.toggle('active', b === btn));
+    updateModeCopy();
+    scheduleGenerate();
+  });
+
+  function updateModeCopy() {
+    if (mode === 'remaining') {
+      poolLabel.textContent = 'Remaining letters';
+      poolInput.placeholder = 'e.g. C R O S U A T';
+      poolHint.textContent = 'List every letter that\'s still in play — not yet greyed out. Include a letter twice if you suspect it appears twice (e.g. type it as "AA").';
+      derivedBox.style.display = 'none';
+    } else {
+      poolLabel.textContent = 'Rejected letters';
+      poolInput.placeholder = 'e.g. E N T H';
+      poolHint.textContent = 'List every letter that\'s been greyed out. Everything else in the alphabet is treated as still in play.';
+    }
+  }
+
+  resetBtn.addEventListener('click', () => {
+    tileInputs.forEach(t => { t.value = ''; t.classList.remove('solved'); });
+    poolInput.value = '';
+    resultsSection.style.display = 'none';
+    lastWords = [];
+    tileInputs[0].focus();
+  });
+
+  poolInput.addEventListener('input', scheduleGenerate);
+
+  function scheduleGenerate() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(generate, DEBOUNCE_MS);
+  }
+
+  function getPool() {
+    const raw = poolInput.value.replace(/[^a-zA-Z]/g, '').toUpperCase().split('');
+    if (mode === 'remaining') {
+      return raw.sort();
+    }
+    const rejected = new Set(raw);
+    return ALPHABET.filter(l => !rejected.has(l));
+  }
+
+  function generate() {
+    const greens = tileInputs.map(t => t.value || '');
+    const unsolvedIdx = [];
+    greens.forEach((g, i) => { if (!g) unsolvedIdx.push(i); });
+    const k = unsolvedIdx.length;
+
+    const pool = getPool();
+
+    if (mode === 'rejected') {
+      derivedBox.style.display = 'block';
+      derivedText.textContent = pool.length ? pool.join(' ') : '—';
+    } else {
+      derivedBox.style.display = 'none';
+    }
+
+    if (mode === 'remaining' && pool.length > 0) {
+      const greenLetters = new Set(greens.filter(g => g));
+      const overlap = [...new Set(pool.filter(l => greenLetters.has(l)))];
+      if (overlap.length > 0) {
+        overlapNotice.style.display = 'block';
+        overlapNotice.textContent = 'Heads up: ' + overlap.join(', ') + ' — already solved, but also listed as remaining. That\'s fine if the word repeats it, otherwise you may want to remove it.';
+      } else {
+        overlapNotice.style.display = 'none';
+      }
+    } else {
+      overlapNotice.style.display = 'none';
+    }
+
+    resultsSection.style.display = 'block';
+    noticeEl.style.display = 'none';
+    copyBtn.style.display = 'none';
+    resultsBody.innerHTML = '';
+    lastWords = [];
+
+    if (k === 0) {
+      const word = greens.join('');
+      countLine.innerHTML = 'All boxes solved.';
+      resultsBody.innerHTML = renderTileGrid([word], greens);
+      return;
+    }
+
+    if (pool.length === 0) {
+      countLine.textContent = '';
+      const msg = mode === 'remaining'
+        ? 'Enter the letters still in play to see permutations.'
+        : 'Enter the rejected letters — or none, to see every possibility.';
+      resultsBody.innerHTML = '<div class="message empty">' + msg + '</div>';
+      return;
+    }
+
+    if (pool.length < k) {
+      countLine.textContent = '';
+      resultsBody.innerHTML = '<div class="message error">Not enough remaining letters — you need at least ' + k + ' to fill the open box' + (k > 1 ? 'es' : '') + '.</div>';
+      return;
+    }
+
+    const { words, truncated } = permuteFill(pool, k, greens, unsolvedIdx, HARD_CAP);
+    lastWords = words;
+
+    countLine.innerHTML = '<strong>' + words.length.toLocaleString() + '</strong> permutation' + (words.length === 1 ? '' : 's');
+
+    if (truncated) {
+      noticeEl.style.display = 'block';
+      noticeEl.textContent = 'Showing the first ' + HARD_CAP.toLocaleString() + ' results. Narrow your letters for a complete list.';
+    }
+
+    if (words.length === 0) {
+      resultsBody.innerHTML = '<div class="message error">No arrangements found.</div>';
+      return;
+    }
+
+    if (words.length <= TILE_THRESHOLD) {
+      resultsBody.innerHTML = renderTileGrid(words, greens);
+    } else {
+      resultsBody.innerHTML = renderPlainList(words);
+    }
+
+    copyBtn.style.display = 'inline-block';
+  }
+
+  // Generates every distinct k-length arrangement of `pool` (a sorted array of letters,
+  // duplicates allowed), fills them into the unsolved positions alongside the fixed
+  // green letters, and returns full 5-letter words. Caps total results at `cap`.
+  function permuteFill(pool, k, greens, unsolvedIdx, cap) {
+    const words = [];
+    const used = new Array(pool.length).fill(false);
+    const current = [];
+    let truncated = false;
+
+    function backtrack() {
+      if (words.length >= cap) { truncated = true; return; }
+      if (current.length === k) {
+        const full = greens.slice();
+        unsolvedIdx.forEach((pos, j) => { full[pos] = current[j]; });
+        words.push(full.join(''));
+        return;
+      }
+      for (let i = 0; i < pool.length; i++) {
+        if (used[i]) continue;
+        if (i > 0 && pool[i] === pool[i - 1] && !used[i - 1]) continue;
+        used[i] = true;
+        current.push(pool[i]);
+        backtrack();
+        current.pop();
+        used[i] = false;
+        if (words.length >= cap) { truncated = true; return; }
+      }
+    }
+
+    backtrack();
+    return { words, truncated };
+  }
+
+  function renderTileGrid(words, greens) {
+    const solvedSet = new Set();
+    greens.forEach((g, i) => { if (g) solvedSet.add(i); });
+
+    let html = '<div class="word-grid">';
+    words.forEach(word => {
+      html += '<div class="word-chip">';
+      for (let i = 0; i < word.length; i++) {
+        const cls = solvedSet.has(i) ? 'mini solved' : 'mini';
+        html += '<div class="' + cls + '">' + word[i] + '</div>';
+      }
+      html += '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function renderPlainList(words) {
+    let html = '<div class="word-list-plain">';
+    words.forEach(w => { html += '<span class="w">' + w + '</span>'; });
+    html += '</div>';
+    return html;
+  }
+
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(lastWords.join('\n')).then(() => {
+      copyBtn.textContent = 'Copied';
+      setTimeout(() => { copyBtn.textContent = 'Copy list'; }, 1400);
+    });
+  });
+
+  updateModeCopy();
+  generate();
+  tileInputs[0].focus();
+</script>
+</body>
+</html>
