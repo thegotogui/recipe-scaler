@@ -454,7 +454,7 @@ function makeTable() { // Make the table rows for the ingredients. We have to do
         <input type="checkbox" class="syncBox rowCheck" id="rowcheck${index}" oninput="countChex(${index});">
           <input class="theBlocksL" type="text" id="ingredient${index}" placeholder="Ingredient" oninput="updateIngredient(${index});">
       </td>
-      <td class="tColumn3">
+      <td class="tColumnPerc">
         <input class="theBlocksL rightAlign" type="text" id="perc${index}">
       </td>
       <td class="tColumn2 synced" id="syncable${index}">

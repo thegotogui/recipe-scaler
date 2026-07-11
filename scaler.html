@@ -142,8 +142,86 @@
 		.tColumn1,
 		.tColumn2,
 		.tColumn3,
-		.tColumn4 {
+		.tColumn4,
+		.tColumnPerc {
 			padding: 0px 8px 0px 8px;
+		}
+
+		/* ---- Ingredients table column grid ----
+		   table-layout:fixed + a matching <colgroup> means every row (header,
+		   ingredient rows, totals, portions) shares one real 6-column grid:
+		   Ingredient | ~5|1 | % | g | Oz | Scaled
+		   The min-widths below are a floor: columns shrink together with the
+		   viewport but never below a size where the numbers become unreadable.
+		   Past that floor, .table-responsive's horizontal scroll takes over
+		   instead of squashing the text. */
+		.XtableIt {
+			table-layout: fixed;
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		.XtableIt col.colLabel {
+			width: 38%;
+		}
+
+		.XtableIt col.colFives {
+			width: 7%;
+		}
+
+		.XtableIt col.colPerc {
+			width: 10%;
+		}
+
+		.XtableIt col.colMet {
+			width: 16%;
+		}
+
+		.XtableIt col.colImp {
+			width: 14%;
+		}
+
+		.XtableIt col.colScale {
+			width: 15%;
+		}
+
+		.tColumn1 {
+			min-width: 130px;
+		}
+
+		.tColumnPerc {
+			min-width: 56px;
+		}
+
+		.tColumn2,
+		.tColumn3,
+		.tColumn4 {
+			min-width: 78px;
+		}
+
+		@media (max-width: 480px) {
+
+			.tColumn1,
+			.tColumn2,
+			.tColumn3,
+			.tColumn4,
+			.tColumnPerc {
+				padding: 0px 4px 0px 4px;
+			}
+
+			.tColumn1 {
+				min-width: 100px;
+			}
+
+			.tColumnPerc {
+				min-width: 46px;
+			}
+
+			.tColumn2,
+			.tColumn3,
+			.tColumn4 {
+				min-width: 64px;
+			}
 		}
 
 		.asyncer {
@@ -168,6 +246,13 @@
 			white-space: nowrap;
 		}
 
+		/* NOTE: these three run narrowest-last on purpose. Max-width media queries
+		   overlap (a 500px screen matches all three), and when two rules have equal
+		   specificity, CSS just uses whichever comes later in the file - it does NOT
+		   automatically prefer the "more specific" breakpoint. Previously the 520px
+		   rule was placed before the 700px rule, so on screens under 520px the browser
+		   correctly matched both, but the 700px rule (last in the file) silently won -
+		   giving 2-buttons-per-row instead of the intended full-width stacked buttons. */
 		@media (max-width: 760px) {
 			.button-toolbar {
 				justify-content: center;
@@ -180,16 +265,16 @@
 			}
 		}
 
-		@media (max-width: 520px) {
-			.button-toolbar .btn {
-				flex: 1 1 100%;
-			}
-		}
-
 		@media (max-width: 700px) {
 			.button-toolbar .btn {
 				flex: 1 1 45%;
 				min-width: 0;
+			}
+		}
+
+		@media (max-width: 520px) {
+			.button-toolbar .btn {
+				flex: 1 1 100%;
 			}
 		}
 
@@ -404,6 +489,14 @@
 					<div class="col-12">
 						<div class="table-responsive">
 							<table class="XtableIt">
+								<colgroup>
+									<col class="colLabel">
+									<col class="colFives">
+									<col class="colPerc">
+									<col class="colMet">
+									<col class="colImp">
+									<col class="colScale">
+								</colgroup>
 								<thead>
 									<!-- (Labels)-->
 									<tr style="color: white;">
@@ -429,7 +522,7 @@
 											<button type="button" class="btn btn-info" id="syncButton" onclick="syncTheVals();"
 												style="color: white; border: none; margin-right: 6%; width: 100%;">Synced!</button>
 										</td>
-										<td class="tColumn4" style="text-align: center;">
+										<td class="tColumn4" colspan="2" style="text-align: center;">
 											<button type="button" class="btn btn-info" id="addRowBut" onclick="copyScaled();"
 												style="margin-right: 3%; background-color: #078d1f; color: white; border: none;"><i class="bi bi-arrow-bar-left"></i>
 											</button>
@@ -447,14 +540,19 @@
 
 									<!--* Column Headers and 5/1 switch -->
 									<tr style="color: white; border-style: none;">
-										<td width="40%" class="columnHeads">Ingredient</td>
-										<td width="15%" class="columnHeads"><input type="checkbox" class="syncBox" id="fivesCheck" oninput="toggleFives();"> ~5|1</td>
-										<td width="15%" class="columnHeads tColumn2"><input type="checkbox" class="syncBox" id="dimMet" checked oninput="masterDimmer('dimMet', 'theBlocksMet');"><span
+										<td class="columnHeads">Ingredient</td>
+										<td class="columnHeads"><input type="checkbox" class="syncBox" id="fivesCheck" oninput="toggleFives();"> ~5|1</td>
+										<!-- This cell used to be missing entirely, even though every ingredient row below
+											 has a matching "perc" cell (see scalerCore.js). Without it the header only
+											 declared 5 columns while the body actually had 6, which is what let the
+											 browser's column-width math run wild at narrow widths. -->
+										<td class="columnHeads tColumnPerc">%</td>
+										<td class="columnHeads tColumn2"><input type="checkbox" class="syncBox" id="dimMet" checked oninput="masterDimmer('dimMet', 'theBlocksMet');"><span
 												onclick="clearSumChecks('sumCheckBox', false);"> g<i class="bi bi-clipboard-x" style="padding-left: 10px;"></i></span><span
 												onclick="checkSumChecks();"><i class="bi bi-clipboard-check"></i></span></td>
-										<td width="15%" class="columnHeads tColumn3"><input type="checkbox" class="syncBox" id="dimImp" oninput="masterDimmer('dimImp', 'theBlocksImp');"> Oz</span>
+										<td class="columnHeads tColumn3"><input type="checkbox" class="syncBox" id="dimImp" oninput="masterDimmer('dimImp', 'theBlocksImp');"> Oz</span>
 										</td>
-										<td width="15%" class="columnHeads tColumn4"><input type="checkbox" class="syncBox" id="dimScale" oninput="masterDimmer('dimScale', 'theBlocksSc');"> Scaled
+										<td class="columnHeads tColumn4"><input type="checkbox" class="syncBox" id="dimScale" oninput="masterDimmer('dimScale', 'theBlocksSc');"> Scaled
 										</td>
 									</tr>
 								</thead>
@@ -465,7 +563,7 @@
 
 								<!-- Totals of stuff -->
 								<tr id="totalrow">
-									<td class="totColumn1" id="checkRowTot">
+									<td class="totColumn1" colspan="2" id="checkRowTot">
 										<div style="width: 12px; margin: 18px 6px 20px 0px;"><i class="fa fa-plus-circle" aria-hidden="true" onclick="addRow();"></i></div>
 										<span class="attributeHeaders">Totals</span>
 
@@ -488,7 +586,7 @@
 								<!-- Portionator -->
 								<!-- Portionator in Ounces I SAID OUNCES -->
 								<tr id="portionatorRow" style="background-color: rgba(31, 183, 26, 0.49);">
-									<td class="tColumn1" id="checkRow13">
+									<td class="tColumn1" colspan="2" id="checkRow13">
 										<div style="width: 23px;"></div>
 										<span class="attributeHeaders">Portions</span>
 									</td>
@@ -510,7 +608,7 @@
 
 								<!--* Hydration Calculation -->
 								<tr id="hydrationRow" style="background-color: #141c2c7c">
-									<td class="tColumn1">
+									<td class="tColumn1" colspan="2">
 										<div style="width: 23px;"></div>
 										<span class="attributeHeaders">Hydration</span>
 									</td>
@@ -522,16 +620,16 @@
 
 								<!--* Wet/Dry Calculation -->
 								<tr id="wetDryRow" style="background-color: #141c2c7c">
-									<td class="tColumn1">
+									<td class="tColumn1" colspan="2">
 										<div style="width: 23px;"></div>
 										<span class="attributeHeaders">Wet/Dry</span>
 									</td>
 									<!-- <td class="tColumn3"></td> -->
-									<td class="tColumn2" colspan="2" width: 50%;">
-										<input width="50%" class="theBlocksL centerAlign" type="text" id="dryDration" readonly>
+									<td class="tColumn2" colspan="2">
+										<input class="theBlocksL centerAlign" type="text" id="dryDration" readonly>
 									</td>
-									<td class="tColumn2" colspan="2" width: 50%;">
-										<input width="50%" class="theBlocksL centerAlign" type="text" id="wetDration" readonly>
+									<td class="tColumn2" colspan="2">
+										<input class="theBlocksL centerAlign" type="text" id="wetDration" readonly>
 									</td>
 									<!-- <td class="tColumn3"></td> -->
 									<!-- <td class="tColumn4"> -->
