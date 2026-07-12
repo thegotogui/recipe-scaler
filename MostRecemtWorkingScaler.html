@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width"><title>http://127.0.0.1:5500/scaler.html</title><link rel="stylesheet" type="text/css" href="resource://content-accessible/viewsource.css"></head><body id="viewsource" style="tab-size: 4"><span id="line1"><span></span><span class="doctype">&lt;!DOCTYPE html&gt;</span><span>
+</span></span><span id="line2"><span></span><span>&lt;<span class="start-tag">html</span>&gt;</span><span>
+</span></span><span id="line3"><span>
+</span></span><span id="line4"><span></span><span>&lt;<span class="start-tag">head</span>&gt;</span><span>
+</span></span><span id="line5"><span>	</span><span>&lt;<span class="start-tag">meta</span> <span class="attribute-name">charset</span>="<a class="attribute-value">utf-8</a>"&gt;</span><span>
+</span></span><span id="line6"><span>	</span><span>&lt;<span class="start-tag">meta</span> <span class="attribute-name">name</span>="<a class="attribute-value">viewport</a>" <span class="attribute-name">content</span>="<a class="attribute-value">width=device-width, initial-scale=1.0, shrink-to-fit=no</a>"&gt;</span><span>
+</span></span><span id="line7"><span>	</span><span>&lt;<span class="start-tag">title</span>&gt;</span><span>Scaler</span><span>&lt;/<span class="end-tag">title</span>&gt;</span><span>
+</span></span><span id="line8"><span>	</span><span class="comment">&lt;!-- &lt;link rel="icon" type="image/svg+xml" href="/tc/martini.svg"&gt; --&gt;</span><span>
+</span></span><span id="line9"><span>	</span><span>&lt;<span class="start-tag">link</span> <span class="attribute-name">rel</span>="<a class="attribute-value">icon</a>" <span class="attribute-name">href</span>="<a class="attribute-value" href="view-source:http://127.0.0.1:5500/app_icons/piechart.svg">./app_icons/piechart.svg</a>" <span class="attribute-name">sizes</span>="<a class="attribute-value">any</a>" <span class="attribute-name">type</span>="<a class="attribute-value">image/svg+xml</a>"&gt;</span><span>
+</span></span><span id="line10"><span>
+</span></span><span id="line11"><span>	</span><span>&lt;<span class="start-tag">link</span> <span class="attribute-name">rel</span>="<a class="attribute-value">stylesheet</a>" <span class="attribute-name">href</span>="<a class="attribute-value" href="view-source:http://127.0.0.1:5500/css/navigation.css">css/navigation.css</a>"&gt;</span><span>
+</span></span><span id="line12"><span>	</span><span>&lt;<span class="start-tag">link</span> <span class="attribute-name">rel</span>="<a class="attribute-value">stylesheet</a>" <span class="attribute-name">href</span>="<a class="attribute-value" href="view-source:https://https//cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">https://https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css</a>"&gt;</span><span>
+</span></span><span id="line13"><span>	</span><span>&lt;<span class="start-tag">link</span> <span class="attribute-name">rel</span>="<a class="attribute-value">stylesheet</a>" <span class="attribute-name">href</span>="<a class="attribute-value" href="view-source:https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css</a>"&gt;</span><span>
+</span></span><span id="line14"><span>	</span><span>&lt;<span class="start-tag">style</span>&gt;</span><span>
+</span></span><span id="line15"><span>		* {
+</span></span><span id="line16"><span>			box-sizing: border-box;
+</span></span><span id="line17"><span>		}
+</span></span><span id="line18"><span>
+</span></span><span id="line19"><span>		.title,
+</span></span><span id="line20"><span>		.category {
+</span></span><span id="line21"><span>			padding-top: 10px;
+</span></span><span id="line22"><span>		}
+</span></span><span id="line23"><span>
+</span></span><span id="line24"><span>		.spaced {
+</span></span><span id="line25"><span>			padding-top: 5px;
+</span></span><span id="line26"><span>			font-size: 1.5rem;
+</span></span><span id="line27"><span>		}
+</span></span><span id="line28"><span>
+</span></span><span id="line29"><span>		.recipeStepsAmt,
+</span></span><span id="line30"><span>		.recipeStepsIng {
+</span></span><span id="line31"><span>			font-size: x-large;
+</span></span><span id="line32"><span>			padding: 10px;
+</span></span><span id="line33"><span>		}
+</span></span><span id="line34"><span>
+</span></span><span id="line35"><span>		.recipeStepsAmt {
+</span></span><span id="line36"><span>			text-align: right;
+</span></span><span id="line37"><span>		}
+</span></span><span id="line38"><span>
+</span></span><span id="line39"><span>		recipeStepsIng {
+</span></span><span id="line40"><span>			text-align: left;
+</span></span><span id="line41"><span>		}
+</span></span><span id="line42"><span>
+</span></span><span id="line43"><span>		label {
+</span></span><span id="line44"><span>			font-size: larger;
+</span></span><span id="line45"><span>		}
+</span></span><span id="line46"><span>
+</span></span><span id="line47"><span>		legend {
+</span></span><span id="line48"><span>			font-weight: bold;
+</span></span><span id="line49"><span>		}
+</span></span><span id="line50"><span>
+</span></span><span id="line51"><span>		.rightAlign {
+</span></span><span id="line52"><span>			text-align: right;
+</span></span><span id="line53"><span>		}
+</span></span><span id="line54"><span>
+</span></span><span id="line55"><span>		.centerAlign {
+</span></span><span id="line56"><span>			text-align: center;
+</span></span><span id="line57"><span>		}
+</span></span><span id="line58"><span>
+</span></span><span id="line59"><span>		body {
+</span></span><span id="line60"><span>			background: url('./assets/img/ratios.svg');
+</span></span><span id="line61"><span>			background-position: 50% 20%;
+</span></span><span id="line62"><span>			background-size: 250%;
+</span></span><span id="line63"><span>			background-repeat: no-repeat;
+</span></span><span id="line64"><span>			background-color: black;
+</span></span><span id="line65"><span>		}
+</span></span><span id="line66"><span>
+</span></span><span id="line67"><span>		.columnHeads {
+</span></span><span id="line68"><span>			text-align: center;
+</span></span><span id="line69"><span>		}
+</span></span><span id="line70"><span>
+</span></span><span id="line71"><span>		/* .syncBox {
+</span></span><span id="line72"><span>			/* margin: 30px 10px 0px 0px; */
+</span></span><span id="line73"><span>		/* } */
+</span></span><span id="line74"><span>
+</span></span><span id="line75"><span>		*/ .buttonx {
+</span></span><span id="line76"><span>			border: none;
+</span></span><span id="line77"><span>			color: white;
+</span></span><span id="line78"><span>			padding: 10px 20px;
+</span></span><span id="line79"><span>			text-align: center;
+</span></span><span id="line80"><span>			text-decoration: none;
+</span></span><span id="line81"><span>			display: inline-block;
+</span></span><span id="line82"><span>		}
+</span></span><span id="line83"><span>
+</span></span><span id="line84"><span>		.notSyncButton,
+</span></span><span id="line85"><span>		.syncButton {
+</span></span><span id="line86"><span>			border: none;
+</span></span><span id="line87"><span>			color: white;
+</span></span><span id="line88"><span>			padding: 10px 20px;
+</span></span><span id="line89"><span>			text-align: center;
+</span></span><span id="line90"><span>			text-decoration: none;
+</span></span><span id="line91"><span>			display: inline-block;
+</span></span><span id="line92"><span>		}
+</span></span><span id="line93"><span>
+</span></span><span id="line94"><span>		.notSyncButton {
+</span></span><span id="line95"><span>			border: none;
+</span></span><span id="line96"><span>			background-color: #078d1f;
+</span></span><span id="line97"><span>		}
+</span></span><span id="line98"><span>
+</span></span><span id="line99"><span>		.syncButton {
+</span></span><span id="line100"><span>			background-color: #005e83;
+</span></span><span id="line101"><span>		}
+</span></span><span id="line102"><span>
+</span></span><span id="line103"><span>		.totColumn1,
+</span></span><span id="line104"><span>		.totColumn2,
+</span></span><span id="line105"><span>		.totColumn3 {
+</span></span><span id="line106"><span>			padding: 0px 7px 0px 9px;
+</span></span><span id="line107"><span>			background-color: rgba(36, 52, 36, 0.2);
+</span></span><span id="line108"><span>		}
+</span></span><span id="line109"><span>
+</span></span><span id="line110"><span>		.tColumn1,
+</span></span><span id="line111"><span>		.totColumn1 {
+</span></span><span id="line112"><span>			/* padding: 0px 7px 0px 14px; */
+</span></span><span id="line113"><span>			display: flex;
+</span></span><span id="line114"><span>		}
+</span></span><span id="line115"><span>
+</span></span><span id="line116"><span>		.totColumn1,
+</span></span><span id="line117"><span>		.totColumn2,
+</span></span><span id="line118"><span>		.totColumn3,
+</span></span><span id="line119"><span>		.totColumn4 {
+</span></span><span id="line120"><span>			border-top-style: solid;
+</span></span><span id="line121"><span>			border-top-color: white;
+</span></span><span id="line122"><span>			border-top-width: 1px;
+</span></span><span id="line123"><span>		}
+</span></span><span id="line124"><span>
+</span></span><span id="line125"><span>		.theBlocksL,
+</span></span><span id="line126"><span>		.theBlocksMet,
+</span></span><span id="line127"><span>		.theBlocksSc,
+</span></span><span id="line128"><span>		.theBlocksImp,
+</span></span><span id="line129"><span>		.theBlocksMetPort,
+</span></span><span id="line130"><span>		.theBlocksImpPort {
+</span></span><span id="line131"><span>			display: block;
+</span></span><span id="line132"><span>			width: 100%;
+</span></span><span id="line133"><span>			padding: .375rem .75rem;
+</span></span><span id="line134"><span>			margin: 10px 0px;
+</span></span><span id="line135"><span>			color: white;
+</span></span><span id="line136"><span>			border-radius: 5px;
+</span></span><span id="line137"><span>			background: #27344e;
+</span></span><span id="line138"><span>			border-style: hidden;
+</span></span><span id="line139"><span>			font-size: x-large;
+</span></span><span id="line140"><span>		}
+</span></span><span id="line141"><span>
+</span></span><span id="line142"><span>		.tColumn1,
+</span></span><span id="line143"><span>		.tColumn2,
+</span></span><span id="line144"><span>		.tColumn3,
+</span></span><span id="line145"><span>		.tColumn4,
+</span></span><span id="line146"><span>		.tColumnPerc {
+</span></span><span id="line147"><span>			padding: 0px 8px 0px 8px;
+</span></span><span id="line148"><span>		}
+</span></span><span id="line149"><span>
+</span></span><span id="line150"><span>		/* ---- Ingredients table column grid ----
+</span></span><span id="line151"><span>		   table-layout:fixed + a matching </span><span>&lt;</span><span>colgroup&gt; means every row (header,
+</span></span><span id="line152"><span>		   ingredient rows, totals, portions) shares one real 6-column grid:
+</span></span><span id="line153"><span>		   Ingredient | ~5|1 | % | g | Oz | Scaled
+</span></span><span id="line154"><span>		   The min-widths below are a floor: columns shrink together with the
+</span></span><span id="line155"><span>		   viewport but never below a size where the numbers become unreadable.
+</span></span><span id="line156"><span>		   Past that floor, .table-responsive's horizontal scroll takes over
+</span></span><span id="line157"><span>		   instead of squashing the text. */
+</span></span><span id="line158"><span>		.XtableIt {
+</span></span><span id="line159"><span>			table-layout: fixed;
+</span></span><span id="line160"><span>			border-collapse: collapse;
+</span></span><span id="line161"><span>			width: 100%;
+</span></span><span id="line162"><span>		}
+</span></span><span id="line163"><span>
+</span></span><span id="line164"><span>		.XtableIt col.colLabel {
+</span></span><span id="line165"><span>			width: 38%;
+</span></span><span id="line166"><span>		}
+</span></span><span id="line167"><span>
+</span></span><span id="line168"><span>		.XtableIt col.colFives {
+</span></span><span id="line169"><span>			width: 7%;
+</span></span><span id="line170"><span>		}
+</span></span><span id="line171"><span>
+</span></span><span id="line172"><span>		.XtableIt col.colPerc {
+</span></span><span id="line173"><span>			width: 10%;
+</span></span><span id="line174"><span>		}
+</span></span><span id="line175"><span>
+</span></span><span id="line176"><span>		.XtableIt col.colMet {
+</span></span><span id="line177"><span>			width: 16%;
+</span></span><span id="line178"><span>		}
+</span></span><span id="line179"><span>
+</span></span><span id="line180"><span>		.XtableIt col.colImp {
+</span></span><span id="line181"><span>			width: 14%;
+</span></span><span id="line182"><span>		}
+</span></span><span id="line183"><span>
+</span></span><span id="line184"><span>		.XtableIt col.colScale {
+</span></span><span id="line185"><span>			width: 15%;
+</span></span><span id="line186"><span>		}
+</span></span><span id="line187"><span>
+</span></span><span id="line188"><span>		.tColumn1 {
+</span></span><span id="line189"><span>			min-width: 130px;
+</span></span><span id="line190"><span>		}
+</span></span><span id="line191"><span>
+</span></span><span id="line192"><span>		.tColumnPerc {
+</span></span><span id="line193"><span>			min-width: 56px;
+</span></span><span id="line194"><span>		}
+</span></span><span id="line195"><span>
+</span></span><span id="line196"><span>		.tColumn2,
+</span></span><span id="line197"><span>		.tColumn3,
+</span></span><span id="line198"><span>		.tColumn4 {
+</span></span><span id="line199"><span>			min-width: 78px;
+</span></span><span id="line200"><span>		}
+</span></span><span id="line201"><span>
+</span></span><span id="line202"><span>		@media (max-width: 480px) {
+</span></span><span id="line203"><span>
+</span></span><span id="line204"><span>			.tColumn1,
+</span></span><span id="line205"><span>			.tColumn2,
+</span></span><span id="line206"><span>			.tColumn3,
+</span></span><span id="line207"><span>			.tColumn4,
+</span></span><span id="line208"><span>			.tColumnPerc {
+</span></span><span id="line209"><span>				padding: 0px 4px 0px 4px;
+</span></span><span id="line210"><span>			}
+</span></span><span id="line211"><span>
+</span></span><span id="line212"><span>			.tColumn1 {
+</span></span><span id="line213"><span>				min-width: 100px;
+</span></span><span id="line214"><span>			}
+</span></span><span id="line215"><span>
+</span></span><span id="line216"><span>			.tColumnPerc {
+</span></span><span id="line217"><span>				min-width: 46px;
+</span></span><span id="line218"><span>			}
+</span></span><span id="line219"><span>
+</span></span><span id="line220"><span>			.tColumn2,
+</span></span><span id="line221"><span>			.tColumn3,
+</span></span><span id="line222"><span>			.tColumn4 {
+</span></span><span id="line223"><span>				min-width: 64px;
+</span></span><span id="line224"><span>			}
+</span></span><span id="line225"><span>		}
+</span></span><span id="line226"><span>
+</span></span><span id="line227"><span>		.asyncer {
+</span></span><span id="line228"><span>			padding: 0px 8px 0px 8px;
+</span></span><span id="line229"><span>			display: flex;
+</span></span><span id="line230"><span>		}
+</span></span><span id="line231"><span>
+</span></span><span id="line232"><span>		.button-toolbar {
+</span></span><span id="line233"><span>			display: flex;
+</span></span><span id="line234"><span>			flex-wrap: wrap;
+</span></span><span id="line235"><span>			gap: 0.35rem;
+</span></span><span id="line236"><span>			align-items: center;
+</span></span><span id="line237"><span>			justify-content: flex-start;
+</span></span><span id="line238"><span>		}
+</span></span><span id="line239"><span>
+</span></span><span id="line240"><span>		.button-toolbar .btn {
+</span></span><span id="line241"><span>			margin: 0;
+</span></span><span id="line242"><span>			flex: 0 1 auto;
+</span></span><span id="line243"><span>			min-width: 90px;
+</span></span><span id="line244"><span>			max-width: 160px;
+</span></span><span id="line245"><span>			padding: 0.35rem 0.7rem;
+</span></span><span id="line246"><span>			white-space: nowrap;
+</span></span><span id="line247"><span>		}
+</span></span><span id="line248"><span>
+</span></span><span id="line249"><span>		/* NOTE: these three run narrowest-last on purpose. Max-width media queries
+</span></span><span id="line250"><span>		   overlap (a 500px screen matches all three), and when two rules have equal
+</span></span><span id="line251"><span>		   specificity, CSS just uses whichever comes later in the file - it does NOT
+</span></span><span id="line252"><span>		   automatically prefer the "more specific" breakpoint. Previously the 520px
+</span></span><span id="line253"><span>		   rule was placed before the 700px rule, so on screens under 520px the browser
+</span></span><span id="line254"><span>		   correctly matched both, but the 700px rule (last in the file) silently won -
+</span></span><span id="line255"><span>		   giving 2-buttons-per-row instead of the intended full-width stacked buttons. */
+</span></span><span id="line256"><span>		@media (max-width: 760px) {
+</span></span><span id="line257"><span>			.button-toolbar {
+</span></span><span id="line258"><span>				justify-content: center;
+</span></span><span id="line259"><span>			}
+</span></span><span id="line260"><span>
+</span></span><span id="line261"><span>			.button-toolbar .btn {
+</span></span><span id="line262"><span>				flex: 1 1 auto;
+</span></span><span id="line263"><span>				min-width: 0;
+</span></span><span id="line264"><span>				max-width: none;
+</span></span><span id="line265"><span>			}
+</span></span><span id="line266"><span>		}
+</span></span><span id="line267"><span>
+</span></span><span id="line268"><span>		@media (max-width: 700px) {
+</span></span><span id="line269"><span>			.button-toolbar .btn {
+</span></span><span id="line270"><span>				flex: 1 1 45%;
+</span></span><span id="line271"><span>				min-width: 0;
+</span></span><span id="line272"><span>			}
+</span></span><span id="line273"><span>		}
+</span></span><span id="line274"><span>
+</span></span><span id="line275"><span>		@media (max-width: 520px) {
+</span></span><span id="line276"><span>			.button-toolbar .btn {
+</span></span><span id="line277"><span>				flex: 1 1 100%;
+</span></span><span id="line278"><span>			}
+</span></span><span id="line279"><span>		}
+</span></span><span id="line280"><span>
+</span></span><span id="line281"><span>		.darkened {
+</span></span><span id="line282"><span>			color: #42587f;
+</span></span><span id="line283"><span>		}
+</span></span><span id="line284"><span>
+</span></span><span id="line285"><span>		ul,
+</span></span><span id="line286"><span>		ol {
+</span></span><span id="line287"><span>			font-size: 20px;
+</span></span><span id="line288"><span>		}
+</span></span><span id="line289"><span>
+</span></span><span id="line290"><span>		blockquote {
+</span></span><span id="line291"><span>			padding-top: 20px;
+</span></span><span id="line292"><span>		}
+</span></span><span id="line293"><span>
+</span></span><span id="line294"><span>		li {
+</span></span><span id="line295"><span>			padding-top: 13px;
+</span></span><span id="line296"><span>		}
+</span></span><span id="line297"><span>
+</span></span><span id="line298"><span>		.attributeHeaders {
+</span></span><span id="line299"><span>			font-size: 1.8rem;
+</span></span><span id="line300"><span>			padding: 8px 17px 0px 17px;
+</span></span><span id="line301"><span>		}
+</span></span><span id="line302"><span>
+</span></span><span id="line303"><span>		@media (min-width: 1000px) {
+</span></span><span id="line304"><span>			body {
+</span></span><span id="line305"><span>				font-size: 1.4em;
+</span></span><span id="line306"><span>			}
+</span></span><span id="line307"><span>
+</span></span><span id="line308"><span>			.columnHeads {
+</span></span><span id="line309"><span>				font-size: 1.8em;
+</span></span><span id="line310"><span>			}
+</span></span><span id="line311"><span>		}
+</span></span><span id="line312"><span>
+</span></span><span id="line313"><span>
+</span></span><span id="line314"><span>		@media (max-width: 999px) {
+</span></span><span id="line315"><span>			body {
+</span></span><span id="line316"><span>				font-size: 1rem;
+</span></span><span id="line317"><span>			}
+</span></span><span id="line318"><span>
+</span></span><span id="line319"><span>			.columnHeads {
+</span></span><span id="line320"><span>				font-size: 1.5em;
+</span></span><span id="line321"><span>			}
+</span></span><span id="line322"><span>
+</span></span><span id="line323"><span>			.theBlocksL,
+</span></span><span id="line324"><span>			.theBlocksMet,
+</span></span><span id="line325"><span>			.theBlocksImpPort,
+</span></span><span id="line326"><span>			.theBlocksMetPort {
+</span></span><span id="line327"><span>				font-size: 1.5em;
+</span></span><span id="line328"><span>			}
+</span></span><span id="line329"><span>		}
+</span></span><span id="line330"><span>
+</span></span><span id="line331"><span>		@media (max-width: 600px) {
+</span></span><span id="line332"><span>			body {
+</span></span><span id="line333"><span>				font-size: .75em;
+</span></span><span id="line334"><span>			}
+</span></span><span id="line335"><span>
+</span></span><span id="line336"><span>			.columnHeads {
+</span></span><span id="line337"><span>				font-size: .75em;
+</span></span><span id="line338"><span>			}
+</span></span><span id="line339"><span>
+</span></span><span id="line340"><span>			.theBlocksL,
+</span></span><span id="line341"><span>			.theBlocksMet,
+</span></span><span id="line342"><span>			.theBlocksMetPort,
+</span></span><span id="line343"><span>			.theBlocksImpPort {
+</span></span><span id="line344"><span>				font-size: .75em;
+</span></span><span id="line345"><span>			}
+</span></span><span id="line346"><span>		}
+</span></span><span id="line347"><span>	</span><span>&lt;/<span class="end-tag">style</span>&gt;</span><span>
+</span></span><span id="line348"><span>	</span><span>&lt;<span class="start-tag">script</span> <span class="attribute-name">src</span>="<a class="attribute-value" href="view-source:https://kit.fontawesome.com/c90f708bd9.js">https://kit.fontawesome.com/c90f708bd9.js</a>" <span class="attribute-name">crossorigin</span>="<a class="attribute-value">anonymous</a>"&gt;</span><span></span><span>&lt;/<span class="end-tag">script</span>&gt;</span><span>
+</span></span><span id="line349"><span></span><span>&lt;/<span class="end-tag">head</span>&gt;</span><span>
+</span></span><span id="line350"><span>
+</span></span><span id="line351"><span></span><span>&lt;<span class="start-tag">body</span> <span class="attribute-name">onload</span>="<a class="attribute-value">versionIt('Scaler HTML', '07-05-26 - Much Stuff.'); initializeIt('Scaler', './app_icons/piechart.svg'); initializeArray(0);</a>" <span class="attribute-name">style</span>="<a class="attribute-value">background-color: rgb(26, 42, 73);</a>"&gt;</span><span>
+</span></span><span id="line352"><span>
+</span></span><span id="line353"><span>	</span><span class="comment">&lt;!-- This is filler material to force an accurate rendering of the page before Javascript generates the real one --&gt;</span><span>
+</span></span><span id="line354"><span>	</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">id</span>="<a class="attribute-value">navHead</a>"&gt;</span><span>
+</span></span><span id="line355"><span>		</span><span>&lt;<span class="start-tag">nav</span> <span class="attribute-name">class</span>="<a class="attribute-value">navbar navbar-expand-lg navbar-dark bg-dark</a>" <span class="attribute-name">style</span>="<a class="attribute-value">padding:8px; height: 76px;</a>"&gt;</span><span>
+</span></span><span id="line356"><span>			</span><span>&lt;<span class="start-tag">a</span> <span class="attribute-name">class</span>="<a class="attribute-value">navbar-brand</a>" <span class="attribute-name">style</span>="<a class="attribute-value">padding-left: 15px;</a>" <span class="attribute-name">href</span>="<a class="attribute-value" href="view-source:http://127.0.0.1:5500/index.html">index.html</a>"&gt;</span><span>
+</span></span><span id="line357"><span>				</span><span>&lt;<span class="start-tag">span</span> <span class="attribute-name">id</span>="<a class="attribute-value">pageTitle</a>" <span class="attribute-name">class</span>="<a class="attribute-value">pageTitle</a>"&gt;</span><span></span><span>&lt;/<span class="end-tag">span</span>&gt;</span><span>
+</span></span><span id="line358"><span>			</span><span>&lt;/<span class="end-tag">a</span>&gt;</span><span>
+</span></span><span id="line359"><span>		</span><span>&lt;/<span class="end-tag">nav</span>&gt;</span><span>
+</span></span><span id="line360"><span>	</span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line361"><span>
+</span></span><span id="line362"><span>	</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">class</span>="<a class="attribute-value">container</a>" <span class="attribute-name">style</span>="<a class="attribute-value">align-items: center; display: flex; justify-content: center; color:white; margin-bottom: 100px;</a>"&gt;</span><span>
+</span></span><span id="line363"><span>		</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">style</span>="<a class="attribute-value">backdrop-filter: blur(4px);</a>"&gt;</span><span>
+</span></span><span id="line364"><span>			</span><span>&lt;<span class="start-tag">form</span> <span class="attribute-name">method</span>="<a class="attribute-value">post</a>" <span class="attribute-name">novalidate</span>&gt;</span><span>
+</span></span><span id="line365"><span>
+</span></span><span id="line366"><span>				</span><span class="comment">&lt;!-- Row 1 --&gt;</span><span>
+</span></span><span id="line367"><span>				</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">class</span>="<a class="attribute-value">row</a>" <span class="attribute-name">style</span>="<a class="attribute-value">padding: 30px 0px 20px 0px; max-width: 700px; width: 100%; margin: 0 auto;</a>"&gt;</span><span>
+</span></span><span id="line368"><span>					</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">class</span>="<a class="attribute-value">col-11</a>"&gt;</span><span>
+</span></span><span id="line369"><span>						</span><span>&lt;<span class="start-tag">select</span> <span class="attribute-name">class</span>="<a class="attribute-value">theBlocksL</a>" <span class="attribute-name">id</span>="<a class="attribute-value">recipeSelect</a>" <span class="attribute-name">autofocus</span> <span class="attribute-name">oninput</span>="<a class="attribute-value">changeRecipe();</a>" <span class="attribute-name">style</span>="<a class="attribute-value">text-align: center; margin: 0px; width: 100%; padding: 0.5rem 1rem;</a>"&gt;</span><span>
+</span></span><span id="line370"><span>							</span><span>&lt;<span class="start-tag">option</span> <span class="attribute-name">selected</span>&gt;</span><span>Choose a recipe</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line371"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span>BREADS----------</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line372"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Baguette</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line373"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Biscuits</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line374"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Blinis</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line375"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Cornbread</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line376"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Classic Crepes</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line377"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Focaccia</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line378"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Ti Couz Crepes</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line379"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Sourdough Crepes</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line380"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Dutch Baby</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line381"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Injeera</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line382"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Naan</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line383"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Pita Bread</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line384"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Classic Pizza Dough</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line385"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Sourdough Pizza Dough</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line386"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Vito's Pizza Dough</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line387"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Neapolitan Pizza Dough</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line388"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Sourdough Bread</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line389"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Levain for Bread</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line390"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Bread for Bread</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line391"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Tatty Scones</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line392"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Tortillas</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line393"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Sonoran Flour Tortillas</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line394"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Welsh Rarebit</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line395"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span>DRESSINGS----------</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line396"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Caesar Dressing</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line397"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Niçoise Dressing</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line398"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Ranch</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line399"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Ginger Sesame</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line400"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Miso Roasted Pak Choi</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line401"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Garlic and Soy</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line402"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span>SAUCES----------</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line403"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Pasta Sauce</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line404"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Caper Sauce</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line405"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Gnocchi Sauce</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line406"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Bechamel</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line407"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Chimichurri</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line408"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Salsa Verde</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line409"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Puerto Rican Garlic Sauce</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line410"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Zhug</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line411"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Bolognese</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line412"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Hollandaise</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line413"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Miso</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line414"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Pesto</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line415"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Ponzu</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line416"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Ssamjang</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line417"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Tonnato</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line418"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Trapanese</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line419"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Vodka Sauce</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line420"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Wasabi Mayo Sauce for Ahi Tuna</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line421"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span>PASTAS DOUGHS---------</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line422"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Agnolotti</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line423"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Al Dente</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line424"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>All Durum</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line425"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Basic dough egg and flour</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line426"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Basic Semolina egg and flour</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line427"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Cavatelli</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line428"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Chitarra</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line429"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Culurgione Pasta Dough</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line430"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Culurgione Filling</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line431"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Potato Gnocchi</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line432"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Ricotta Gnocchi</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line433"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Ravioli</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line434"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Stracciatella</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line435"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Uncooked vs Cooked Dry Pasta</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line436"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span>MAINS----------</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line437"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Albondigas</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line438"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Burger</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line439"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Chicken Karaage</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line440"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Meatballs</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line441"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Risotto</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line442"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Shakshuka</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line443"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Turmeric Chicken</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line444"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Turkey Masala</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line445"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span>SIDES----------</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line446"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Egg Topping</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line447"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Farro</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line448"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Kale</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line449"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Lentils</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line450"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Masa Dumplings</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line451"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Mashed Potatoes</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line452"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Pickled Onion</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line453"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Polenta</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line454"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span>RICES----------</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line455"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Jasmine/Basmati</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line456"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Roma</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line457"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Spanish</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line458"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Sushi</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line459"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>White Rice</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line460"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span>DRINKS----------</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line461"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Bloody Mary</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line462"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Bullshot</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line463"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Cable Car</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line464"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Campari Spritz</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line465"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Julep</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line466"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Jungle Bird</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line467"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Lemonade Spritzer</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line468"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Margarita</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line469"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Mai Tai</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line470"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Mexican</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line471"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Mojito</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line472"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Sangrita</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line473"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Soda</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line474"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Tea</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line475"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span>MISC----------</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line476"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span><span class="entity"><span>&amp;</span>nbsp;</span><span class="entity"><span>&amp;</span>nbsp;</span>Bread Crumbs</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line477"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span>TEST</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line478"><span>							</span><span>&lt;<span class="start-tag">option</span>&gt;</span><span>MISMATCH</span><span>&lt;/<span class="end-tag">option</span>&gt;</span><span>
+</span></span><span id="line479"><span>						</span><span>&lt;/<span class="end-tag">select</span>&gt;</span><span>
+</span></span><span id="line480"><span>
+</span></span><span id="line481"><span>					</span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line482"><span>					</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">class</span>="<a class="attribute-value">col-1</a>"&gt;</span><span>
+</span></span><span id="line483"><span>						</span><span>&lt;<span class="start-tag">button</span> <span class="attribute-name">type</span>="<a class="attribute-value">button</a>" <span class="attribute-name">class</span>="<a class="attribute-value">btn btn-info</a>" <span class="attribute-name">onclick</span>="<a class="attribute-value">changeRecipe();</a>" <span class="attribute-name">style</span>="<a class="attribute-value">white-space: nowrap;</a>"&gt;</span><span>Re-Apply</span><span>&lt;/<span class="end-tag">button</span>&gt;</span><span>
+</span></span><span id="line484"><span>					</span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line485"><span>				</span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line486"><span>
+</span></span><span id="line487"><span>				</span><span class="comment">&lt;!--* Buttons Row--&gt;</span><span>
+</span></span><span id="line488"><span>				</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">class</span>="<a class="attribute-value">row</a>"&gt;</span><span>
+</span></span><span id="line489"><span>					</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">class</span>="<a class="attribute-value">col-12</a>"&gt;</span><span>
+</span></span><span id="line490"><span>						</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">class</span>="<a class="attribute-value">table-responsive</a>"&gt;</span><span>
+</span></span><span id="line491"><span>							</span><span>&lt;<span class="start-tag">table</span> <span class="attribute-name">class</span>="<a class="attribute-value">XtableIt</a>"&gt;</span><span>
+</span></span><span id="line492"><span>								</span><span>&lt;<span class="start-tag">colgroup</span>&gt;</span><span>
+</span></span><span id="line493"><span>									</span><span>&lt;<span class="start-tag">col</span> <span class="attribute-name">class</span>="<a class="attribute-value">colLabel</a>"&gt;</span><span>
+</span></span><span id="line494"><span>									</span><span>&lt;<span class="start-tag">col</span> <span class="attribute-name">class</span>="<a class="attribute-value">colFives</a>"&gt;</span><span>
+</span></span><span id="line495"><span>									</span><span>&lt;<span class="start-tag">col</span> <span class="attribute-name">class</span>="<a class="attribute-value">colPerc</a>"&gt;</span><span>
+</span></span><span id="line496"><span>									</span><span>&lt;<span class="start-tag">col</span> <span class="attribute-name">class</span>="<a class="attribute-value">colMet</a>"&gt;</span><span>
+</span></span><span id="line497"><span>									</span><span>&lt;<span class="start-tag">col</span> <span class="attribute-name">class</span>="<a class="attribute-value">colImp</a>"&gt;</span><span>
+</span></span><span id="line498"><span>									</span><span>&lt;<span class="start-tag">col</span> <span class="attribute-name">class</span>="<a class="attribute-value">colScale</a>"&gt;</span><span>
+</span></span><span id="line499"><span>								</span><span>&lt;/<span class="end-tag">colgroup</span>&gt;</span><span>
+</span></span><span id="line500"><span>								</span><span>&lt;<span class="start-tag">thead</span>&gt;</span><span>
+</span></span><span id="line501"><span>									</span><span class="comment">&lt;!-- (Labels)--&gt;</span><span>
+</span></span><span id="line502"><span>									</span><span>&lt;<span class="start-tag">tr</span> <span class="attribute-name">style</span>="<a class="attribute-value">color: white;</a>"&gt;</span><span>
+</span></span><span id="line503"><span>										</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">colspan</span>="<a class="attribute-value">2</a>"&gt;</span><span>
+</span></span><span id="line504"><span>											</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">class</span>="<a class="attribute-value">btn-toolbar button-toolbar</a>" <span class="attribute-name">role</span>="<a class="attribute-value">toolbar</a>" <span class="attribute-name">aria-label</span>="<a class="attribute-value">Recipe controls</a>"&gt;</span><span>
+</span></span><span id="line505"><span>												</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">class</span>="<a class="attribute-value">btn-group</a>" <span class="attribute-name">role</span>="<a class="attribute-value">group</a>" <span class="attribute-name">aria-label</span>="<a class="attribute-value">Main controls</a>"&gt;</span><span>
+</span></span><span id="line506"><span>													</span><span>&lt;<span class="start-tag">button</span> <span class="attribute-name">type</span>="<a class="attribute-value">button</a>" <span class="attribute-name">class</span>="<a class="attribute-value">btn btn-info</a>" <span class="attribute-name">style</span>="<a class="attribute-value">border: none; background-color: #078d1f; color: white;</a>" <span class="attribute-name">onclick</span>="<a class="attribute-value">shPortions();</a>"&gt;</span><span></span><span>&lt;<span class="start-tag">i</span>
+</span></span><span id="line507"><span>															<span class="attribute-name">class</span>="<a class="attribute-value">fa fa-solid fa-chart-pie</a>"&gt;</span><span></span><span>&lt;/<span class="end-tag">i</span>&gt;</span><span> Portions</span><span>&lt;/<span class="end-tag">button</span>&gt;</span><span>
+</span></span><span id="line508"><span>													</span><span>&lt;<span class="start-tag">button</span> <span class="attribute-name">type</span>="<a class="attribute-value">button</a>" <span class="attribute-name">class</span>="<a class="attribute-value">btn btn-info</a>" <span class="attribute-name">style</span>="<a class="attribute-value">border: none; background-color: #c09300; color: white;</a>" <span class="attribute-name">onclick</span>="<a class="attribute-value">shScaling('toggle');</a>"&gt;</span><span></span><span>&lt;<span class="start-tag">i</span>
+</span></span><span id="line509"><span>															<span class="attribute-name">class</span>="<a class="attribute-value">bi bi-bar-chart-line-fill</a>"&gt;</span><span></span><span>&lt;/<span class="end-tag">i</span>&gt;</span><span> Scaling</span><span>&lt;/<span class="end-tag">button</span>&gt;</span><span>
+</span></span><span id="line510"><span>													</span><span>&lt;<span class="start-tag">button</span> <span class="attribute-name">type</span>="<a class="attribute-value">button</a>" <span class="attribute-name">class</span>="<a class="attribute-value">btn btn-info</a>" <span class="attribute-name">style</span>="<a class="attribute-value">border: none; background-color: #007da3; color: white;</a>" <span class="attribute-name">onclick</span>="<a class="attribute-value">shHydration();</a>"&gt;</span><span></span><span>&lt;<span class="start-tag">i</span>
+</span></span><span id="line511"><span>															<span class="attribute-name">class</span>="<a class="attribute-value">bi bi-moisture</a>"&gt;</span><span></span><span>&lt;/<span class="end-tag">i</span>&gt;</span><span> Hydration</span><span>&lt;/<span class="end-tag">button</span>&gt;</span><span>
+</span></span><span id="line512"><span>													</span><span>&lt;<span class="start-tag">button</span> <span class="attribute-name">type</span>="<a class="attribute-value">button</a>" <span class="attribute-name">class</span>="<a class="attribute-value">btn btn-info</a>" <span class="attribute-name">style</span>="<a class="attribute-value">border: none; background-color: #9b00d3; color: white;</a>"
+</span></span><span id="line513"><span>														<span class="attribute-name">onclick</span>="<a class="attribute-value">document.getElementById('recipeSteps').scrollIntoView({behavior: 'smooth' })</a>"&gt;</span><span></span><span>&lt;<span class="start-tag">i</span> <span class="attribute-name">class</span>="<a class="attribute-value">bi bi-fork-knife</a>"&gt;</span><span></span><span>&lt;/<span class="end-tag">i</span>&gt;</span><span> Recipe</span><span>&lt;/<span class="end-tag">button</span>&gt;</span><span>
+</span></span><span id="line514"><span>													</span><span>&lt;<span class="start-tag">button</span> <span class="attribute-name">type</span>="<a class="attribute-value">button</a>" <span class="attribute-name">class</span>="<a class="attribute-value">btn btn-info</a>" <span class="attribute-name">id</span>="<a class="attribute-value">justToAlignt</a>" <span class="attribute-name">onclick</span>="<a class="attribute-value">toggleBarChart();</a>"
+</span></span><span id="line515"><span>														<span class="attribute-name">style</span>="<a class="attribute-value">background-color: #002e83; color: white; border: none;</a>"&gt;</span><span>Pie Chart</span><span>&lt;/<span class="end-tag">button</span>&gt;</span><span>
+</span></span><span id="line516"><span>													</span><span>&lt;<span class="start-tag">button</span> <span class="attribute-name">type</span>="<a class="attribute-value">button</a>" <span class="attribute-name">class</span>="<a class="attribute-value">btn btn-info</a>" <span class="attribute-name">id</span>="<a class="attribute-value">justToAlignt</a>" <span class="attribute-name">onclick</span>="<a class="attribute-value">resetAll();</a>"
+</span></span><span id="line517"><span>														<span class="attribute-name">style</span>="<a class="attribute-value">background-color: #830000; color: white; border: none;</a>"&gt;</span><span>Reset!</span><span>&lt;/<span class="end-tag">button</span>&gt;</span><span>
+</span></span><span id="line518"><span>												</span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line519"><span>											</span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line520"><span>										</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line521"><span>										</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">colspan</span>="<a class="attribute-value">2</a>" <span class="attribute-name">style</span>="<a class="attribute-value">text-align: center;</a>"&gt;</span><span>
+</span></span><span id="line522"><span>											</span><span>&lt;<span class="start-tag">button</span> <span class="attribute-name">type</span>="<a class="attribute-value">button</a>" <span class="attribute-name">class</span>="<a class="attribute-value">btn btn-info</a>" <span class="attribute-name">id</span>="<a class="attribute-value">syncButton</a>" <span class="attribute-name">onclick</span>="<a class="attribute-value">syncTheVals();</a>"
+</span></span><span id="line523"><span>												<span class="attribute-name">style</span>="<a class="attribute-value">color: white; border: none; margin-right: 6%; width: 100%;</a>"&gt;</span><span>Synced!</span><span>&lt;/<span class="end-tag">button</span>&gt;</span><span>
+</span></span><span id="line524"><span>										</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line525"><span>										</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">class</span>="<a class="attribute-value">tColumn4</a>" <span class="attribute-name">colspan</span>="<a class="attribute-value">2</a>" <span class="attribute-name">style</span>="<a class="attribute-value">text-align: center;</a>"&gt;</span><span>
+</span></span><span id="line526"><span>											</span><span>&lt;<span class="start-tag">button</span> <span class="attribute-name">type</span>="<a class="attribute-value">button</a>" <span class="attribute-name">class</span>="<a class="attribute-value">btn btn-info</a>" <span class="attribute-name">id</span>="<a class="attribute-value">addRowBut</a>" <span class="attribute-name">onclick</span>="<a class="attribute-value">copyScaled();</a>"
+</span></span><span id="line527"><span>												<span class="attribute-name">style</span>="<a class="attribute-value">margin-right: 3%; background-color: #078d1f; color: white; border: none;</a>"&gt;</span><span></span><span>&lt;<span class="start-tag">i</span> <span class="attribute-name">class</span>="<a class="attribute-value">bi bi-arrow-bar-left</a>"&gt;</span><span></span><span>&lt;/<span class="end-tag">i</span>&gt;</span><span>
+</span></span><span id="line528"><span>											</span><span>&lt;/<span class="end-tag">button</span>&gt;</span><span>
+</span></span><span id="line529"><span>											</span><span class="comment">&lt;!-- &lt;button type="button" class="btn btn-info" id="addRowBut" onclick="setoneone();"
+</span></span><span id="line530"><span class="comment">										style="margin-right: 3%; background-color: #078d1f; color: white; border: none;"&gt;1:1&lt;/button&gt; --&gt;</span><span>
+</span></span><span id="line531"><span>										</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line532"><span>									</span><span>&lt;/<span class="end-tag">tr</span>&gt;</span><span>
+</span></span><span id="line533"><span>
+</span></span><span id="line534"><span>									</span><span class="comment">&lt;!--* Title of the recipe row --&gt;</span><span>
+</span></span><span id="line535"><span>									</span><span>&lt;<span class="start-tag">tr</span>&gt;</span><span>
+</span></span><span id="line536"><span>										</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">colspan</span>="<a class="attribute-value">6</a>" <span class="attribute-name">class</span>="<a class="attribute-value">title</a>" <span class="attribute-name">style</span>="<a class="attribute-value">display: none;</a>" <span class="attribute-name">id</span>="<a class="attribute-value">titleRow</a>"&gt;</span><span>
+</span></span><span id="line537"><span>											</span><span>&lt;<span class="start-tag">h1</span> <span class="attribute-name">id</span>="<a class="attribute-value">recipeTitle</a>"&gt;</span><span></span><span>&lt;/<span class="end-tag">h1</span>&gt;</span><span>
+</span></span><span id="line538"><span>										</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line539"><span>									</span><span>&lt;/<span class="end-tag">tr</span>&gt;</span><span>
+</span></span><span id="line540"><span>
+</span></span><span id="line541"><span>									</span><span class="comment">&lt;!--* Column Headers and 5/1 switch --&gt;</span><span>
+</span></span><span id="line542"><span>									</span><span>&lt;<span class="start-tag">tr</span> <span class="attribute-name">style</span>="<a class="attribute-value">color: white; border-style: none;</a>"&gt;</span><span>
+</span></span><span id="line543"><span>										</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">class</span>="<a class="attribute-value">columnHeads</a>"&gt;</span><span>Ingredient</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line544"><span>										</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">class</span>="<a class="attribute-value">columnHeads</a>"&gt;</span><span></span><span>&lt;<span class="start-tag">input</span> <span class="attribute-name">type</span>="<a class="attribute-value">checkbox</a>" <span class="attribute-name">class</span>="<a class="attribute-value">syncBox</a>" <span class="attribute-name">id</span>="<a class="attribute-value">fivesCheck</a>" <span class="attribute-name">oninput</span>="<a class="attribute-value">toggleFives();</a>"&gt;</span><span> ~5|1</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line545"><span>										</span><span class="comment">&lt;!-- This cell used to be missing entirely, even though every ingredient row below
+</span></span><span id="line546"><span class="comment">											 has a matching "perc" cell (see scalerCore.js). Without it the header only
+</span></span><span id="line547"><span class="comment">											 declared 5 columns while the body actually had 6, which is what let the
+</span></span><span id="line548"><span class="comment">											 browser's column-width math run wild at narrow widths. --&gt;</span><span>
+</span></span><span id="line549"><span>										</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">class</span>="<a class="attribute-value">columnHeads tColumnPerc</a>"&gt;</span><span>%</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line550"><span>										</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">class</span>="<a class="attribute-value">columnHeads tColumn2</a>"&gt;</span><span></span><span>&lt;<span class="start-tag">input</span> <span class="attribute-name">type</span>="<a class="attribute-value">checkbox</a>" <span class="attribute-name">class</span>="<a class="attribute-value">syncBox</a>" <span class="attribute-name">id</span>="<a class="attribute-value">dimMet</a>" <span class="attribute-name">checked</span> <span class="attribute-name">oninput</span>="<a class="attribute-value">masterDimmer('dimMet', 'theBlocksMet');</a>"&gt;</span><span></span><span>&lt;<span class="start-tag">span</span>
+</span></span><span id="line551"><span>												<span class="attribute-name">onclick</span>="<a class="attribute-value">clearSumChecks('sumCheckBox', false);</a>"&gt;</span><span> g</span><span>&lt;<span class="start-tag">i</span> <span class="attribute-name">class</span>="<a class="attribute-value">bi bi-clipboard-x</a>" <span class="attribute-name">style</span>="<a class="attribute-value">padding-left: 10px;</a>"&gt;</span><span></span><span>&lt;/<span class="end-tag">i</span>&gt;</span><span></span><span>&lt;/<span class="end-tag">span</span>&gt;</span><span></span><span>&lt;<span class="start-tag">span</span>
+</span></span><span id="line552"><span>												<span class="attribute-name">onclick</span>="<a class="attribute-value">checkSumChecks();</a>"&gt;</span><span></span><span>&lt;<span class="start-tag">i</span> <span class="attribute-name">class</span>="<a class="attribute-value">bi bi-clipboard-check</a>"&gt;</span><span></span><span>&lt;/<span class="end-tag">i</span>&gt;</span><span></span><span>&lt;/<span class="end-tag">span</span>&gt;</span><span></span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line553"><span>										</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">class</span>="<a class="attribute-value">columnHeads tColumn3</a>"&gt;</span><span></span><span>&lt;<span class="start-tag">input</span> <span class="attribute-name">type</span>="<a class="attribute-value">checkbox</a>" <span class="attribute-name">class</span>="<a class="attribute-value">syncBox</a>" <span class="attribute-name">id</span>="<a class="attribute-value">dimImp</a>" <span class="attribute-name">oninput</span>="<a class="attribute-value">masterDimmer('dimImp', 'theBlocksImp');</a>"&gt;</span><span> Oz</span><span class="error" title="Stray end tag “span”.">&lt;/<span class="end-tag">span</span>&gt;</span><span>
+</span></span><span id="line554"><span>										</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line555"><span>										</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">class</span>="<a class="attribute-value">columnHeads tColumn4</a>"&gt;</span><span></span><span>&lt;<span class="start-tag">input</span> <span class="attribute-name">type</span>="<a class="attribute-value">checkbox</a>" <span class="attribute-name">class</span>="<a class="attribute-value">syncBox</a>" <span class="attribute-name">id</span>="<a class="attribute-value">dimScale</a>" <span class="attribute-name">oninput</span>="<a class="attribute-value">masterDimmer('dimScale', 'theBlocksSc');</a>"&gt;</span><span> Scaled
+</span></span><span id="line556"><span>										</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line557"><span>									</span><span>&lt;/<span class="end-tag">tr</span>&gt;</span><span>
+</span></span><span id="line558"><span>								</span><span>&lt;/<span class="end-tag">thead</span>&gt;</span><span>
+</span></span><span id="line559"><span>
+</span></span><span id="line560"><span>								</span><span class="comment">&lt;!--* The rows will be generated by Javascript --&gt;</span><span>
+</span></span><span id="line561"><span>								</span><span>&lt;<span class="start-tag">tbody</span> <span class="attribute-name">id</span>="<a class="attribute-value">tableBody</a>"&gt;</span><span>
+</span></span><span id="line562"><span>								</span><span>&lt;/<span class="end-tag">tbody</span>&gt;</span><span>
+</span></span><span id="line563"><span>
+</span></span><span id="line564"><span>								</span><span class="comment">&lt;!-- Totals of stuff --&gt;</span><span>
+</span></span><span id="line565"><span>								</span><span>&lt;<span class="start-tag">tr</span> <span class="attribute-name">id</span>="<a class="attribute-value">totalrow</a>"&gt;</span><span>
+</span></span><span id="line566"><span>									</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">class</span>="<a class="attribute-value">totColumn1</a>" <span class="attribute-name">colspan</span>="<a class="attribute-value">2</a>" <span class="attribute-name">id</span>="<a class="attribute-value">checkRowTot</a>"&gt;</span><span>
+</span></span><span id="line567"><span>										</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">style</span>="<a class="attribute-value">width: 12px; margin: 18px 6px 20px 0px;</a>"&gt;</span><span></span><span>&lt;<span class="start-tag">i</span> <span class="attribute-name">class</span>="<a class="attribute-value">fa fa-plus-circle</a>" <span class="attribute-name">aria-hidden</span>="<a class="attribute-value">true</a>" <span class="attribute-name">onclick</span>="<a class="attribute-value">addRow();</a>"&gt;</span><span></span><span>&lt;/<span class="end-tag">i</span>&gt;</span><span></span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line568"><span>										</span><span>&lt;<span class="start-tag">span</span> <span class="attribute-name">class</span>="<a class="attribute-value">attributeHeaders</a>"&gt;</span><span>Totals</span><span>&lt;/<span class="end-tag">span</span>&gt;</span><span>
+</span></span><span id="line569"><span>
+</span></span><span id="line570"><span>										</span><span>&lt;<span class="start-tag">button</span> <span class="attribute-name">type</span>="<a class="attribute-value">button</a>" <span class="attribute-name">class</span>="<a class="attribute-value">btn btn-info</a>" <span class="attribute-name">style</span>="<a class="attribute-value">border: none; background-color: #078d1f; color: white; height: 38px; margin-top: 15px;</a>"
+</span></span><span id="line571"><span>											<span class="attribute-name">onclick</span>="<a class="attribute-value">sendToWeight();</a>" <span class="attribute-name">id</span>="<a class="attribute-value">capture</a>"&gt;</span><span>Send Weight </span><span>&lt;<span class="start-tag">i</span> <span class="attribute-name">class</span>="<a class="attribute-value">bi bi-box-arrow-up-right</a>"&gt;</span><span></span><span>&lt;/<span class="end-tag">i</span>&gt;</span><span></span><span>&lt;/<span class="end-tag">button</span>&gt;</span><span>
+</span></span><span id="line572"><span>									</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line573"><span>									</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">class</span>="<a class="attribute-value">totColumn2</a>"&gt;</span><span></span><span>&lt;<span class="start-tag">input</span> <span class="attribute-name">class</span>="<a class="attribute-value">theBlocksL rightAlign</a>" <span class="attribute-name">type</span>="<a class="attribute-value">text</a>" <span class="attribute-name">id</span>="<a class="attribute-value">totalPerc</a>" <span class="attribute-name">readonly</span>&gt;</span><span></span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line574"><span>									</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">class</span>="<a class="attribute-value">totColumn3</a>" <span class="attribute-name">id</span>="<a class="attribute-value">syncable11</a>"&gt;</span><span>
+</span></span><span id="line575"><span>										</span><span>&lt;<span class="start-tag">input</span> <span class="attribute-name">class</span>="<a class="attribute-value">theBlocksMet rightAlign</a>" <span class="attribute-name">type</span>="<a class="attribute-value">number</a>" <span class="attribute-name">id</span>="<a class="attribute-value">totalOrig</a>" <span class="attribute-name">oninput</span>="<a class="attribute-value">backFromtTotal('g');</a>"&gt;</span><span>
+</span></span><span id="line576"><span>									</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line577"><span>									</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">class</span>="<a class="attribute-value">totColumn2</a>"&gt;</span><span>
+</span></span><span id="line578"><span>										</span><span>&lt;<span class="start-tag">input</span> <span class="attribute-name">class</span>="<a class="attribute-value">theBlocksImp rightAlign</a>" <span class="attribute-name">type</span>="<a class="attribute-value">number</a>" <span class="attribute-name">id</span>="<a class="attribute-value">totalImp</a>" <span class="attribute-name">oninput</span>="<a class="attribute-value">backFromtTotal('oz');</a>"&gt;</span><span>
+</span></span><span id="line579"><span>									</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line580"><span>									</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">class</span>="<a class="attribute-value">totColumn4 tColumn4</a>" <span class="attribute-name">id</span>="<a class="attribute-value">youWantRow11</a>"&gt;</span><span>
+</span></span><span id="line581"><span>										</span><span>&lt;<span class="start-tag">input</span> <span class="attribute-name">class</span>="<a class="attribute-value">theBlocksSc rightAlign</a>" <span class="attribute-name">type</span>="<a class="attribute-value">number</a>" <span class="attribute-name">id</span>="<a class="attribute-value">totalScaled</a>" <span class="attribute-name">readonly</span>&gt;</span><span>
+</span></span><span id="line582"><span>									</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line583"><span>								</span><span>&lt;/<span class="end-tag">tr</span>&gt;</span><span>
+</span></span><span id="line584"><span>
+</span></span><span id="line585"><span>
+</span></span><span id="line586"><span>								</span><span class="comment">&lt;!-- Portionator --&gt;</span><span>
+</span></span><span id="line587"><span>								</span><span class="comment">&lt;!-- Portionator in Ounces I SAID OUNCES --&gt;</span><span>
+</span></span><span id="line588"><span>								</span><span>&lt;<span class="start-tag">tr</span> <span class="attribute-name">id</span>="<a class="attribute-value">portionatorRow</a>" <span class="attribute-name">style</span>="<a class="attribute-value">background-color: rgba(31, 183, 26, 0.49);</a>"&gt;</span><span>
+</span></span><span id="line589"><span>									</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">class</span>="<a class="attribute-value">tColumn1</a>" <span class="attribute-name">colspan</span>="<a class="attribute-value">2</a>" <span class="attribute-name">id</span>="<a class="attribute-value">checkRow13</a>"&gt;</span><span>
+</span></span><span id="line590"><span>										</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">style</span>="<a class="attribute-value">width: 23px;</a>"&gt;</span><span></span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line591"><span>										</span><span>&lt;<span class="start-tag">span</span> <span class="attribute-name">class</span>="<a class="attribute-value">attributeHeaders</a>"&gt;</span><span>Portions</span><span>&lt;/<span class="end-tag">span</span>&gt;</span><span>
+</span></span><span id="line592"><span>									</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line593"><span>									</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">class</span>="<a class="attribute-value">tColumn3</a>"&gt;</span><span>
+</span></span><span id="line594"><span>										</span><span>&lt;<span class="start-tag">input</span> <span class="attribute-name">class</span>="<a class="attribute-value">theBlocksL centerAlign</a>" <span class="attribute-name">type</span>="<a class="attribute-value">number</a>" <span class="attribute-name">id</span>="<a class="attribute-value">portions</a>" <span class="attribute-name">value</span>="<a class="attribute-value">2</a>" <span class="attribute-name">oninput</span>="<a class="attribute-value">portionIt();</a>"&gt;</span><span>
+</span></span><span id="line595"><span>									</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line596"><span>
+</span></span><span id="line597"><span>									</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">class</span>="<a class="attribute-value">tColumn2</a>"&gt;</span><span>
+</span></span><span id="line598"><span>										</span><span>&lt;<span class="start-tag">input</span> <span class="attribute-name">class</span>="<a class="attribute-value">theBlocksMetPort rightAlign</a>" <span class="attribute-name">type</span>="<a class="attribute-value">number</a>" <span class="attribute-name">id</span>="<a class="attribute-value">weightEachG</a>" <span class="attribute-name">readonly</span>&gt;</span><span>
+</span></span><span id="line599"><span>									</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line600"><span>
+</span></span><span id="line601"><span>									</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">class</span>="<a class="attribute-value">tColumn3</a>" <span class="attribute-name">id</span>="<a class="attribute-value">syncable13</a>"&gt;</span><span>
+</span></span><span id="line602"><span>										</span><span>&lt;<span class="start-tag">input</span> <span class="attribute-name">class</span>="<a class="attribute-value">theBlocksImpPort rightAlign</a>" <span class="attribute-name">type</span>="<a class="attribute-value">number</a>" <span class="attribute-name">id</span>="<a class="attribute-value">weightEachO</a>" <span class="attribute-name">readonly</span>&gt;</span><span>
+</span></span><span id="line603"><span>									</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line604"><span>									</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">class</span>="<a class="attribute-value">tColumn4</a>" <span class="attribute-name">id</span>="<a class="attribute-value">youWantRow13</a>"&gt;</span><span>
+</span></span><span id="line605"><span>										</span><span class="comment">&lt;!-- &lt;input class="theBlocksSc rightAlign" type="number" id="weightEachSoz" disabled&gt; --&gt;</span><span>
+</span></span><span id="line606"><span>									</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line607"><span>								</span><span>&lt;/<span class="end-tag">tr</span>&gt;</span><span>
+</span></span><span id="line608"><span>
+</span></span><span id="line609"><span>								</span><span class="comment">&lt;!--* Hydration Calculation --&gt;</span><span>
+</span></span><span id="line610"><span>								</span><span>&lt;<span class="start-tag">tr</span> <span class="attribute-name">id</span>="<a class="attribute-value">hydrationRow</a>" <span class="attribute-name">style</span>="<a class="attribute-value">background-color: #141c2c7c</a>"&gt;</span><span>
+</span></span><span id="line611"><span>									</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">class</span>="<a class="attribute-value">tColumn1</a>" <span class="attribute-name">colspan</span>="<a class="attribute-value">2</a>"&gt;</span><span>
+</span></span><span id="line612"><span>										</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">style</span>="<a class="attribute-value">width: 23px;</a>"&gt;</span><span></span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line613"><span>										</span><span>&lt;<span class="start-tag">span</span> <span class="attribute-name">class</span>="<a class="attribute-value">attributeHeaders</a>"&gt;</span><span>Hydration</span><span>&lt;/<span class="end-tag">span</span>&gt;</span><span>
+</span></span><span id="line614"><span>									</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line615"><span>									</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">class</span>="<a class="attribute-value">tColumn2</a>" <span class="attribute-name">colspan</span>="<a class="attribute-value">3</a>"&gt;</span><span>
+</span></span><span id="line616"><span>										</span><span>&lt;<span class="start-tag">input</span> <span class="attribute-name">class</span>="<a class="attribute-value">theBlocksL centerAlign</a>" <span class="attribute-name">type</span>="<a class="attribute-value">text</a>" <span class="attribute-name">id</span>="<a class="attribute-value">hydration</a>"&gt;</span><span>
+</span></span><span id="line617"><span>									</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line618"><span>									</span><span class="comment">&lt;!-- &lt;td class="tColumn3"&gt;&lt;/td&gt; --&gt;</span><span>
+</span></span><span id="line619"><span>								</span><span>&lt;/<span class="end-tag">tr</span>&gt;</span><span>
+</span></span><span id="line620"><span>
+</span></span><span id="line621"><span>								</span><span class="comment">&lt;!--* Wet/Dry Calculation --&gt;</span><span>
+</span></span><span id="line622"><span>								</span><span>&lt;<span class="start-tag">tr</span> <span class="attribute-name">id</span>="<a class="attribute-value">wetDryRow</a>" <span class="attribute-name">style</span>="<a class="attribute-value">background-color: #141c2c7c</a>"&gt;</span><span>
+</span></span><span id="line623"><span>									</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">class</span>="<a class="attribute-value">tColumn1</a>" <span class="attribute-name">colspan</span>="<a class="attribute-value">2</a>"&gt;</span><span>
+</span></span><span id="line624"><span>										</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">style</span>="<a class="attribute-value">width: 23px;</a>"&gt;</span><span></span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line625"><span>										</span><span>&lt;<span class="start-tag">span</span> <span class="attribute-name">class</span>="<a class="attribute-value">attributeHeaders</a>"&gt;</span><span>Wet/Dry</span><span>&lt;/<span class="end-tag">span</span>&gt;</span><span>
+</span></span><span id="line626"><span>									</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line627"><span>									</span><span class="comment">&lt;!-- &lt;td class="tColumn3"&gt;&lt;/td&gt; --&gt;</span><span>
+</span></span><span id="line628"><span>									</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">class</span>="<a class="attribute-value">tColumn2</a>" <span class="attribute-name">colspan</span>="<a class="attribute-value">2</a>"&gt;</span><span>
+</span></span><span id="line629"><span>										</span><span>&lt;<span class="start-tag">input</span> <span class="attribute-name">class</span>="<a class="attribute-value">theBlocksL centerAlign</a>" <span class="attribute-name">type</span>="<a class="attribute-value">text</a>" <span class="attribute-name">id</span>="<a class="attribute-value">dryDration</a>" <span class="attribute-name">readonly</span>&gt;</span><span>
+</span></span><span id="line630"><span>									</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line631"><span>									</span><span>&lt;<span class="start-tag">td</span> <span class="attribute-name">class</span>="<a class="attribute-value">tColumn2</a>" <span class="attribute-name">colspan</span>="<a class="attribute-value">2</a>"&gt;</span><span>
+</span></span><span id="line632"><span>										</span><span>&lt;<span class="start-tag">input</span> <span class="attribute-name">class</span>="<a class="attribute-value">theBlocksL centerAlign</a>" <span class="attribute-name">type</span>="<a class="attribute-value">text</a>" <span class="attribute-name">id</span>="<a class="attribute-value">wetDration</a>" <span class="attribute-name">readonly</span>&gt;</span><span>
+</span></span><span id="line633"><span>									</span><span>&lt;/<span class="end-tag">td</span>&gt;</span><span>
+</span></span><span id="line634"><span>									</span><span class="comment">&lt;!-- &lt;td class="tColumn3"&gt;&lt;/td&gt; --&gt;</span><span>
+</span></span><span id="line635"><span>									</span><span class="comment">&lt;!-- &lt;td class="tColumn4"&gt; --&gt;</span><span>
+</span></span><span id="line636"><span>									</span><span class="comment">&lt;!-- &lt;/td&gt; --&gt;</span><span>
+</span></span><span id="line637"><span>								</span><span>&lt;/<span class="end-tag">tr</span>&gt;</span><span>
+</span></span><span id="line638"><span>							</span><span>&lt;/<span class="end-tag">table</span>&gt;</span><span>
+</span></span><span id="line639"><span>						</span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line640"><span>					</span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line641"><span>
+</span></span><span id="line642"><span>					</span><span class="comment">&lt;!--* Scaling Area --&gt;</span><span>
+</span></span><span id="line643"><span>					</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">class</span>="<a class="attribute-value">row justify-content-md-center</a>" <span class="attribute-name">id</span>="<a class="attribute-value">scalerArea</a>" <span class="attribute-name">style</span>="<a class="attribute-value">border-top: none;</a>"&gt;</span><span>
+</span></span><span id="line644"><span>
+</span></span><span id="line645"><span>						</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">class</span>="<a class="attribute-value">col row</a>"&gt;</span><span>
+</span></span><span id="line646"><span>							</span><span>&lt;<span class="start-tag">span</span> <span class="attribute-name">class</span>="<a class="attribute-value">attributeHeaders</a>"&gt;</span><span>Scaling</span><span>&lt;/<span class="end-tag">span</span>&gt;</span><span></span><span>&lt;<span class="start-tag">button</span> <span class="attribute-name">type</span>="<a class="attribute-value">button</a>" <span class="attribute-name">class</span>="<a class="attribute-value">btn btn-info</a>" <span class="attribute-name">id</span>="<a class="attribute-value">addRowBut</a>" <span class="attribute-name">onclick</span>="<a class="attribute-value">setoneone();</a>"
+</span></span><span id="line647"><span>								<span class="attribute-name">style</span>="<a class="attribute-value">margin-right: 3%; background-color: #c09300; color: white; border: none;</a>"&gt;</span><span>1:1</span><span>&lt;/<span class="end-tag">button</span>&gt;</span><span>
+</span></span><span id="line648"><span>						</span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line649"><span>						</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">class</span>="<a class="attribute-value">col row</a>"&gt;</span><span>
+</span></span><span id="line650"><span>							</span><span>&lt;<span class="start-tag">label</span> <span class="attribute-name">for</span>="<a class="attribute-value">originalScale</a>" <span class="attribute-name">class</span>="<a class="attribute-value">spaced col col-form-label</a>" <span class="attribute-name">style</span>="<a class="attribute-value">text-align: right;</a>"&gt;</span><span>Original</span><span>&lt;/<span class="end-tag">label</span>&gt;</span><span>
+</span></span><span id="line651"><span>							</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">class</span>="<a class="attribute-value">col</a>"&gt;</span><span>
+</span></span><span id="line652"><span>								</span><span>&lt;<span class="start-tag">input</span> <span class="attribute-name">class</span>="<a class="attribute-value">theBlocksL rightAlign</a>" <span class="attribute-name">type</span>="<a class="attribute-value">number</a>" <span class="attribute-name">min</span>="<a class="attribute-value">1</a>" <span class="attribute-name">id</span>="<a class="attribute-value">originalScale</a>" <span class="attribute-name">oninput</span>="<a class="attribute-value">multiChange(1);</a>" <span class="attribute-name">onclick</span>="<a class="attribute-value">this.select();</a>" <span class="attribute-name">value</span>="<a class="attribute-value">1</a>"&gt;</span><span>
+</span></span><span id="line653"><span>							</span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line654"><span>						</span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line655"><span>						</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">class</span>="<a class="attribute-value">col row</a>"&gt;</span><span>
+</span></span><span id="line656"><span>							</span><span>&lt;<span class="start-tag">label</span> <span class="attribute-name">for</span>="<a class="attribute-value">newScale</a>" <span class="attribute-name">class</span>="<a class="attribute-value">spaced col col-form-label</a>" <span class="attribute-name">style</span>="<a class="attribute-value">text-align: right;</a>"&gt;</span><span>Scaled</span><span>&lt;/<span class="end-tag">label</span>&gt;</span><span>
+</span></span><span id="line657"><span>							</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">class</span>="<a class="attribute-value">col</a>"&gt;</span><span>
+</span></span><span id="line658"><span>								</span><span>&lt;<span class="start-tag">input</span> <span class="attribute-name">class</span>="<a class="attribute-value">theBlocksL rightAlign</a>" <span class="attribute-name">type</span>="<a class="attribute-value">number</a>" <span class="attribute-name">min</span>="<a class="attribute-value">1</a>" <span class="attribute-name">value</span>="<a class="attribute-value">1</a>" <span class="attribute-name">id</span>="<a class="attribute-value">newScale</a>" <span class="attribute-name">oninput</span>="<a class="attribute-value">multiChange(2);</a>" <span class="attribute-name">onclick</span>="<a class="attribute-value">this.select();</a>"&gt;</span><span>
+</span></span><span id="line659"><span>							</span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line660"><span>						</span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line661"><span>						</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">class</span>="<a class="attribute-value">col row</a>"&gt;</span><span>
+</span></span><span id="line662"><span>							</span><span>&lt;<span class="start-tag">label</span> <span class="attribute-name">for</span>="<a class="attribute-value">multiplier</a>" <span class="attribute-name">class</span>="<a class="attribute-value">spaced col col-form-label</a>" <span class="attribute-name">style</span>="<a class="attribute-value">text-align: right;</a>"&gt;</span><span>Multiplier</span><span>&lt;/<span class="end-tag">label</span>&gt;</span><span>
+</span></span><span id="line663"><span>							</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">class</span>="<a class="attribute-value">col</a>"&gt;</span><span>
+</span></span><span id="line664"><span>								</span><span>&lt;<span class="start-tag">input</span> <span class="attribute-name">class</span>="<a class="attribute-value">theBlocksL rightAlign</a>" <span class="attribute-name">type</span>="<a class="attribute-value">number</a>" <span class="attribute-name">value</span>="<a class="attribute-value">1</a>" <span class="attribute-name">min</span>="<a class="attribute-value">1</a>" <span class="attribute-name">id</span>="<a class="attribute-value">multiplier</a>" <span class="attribute-name">oninput</span>="<a class="attribute-value">multiChange(3);</a>" <span class="attribute-name">onclick</span>="<a class="attribute-value">this.select();</a>"&gt;</span><span>
+</span></span><span id="line665"><span>							</span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line666"><span>						</span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line667"><span>					</span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line668"><span>
+</span></span><span id="line669"><span>					</span><span class="comment">&lt;!--* Recipe Steps Area --&gt;</span><span>
+</span></span><span id="line670"><span>					</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">class</span>="<a class="attribute-value">form-row</a>" <span class="attribute-name">style</span>="<a class="attribute-value">margin-top: 0px; display:block; background-color: #08142eaa; padding: 27px;</a>"&gt;</span><span>
+</span></span><span id="line671"><span>						</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">class</span>="<a class="attribute-value">col-12</a>" <span class="attribute-name">id</span>="<a class="attribute-value">recipeSteps</a>"&gt;</span><span>
+</span></span><span id="line672"><span>						</span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line673"><span>					</span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line674"><span>
+</span></span><span id="line675"><span>					</span><span class="comment">&lt;!--* Pie Chart Area--&gt;</span><span>
+</span></span><span id="line676"><span>					</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">id</span>="<a class="attribute-value">thePieChart</a>" <span class="attribute-name">class</span>="<a class="attribute-value">form-row</a>" <span class="attribute-name">style</span>="<a class="attribute-value">margin-top: 0px; display:none; background-color: #08142eaa; padding: 27px;</a>"&gt;</span><span>
+</span></span><span id="line677"><span>						</span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">class</span>="<a class="attribute-value">col-12</a>" <span class="attribute-name">id</span>="<a class="attribute-value">pieChartArea</a>"&gt;</span><span>
+</span></span><span id="line678"><span>						</span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line679"><span>					</span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line680"><span>
+</span></span><span id="line681"><span>
+</span></span><span id="line682"><span>
+</span></span><span id="line683"><span>
+</span></span><span id="line684"><span>			</span><span class="error" title="End tag “form” seen, but there were open elements.">&lt;/<span class="end-tag">form</span>&gt;</span><span>
+</span></span><span id="line685"><span>		</span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line686"><span>	</span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+</span></span><span id="line687"><span>	</span><span>&lt;<span class="start-tag">script</span> <span class="attribute-name">src</span>="<a class="attribute-value" href="view-source:http://127.0.0.1:5500/js/scalerRecipes.js">js/scalerRecipes.js</a>"&gt;</span><span></span><span>&lt;/<span class="end-tag">script</span>&gt;</span><span>
+</span></span><span id="line688"><span>	</span><span>&lt;<span class="start-tag">script</span> <span class="attribute-name">src</span>="<a class="attribute-value" href="view-source:http://127.0.0.1:5500/js/scalerCore.js">js/scalerCore.js</a>"&gt;</span><span></span><span>&lt;/<span class="end-tag">script</span>&gt;</span><span>
+</span></span><span id="line689"><span>	</span><span>&lt;<span class="start-tag">script</span> <span class="attribute-name">src</span>="<a class="attribute-value" href="view-source:http://127.0.0.1:5500/js/scripts.js">js/scripts.js</a>"&gt;</span><span></span><span>&lt;/<span class="end-tag">script</span>&gt;</span><span>
+</span></span><span id="line690"><span>	</span><span>&lt;<span class="start-tag">link</span> <span class="attribute-name">href</span>="<a class="attribute-value" href="view-source:https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js</a>"&gt;</span><span>
+</span></span><span id="line691"><span>	</span><span>&lt;<span class="start-tag">link</span> <span class="attribute-name">href</span>="<a class="attribute-value" href="view-source:https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css</a>" <span class="attribute-name">rel</span>="<a class="attribute-value">stylesheet</a>" <span class="attribute-name">integrity</span>="<a class="attribute-value">sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC</a>"
+</span></span><span id="line692"><span>		<span class="attribute-name">crossorigin</span>="<a class="attribute-value">anonymous</a>"&gt;</span><span>
+</span></span><span id="line693"><span>	</span><span>&lt;<span class="start-tag">script</span> <span class="attribute-name">src</span>="<a class="attribute-value" href="view-source:https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js">https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js</a>" <span class="attribute-name">integrity</span>="<a class="attribute-value">sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM</a>"
+</span></span><span id="line694"><span>		<span class="attribute-name">crossorigin</span>="<a class="attribute-value">anonymous</a>"&gt;</span><span></span><span>&lt;/<span class="end-tag">script</span>&gt;</span><span>
+</span></span><span id="line695"><span>	</span><span>&lt;<span class="start-tag">script</span> <span class="attribute-name">src</span>="<a class="attribute-value" href="view-source:https://cdn.jsdelivr.net/npm/marked/marked.min.js">https://cdn.jsdelivr.net/npm/marked/marked.min.js</a>"&gt;</span><span></span><span>&lt;/<span class="end-tag">script</span>&gt;</span><span>
+</span></span><span id="line696"><span></span><span class="comment">&lt;!-- Code injected by live-server --&gt;</span><span>
+</span></span><span id="line697"><span></span><span>&lt;<span class="start-tag">script</span>&gt;</span><span>
+</span></span><span id="line698"><span>	// </span><span>&lt;!</span><span>[CDATA[  </span><span>&lt;-</span><span>- For SVG support
+</span></span><span id="line699"><span>	if ('WebSocket' in window) {
+</span></span><span id="line700"><span>		(function () {
+</span></span><span id="line701"><span>			function refreshCSS() {
+</span></span><span id="line702"><span>				var sheets = [].slice.call(document.getElementsByTagName("link"));
+</span></span><span id="line703"><span>				var head = document.getElementsByTagName("head")[0];
+</span></span><span id="line704"><span>				for (var i = 0; i </span><span>&lt; </span><span>sheets.length; ++i) {
+</span></span><span id="line705"><span>					var elem = sheets[i];
+</span></span><span id="line706"><span>					var parent = elem.parentElement || head;
+</span></span><span id="line707"><span>					parent.removeChild(elem);
+</span></span><span id="line708"><span>					var rel = elem.rel;
+</span></span><span id="line709"><span>					if (elem.href &amp;&amp; typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+</span></span><span id="line710"><span>						var url = elem.href.replace(/(&amp;|\?)_cacheOverride=\d+/, '');
+</span></span><span id="line711"><span>						elem.href = url + (url.indexOf('?') &gt;= 0 ? '&amp;' : '?') + '_cacheOverride=' + (new Date().valueOf());
+</span></span><span id="line712"><span>					}
+</span></span><span id="line713"><span>					parent.appendChild(elem);
+</span></span><span id="line714"><span>				}
+</span></span><span id="line715"><span>			}
+</span></span><span id="line716"><span>			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+</span></span><span id="line717"><span>			var address = protocol + window.location.host + window.location.pathname + '/ws';
+</span></span><span id="line718"><span>			var socket = new WebSocket(address);
+</span></span><span id="line719"><span>			socket.onmessage = function (msg) {
+</span></span><span id="line720"><span>				if (msg.data == 'reload') window.location.reload();
+</span></span><span id="line721"><span>				else if (msg.data == 'refreshcss') refreshCSS();
+</span></span><span id="line722"><span>			};
+</span></span><span id="line723"><span>			if (sessionStorage &amp;&amp; !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+</span></span><span id="line724"><span>				console.log('Live reload enabled.');
+</span></span><span id="line725"><span>				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+</span></span><span id="line726"><span>			}
+</span></span><span id="line727"><span>		})();
+</span></span><span id="line728"><span>	}
+</span></span><span id="line729"><span>	else {
+</span></span><span id="line730"><span>		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+</span></span><span id="line731"><span>	}
+</span></span><span id="line732"><span>	// ]]&gt;
+</span></span><span id="line733"><span></span><span>&lt;/<span class="end-tag">script</span>&gt;</span><span>
+</span></span><span id="line734"><span></span><span class="error" title="End tag for “body” seen, but there were unclosed elements.">&lt;/<span class="end-tag">body</span>&gt;</span><span>
+</span></span><span id="line735"><span>
+</span></span><span id="line736"><span></span><span>&lt;/<span class="end-tag">html</span>&gt;</span><span></span></span></body></html>

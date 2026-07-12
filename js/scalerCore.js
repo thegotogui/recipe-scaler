@@ -449,10 +449,11 @@ function makeTable() { // Make the table rows for the ingredients. We have to do
     tr.id = 'row' + index;
 
     let temp = `
-  <tr id="row${index}">
       <td colspan="2" class="tColumn1 synced" id="checkRow${index}">
-        <input type="checkbox" class="syncBox rowCheck" id="rowcheck${index}" oninput="countChex(${index});">
+        <div class="tColumnFlex">
+          <input type="checkbox" class="syncBox rowCheck" id="rowcheck${index}" oninput="countChex(${index});">
           <input class="theBlocksL" type="text" id="ingredient${index}" placeholder="Ingredient" oninput="updateIngredient(${index});">
+        </div>
       </td>
       <td class="tColumnPerc">
         <input class="theBlocksL rightAlign" type="text" id="perc${index}">
@@ -469,7 +470,6 @@ function makeTable() { // Make the table rows for the ingredients. We have to do
               <td class="tColumn4 synced" id="youWantRow${index}">
                 <input class="theBlocksSc rightAlign" type="number" id="youWant${index}" readonly>
               </td>
-    </tr>
 `;
     tr.innerHTML = temp;
     theBody.appendChild(tr);
