@@ -86,7 +86,7 @@ function distThis() {
         document.getElementById("distIntoEP" + index).value = "";
     }
 
-    var len = start.length - 1,
+    let len = start.length - 1,
         portions = grandTotal / len,
         maxValue = Math.max(...start),
         maxRemainderS = subTotal - maxValue,
@@ -154,6 +154,7 @@ function distThis() {
     newDist();
 }
 
+
 // Something about the various buttons have changed. Go do something about that.
 function scaleFlip(x) {
 
@@ -180,7 +181,7 @@ function scaleFlip(x) {
             visibleLabels2[x - 1][1] = !visibleLabels2[x - 1][1];
         }
         // Now, go and update the buttons as well as the visibility of the various scaling regions.
-        var weightField;
+        let weightField;
         if (visibleLabels2[0][1]) {
             weightField = true;
         }
@@ -225,7 +226,7 @@ function updateWeight() {
     // Retrieve that weight from the HTML dropdown
     // Update the "container weight" field to reflect the new value
 
-    // If a value was manually entered, clear that flag
+    // If a value was manually entered previously, clear that flag
     diffChange = false;
 
     chosen = document.getElementById("weightSelect");
@@ -236,7 +237,7 @@ function updateWeight() {
         whichMeasure = "g";
     }
 
-    //If a valid option has been chosen from the dropdown, assign that value to the container weight
+    // If a valid option has been chosen from the dropdown, assign that value to the container weight
     if (cWeightNew != 0) {
         cWeight = cWeightNew;
 
@@ -248,7 +249,7 @@ function updateWeight() {
 }
 
 function colorMeasure() {
-    // depending on the units selected, colorize the backgrounds of the various boxes accordingly
+    // Depending on the units selected, colorize the backgrounds of the various boxes accordingly
     let light = "rgba(155, 181, 191, .4)";
     let dark = "rgba(155, 181, 191, 0)";
     let grams, ounces, adder, remover;
@@ -485,7 +486,7 @@ function storageValues() {
 // Updates all calculated fields based on whatever values are in the input fields.
 // The exception is the two "difference" fields which can be manually updated for portioning.
 // If they are updated, then the fields are not auto-populated.
-function calculateAll() {
+function calculateAll(noEach) {
 
     dividedBy = parseInt(getObj('dividedBy').value);
     gWeight = getObj("inGrams").value;
@@ -529,8 +530,10 @@ function calculateAll() {
             getObj("differenceO").value = wtDifferenceO;
         };
 
-        let portionValue = weightOffset / dividedBy;
-        getObj("portions").value = portionValue.toFixed(2) + whichMeasure;
+        if (noEach != "noEach") {
+            let portionValue = weightOffset / dividedBy;
+            getObj("portions").value = portionValue.toFixed(2);
+        }
 
         //* Update the various ratios
         for (let x = 0; x < ratioSet.length; x++) {
@@ -694,9 +697,9 @@ function calculateAll() {
         getObj("scaleReadingO").style.backgroundColor = theRed;
         getObj("differenceG").value = 0;
         getObj("differenceO").value = 0;
-        getObj("portions").value = "";
+        getObj("portions").value = 0;
 
-        var y;
+        let y;
         for (let x = 0; x <= ratioSet.length - 1; x++) {
             y = x + 1;
             getObj("ratio" + y).value = "";
@@ -716,6 +719,20 @@ function calculateAll() {
         scaleFlip(3);
     }
 }
+
+
+
+function weightportionCalc() {
+    let temp = document.getElementById("portions").value;
+    let temp2 = scaleReadingG;
+    let temp3 = temp2 / temp;
+    console.log(`temp: ${temp}`);
+    console.log(`temp2: ${temp2}`);
+    console.log(`temp3: ${temp3}`);
+    document.getElementById("dividedBy").value = temp3.toFixed(0);
+    calculateAll("noEach");
+}
+
 
 // This turns the dial in the icon based on how much is on the scale or the difference in weight
 function rotateDial(gScale) {
