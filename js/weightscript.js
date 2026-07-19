@@ -530,6 +530,7 @@ function calculateAll(noEach) {
             getObj("differenceO").value = wtDifferenceO;
         };
 
+        // If the portions field is being edited, don't update that field either
         if (noEach != "noEach") {
             let portionValue = weightOffset / dividedBy;
             getObj("portions").value = portionValue.toFixed(2);
@@ -582,14 +583,15 @@ function calculateAll(noEach) {
             // If it's higher, then it should look like the background.
             // It's only necessary to style the 2nd, 3rd, and 4th columns because, if the row exists at all, then the first column is guaranteed to be active.
 
+            input1vis = "block", input2vis = "block", input3vis = "block";
+
             // Second Column
             let column2 = x + 1;
-            let input1vis = "block", input2vis = "block", input3vis = "block";
             if (column2 > count) {
                 column2 = "";
+                divider1 = "";
                 stylex[1] = "fieldDarkerDis";
                 styley[1] = "arbScaleOutDis";
-                divider1 = "";
                 input1vis = "-moz-appearance: textfield;"
             } else {
                 stylex[1] = "fieldDarker";
@@ -600,9 +602,9 @@ function calculateAll(noEach) {
             let column3 = x + 2;
             if (column3 > count) {
                 column3 = "";
+                divider2 = "";
                 stylex[2] = "fieldDarkerDis";
                 styley[2] = "arbScaleInDis";
-                divider2 = "";
                 input2vis = "-moz-appearance: textfield;"
             } else {
                 stylex[2] = "fieldDarker";
@@ -613,9 +615,9 @@ function calculateAll(noEach) {
             let column4 = x + 3;
             if (column4 > count) {
                 column4 = "";
+                divider3 = "";
                 stylex[3] = "fieldDarkerDis";
                 styley[3] = "arbScaleInDis";
-                divider3 = "";
                 input3vis = "-moz-appearance: textfield;"
             } else {
                 stylex[3] = "fieldDarker";

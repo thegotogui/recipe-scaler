@@ -34,7 +34,7 @@ function goGetRecipe(name) {
   // * Pesto
   else if (name.includes("Pesto") && !name.includes("Trapanese")) {
     recipe = [
-      ['Olive oil', 60, "w"],
+      ['Olive oil', 70, "w"],
       ['Basil', 18, "d"],
       ['Almonds', 11, "d"],
       ['Parmesan', 9, "d"],
