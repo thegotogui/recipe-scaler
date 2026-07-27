@@ -38,7 +38,7 @@ function goGetRecipe(name) {
       ['Basil', 18, "d"],
       ['Almonds', 11, "d"],
       ['Parmesan', 9, "d"],
-      ['Lemon Juice', 9, "w"],
+      ['Lemon Juice', 5, "w"],
       ['Garlic', 5, "d"]
     ];
   }
