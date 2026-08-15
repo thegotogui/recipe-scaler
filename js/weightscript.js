@@ -728,9 +728,6 @@ function weightportionCalc() {
     let temp = document.getElementById("portions").value;
     let temp2 = scaleReadingG;
     let temp3 = temp2 / temp;
-    console.log(`temp: ${temp}`);
-    console.log(`temp2: ${temp2}`);
-    console.log(`temp3: ${temp3}`);
     document.getElementById("dividedBy").value = temp3.toFixed(0);
     calculateAll("noEach");
 }

@@ -132,7 +132,7 @@ function initializeArray(mode) {
   // * Set the focus to the list dropdown
   document.getElementById("recipeSelect").focus();
 
-  // If this is the first time the page is opened on a new device and there is no storage flag set, none of the arrays have been put into memory.
+  // If this is the first time the page is opened in a new browser and there is no storage flag set, none of the arrays have been put into memory.
   // Set the mode to 1 which will trigger a full reset and create local storage slots.
   if (localStorage.getItem("scinitialized") == null) {
     localStorage.setItem("scinitialized", 1);
@@ -272,15 +272,17 @@ function changeRecipe(isItResetting) {
   //* Ask recipes.js for the data for this recipe name.
   const recipeData = goGetRecipe(whichRecipe);
 
+
   if (recipeData) {
     recipe = recipeData.recipe;
     markdown = recipeData.markdown ?? "";
+    console.log(`recipe: ${recipe}`);
+    console.log(`markdown: ${markdown}`);
 
     // If it's not blank, ensure that the markdown starts with a "## Process" header. If it already has one, it will remain unchanged; if not, the header will be prepended.
     if (markdown != "") {
       markdown = ensureProcessHeader(markdown);
     }
-
 
     headers = recipeData.headers ?? [];
     reciPortions = recipeData.reciPortions ?? 0;
@@ -480,15 +482,13 @@ function makeTable() { // Make the table rows for the ingredients. We have to do
 
 
 function showRecipe(params) {
-
-  if (whichRecipe != undefined && whichRecipe != "Reset") {
+  let theRecipeString = "";
+  // if (whichRecipe != undefined && whichRecipe != "Reset") {
+  if (whichRecipe != "Reset") {
     //* Output the recipe to the recipe steps area
     // First, clear it out by putting in ONLY the recipe name but even before that, strip out the spaces
-    // let recipeNameTemp = whichRecipe.replace("&nbsp;&nbsp;", "");
-    let theRecipeString = `<h1>${recipeName}</h1><table align="center" class="table.dark">
+    theRecipeString = `<h1>${recipeName}</h1><table align="center" class="table.dark">
   <tr><td width="40%" style="vertical-align: top"><table width="100%"><tbody><tr><td colspan="2"><h2>Ingredients</h2></td></tr>`;
-    //   theRecipeString += `<table align="center" class="table.dark">
-    // <tr><td width="40%" style="vertical-align: top"><table width="100%"><tbody><tr><td><h2>Ingredients</h2></td></tr>`;
 
     // console.log(recipeMaxLength);
     for (let index = 0; index < recipe.length; index++) {
@@ -508,10 +508,10 @@ function showRecipe(params) {
       theRecipeString += `<h2>Instructions</h2><h4>No instructions provided for this recipe. Go with your gut!</h4>`;
     }
     theRecipeString += `</td></tr></table>`;
-
-    // Now stick that whole string into the recipeSteps div
-    document.getElementById("recipeSteps").innerHTML = theRecipeString;
   }
+
+  // Now stick that whole string into the recipeSteps div
+  document.getElementById("recipeSteps").innerHTML = theRecipeString;
 }
 
 
