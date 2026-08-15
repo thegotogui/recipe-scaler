@@ -1951,12 +1951,13 @@ function sumSelectedRows(mode) {
   // * A. set all of the rows to the current color (synced or not)
   colorSyncedFields();
 
-  let sumTotal = 0, theColor;
+  let sumTotal = 0, percTotal = 0, theColor;
 
   // * B. Now, go colorize checked rows and add them to the sumTotal.
   for (let i = 1; i <= rs.length; i++) {
     if (document.getElementById("sumCheck" + i).checked) {
       sumTotal += rs[i - 1];
+      percTotal += perc[i - 1];
       // color-code everything to make clear which rows are being summed and that the total reflects those rows.
       theColor = "#79588fdd";
       document.getElementById("row" + i).style.backgroundColor = theColor;
@@ -1968,6 +1969,7 @@ function sumSelectedRows(mode) {
   let editStatus, bgColor;
   if (sumTotal == 0) {
     sumTotal = total;
+
     bgColor = "";
     totalEditableStatus = false;
   } else {
@@ -1975,9 +1977,21 @@ function sumSelectedRows(mode) {
     totalEditableStatus = true;
   }
   document.getElementById("checkRowTot").style.backgroundColor = bgColor;
+  document.getElementById("totalG").style.backgroundColor = bgColor;
+  document.getElementById("totalPerc").style.backgroundColor = bgColor;
 
   document.getElementById("totalOrig").value = sumTotal.toFixed(1);
   document.getElementById("totalOrig").readOnly = totalEditableStatus;
+
+  let temp;
+  console.log(`percTotal: ${percTotal}`);
+  if (percTotal > 0) {
+    temp = percTotal * 100;
+  }
+  else {
+    temp = 100;
+  }
+  document.getElementById("totalPercVal").value = temp + "%";
 }
 
 

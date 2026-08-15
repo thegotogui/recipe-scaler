@@ -582,14 +582,16 @@
 												onclick="sendToWeight();" id="capture">Send Weight <i class="bi bi-box-arrow-up-right"></i></button>
 										</div>
 									</td>
-									<td class="totColumn2"><input class="theBlocksL rightAlign" type="text" id="totalPerc" readonly></td>
-									<td class="totColumn3" id="syncable11">
+									<td class="totColumn2" id="totalPerc">
+										<input class="theBlocksL rightAlign" type="text" id="totalPercVal" readonly>
+									</td>
+									<td class="totColumn3" id="totalG">
 										<input class="theBlocksMet rightAlign" type="number" id="totalOrig" oninput="backFromtTotal('g');">
 									</td>
-									<td class="totColumn2">
+									<td class="totColumn2" id="totalOz">
 										<input class="theBlocksImp rightAlign" type="number" id="totalImp" oninput="backFromtTotal('oz');">
 									</td>
-									<td class="totColumn4 tColumn4" id="youWantRow11">
+									<td class="totColumn4 tColumn4" id="scaledTotal">
 										<input class="theBlocksSc rightAlign" type="number" id="totalScaled" readonly>
 									</td>
 								</tr>
