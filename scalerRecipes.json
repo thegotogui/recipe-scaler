@@ -6,7 +6,6 @@
 			{ "name": "Ingredient", "amount": 1, "wetdry": "d" }
 		]
 	},
-
 	{
 		"title": "Ahi Tuna",
 		"description": "Wasabi Sauce for Ahi TUna",
@@ -158,7 +157,7 @@
 		"title": "Miso",
 		"description": "Miso Sauce",
 		"ingredients": [
-			{ "name": "Soy Sauce", "amount": 30, "wetdry": "w" },
+			{ "name": "Soy Sauce", "amount": 25, "wetdry": "w" },
 			{ "name": "Brown miso", "amount": 15, "wetdry": "w" },
 			{ "name": "Rice Wine Vinegar", "amount": 15, "wetdry": "w" },
 			{ "name": "Garlic Clove", "amount": 6, "wetdry": "d" },

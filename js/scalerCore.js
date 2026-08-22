@@ -113,8 +113,6 @@ function getIngredientColor(input) {
   for (const [color, ingredients] of Object.entries(ingredientColors)) {
     for (const ingredient of ingredients) {
       if (lowerInput.includes(ingredient.toLowerCase())) {
-        // console.log(ingredient);
-        // console.log(`ingCount: ${ingCount}`);
         return color;
       }
     }
@@ -198,7 +196,7 @@ function findRecipeByName(recipes, name) {
 
 function displayRecipe(recipe) {
   if (!recipe) {
-    console.log("Recipe not found.");
+    alert("Recipe not found.");
     return;
   }
 
@@ -276,8 +274,8 @@ function changeRecipe(isItResetting) {
   if (recipeData) {
     recipe = recipeData.recipe;
     markdown = recipeData.markdown ?? "";
-    console.log(`recipe: ${recipe}`);
-    console.log(`markdown: ${markdown}`);
+    // console.log(`recipe: ${recipe}`);
+    // console.log(`markdown: ${markdown}`);
 
     // If it's not blank, ensure that the markdown starts with a "## Process" header. If it already has one, it will remain unchanged; if not, the header will be prepended.
     if (markdown != "") {
@@ -304,7 +302,6 @@ function changeRecipe(isItResetting) {
   for (let x = 0; x < recipe.length; x++) {
     ingredients[x] = recipe[x][0];
     if (Number.isNaN(recipe[x][1])) {
-      console.log(`Recipe is broken!`);
       alert(`The recipe "${recipeName}" has an invalid quantity for ingredient "${ingredients[x]}". Please check the recipe data.`);
       rs[x] = 1; // Set to 1 or some default value
     } else {
@@ -436,7 +433,6 @@ function populateTable() {
 
 function makeTable() { // Make the table rows for the ingredients. We have to do this after we parse the headers, because the headers may change the row numbers of the ingredients. So we have to wait until we know where the ingredients are before we can write them in.
 
-  console.log(`MakeTable has been triggered`);
 
   //* Go get the (blank) table body so we can write the rows into it.
   let theBody = document.getElementById('tableBody');
@@ -490,7 +486,6 @@ function showRecipe(params) {
     theRecipeString = `<h1>${recipeName}</h1><table align="center" class="table.dark">
   <tr><td width="40%" style="vertical-align: top"><table width="100%"><tbody><tr><td colspan="2"><h2>Ingredients</h2></td></tr>`;
 
-    // console.log(recipeMaxLength);
     for (let index = 0; index < recipe.length; index++) {
       // Write these amounts to the recipe area in the opposite order (weight then ingredient)
       let temp = rs[index].toFixed(0);
@@ -582,7 +577,6 @@ function shHydration(showHide) {
 
 
 function shPortions(showHide) {
-  // console.log('shPor Status ' + showHide);
 
   // If there is no argument, just toggle the current state
   if (showHide == "toggle" || showHide == undefined) {
@@ -635,7 +629,7 @@ function butterAndSalt(mode) {
       // Now string the value, some spaces, and a label togehter into a variable
       let tBtsString = ``;
       if (tBspVal > 0) {
-        tBtsString += ` ${tBspVal}Tbsp`;
+        tBtsString += ` ${tBspVal} Tbsp`;
       }
 
       if (tBspVal > 0 && tspVal > 0) {
@@ -645,7 +639,7 @@ function butterAndSalt(mode) {
       }
 
       if (tspVal > 0) {
-        tBtsString += ` ${tspVal}tsp `;
+        tBtsString += ` ${tspVal} tsp `;
       }
 
       // And put that string into the ingredient field
@@ -656,10 +650,8 @@ function butterAndSalt(mode) {
     //! end of salt maker
 
     //* Convert butter weight to cm/mm to cut
-    // console.log('Checking for Butter!');
     if (ingredients[arrayCount].includes("Butter") && !ingredients[arrayCount].includes("Buttermilk")) {
 
-      // console.log('WE have butter!');
       // Grab the weight of the ingredient (butter) and multiply it by the multiplier, depending on the kind of "stick" being used
 
       // Elgin weights (US-style) butter sticks
@@ -686,15 +678,14 @@ function butterAndSalt(mode) {
 function backFromtTotal(value) {
   let ttlMet = 0,
     ttlImp = 0;
-  console.log(`Back from is fired`);
   if (value == "g") {
     totalOrig = document.getElementById("totalOrig").value;
   } else {
     totalOrig = document.getElementById("totalImp").value;
     totalOrig = Number(totalOrig * OZ_TO_GRAMS).toFixed(1);
+    document.getElementById("totalOrig").value = totalOrig;
   }
 
-  // console.log(`totalOrig: ${totalOrig}`);
   let fieldCountTTL = 0;
   for (let arrayCountTTL = 0; arrayCountTTL < rs.length; arrayCountTTL++) {
     fieldCountTTL = arrayCountTTL + 1;
@@ -973,7 +964,6 @@ function updateMultiplier() {
 function updateIngredient(params) {
 
   deselectRecipe(); // If any of the values in the scaler are manually altered, nullify the recipe chosen at the top because it no longer reflects what the chart 
-  // console.log(`params: ${params}`);
   ingredients[params - 1] = document.getElementById("ingredient" + params).value;
   colorizeIngredients();
 }
@@ -1047,7 +1037,6 @@ function tallyIt(mode) {
         temp = Math.round(temp / 5) * 5;
       }
     }
-    // console.log("Count: " + i);
     document.getElementById("perc" + i).value = `${temp}%`;
   }
   document.getElementById("totalPerc").value = "100%";
@@ -1152,13 +1141,11 @@ function shiftIngredient(which) {
     document.getElementById("recipeSays" + recipRow).value = fixDigits(recipTotal);
     rs[recipRow - 1] = recipTotal;
 
-    // console.log(`Modding ROW ${recipRow}, ARRAY #${recipRow - 1}, amounts are ${rs}`);
 
     // Get the imperial units version and populate the Oz field
     recipTotal = recipTotal / 28.35;
     document.getElementById("recipeSaysImp" + recipRow).value = fixDigits(recipTotal);
 
-    // console.log(`rs: ${rs}`);
 
     // Now, update the other fields accordingly
     // updateMultiplier();
@@ -1966,10 +1953,11 @@ function sumSelectedRows(mode) {
     }
   }
 
+
+  //* C. If the total is 0, then no boxes are checked and the total should be the full recipe amount. Otherwise, the total is the sum of the checked rows.
   let editStatus, bgColor;
   if (sumTotal == 0) {
     sumTotal = total;
-
     bgColor = "";
     totalEditableStatus = false;
   } else {
@@ -1983,8 +1971,8 @@ function sumSelectedRows(mode) {
   document.getElementById("totalOrig").value = sumTotal.toFixed(1);
   document.getElementById("totalOrig").readOnly = totalEditableStatus;
 
+  // If the total is greater than 0, then at least one box is chcked so calculate the percentage of the total and display it. Otherwise, display 100%.
   let temp;
-  console.log(`percTotal: ${percTotal}`);
   if (percTotal > 0) {
     temp = percTotal * 100;
   }
@@ -2026,7 +2014,6 @@ function copyScaled() {
     fieldIndex = index + 1;
     rs[index] = youWant[index];
     document.getElementById("recipeSays" + fieldIndex).value = rs[index];
-    // * console.log(`rs: ${ rs[index] } `);
   }
 
   document.getElementById("originalScale").value = 1;

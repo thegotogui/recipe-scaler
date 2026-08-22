@@ -239,7 +239,8 @@ function goGetRecipe(name) {
       ['Rice', 210, "d"],
       ['Salt', 5, "d"],
       ['Powdered Garlic', 2, "d"],
-      ['Powdered Onion', 2, "d"]
+      ['Powdered Onion', 2, "d"],
+      ['Butter', 35, "d"]
     ];
   }
 
@@ -1203,6 +1204,51 @@ Alternatively, they can be baked at 350° for 15 minutes`;
       ['Soy Sauce', 120]
     ];
   }
+
+
+
+  // * Half Sour
+  else if (name.includes("Half Sour")) {
+    recipe = [
+
+      ['Water', 1000, "w"],
+      ['Garlic', 2, "w"],
+      ['Kosher Salt', 21.5, "d"],
+      ['Black Peppercorns', 2, "d"],
+      ['Coriander Seed', 2, "d"],
+      ['Bay Leaf', 1, "d"],
+      ['Dill', 2, "d"],
+      ['Vinegar', 2, "d"]
+    ];
+  }
+
+
+  // * Zuni Zuchini Pickles
+  else if (name.includes("Zuni")) {
+    recipe = [
+      ['Zucchini', 454, 'w'],
+      ['Small yellow onion', 115, 'w'],
+      ['Kosher salt(Diamond Crystal)', 18, 'w'],
+      ['Ice water and ice cubes', 0, 'w'],
+      ['Apple cider vinegar', 475, 'w'],
+      ['Granulated sugar', 200, 'w'],
+      ['Dry mustard', 3, 'd'],
+      ['Yellow or brown mustard seeds', 5, 'd'],
+      ['Turmeric', 2, "d"]
+    ];
+
+    markdown = `## Process
+1. With a mandolin, cut zucchini lengthwise (or crosswise, if you prefer) in 1/16-inch slices. Cut onion crosswise the same thickness.
+2. Place zucchini and onion in a low wide bowl, toss with salt and cover with ice water. Add a few ice cubes. Leave for 1 hour, until faintly salty and slightly softened when tasted. Drain, discard ice and dry vegetables thoroughly between kitchen towels. Rinse and dry bowl.
+3. Make the brine: Combine vinegar, sugar, dry mustard, mustard seeds and turmeric in a nonreactive saucepan, and simmer over medium-high heat for about 3 minutes. Turn off heat and set aside until just warm to the touch.
+4. Return zucchini to the bowl and pour cooled brine over, then stir to distribute spices.
+5. Transfer mixture and brine to pint jars and refrigerate for at least a day before serving.`;
+  }
+
+
+
+
+
 
   // * Coconut Rum Julep
   else if (name.includes("Julep")) {
