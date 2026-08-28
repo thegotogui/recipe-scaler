@@ -274,8 +274,6 @@ function changeRecipe(isItResetting) {
   if (recipeData) {
     recipe = recipeData.recipe;
     markdown = recipeData.markdown ?? "";
-    // console.log(`recipe: ${recipe}`);
-    // console.log(`markdown: ${markdown}`);
 
     // If it's not blank, ensure that the markdown starts with a "## Process" header. If it already has one, it will remain unchanged; if not, the header will be prepended.
     if (markdown != "") {
@@ -393,7 +391,7 @@ Hydration Station - What's your function
     document.getElementById("portions").value = reciPortions;
     portionIt();
     shPortions(true);
-    sendToWeight(1);
+    // sendToWeight(1);
   }
 
   // * Do a tally of the various variables

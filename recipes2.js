@@ -3,6 +3,66 @@
 // Call goGetRecipe(name) with the dropdown-selected recipe name string.
 // Returns an object: { recipe, markdown, headers, reciPortions }
 // or null if no recipe matches.
+//
+// RECIPE_CATEGORIES below is the index used to build recipe pickers
+// (dropdowns, menus, etc.) without hardcoding a list elsewhere. Each
+// entry's name is a string that, passed to goGetRecipe(), resolves to
+// that recipe. When adding a new recipe, add it here too so it shows
+// up in any UI built from this list.
+
+const RECIPE_CATEGORIES = [
+  { category: "Breads", items: [
+    "French Baguette", "Biscuits", "Blinis", "Bread for Bread", "Cornbread",
+    "Sourdough Starter"
+  ]},
+  { category: "Crepes", items: [
+    "Classic Crepes", "Ti Couz Crepes", "Sourdough Crepes", "Focaccia",
+    "Dutch Baby", "Injeera", "Naan", "Pita", "Sourdough Bread",
+    "Levain for Bread", "Sonoran Flour Tortillas", "Tatty Scones", "Tortillas"
+  ]},
+  { category: "Pizza", items: [
+    "Classic Pizza Dough", "Sourdough Pizza Dough", "Vito's Pizza Dough",
+    "Neapolitan Pizza Dough"
+  ]},
+  { category: "Dressings", items: [
+    "Caesar Dressing", "Garlic and Soy Pak Choi", "Ginger Sesame Pak Choi",
+    "Miso Roasted Pak Choi with Edamame", "Niçoise Dressing", "Ranch Dressing"
+  ]},
+  { category: "Sauces", items: [
+    "Pasta Sauce", "Caper Sauce", "Gnocchi Sauce", "Bechamel", "Chimichurri",
+    "Salsa Verde", "Puerto Rican Garlic Sauce",
+    "Zhug (Yemenite Hot Sauce With Cilantro and Parsley)", "Bolognese",
+    "Hollandaise", "Miso Sauce", "Pesto", "Ponzu Sauce", "Ssamjang Sauce",
+    "Tonnato", "Trapanese Pesto", "Vodka Sauce", "Wasabi Sauce for Ahi Tuna"
+  ]},
+  { category: "Pasta Doughs", items: [
+    "Agnolotti", "Al Dente Pasta Dough", "All Durum Dough",
+    "Basic Pasta (egg and flour)", "Cavatelli", "Chitarra Pasta",
+    "Culurgione Pasta Dough", "Culurgione Filling", "Potato Gnocchi",
+    "Ricotta Gnocchi", "Ravioli Pasta Dough",
+    "Stracciatella Pasta with Lemon and Asparagus", "Cooked vs Uncooked Pasta"
+  ]},
+  { category: "Mains", items: [
+    "Albondigas", "Tini Burger", "Karaage Chicken", "Meatballs", "Risotto",
+    "Shakshuka", "Turkey Masala", "Turmeric Chicken", "Welsh Rarebit"
+  ]},
+  { category: "Sides", items: [
+    "Egg Topping", "Farro", "Half Sour", "Crispy Kale", "Lentils",
+    "Masa Dumplings", "Mashed Potatoes", "Pickled Onion", "Polenta",
+    "Zuni Zuchini Pickles"
+  ]},
+  { category: "Rices", items: [
+    "Jasmine Rice", "Roma Rice", "Spanish Rice", "Sushi Rice", "White Rice"
+  ]},
+  { category: "Drinks", items: [
+    "Bloody Mary", "Bullshot", "Cable Car", "Campari Spritz",
+    "Coconut Rum Julep", "Jungle Bird", "Lemonade Spritzer", "Margarita",
+    "Mai Tai", "Mexican", "Mojito", "Sangrita", "Soda", "Tea"
+  ]},
+  { category: "Misc", items: [
+    "Bread Crumbs"
+  ]}
+];
 
 function goGetRecipe(name) {
 
@@ -865,7 +925,7 @@ Try a few different bread flours to see which one gives you the best result.`;
     ];
     markdown = `1. In a large (3- or 4-quart) saucepan or small Dutch oven, melt butter over medium heat. Add onion, garlic, and red pepper flakes, season lightly with salt, and cook, stirring frequently, until onions are very soft but not browned, about 15 minutes; lower heat if needed to prevent browning. 
     
-2. Add tomato paste and cook, stirring, until fragrant and thick, about 3 minutes. Stir in canned tomatoes with their liquid. Bring to a simmer, then cook, stirring often and crushing the whole tomatoes roughly with a spoon, until sauce has thickened slightly, about 10 minutes.
+2. Add tomato paste and cook, stirring, until tomato paste is fragrant and thick, about 3 minutes. Stir in canned tomatoes with their liquid. Bring to a simmer, then cook, stirring often and crushing the whole tomatoes roughly with a spoon, until sauce has thickened slightly, about 10 minutes.
 
     3. Add cream, and stir to incorporate. Transfer sauce to a blender, and blend until very smooth (you may be able to make an immersion blender work, but in our tests the sauce level was too low to safely avoid splattering). Wipe out pot, then return blended sauce to it. Season lightly with salt.
     
@@ -882,8 +942,7 @@ Try a few different bread flours to see which one gives you the best result.`;
   else if (name.includes("Meatballs")) {
     recipe = [
       ['Ground Beef', 250, "d"],
-      ['Milk', 85, "w"],
-      ['Bread (for Crumbs)', 51.24, "w"],
+      ['Milk', 90, "w"],
       ['Bread Crumbs', 35, "w"],
       ['Onion', 35, "d"],
       ['Egg', 27, "w"],
@@ -961,7 +1020,7 @@ Alternatively, they can be baked at 350° for 15 minutes`;
   }
 
   // * Tortillas
-  else if (name.includes("Tortillas")) {
+  else if (name.includes("Tortillas") && !name.includes("Sonoran")) {
     recipe = [
       ['Masa', 90, "d"],
       ['Water', 110, "w"],

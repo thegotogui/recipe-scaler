@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sous Vide Time &amp; Temperature Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --bg: #17140f;
+    --bg-panel: #1e1a14;
+    --bg-panel-2: #241f18;
+    --hairline: #3a3327;
+    --ink: #ede6d8;
+    --ink-dim: #b3aa97;
+    --ink-faint: #7c7462;
+    --amber: #d99a4e;
+    --amber-soft: #d99a4e33;
+    --beef: #c1543f;
+    --chicken: #d9a441;
+    --fish: #e0a4a0;
+    --tuna: #9c3b3b;
+  }
+
+  *{ box-sizing: border-box; font-variant-numeric: lining-nums; }
+  input[type=number]{ font-feature-settings: "lnum" 1; }
+
+  body{
+    margin:0;
+    background: radial-gradient(ellipse at top, #1c1810 0%, var(--bg) 55%);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    padding: 48px 24px 80px;
+  }
+
+  header{ max-width: 1040px; margin: 0 auto 40px; }
+  h1{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  header p{
+    color: var(--ink-dim);
+    font-size: 0.95rem;
+    margin: 0;
+    max-width: 60ch;
+    line-height: 1.5;
+  }
+
+  .dish-select{ margin-top: 20px; }
+  .dish-select label{
+    display:block; color: var(--ink-faint); font-family:'IBM Plex Mono', monospace;
+    font-size: 0.7rem; margin-bottom: 6px;
+  }
+  .dish-select select{
+    background: var(--bg-panel); color: var(--ink); border: 1px solid var(--hairline);
+    border-radius: 8px; font-family: 'Work Sans', sans-serif; font-size: 0.9rem;
+    padding: 9px 14px; cursor: pointer; min-width: 220px;
+  }
+  .dish-select select:focus{ outline: 1px solid var(--amber); }
+
+  main{
+    max-width: 1040px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .card{
+    background: var(--bg-panel);
+    border: 1px solid var(--hairline);
+    border-radius: 14px;
+    padding: 26px 24px 24px;
+    display:flex; flex-direction:column;
+  }
+  .card .accent{ height:3px; width:36px; border-radius:2px; margin-bottom:16px; }
+  .card[data-protein="beef"] .accent{ background: var(--beef); }
+  .card[data-protein="chicken"] .accent{ background: var(--chicken); }
+  .card[data-protein="fish"] .accent{ background: var(--fish); }
+  .card[data-protein="tuna"] .accent{ background: var(--tuna); }
+
+  .card h2{
+    font-family:'Fraunces', serif; font-weight:500; font-size:1.4rem; margin:0 0 4px;
+  }
+  .byline{
+    color: var(--ink-faint); font-size: 0.75rem; margin-bottom: 14px;
+  }
+  .summary{ color: var(--ink-dim); font-size: 0.88rem; line-height:1.55; margin-bottom: 20px; }
+
+  .readout{
+    background: var(--bg-panel-2);
+    border: 1px solid var(--hairline);
+    border-radius: 10px;
+    padding: 16px 16px 14px;
+    margin-bottom: 16px;
+  }
+  .readout .doneness{
+    font-family:'Fraunces', serif; font-size: 1.1rem;
+    color: var(--ink); margin-bottom: 10px; min-height: 1.3em;
+  }
+  .row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:'IBM Plex Mono', monospace; font-size: 0.85rem;
+    border-bottom: 1px dotted var(--hairline);
+    padding: 5px 0;
+  }
+  .row:last-child{ border-bottom:none; }
+  .row .k{ color: var(--ink-faint); }
+  .row .v{ color: var(--amber); }
+
+  .slider-wrap{ margin: 4px 0 18px; }
+  input[type=range]{
+    -webkit-appearance:none; -moz-appearance:none; appearance:none;
+    width:100%; height: 8px; border-radius: 4px;
+    outline:none; margin: 10px 0 6px;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:16px; height:16px; border-radius:50%;
+    background: var(--ink); border: 2px solid #17140f; cursor:pointer;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.35), 0 0 0 1px var(--amber);
+    margin-top: -4px;
+  }
+  input[type=range]::-moz-range-thumb{
+    width:14px; height:14px; border-radius:50%; background: var(--ink);
+    border: 2px solid #17140f; cursor:pointer;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.35), 0 0 0 1px var(--amber);
+  }
+  input[type=range]::-moz-range-track{ height:8px; border-radius:4px; }
+  .ticks{
+    display:flex; justify-content:space-between;
+    font-family:'IBM Plex Mono', monospace; font-size: 0.65rem; color: var(--ink-faint);
+  }
+
+  .notes{ margin-top:auto; font-size: 0.78rem; color: var(--ink-faint); line-height:1.5; }
+  .notes p{ margin: 6px 0; }
+  .notes .safety{ color: #d9846b; }
+  .notes .safety::before{ content: "⚠ "; }
+
+  footer{
+    max-width:1040px; margin: 48px auto 0; color: var(--ink-faint);
+    font-size: 0.78rem; line-height:1.6; border-top: 1px dotted var(--hairline); padding-top:20px;
+  }
+  footer a{ color: var(--ink-dim); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Sous Vide Time &amp; Temperature Guide</h1>
+  <p>Beef, chicken, fish, and tuna reference charts adapted from J. Kenji López-Alt's sous vide guides on Serious Eats. Drag the slider to see how doneness, texture, and hold time change with temperature.</p>
+  <div class="dish-select">
+    <label for="dishPicker">Dish</label>
+    <select id="dishPicker"></select>
+  </div>
+</header>
+
+<main id="cards"></main>
+
+<footer>
+  Source data adapted from Serious Eats' sous vide steak, chicken breast, salmon, and tuna guides (J. Kenji López-Alt). Always confirm doneness with an instant-read thermometer and follow food-safety minimums for extended low-temperature cooks.
+</footer>
+
+<script>
+const recipes = [
+  {
+    id: "beef",
+    protein: "beef",
+    name: "Steak — Ribeye &amp; Strip",
+    byline: "Serious Eats · Sous Vide Steak Guide",
+    summary: "Highly marbled cuts like Prime ribeye and strip hold up well a few degrees warmer than lean cuts. Timings below are for steaks 1½–2\" thick.",
+    mode: "continuous",
+    min: 118, max: 166,
+    tiers: [
+      { label: "Very rare to rare", lo: 120, hi: 128, time: "1h – 2h 30m" },
+      { label: "Medium-rare",       lo: 129, hi: 134, time: "1h – 4h" },
+      { label: "Medium",            lo: 135, hi: 144, time: "1h – 4h" },
+      { label: "Medium-well",       lo: 145, hi: 155, time: "1h – 3h 30m" },
+      { label: "Well done",         lo: 156, hi: 166, time: "1h – 3h" }
+    ],
+    finishing: "Pat bag-wet steak fully dry, then sear hard and fast in a screaming-hot pan or over a hot grill.",
+    safety: "Below 130°F, don't hold longer than 2h 30m — food-safety limit for extended low-temp cooks.",
+    thicknessNote: "For steaks 1\" or thinner, cut the initial time to about 40 minutes.",
+    trackGradient: "linear-gradient(90deg, #e6a08c 0%, #c1543f 30%, #8f4a34 62%, #5c3a2c 100%)"
+  },
+  {
+    id: "chicken",
+    protein: "chicken",
+    name: "Chicken Breast",
+    byline: "Serious Eats · Sous Vide Chicken Breast",
+    summary: "Boneless, skinless breast, seasoned and bagged. Sous vide gets you edge-to-edge doneness that traditional cooking can't match.",
+    mode: "stepped",
+    min: 140, max: 160,
+    tiers: [
+      { label: "Very soft &amp; juicy, served hot", temp: 140, time: "1h 30m – 4h" },
+      { label: "Tender &amp; juicy, served cold (for chicken salad)", temp: 150, time: "1h – 4h" },
+      { label: "Juicy, tender, slightly stringy, served hot", temp: 150, time: "1h – 4h" },
+      { label: "Traditional — firm &amp; juicy, served hot", temp: 160, time: "1h – 4h" }
+    ],
+    finishing: "Remove from the bag, pat dry, then sear skin-side down in a hot skillet for color, or skip searing for salads.",
+    safety: null,
+    thicknessNote: null,
+    trackGradient: "linear-gradient(90deg, #eec7a3 0%, #f2dcc4 45%, #f5ede0 100%)"
+  },
+  {
+    id: "fish",
+    protein: "fish",
+    name: "Salmon",
+    byline: "Serious Eats · Sous Vide Salmon",
+    summary: "Skin-on fillets, salted 30 minutes ahead. Salmon is far more temperature-sensitive than meat — a few degrees make a dramatic textural difference.",
+    mode: "stepped",
+    min: 105, max: 130,
+    tiers: [
+      { label: "Firm, like sashimi", temp: 105, time: "45 min" },
+      { label: "Soft and buttery", temp: 110, time: "45 min" },
+      { label: "Translucent, just starting to flake", temp: 115, time: "45 min" },
+      { label: "Very moist, tender, and flaky", temp: 120, time: "45 min" },
+      { label: "Firm, moist, and flaky", temp: 130, time: "45 min" }
+    ],
+    finishing: "Blot dry and serve as-is, or sear briefly in hot oil for a caramelized exterior.",
+    safety: null,
+    thicknessNote: "Times given for fillets up to 1\" thick; add 15 minutes for fillets up to 2\" thick.",
+    trackGradient: "linear-gradient(90deg, #d94f4f 0%, #e0857a 40%, #eeb2a4 70%, #f4cabf 100%)"
+  },
+  {
+    id: "tuna",
+    protein: "tuna",
+    name: "Tuna",
+    byline: "Serious Eats · Sous Vide Tuna",
+    summary: "Tuna steaks, salted and bagged. Sous vide lets you serve tuna heated just enough to firm up while keeping a translucent, deep red sashimi-like color.",
+    mode: "stepped",
+    min: 105, max: 130,
+    tiers: [
+      { label: "Nearly raw, rare with slight firming, best served chilled", temp: 105, time: "45 min" },
+      { label: "Very moist and just firmed, best seared", temp: 110, time: "45 min" },
+      { label: "Meaty and moist, best seared", temp: 115, time: "45 min" },
+      { label: "Firm and dry, like a well-done steak, best seared", temp: 120, time: "45 min" },
+      { label: "Canned-tuna texture, dry, firm, and crumbly", temp: 130, time: "45 min" }
+    ],
+    finishing: "Pat dry, then sear very briefly in hot oil on all sides for color, or serve chilled straight from the bag.",
+    safety: null,
+    thicknessNote: "Times given for steaks 1½–2\" thick.",
+    trackGradient: "linear-gradient(90deg, #8a1620 0%, #b23a3a 30%, #9c5a4a 65%, #6b4a3a 100%)"
+  }
+];
+
+function f2c(f){ return (f - 32) * 5/9; }
+function fmtTemp(f){
+  return `${Math.round(f)}°F / ${Math.round(f2c(f)*10)/10}°C`;
+}
+
+function findBeefTier(temp){
+  return recipes[0].tiers.find(t => temp >= t.lo && temp <= t.hi) || recipes[0].tiers[recipes[0].tiers.length-1];
+}
+function nearestSteppedTier(recipe, temp){
+  return recipe.tiers.reduce((best, t) =>
+    Math.abs(t.temp - temp) < Math.abs(best.temp - temp) ? t : best
+  , recipe.tiers[0]);
+}
+
+const cardsEl = document.getElementById('cards');
+
+recipes.forEach(recipe => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.dataset.protein = recipe.protein;
+
+  const startVal = recipe.mode === 'continuous' ? recipe.tiers[1].lo : recipe.tiers[0].temp;
+
+  card.innerHTML = `
+    <div class="accent"></div>
+    <h2>${recipe.name}</h2>
+    <div class="byline">${recipe.byline}</div>
+    <p class="summary">${recipe.summary}</p>
+
+    <div class="readout">
+      <div class="doneness" id="${recipe.id}-doneness"></div>
+      <div class="row"><span class="k">temperature</span><span class="v" id="${recipe.id}-temp"></span></div>
+      <div class="row"><span class="k">hold time</span><span class="v" id="${recipe.id}-time"></span></div>
+    </div>
+
+    <div class="slider-wrap">
+      <input type="range" id="${recipe.id}-slider" min="${recipe.min}" max="${recipe.max}" step="1" value="${startVal}" style="background:${recipe.trackGradient}">
+      <div class="ticks"><span>${fmtTemp(recipe.min)}</span><span>${fmtTemp(recipe.max)}</span></div>
+    </div>
+
+    <div class="notes">
+      ${recipe.thicknessNote ? `<p>${recipe.thicknessNote}</p>` : ''}
+      ${recipe.safety ? `<p class="safety">${recipe.safety}</p>` : ''}
+      <p>Finish: ${recipe.finishing}</p>
+    </div>
+  `;
+  cardsEl.appendChild(card);
+});
+
+function updateCard(recipe){
+  const slider = document.getElementById(`${recipe.id}-slider`);
+  const temp = Number(slider.value);
+  let tier, tempDisplay;
+
+  if (recipe.mode === 'continuous'){
+    tier = findBeefTier(temp);
+    tempDisplay = fmtTemp(temp);
+  } else {
+    tier = nearestSteppedTier(recipe, temp);
+    slider.value = tier.temp;
+    tempDisplay = fmtTemp(tier.temp);
+  }
+
+  document.getElementById(`${recipe.id}-doneness`).innerHTML = tier.label;
+  document.getElementById(`${recipe.id}-temp`).textContent = tempDisplay;
+  document.getElementById(`${recipe.id}-time`).textContent = tier.time;
+}
+
+recipes.forEach(recipe => {
+  const slider = document.getElementById(`${recipe.id}-slider`);
+  slider.addEventListener('input', () => updateCard(recipe));
+  updateCard(recipe);
+});
+
+const picker = document.getElementById('dishPicker');
+recipes.forEach(recipe => {
+  const opt = document.createElement('option');
+  opt.value = recipe.id;
+  opt.textContent = recipe.name.replace(/&amp;/g, '&');
+  picker.appendChild(opt);
+});
+
+function showDish(id){
+  recipes.forEach(recipe => {
+    document.querySelector(`.card[data-protein="${recipe.protein}"]`).style.display =
+      recipe.id === id ? 'flex' : 'none';
+  });
+}
+
+picker.addEventListener('change', () => showDish(picker.value));
+showDish(recipes[0].id);
+</script>
+
+</body>
+</html>
