@@ -352,6 +352,13 @@
 				font-size: .75em;
 			}
 		}
+
+		optgroup {
+			font-weight: bold;
+			font-style: italic;
+			color: #2c3e50;
+			background-color: #f8f9fa;
+		}
 	</style>
 	<script src="https://kit.fontawesome.com/c90f708bd9.js" crossorigin="anonymous"></script>
 </head>
@@ -376,118 +383,128 @@
 					<div class="col-11">
 						<select class="theBlocksL" id="recipeSelect" autofocus oninput="changeRecipe();" style="text-align: center; margin: 0px; width: 100%; padding: 0.5rem 1rem;">
 							<option selected>Choose a recipe</option>
-							<option>BREADS----------</option>
-							<option>&nbsp;&nbsp;Baguette</option>
-							<option>&nbsp;&nbsp;Biscuits</option>
-							<option>&nbsp;&nbsp;Blinis</option>
-							<option>&nbsp;&nbsp;Bread for Bread</option>
-							<option>&nbsp;&nbsp;Cornbread</option>
-							<option>Crepes----</option>
-							<option>&nbsp;&nbsp;Classic Crepes</option>
-							<option>&nbsp;&nbsp;Ti Couz Crepes</option>
-							<!-- <option>&nbsp;&nbsp;Sourdough Crepes</option> -->
-							<option>&nbsp;&nbsp;Focaccia</option>
-							<option>&nbsp;&nbsp;Dutch Baby</option>
-							<option>&nbsp;&nbsp;Injeera</option>
-							<option>&nbsp;&nbsp;Naan</option>
-							<option>&nbsp;&nbsp;Pita Bread</option>
-							<option>&nbsp;&nbsp;Sourdough Bread</option>
-							<!-- <option>&nbsp;&nbsp;Levain for Bread</option> -->
-							<option>&nbsp;&nbsp;Sonoran Flour Tortillas</option>
-							<option>&nbsp;&nbsp;Tatty Scones</option>
-							<option>&nbsp;&nbsp;Tortillas</option>
-							<option>Pizza----</option>
-							<option>&nbsp;&nbsp;Classic Pizza Dough</option>
-							<option>&nbsp;&nbsp;Sourdough Pizza Dough</option>
-							<option>&nbsp;&nbsp;Vito's Pizza Dough</option>
-							<option>&nbsp;&nbsp;Neapolitan Pizza Dough</option>
-							<option>DRESSINGS----------</option>
-							<option>&nbsp;&nbsp;Caesar Dressing</option>
-							<option>&nbsp;&nbsp;Garlic and Soy</option>
-							<option>&nbsp;&nbsp;Ginger Sesame</option>
-							<option>&nbsp;&nbsp;Miso Roasted Pak Choi</option>
-							<option>&nbsp;&nbsp;Niçoise Dressing</option>
-							<option>&nbsp;&nbsp;Ranch</option>
-							<option>SAUCES----------</option>
-							<option>&nbsp;&nbsp;Pasta Sauce</option>
-							<option>&nbsp;&nbsp;Caper Sauce</option>
-							<option>&nbsp;&nbsp;Gnocchi Sauce</option>
-							<option>&nbsp;&nbsp;Bechamel</option>
-							<option>&nbsp;&nbsp;Chimichurri</option>
-							<option>&nbsp;&nbsp;Salsa Verde</option>
-							<option>&nbsp;&nbsp;Puerto Rican Garlic Sauce</option>
-							<option>&nbsp;&nbsp;Zhug</option>
-							<option>&nbsp;&nbsp;Bolognese</option>
-							<option>&nbsp;&nbsp;Hollandaise</option>
-							<option>&nbsp;&nbsp;Miso</option>
-							<option>&nbsp;&nbsp;Pesto</option>
-							<option>&nbsp;&nbsp;Ponzu</option>
-							<option>&nbsp;&nbsp;Ssamjang</option>
-							<option>&nbsp;&nbsp;Tonnato</option>
-							<option>&nbsp;&nbsp;Trapanese</option>
-							<option>&nbsp;&nbsp;Vodka Sauce</option>
-							<option>&nbsp;&nbsp;Wasabi Mayo Sauce for Ahi Tuna</option>
-							<option>PASTAS DOUGHS---------</option>
-							<option>&nbsp;&nbsp;Agnolotti</option>
-							<option>&nbsp;&nbsp;Al Dente</option>
-							<option>&nbsp;&nbsp;All Durum</option>
-							<option>&nbsp;&nbsp;Basic dough egg and flour</option>
-							<option>&nbsp;&nbsp;Basic Semolina egg and flour</option>
-							<option>&nbsp;&nbsp;Cavatelli</option>
-							<option>&nbsp;&nbsp;Chitarra</option>
-							<option>&nbsp;&nbsp;Culurgione Pasta Dough</option>
-							<option>&nbsp;&nbsp;Culurgione Filling</option>
-							<option>&nbsp;&nbsp;Potato Gnocchi</option>
-							<option>&nbsp;&nbsp;Ricotta Gnocchi</option>
-							<option>&nbsp;&nbsp;Ravioli</option>
-							<option>&nbsp;&nbsp;Stracciatella</option>
-							<option>&nbsp;&nbsp;Uncooked vs Cooked Dry Pasta</option>
-							<option>MAINS----------</option>
-							<option>&nbsp;&nbsp;Albondigas</option>
-							<option>&nbsp;&nbsp;Burger</option>
-							<option>&nbsp;&nbsp;Chicken Karaage</option>
-							<option>&nbsp;&nbsp;Meatballs</option>
-							<option>&nbsp;&nbsp;Risotto</option>
-							<option>&nbsp;&nbsp;Shakshuka</option>
-							<option>&nbsp;&nbsp;Turkey Masala</option>
-							<option>&nbsp;&nbsp;Turmeric Chicken</option>
-							<option>&nbsp;&nbsp;Welsh Rarebit</option>
-							<option>SIDES----------</option>
-							<option>&nbsp;&nbsp;Egg Topping</option>
-							<option>&nbsp;&nbsp;Farro</option>
-							<option>&nbsp;&nbsp;Half Sour</option>
-							<option>&nbsp;&nbsp;Kale</option>
-							<option>&nbsp;&nbsp;Lentils</option>
-							<option>&nbsp;&nbsp;Masa Dumplings</option>
-							<option>&nbsp;&nbsp;Mashed Potatoes</option>
-							<option>&nbsp;&nbsp;Pickled Onion</option>
-							<option>&nbsp;&nbsp;Polenta</option>
-							<option>&nbsp;&nbsp;Zuni Zucchini Pickles</option>
-							<option>RICES----------</option>
-							<option>&nbsp;&nbsp;Jasmine/Basmati</option>
-							<option>&nbsp;&nbsp;Roma</option>
-							<option>&nbsp;&nbsp;Spanish</option>
-							<option>&nbsp;&nbsp;Sushi</option>
-							<option>&nbsp;&nbsp;White Rice</option>
-							<option>DRINKS----------</option>
-							<option>&nbsp;&nbsp;Bloody Mary</option>
-							<option>&nbsp;&nbsp;Bullshot</option>
-							<option>&nbsp;&nbsp;Cable Car</option>
-							<option>&nbsp;&nbsp;Campari Spritz</option>
-							<option>&nbsp;&nbsp;Julep</option>
-							<option>&nbsp;&nbsp;Jungle Bird</option>
-							<option>&nbsp;&nbsp;Lemonade Spritzer</option>
-							<option>&nbsp;&nbsp;Margarita</option>
-							<option>&nbsp;&nbsp;Mai Tai</option>
-							<option>&nbsp;&nbsp;Mexican</option>
-							<option>&nbsp;&nbsp;Mojito</option>
-							<option>&nbsp;&nbsp;Sangrita</option>
-							<option>&nbsp;&nbsp;Soda</option>
-							<option>&nbsp;&nbsp;Tea</option>
-							<option>MISC----------</option>
-							<option>&nbsp;&nbsp;Bread Crumbs</option>
-							<option>TEST</option>
-							<option>MISMATCH</option>
+							<optgroup label="Breads">
+								<option>Baguette</option>
+								<option>Biscuits</option>
+								<option>Blinis</option>
+								<option>Bread for Bread</option>
+								<option>Cornbread</option>
+							</optgroup>
+							<optgroup label="Crepes">
+								<option>Classic Crepes</option>
+								<option>Ti Couz Crepes</option>
+								<!-- <option>&nbsp;&nbsp;Sourdough Crepes</option> -->
+							</optgroup>
+							<optgroup label="Other">
+								<option>Focaccia</option>
+								<option>Dutch Baby</option>
+								<option>Injeera</option>
+								<option>Naan</option>
+								<option>Pita Bread</option>
+								<option>Sourdough Bread</option>
+								<!-- <option>Levain for Bread</option> -->
+								<option>Sonoran Flour Tortillas</option>
+								<option>Tatty Scones</option>
+								<option>Tortillas</option>
+							<optgroup label="Pizza">
+								<option>Classic Pizza Dough</option>
+								<option>Sourdough Pizza Dough</option>
+								<option>Vito's Pizza Dough</option>
+								<option>Neapolitan Pizza Dough</option>
+							</optgroup>
+							<optgroup label="Dressings">
+								<option>Caesar Dressing</option>
+								<option>Garlic and Soy</option>
+								<option>Ginger Sesame</option>
+								<option>Miso Roasted Pak Choi</option>
+								<option>Niçoise Dressing</option>
+								<option>Ranch</option>
+							<optgroup label="Sauces">
+								<option>Pasta Sauce</option>
+								<option>Caper Sauce</option>
+								<option>Gnocchi Sauce</option>
+								<option>Bechamel</option>
+								<option>Chimichurri</option>
+								<option>Salsa Verde</option>
+								<option>Puerto Rican Garlic Sauce</option>
+								<option>Zhug</option>
+								<option>Bolognese</option>
+								<option>Hollandaise</option>
+								<option>Miso</option>
+								<option>Pesto</option>
+								<option>Ponzu</option>
+								<option>Ssamjang</option>
+								<option>Tonnato</option>
+								<option>Trapanese</option>
+								<option>Vodka Sauce</option>
+								<option>Wasabi Mayo Sauce for Ahi Tuna</option>
+							<optgroup label="PASTAS DOUGHS">
+								<option>Agnolotti</option>
+								<option>Al Dente</option>
+								<option>All Durum</option>
+								<option>Basic dough egg and flour</option>
+								<option>Basic Semolina egg and flour</option>
+								<option>Cavatelli</option>
+								<option>Chitarra</option>
+								<option>Culurgione Pasta Dough</option>
+								<option>Culurgione Filling</option>
+								<option>Potato Gnocchi</option>
+								<option>Ricotta Gnocchi</option>
+								<option>Ravioli</option>
+								<option>Stracciatella</option>
+								<option>Uncooked vs Cooked Dry Pasta</option>
+							<optgroup label="MAINS">
+								<option>Albondigas</option>
+								<option>Burger</option>
+								<option>Chicken Karaage</option>
+								<option>Meatballs</option>
+								<option>Risotto</option>
+								<option>Shakshuka</option>
+								<option>Turkey Masala</option>
+								<option>Turmeric Chicken</option>
+								<option>Welsh Rarebit</option>
+							</optgroup>
+							<optgroup label="SIDES">
+								<option>Egg Topping</option>
+								<option>Farro</option>
+								<option>Half Sour</option>
+								<option>Kale</option>
+								<option>Lentils</option>
+								<option>Masa Dumplings</option>
+								<option>Mashed Potatoes</option>
+								<option>Pickled Onion</option>
+								<option>Polenta</option>
+								<option>Zuni Zucchini Pickles</option>
+							</optgroup>
+							<optgroup label="RICES">
+								<option>Jasmine/Basmati</option>
+								<option>Roma</option>
+								<option>Spanish</option>
+								<option>Sushi</option>
+								<option>White Rice</option>
+							</optgroup>
+							<optgroup label="DRINKS">
+								<option>Bloody Mary</option>
+								<option>Bullshot</option>
+								<option>Cable Car</option>
+								<option>Campari Spritz</option>
+								<option>Julep</option>
+								<option>Jungle Bird</option>
+								<option>Lemonade Spritzer</option>
+								<option>Margarita</option>
+								<option>Mai Tai</option>
+								<option>Mexican</option>
+								<option>Mojito</option>
+								<option>Sangrita</option>
+								<option>Soda</option>
+								<option>Tea</option>
+							</optgroup>
+							<optgroup label="MISC">
+								<option>Bread Crumbs</option>
+								<option>Iced Coffee</option>
+								<option>TEST</option>
+								<option>MISMATCH</option>
+							</optgroup>
 						</select>
 
 					</div>

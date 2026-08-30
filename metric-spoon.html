@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metric Spoon — imperial to metric ingredient converter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #17140f;
+    --surface: #1f1b14;
+    --surface-raised: #262119;
+    --text: #f1ece1;
+    --text-dim: #a89d89;
+    --text-faint: #6f6653;
+    --accent: #d9a441;
+    --accent-dim: #8c7134;
+    --border: #362f22;
+    --border-soft: #2a251b;
+
+    --font-display: 'Fraunces', serif;
+    --font-ui: 'Work Sans', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  * {
+    box-sizing: border-box;
+    font-variant-numeric: lining-nums;
+    font-feature-settings: 'lnum' 1;
+  }
+  input[type=number]{
+    font-variant-numeric: lining-nums;
+    font-feature-settings: 'lnum' 1;
+  }
+
+  html, body{
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-ui);
+  }
+
+  body{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 48px 20px 80px;
+  }
+
+  .wrap{
+    width: 100%;
+    max-width: 640px;
+  }
+
+  header{
+    margin-bottom: 40px;
+  }
+
+  .eyebrow{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+
+  h1{
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 1.08;
+    margin: 0 0 12px;
+    color: var(--text);
+  }
+
+  h1 em{
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .sub{
+    color: var(--text-dim);
+    font-size: 15px;
+    line-height: 1.55;
+    max-width: 52ch;
+    margin: 0;
+  }
+
+  /* ---- ingredient picker ---- */
+
+  .picker{
+    position: relative;
+    margin-bottom: 28px;
+  }
+
+  .picker label{
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: var(--text-faint);
+    margin-bottom: 8px;
+  }
+
+  #ingredientInput{
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 500;
+    padding: 14px 16px;
+    border-radius: 3px;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+
+  #ingredientInput:focus{
+    border-color: var(--accent-dim);
+  }
+
+  #ingredientInput::placeholder{
+    color: var(--text-faint);
+    font-style: italic;
+  }
+
+  .suggestions{
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    max-height: 320px;
+    overflow-y: auto;
+    z-index: 20;
+    display: none;
+  }
+
+  .suggestions.open{ display: block; }
+
+  .sugg-group-label{
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--text-faint);
+    padding: 10px 14px 4px;
+  }
+
+  .sugg-item{
+    padding: 9px 14px;
+    cursor: pointer;
+    font-size: 14.5px;
+    color: var(--text-dim);
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .sugg-item:hover, .sugg-item.active{
+    background: var(--surface);
+    color: var(--text);
+  }
+
+  .sugg-item .note{
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-faint);
+    white-space: nowrap;
+  }
+
+  /* ---- quick convert ---- */
+
+  .quick{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px;
+    margin-bottom: 32px;
+  }
+
+  .quick-row{
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .field{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .field label{
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    color: var(--text-faint);
+  }
+
+  #amountInput{
+    width: 90px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 16px;
+    padding: 10px 12px;
+    border-radius: 3px;
+    outline: none;
+  }
+
+  #amountInput:focus{ border-color: var(--accent-dim); }
+
+  .unit-select{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    flex: 1;
+  }
+
+  .unit-btn{
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--text-dim);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 9px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.12s ease;
+  }
+
+  .unit-btn:hover{
+    border-color: var(--accent-dim);
+    color: var(--text);
+  }
+
+  .unit-btn.active{
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #1a1509;
+    font-weight: 600;
+  }
+
+  .result{
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--border);
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .result .grams{
+    font-family: var(--font-mono);
+    font-size: 42px;
+    font-weight: 500;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .result .grams-unit{
+    font-family: var(--font-mono);
+    font-size: 18px;
+    color: var(--accent-dim);
+  }
+
+  .result .ml-note{
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--text-faint);
+  }
+
+  .brand-note{
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.5;
+    background: var(--bg);
+    border-left: 2px solid var(--accent-dim);
+    padding: 10px 14px;
+    border-radius: 0 3px 3px 0;
+  }
+
+  /* ---- reference table ---- */
+
+  .table-heading{
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: var(--text-faint);
+    margin: 0 0 12px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  table.ref{
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  table.ref td, table.ref th{
+    text-align: left;
+    padding: 10px 0;
+    font-size: 14.5px;
+  }
+
+  table.ref th{
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.05em;
+    color: var(--text-faint);
+    font-weight: 400;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+  }
+
+  table.ref tbody tr{
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  table.ref tbody tr:last-child{
+    border-bottom: none;
+  }
+
+  .col-unit{
+    color: var(--text);
+    font-family: var(--font-ui);
+  }
+
+  .col-ml{
+    font-family: var(--font-mono);
+    color: var(--text-faint);
+  }
+
+  .col-g{
+    font-family: var(--font-mono);
+    color: var(--accent);
+    font-weight: 500;
+    text-align: right;
+  }
+
+  .leader-row{
+    display: flex;
+    align-items: baseline;
+  }
+
+  footer{
+    margin-top: 40px;
+    font-size: 12.5px;
+    color: var(--text-faint);
+    line-height: 1.6;
+  }
+
+  footer p{ margin: 0 0 8px; }
+
+  @media (max-width: 480px){
+    h1{ font-size: 32px; }
+    .result .grams{ font-size: 34px; }
+    .quick{ padding: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">volume → weight</p>
+    <h1>Metric <em>Spoon</em></h1>
+    <p class="sub">Cups, tablespoons, and teaspoons don't weigh the same amount of two different ingredients. Pick one below and convert it properly.</p>
+  </header>
+
+  <div class="picker">
+    <label for="ingredientInput">Ingredient</label>
+    <input type="text" id="ingredientInput" placeholder="Start typing — flour, sugar, butter…" autocomplete="off">
+    <div class="suggestions" id="suggestions"></div>
+  </div>
+
+  <div class="quick">
+    <div class="quick-row">
+      <div class="field">
+        <label for="amountInput">Amount</label>
+        <input type="number" id="amountInput" value="1" min="0" step="any">
+      </div>
+      <div class="field" style="flex:1;">
+        <label>Unit</label>
+        <div class="unit-select" id="unitSelect"></div>
+      </div>
+    </div>
+
+    <div class="result">
+      <span class="grams" id="resultGrams">—</span>
+      <span class="grams-unit">g</span>
+      <span class="ml-note" id="resultMl"></span>
+    </div>
+
+    <div class="brand-note" id="brandNote" style="display:none;"></div>
+  </div>
+
+  <p class="table-heading">
+    <span id="tableTitle">full conversion</span>
+    <span>g / weight</span>
+  </p>
+
+  <table class="ref">
+    <thead>
+      <tr>
+        <th style="width:40%;">imperial</th>
+        <th style="width:30%;">ml</th>
+        <th style="width:30%; text-align:right;">grams</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+
+  <footer>
+    <p>Weights are typical values for the ingredient as commonly measured (spooned & leveled for dry goods) — brand, humidity, and packing all shift the real number by a few percent. When it matters, weigh it.</p>
+    <p id="dcNote">Diamond Crystal and Morton kosher salt are listed separately because their crystal shapes give the same cup a very different weight — using the wrong one in a bread or brine recipe changes the salt level substantially.</p>
+  </footer>
+
+</div>
+
+<script>
+// ---- unit definitions: fraction of a US cup, and fixed ml ----
+const UNITS = [
+  { key: 'tsp',   label: '1 tsp',     frac: 1/48, ml: 4.93   },
+  { key: 'tbsp',  label: '1 tbsp',    frac: 1/16, ml: 14.79  },
+  { key: 'q_cup', label: '¼ cup',     frac: 1/4,  ml: 59.15  },
+  { key: 't_cup', label: '⅓ cup',     frac: 1/3,  ml: 78.86  },
+  { key: 'h_cup', label: '½ cup',     frac: 1/2,  ml: 118.29 },
+  { key: 'cup',   label: '1 cup',     frac: 1,    ml: 236.59 },
+];
+
+// ---- ingredient density data: grams per US cup (spooned & leveled) ----
+const INGREDIENTS = [
+  { group: 'Flours & starches', name: 'All-purpose flour', g: 120 },
+  { group: 'Flours & starches', name: 'Bread flour', g: 127 },
+  { group: 'Flours & starches', name: 'Whole wheat flour', g: 113 },
+  { group: 'Flours & starches', name: 'Cake flour', g: 114 },
+  { group: 'Flours & starches', name: 'Buckwheat flour', g: 120 },
+  { group: 'Flours & starches', name: 'Almond flour', g: 96 },
+  { group: 'Flours & starches', name: 'Rice flour', g: 158 },
+  { group: 'Flours & starches', name: 'Cornstarch', g: 120 },
+  { group: 'Flours & starches', name: 'Cornmeal', g: 138 },
+
+  { group: 'Sugars & sweeteners', name: 'Granulated sugar', g: 200 },
+  { group: 'Sugars & sweeteners', name: 'Brown sugar, packed', g: 213 },
+  { group: 'Sugars & sweeteners', name: 'Powdered sugar', g: 113 },
+  { group: 'Sugars & sweeteners', name: 'Honey', g: 340, liquid: true },
+  { group: 'Sugars & sweeteners', name: 'Maple syrup', g: 322, liquid: true },
+  { group: 'Sugars & sweeteners', name: 'Molasses', g: 328, liquid: true },
+  { group: 'Sugars & sweeteners', name: 'Corn syrup', g: 328, liquid: true },
+
+  { group: 'Fats & dairy', name: 'Butter', g: 227 },
+  { group: 'Fats & dairy', name: 'Vegetable oil', g: 218, liquid: true },
+  { group: 'Fats & dairy', name: 'Olive oil', g: 216, liquid: true },
+  { group: 'Fats & dairy', name: 'Milk', g: 240, liquid: true },
+  { group: 'Fats & dairy', name: 'Heavy cream', g: 232, liquid: true },
+  { group: 'Fats & dairy', name: 'Sour cream', g: 240 },
+  { group: 'Fats & dairy', name: 'Plain yogurt', g: 245 },
+  { group: 'Fats & dairy', name: 'Water', g: 236, liquid: true },
+  { group: 'Fats & dairy', name: 'Shredded cheddar', g: 113 },
+  { group: 'Fats & dairy', name: 'Grated parmesan', g: 100 },
+
+  { group: 'Grains & legumes', name: 'Rolled oats', g: 85 },
+  { group: 'Grains & legumes', name: 'Quick oats', g: 90 },
+  { group: 'Grains & legumes', name: 'White rice, uncooked', g: 185 },
+  { group: 'Grains & legumes', name: 'Brown rice, uncooked', g: 190 },
+  { group: 'Grains & legumes', name: 'Dried lentils', g: 192 },
+  { group: 'Grains & legumes', name: 'Dried breadcrumbs', g: 108 },
+  { group: 'Grains & legumes', name: 'Panko breadcrumbs', g: 60 },
+
+  { group: 'Leaveners & seasoning', name: 'Table salt', g: 288 },
+  { group: 'Leaveners & seasoning', name: 'Diamond Crystal kosher salt', g: 137,
+    note: 'Daniel\'s salt' },
+  { group: 'Leaveners & seasoning', name: 'Morton kosher salt', g: 241 },
+  { group: 'Leaveners & seasoning', name: 'Baking powder', g: 220 },
+  { group: 'Leaveners & seasoning', name: 'Baking soda', g: 288 },
+  { group: 'Leaveners & seasoning', name: 'Ground cinnamon', g: 100 },
+  { group: 'Leaveners & seasoning', name: 'Cocoa powder, unsweetened', g: 84 },
+  { group: 'Leaveners & seasoning', name: 'Vanilla extract', g: 208, liquid: true },
+
+  { group: 'Nuts', name: 'Chopped walnuts', g: 100 },
+  { group: 'Nuts', name: 'Sliced almonds', g: 92 },
+];
+
+let current = INGREDIENTS.find(i => i.name === 'All-purpose flour');
+let currentUnit = 'cup';
+
+const ingredientInput = document.getElementById('ingredientInput');
+const suggestionsEl = document.getElementById('suggestions');
+const amountInput = document.getElementById('amountInput');
+const unitSelectEl = document.getElementById('unitSelect');
+const resultGrams = document.getElementById('resultGrams');
+const resultMl = document.getElementById('resultMl');
+const brandNote = document.getElementById('brandNote');
+const tableTitle = document.getElementById('tableTitle');
+const tableBody = document.getElementById('tableBody');
+
+function buildUnitButtons(){
+  unitSelectEl.innerHTML = '';
+  UNITS.forEach(u => {
+    const btn = document.createElement('button');
+    btn.className = 'unit-btn' + (u.key === currentUnit ? ' active' : '');
+    btn.textContent = u.label;
+    btn.type = 'button';
+    btn.addEventListener('click', () => {
+      currentUnit = u.key;
+      buildUnitButtons();
+      render();
+    });
+    unitSelectEl.appendChild(btn);
+  });
+}
+
+function renderSuggestions(query){
+  const q = query.trim().toLowerCase();
+  const groups = {};
+  INGREDIENTS.forEach(ing => {
+    if (!q || ing.name.toLowerCase().includes(q)){
+      if (!groups[ing.group]) groups[ing.group] = [];
+      groups[ing.group].push(ing);
+    }
+  });
+
+  suggestionsEl.innerHTML = '';
+  const groupNames = Object.keys(groups);
+  if (groupNames.length === 0){
+    suggestionsEl.classList.remove('open');
+    return;
+  }
+
+  groupNames.forEach(gName => {
+    const label = document.createElement('div');
+    label.className = 'sugg-group-label';
+    label.textContent = gName;
+    suggestionsEl.appendChild(label);
+
+    groups[gName].forEach(ing => {
+      const item = document.createElement('div');
+      item.className = 'sugg-item';
+      const nameSpan = document.createElement('span');
+      nameSpan.textContent = ing.name;
+      item.appendChild(nameSpan);
+      const noteSpan = document.createElement('span');
+      noteSpan.className = 'note';
+      noteSpan.textContent = ing.g + ' g/cup';
+      item.appendChild(noteSpan);
+      item.addEventListener('click', () => {
+        current = ing;
+        ingredientInput.value = ing.name;
+        suggestionsEl.classList.remove('open');
+        render();
+      });
+      suggestionsEl.appendChild(item);
+    });
+  });
+
+  suggestionsEl.classList.add('open');
+}
+
+ingredientInput.addEventListener('focus', () => renderSuggestions(ingredientInput.value));
+ingredientInput.addEventListener('input', () => renderSuggestions(ingredientInput.value));
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.picker')) suggestionsEl.classList.remove('open');
+});
+
+amountInput.addEventListener('input', render);
+
+function fmt(n){
+  if (n === 0) return '0';
+  if (n < 10) return n.toFixed(1).replace(/\.0$/, '');
+  return Math.round(n).toString();
+}
+
+function render(){
+  if (!current) return;
+
+  const amount = parseFloat(amountInput.value) || 0;
+  const unit = UNITS.find(u => u.key === currentUnit);
+  const grams = current.g * unit.frac * amount;
+  const ml = unit.ml * amount;
+
+  resultGrams.textContent = fmt(grams);
+  resultMl.textContent = `(${fmt(ml)} ml by volume — a fixed conversion, not ingredient-specific)`;
+
+  if (current.note){
+    brandNote.style.display = 'block';
+    brandNote.textContent = `${current.note} — hollow, coarse crystals mean this weighs about half of what fine table salt does, cup for cup. Swapping salts by volume without adjusting will change how salty a recipe turns out.`;
+  } else if (current.name.toLowerCase().includes('salt')) {
+    brandNote.style.display = 'block';
+    brandNote.textContent = `Salt density varies a lot by brand and crystal shape — this figure is specific to ${current.name}.`;
+  } else {
+    brandNote.style.display = 'none';
+  }
+
+  tableTitle.textContent = current.name;
+
+  tableBody.innerHTML = '';
+  UNITS.forEach(u => {
+    const row = document.createElement('tr');
+
+    const tdUnit = document.createElement('td');
+    tdUnit.className = 'col-unit';
+    tdUnit.textContent = u.label;
+    row.appendChild(tdUnit);
+
+    const tdMl = document.createElement('td');
+    tdMl.className = 'col-ml';
+    tdMl.textContent = fmt(u.ml) + ' ml';
+    row.appendChild(tdMl);
+
+    const tdG = document.createElement('td');
+    tdG.className = 'col-g';
+    tdG.textContent = fmt(current.g * u.frac) + ' g';
+    row.appendChild(tdG);
+
+    tableBody.appendChild(row);
+  });
+}
+
+buildUnitButtons();
+ingredientInput.value = current.name;
+render();
+</script>
+
+</body>
+</html>

@@ -19,6 +19,15 @@ function goGetRecipe(name) {
     ];
   }
 
+
+  // * Coffee
+  else if (name.includes("Iced Coffee")) {
+    recipe = [
+      ['Water', 500, "w"],
+      ['Ground Coffee', 36, "d"]
+    ];
+  }
+
   // * Wasabi Sauce for Ahi Tuna
   else if (name.includes("Ahi Tuna")) {
     recipe = [
@@ -1184,6 +1193,9 @@ Alternatively, they can be baked at 350° for 15 minutes`;
     ];
   }
 
+
+
+
   // * Injeera
   else if (name.includes("Injeera")) {
     recipe = [
@@ -1351,6 +1363,7 @@ Alternatively, they can be baked at 350° for 15 minutes`;
       ['Loose Tea', 6]
     ];
   }
+
 
   // * Turkey Masala
   else if (name.includes("Turkey Masala")) {

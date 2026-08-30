@@ -102,7 +102,7 @@ const ingredientColors = {
   "#c53333": ["Ground Beef", "Aleppo Pepper", "Chorizo", "Sausage", "Chili Flakes", "Red Pepper Flakes", "Tabasco Sauce", "Cholula"],
   "#464543": ["Black Pepper"],
   "#008ad0": ["Curacao", "Curaçao"],
-  "#503800": ["Guinness", "Worcestershire", "Soy Sauce", "Brown Miso", "Shoyu", "Dark Beer"],
+  "#503800": ["Guinness", "Worcestershire", "Soy Sauce", "Brown Miso", "Shoyu", "Dark Beer", "Coffee", "Espresso", "Dark Chocolate", "Cocoa Powder", "Molasses", "Maple Syrup"],
 };
 
 // Function to find the color of a given input ingredient (partial match)
@@ -258,13 +258,13 @@ function changeRecipe(isItResetting) {
   }
 
   // If the user hasn't chosen a recipe, let them know, reset the dropdown, and exit this function.
-  if (!suppressAlerts) {
-    if (whichRecipe.includes("Choose") || whichRecipe.includes("BREADS") || whichRecipe.includes("DRESSINGS") || whichRecipe.includes("PASTAS") || whichRecipe.includes("SAUCES") || whichRecipe.includes("OTHER") || whichRecipe.includes("DRINKS") || whichRecipe.includes("RICES") || whichRecipe.includes("SIDES")) {
-      alert("That's a category. Please choose a recipe from the dropdown.");
-      chosen.selectedIndex = 0;
-      return;
-    }
-  }
+  // if (!suppressAlerts) {
+  //   if (whichRecipe.includes("Choose") || whichRecipe.includes("BREADS") || whichRecipe.includes("DRESSINGS") || whichRecipe.includes("PASTAS") || whichRecipe.includes("SAUCES") || whichRecipe.includes("OTHER") || whichRecipe.includes("DRINKS") || whichRecipe.includes("RICES") || whichRecipe.includes("SIDES")) {
+  //     alert("That's a category. Please choose a recipe from the dropdown.");
+  //     chosen.selectedIndex = 0;
+  //     return;
+  //   }
+  // }
 
 
   //* Ask recipes.js for the data for this recipe name.
@@ -669,6 +669,14 @@ function butterAndSalt(mode) {
       document.getElementById("ingredient" + fieldCount).value = ingredients[arrayCount] + mmString;
     }
     // ! End Buttermaker
+
+    //* Breadcrumb calculator - Take the desired weight of dry breadcrumbs and calculate how much bread to start with.
+    if (ingredients[arrayCount].includes("Breadcrumbs") || ingredients[arrayCount].includes("Panko") || ingredients[arrayCount].includes("Bread Crumbs")) {
+      let breadWeight = Number(rs[arrayCount] * 1.22).toFixed(1);
+      let breadString = ` (${breadWeight}g bread)`;
+      document.getElementById("ingredient" + fieldCount).value = ingredients[arrayCount] + breadString;
+    }
+
   }
 }
 

@@ -11,57 +11,79 @@
 // up in any UI built from this list.
 
 const RECIPE_CATEGORIES = [
-  { category: "Breads", items: [
-    "French Baguette", "Biscuits", "Blinis", "Bread for Bread", "Cornbread",
-    "Sourdough Starter"
-  ]},
-  { category: "Crepes", items: [
-    "Classic Crepes", "Ti Couz Crepes", "Sourdough Crepes", "Focaccia",
-    "Dutch Baby", "Injeera", "Naan", "Pita", "Sourdough Bread",
-    "Levain for Bread", "Sonoran Flour Tortillas", "Tatty Scones", "Tortillas"
-  ]},
-  { category: "Pizza", items: [
-    "Classic Pizza Dough", "Sourdough Pizza Dough", "Vito's Pizza Dough",
-    "Neapolitan Pizza Dough"
-  ]},
-  { category: "Dressings", items: [
-    "Caesar Dressing", "Garlic and Soy Pak Choi", "Ginger Sesame Pak Choi",
-    "Miso Roasted Pak Choi with Edamame", "Niçoise Dressing", "Ranch Dressing"
-  ]},
-  { category: "Sauces", items: [
-    "Pasta Sauce", "Caper Sauce", "Gnocchi Sauce", "Bechamel", "Chimichurri",
-    "Salsa Verde", "Puerto Rican Garlic Sauce",
-    "Zhug (Yemenite Hot Sauce With Cilantro and Parsley)", "Bolognese",
-    "Hollandaise", "Miso Sauce", "Pesto", "Ponzu Sauce", "Ssamjang Sauce",
-    "Tonnato", "Trapanese Pesto", "Vodka Sauce", "Wasabi Sauce for Ahi Tuna"
-  ]},
-  { category: "Pasta Doughs", items: [
-    "Agnolotti", "Al Dente Pasta Dough", "All Durum Dough",
-    "Basic Pasta (egg and flour)", "Cavatelli", "Chitarra Pasta",
-    "Culurgione Pasta Dough", "Culurgione Filling", "Potato Gnocchi",
-    "Ricotta Gnocchi", "Ravioli Pasta Dough",
-    "Stracciatella Pasta with Lemon and Asparagus", "Cooked vs Uncooked Pasta"
-  ]},
-  { category: "Mains", items: [
-    "Albondigas", "Tini Burger", "Karaage Chicken", "Meatballs", "Risotto",
-    "Shakshuka", "Turkey Masala", "Turmeric Chicken", "Welsh Rarebit"
-  ]},
-  { category: "Sides", items: [
-    "Egg Topping", "Farro", "Half Sour", "Crispy Kale", "Lentils",
-    "Masa Dumplings", "Mashed Potatoes", "Pickled Onion", "Polenta",
-    "Zuni Zuchini Pickles"
-  ]},
-  { category: "Rices", items: [
-    "Jasmine Rice", "Roma Rice", "Spanish Rice", "Sushi Rice", "White Rice"
-  ]},
-  { category: "Drinks", items: [
-    "Bloody Mary", "Bullshot", "Cable Car", "Campari Spritz",
-    "Coconut Rum Julep", "Jungle Bird", "Lemonade Spritzer", "Margarita",
-    "Mai Tai", "Mexican", "Mojito", "Sangrita", "Soda", "Tea"
-  ]},
-  { category: "Misc", items: [
-    "Bread Crumbs"
-  ]}
+  {
+    category: "Breads", items: [
+      "French Baguette", "Biscuits", "Blinis", "Bread for Bread", "Cornbread",
+      "Sourdough Starter"
+    ]
+  },
+  {
+    category: "Crepes", items: [
+      "Classic Crepes", "Ti Couz Crepes", "Sourdough Crepes", "Focaccia",
+      "Dutch Baby", "Injeera", "Naan", "Pita", "Sourdough Bread",
+      "Levain for Bread", "Sonoran Flour Tortillas", "Tatty Scones", "Tortillas"
+    ]
+  },
+  {
+    category: "Pizza", items: [
+      "Classic Pizza Dough", "Sourdough Pizza Dough", "Vito's Pizza Dough",
+      "Neapolitan Pizza Dough"
+    ]
+  },
+  {
+    category: "Dressings", items: [
+      "Caesar Dressing", "Garlic and Soy Pak Choi", "Ginger Sesame Pak Choi",
+      "Miso Roasted Pak Choi with Edamame", "Niçoise Dressing", "Ranch Dressing"
+    ]
+  },
+  {
+    category: "Sauces", items: [
+      "Pasta Sauce", "Caper Sauce", "Gnocchi Sauce", "Bechamel", "Chimichurri",
+      "Salsa Verde", "Puerto Rican Garlic Sauce",
+      "Zhug (Yemenite Hot Sauce With Cilantro and Parsley)", "Bolognese",
+      "Hollandaise", "Miso Sauce", "Pesto", "Ponzu Sauce", "Ssamjang Sauce",
+      "Tonnato", "Trapanese Pesto", "Vodka Sauce", "Wasabi Sauce for Ahi Tuna"
+    ]
+  },
+  {
+    category: "Pasta Doughs", items: [
+      "Agnolotti", "Al Dente Pasta Dough", "All Durum Dough",
+      "Basic Pasta (egg and flour)", "Cavatelli", "Chitarra Pasta",
+      "Culurgione Pasta Dough", "Culurgione Filling", "Potato Gnocchi",
+      "Ricotta Gnocchi", "Ravioli Pasta Dough",
+      "Stracciatella Pasta with Lemon and Asparagus", "Cooked vs Uncooked Pasta"
+    ]
+  },
+  {
+    category: "Mains", items: [
+      "Albondigas", "Tini Burger", "Karaage Chicken", "Meatballs", "Risotto",
+      "Shakshuka", "Turkey Masala", "Turmeric Chicken", "Welsh Rarebit"
+    ]
+  },
+  {
+    category: "Sides", items: [
+      "Egg Topping", "Farro", "Half Sour", "Crispy Kale", "Lentils",
+      "Masa Dumplings", "Mashed Potatoes", "Pickled Onion", "Polenta",
+      "Zuni Zuchini Pickles"
+    ]
+  },
+  {
+    category: "Rices", items: [
+      "Jasmine Rice", "Roma Rice", "Spanish Rice", "Sushi Rice", "White Rice"
+    ]
+  },
+  {
+    category: "Drinks", items: [
+      "Bloody Mary", "Bullshot", "Cable Car", "Campari Spritz",
+      "Coconut Rum Julep", "Jungle Bird", "Lemonade Spritzer", "Margarita",
+      "Mai Tai", "Mexican", "Mojito", "Sangrita", "Soda", "Tea"
+    ]
+  },
+  {
+    category: "Misc", items: [
+      "Bread Crumbs"
+    ]
+  }
 ];
 
 function goGetRecipe(name) {
@@ -1469,6 +1491,15 @@ Alternatively, they can be baked at 350° for 15 minutes`;
       ['Water', 8]
     ];
   }
+  // * Coffee
+  else if (name.includes("Iced Coffee")) {
+    recipe = [
+      ['Water', 500, "w"],
+      ['Ground Coffee', 36, "d"]
+    ];
+  }
+
+
 
   // * Bread Crumbs
   else if (name.includes("Bread Crumbs")) {
