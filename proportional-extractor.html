@@ -41,7 +41,6 @@
       font-weight: 400;
       letter-spacing: 0.02em;
       margin: 0 0 0.25rem;
-      border-bottom: 2px solid var(--rust);
       padding-bottom: 0.6rem;
     }
 
@@ -49,14 +48,13 @@
       color: var(--muted);
       font-size: 0.9rem;
       margin: 0 0 1.75rem;
-      font-style: italic;
     }
 
     .panel {
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: 6px;
-      padding: 1.5rem;
+      padding: .5rem;
       margin-bottom: 1.5rem;
     }
 
@@ -142,8 +140,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 1.25rem;
-      font-size: 0.92rem;
+      font-size: 1rem;
     }
 
     th,
@@ -155,8 +152,14 @@
 
     th {
       color: var(--muted);
-      font-weight: 400;
+      font-weight: bold;
       font-size: 0.92rem;
+    }
+
+    /* Override just the first column */
+    th:first-child,
+    td:first-child {
+      text-align: center;
     }
 
     td.num,
@@ -212,7 +215,7 @@
         </div>
         <div class="field-small">
           <label style="margin-top:0.25rem; font-weight: bold;" for="extractAmount">Amount to extract (ml)</label>
-          <input type="number" id="extractAmount" min="0" step="0.1" value="50">
+          <input type="number" id="extractAmount" min="0" step="1" value="50">
         </div>
       </div>
 
@@ -286,7 +289,7 @@
         div.className = 'bottle-field';
         const val = defaultVolumes[i] !== undefined ? defaultVolumes[i] : 500;
         div.innerHTML = `
-      <label for="bv${i}">Container ${i + 1}</label>
+      <label for="bv${i}">${i + 1}</label>
       <input type="number" id="bv${i}" class="bottle-vol" min="0" step="1" value="${val}">
     `;
         bottleFieldsEl.appendChild(div);
@@ -328,7 +331,7 @@
       volumes.forEach((v, i) => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-      <td>Container ${i + 1}</td>
+      <td>${i + 1}</td>
       <td class="num">${fmt(v, 1)}</td>
       <td class="num">${fmt(shares[i] * 100, 1)}%</td>
       <td class="num">${fmt(extracted[i], 2)}</td>

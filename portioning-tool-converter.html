@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portioning</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --bg: #16140f;
+    --bg-raised: #1d1a14;
+    --line: #34301f;
+    --line-soft: #29261c;
+    --ink: #ece6d6;
+    --ink-dim: #a29a82;
+    --ink-faint: #6e6752;
+    --amber: #d9a441;
+    --amber-dim: #8a6c2f;
+    --negative: #c17a5a;
+    font-variant-numeric: lining-nums;
+  }
+
+  *{ box-sizing: border-box; font-variant-numeric: lining-nums; }
+  input[type=number]{ font-feature-settings: "lnum" 1; }
+
+  html, body{
+    margin:0; padding:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    min-height: 100vh;
+  }
+
+  .wrap{
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  header{
+    margin-bottom: 40px;
+  }
+
+  .eyebrow{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: var(--ink-dim);
+    margin-bottom: 10px;
+  }
+
+  h1{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 34px;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .sub{
+    color: var(--ink-dim);
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 46ch;
+  }
+
+  .panel{
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 24px;
+    margin-bottom: 28px;
+  }
+
+  .field-row{
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+  }
+
+  .field{
+    flex: 1;
+    min-width: 0;
+  }
+
+  label{
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 16px;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  input[type=number]{
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 22px;
+    text-align: right;
+    padding: 4px 0 8px;
+    outline: none;
+    transition: border-color 0.15s ease;
+    -moz-appearance: textfield;
+  }
+  input[type=number]::-webkit-outer-spin-button,
+  input[type=number]::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type=number]:focus{
+    border-bottom-color: var(--amber);
+  }
+
+  .unit-toggle{
+    display: flex;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .unit-toggle button{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    background: transparent;
+    border: none;
+    color: var(--ink-faint);
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .unit-toggle button + button{
+    border-left: 1px solid var(--line);
+  }
+  .unit-toggle button.active{
+    background: var(--amber-dim);
+    color: var(--bg);
+    font-weight: 500;
+  }
+  .unit-toggle button:not(.active):hover{
+    color: var(--ink);
+  }
+
+  .portion-size{
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px dotted var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .portion-size .label{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 16px;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+  .portion-size .value{
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    color: var(--amber);
+  }
+  .portion-size .value .unit{
+    font-family: 'Work Sans', sans-serif;
+    font-size: 15px;
+    color: var(--ink-dim);
+    margin-left: 4px;
+  }
+
+  table{
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead th{
+    text-align: right;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    color: var(--ink-dim);
+    font-weight: 400;
+    padding: 0 0 10px;
+    border-bottom: 1px solid var(--line);
+  }
+  thead th:first-child{ text-align: left; }
+
+  tbody td{
+    padding: 11px 0;
+    border-bottom: 1px dotted var(--line-soft);
+    text-align: right;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 15px;
+  }
+  tbody tr:last-child td{
+    border-bottom: none;
+  }
+  tbody td:first-child{
+    text-align: left;
+    color: var(--ink-dim);
+    font-size: 13px;
+  }
+
+  tbody tr.edited td:first-child{
+    color: var(--amber);
+  }
+  tbody tr.edited td:first-child::after{
+    content: " ·";
+    color: var(--amber);
+  }
+
+  .cell-neg{ color: var(--negative); }
+
+  .editable{
+    background: transparent;
+    border: none;
+    color: var(--ink);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 15px;
+    text-align: right;
+    width: 90px;
+    padding: 3px 4px;
+    border-radius: 2px;
+    outline: none;
+    transition: background 0.15s ease;
+    -moz-appearance: textfield;
+  }
+  .editable::-webkit-outer-spin-button,
+  .editable::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .editable:hover{ background: var(--line-soft); }
+  .editable:focus{ background: var(--line-soft); box-shadow: 0 0 0 1px var(--amber-dim); }
+  .editable.cell-neg{ color: var(--negative); }
+
+  .row-0 td{
+    color: var(--ink-faint) !important;
+  }
+
+  .reset-line{
+    margin-top: 20px;
+    text-align: right;
+  }
+  .reset-line button{
+    background: none;
+    border: none;
+    color: var(--ink-faint);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--line);
+    padding: 4px;
+  }
+  .reset-line button:hover{
+    color: var(--amber);
+    text-decoration-color: var(--amber-dim);
+  }
+
+  .empty-note{
+    color: var(--ink-dim);
+    font-size: 14px;
+    text-align: center;
+    padding: 32px 0;
+    font-family: 'Fraunces', serif;
+  }
+
+  :focus-visible{
+    outline: 1px solid var(--amber);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 480px){
+    .wrap{ padding: 32px 16px 72px; }
+    h1{ font-size: 28px; }
+    .field-row{ flex-wrap: wrap; }
+    thead th:nth-child(2){ display: none; }
+    tbody td:nth-child(2){ display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Weight · Portioning</div>
+    <h1>Portioning</h1>
+    <div class="sub">Split a total weight into even portions, and track the scale reading as each one comes off — whether you tared before or after the contents went on.</div>
+  </header>
+
+  <div class="panel">
+    <div class="field-row">
+      <div class="field">
+        <label for="totalInput">Total weight</label>
+        <input type="number" id="totalInput" inputmode="decimal" step="0.1" min="0" placeholder="0.0">
+      </div>
+      <div class="field">
+        <label for="portionsInput">Portions</label>
+        <input type="number" id="portionsInput" inputmode="numeric" step="1" min="1" placeholder="0">
+      </div>
+      <div class="unit-toggle" role="group" aria-label="Weight unit">
+        <button type="button" id="unitG" class="active">g</button>
+        <button type="button" id="unitOz">oz</button>
+      </div>
+    </div>
+
+    <div class="portion-size">
+      <div class="label">Per portion</div>
+      <div class="value"><span id="portionSizeVal">—</span><span class="unit" id="portionSizeUnit"></span></div>
+    </div>
+  </div>
+
+  <div class="panel" id="tablePanel">
+    <div class="empty-note">Enter a total weight and portion count to begin.</div>
+  </div>
+
+  <div class="reset-line" id="resetLine" style="display:none;">
+    <button type="button" id="resetBtn">Reset corrections</button>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  const G_PER_OZ = 28.349523125;
+
+  const totalInput = document.getElementById('totalInput');
+  const portionsInput = document.getElementById('portionsInput');
+  const unitGBtn = document.getElementById('unitG');
+  const unitOzBtn = document.getElementById('unitOz');
+  const portionSizeVal = document.getElementById('portionSizeVal');
+  const portionSizeUnit = document.getElementById('portionSizeUnit');
+  const tablePanel = document.getElementById('tablePanel');
+  const resetLine = document.getElementById('resetLine');
+  const resetBtn = document.getElementById('resetBtn');
+
+  let unit = 'g'; // 'g' or 'oz'
+
+  // Internal state, always stored in grams.
+  // total: original total weight in grams
+  // portions: portion count
+  // overrides: map of rowIndex -> actual remaining weight (grams) measured AFTER that portion was taken
+  let state = {
+    total: null,
+    portions: null,
+    overrides: {}
+  };
+
+  function toDisplay(grams){
+    return unit === 'g' ? grams : grams / G_PER_OZ;
+  }
+  function toGrams(displayVal){
+    return unit === 'g' ? displayVal : displayVal * G_PER_OZ;
+  }
+  function fmt(n){
+    if (n === null || n === undefined || isNaN(n)) return '—';
+    const rounded = Math.round(n * 10) / 10;
+    const v = Object.is(rounded, -0) ? 0 : rounded;
+    return String(v); // drops trailing ".0"; keeps one decimal when non-zero (e.g. 133.3)
+  }
+
+  // Compute the sequence of "remaining product weight" at each checkpoint 0..portions,
+  // honoring any manual overrides along the way.
+  function computeRemaining(){
+    const { total, portions, overrides } = state;
+    if (total === null || portions === null) return null;
+
+    const remaining = new Array(portions + 1);
+    remaining[0] = total;
+
+    let segmentStart = 0;      // row index where current even split begins
+    let segmentStartVal = total; // remaining weight at segmentStart
+
+    for (let i = 1; i <= portions; i++){
+      const portionsLeftAtSegmentStart = portions - segmentStart;
+      const portionWeight = segmentStartVal / portionsLeftAtSegmentStart;
+
+      if (i === portions){
+        remaining[i] = 0; // force exact end regardless of rounding
+      } else {
+        remaining[i] = segmentStartVal - (i - segmentStart) * portionWeight;
+      }
+
+      if (overrides.hasOwnProperty(i)){
+        remaining[i] = overrides[i];
+        segmentStart = i;
+        segmentStartVal = overrides[i];
+      }
+    }
+    return remaining;
+  }
+
+  function render(){
+    const remaining = computeRemaining();
+
+    // portion size (base, from row 0 to row 1 of current active segment — just show overall average for the header stat)
+    if (state.total !== null && state.portions !== null){
+      const size = state.total / state.portions;
+      portionSizeVal.textContent = fmt(toDisplay(size));
+      portionSizeUnit.textContent = unit;
+    } else {
+      portionSizeVal.textContent = '—';
+      portionSizeUnit.textContent = '';
+    }
+
+    if (!remaining){
+      tablePanel.innerHTML = '<div class="empty-note">Enter a total weight and portion count to begin.</div>';
+      resetLine.style.display = 'none';
+      return;
+    }
+
+    const hasOverrides = Object.keys(state.overrides).length > 0;
+    resetLine.style.display = hasOverrides ? 'block' : 'none';
+
+    let html = '<table><thead><tr>';
+    html += '<th>Portion</th><th>Countdown</th><th>Zeroed reading</th>';
+    html += '</tr></thead><tbody>';
+
+    for (let i = 0; i <= state.portions; i++){
+      const rem = remaining[i];
+      const countdown = toDisplay(rem);
+      const negative = toDisplay(-(state.total - rem));
+      const isEdited = state.overrides.hasOwnProperty(i);
+      const rowLabel = i === 0 ? 'Start' : String(i);
+      const rowClass = (i === 0 ? 'row-0' : '') + (isEdited ? ' edited' : '');
+
+      html += '<tr class="' + rowClass.trim() + '">';
+      html += '<td>' + rowLabel + '</td>';
+
+      if (i === 0){
+        html += '<td>' + fmt(countdown) + '</td>';
+        html += '<td class="cell-neg">' + fmt(negative) + '</td>';
+      } else {
+        html += '<td><input class="editable" type="number" step="0.1" inputmode="decimal" '
+              + 'data-row="' + i + '" data-col="countdown" value="' + fmt(countdown) + '"></td>';
+        html += '<td><input class="editable cell-neg" type="number" step="0.1" inputmode="decimal" '
+              + 'data-row="' + i + '" data-col="negative" value="' + fmt(negative) + '"></td>';
+      }
+      html += '</tr>';
+    }
+    html += '</tbody></table>';
+    tablePanel.innerHTML = html;
+
+    tablePanel.querySelectorAll('.editable').forEach(inp => {
+      inp.addEventListener('change', onCellEdit);
+      inp.addEventListener('keydown', e => { if (e.key === 'Enter') inp.blur(); });
+    });
+  }
+
+  function onCellEdit(e){
+    const row = parseInt(e.target.dataset.row, 10);
+    const col = e.target.dataset.col;
+    const val = parseFloat(e.target.value);
+    if (isNaN(val)){ render(); return; }
+
+    let remainingGrams;
+    if (col === 'countdown'){
+      remainingGrams = toGrams(val);
+    } else {
+      // negative reading entered; remaining = total - |entered|
+      remainingGrams = state.total - toGrams(Math.abs(val));
+    }
+    remainingGrams = Math.max(0, Math.min(state.total, remainingGrams));
+
+    state.overrides[row] = remainingGrams;
+    render();
+  }
+
+  function onTotalInput(){
+    const raw = parseFloat(totalInput.value);
+    state.total = (!isNaN(raw) && raw > 0) ? toGrams(raw) : null;
+    // an edit to the total invalidates any mid-run corrections made against the old total
+    state.overrides = {};
+    render();
+  }
+
+  function onPortionsInput(){
+    const raw = parseInt(portionsInput.value, 10);
+    state.portions = (!isNaN(raw) && raw > 0) ? raw : null;
+    state.overrides = {};
+    render();
+  }
+
+  function setUnit(u){
+    if (u === unit) return;
+    unit = u;
+    unitGBtn.classList.toggle('active', unit === 'g');
+    unitOzBtn.classList.toggle('active', unit === 'oz');
+    // Convert the displayed total from the stored gram value (source of truth)
+    // into the newly-selected unit — this is a conversion, not a relabel.
+    totalInput.value = (state.total !== null) ? fmt(toDisplay(state.total)) : '';
+    render();
+  }
+
+  unitGBtn.addEventListener('click', () => setUnit('g'));
+  unitOzBtn.addEventListener('click', () => setUnit('oz'));
+  totalInput.addEventListener('input', onTotalInput);
+  portionsInput.addEventListener('input', onPortionsInput);
+  resetBtn.addEventListener('click', () => { state.overrides = {}; render(); });
+
+  render();
+})();
+</script>
+
+</body>
+</html>
