@@ -1,3 +1,6 @@
+// ! This is deprecated with the creation of the new recipe system.
+
+
 // scalerRecipes.js
 //* Contains all recipe data, extracted from scaler.js.
 // Call goGetRecipe(name) with the dropdown-selected recipe name string.

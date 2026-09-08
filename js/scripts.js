@@ -169,7 +169,7 @@ function initializeIt(pageTitle, imageSource) {
         </a>
 
         <div class="jumpButtons">
-            <div class="icons" onclick="linkJump(1)"><img class="icon" src="./app_icons/piechart.svg" width="30px;"
+            <div class="icons" onclick="linkJump(1)"><img class="icon" src="./app_icons/scaler.svg" width="30px;"
                     style="cursor: pointer;"></div>
             <div class="icons" onclick="linkJump(2)">${weightIcon}
             </div>
@@ -211,9 +211,7 @@ function initializeIt(pageTitle, imageSource) {
                     style="cursor: pointer;"></div>
             <div class="icons" onclick="linkJump(7)"><img class="icon" src="./app_icons/butter.svg" width="30px;" style="cursor: pointer;">
             </div>
-            <div class="icons" onclick="linkJump(8)"><img class="icon" src="./app_icons/flavor4.svg" width="30px;" style="cursor: pointer;">
-            </div>
-            <div class="icons" onclick="linkJump(9)"><img class="icon" src="./app_icons/recipeCard.svg" width="30px;" style="cursor: pointer;">
+            <div class="icons" onclick="linkJump(8)"><img class="icon" src="./app_icons/flavorizer.svg" width="30px;" style="cursor: pointer;">
             </div>
             <div class="icons" onclick="linkJump(10)"><img class="icon" src="./app_icons/rationer.svg" width="30px;" style="cursor: pointer;">
             </div>
@@ -258,7 +256,7 @@ function linkJump(which) {
 			break;
 
 		case 6:
-			window.open("./newconversions.html", '_blank').focus();
+			window.open("./convert.html", '_blank').focus();
 			break;
 
 		case 7:

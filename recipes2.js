@@ -450,21 +450,6 @@ function goGetRecipe(name) {
     ];
   }
 
-  // * Cornbread
-  else if (name.includes("Cornbread")) {
-    recipe = [
-      ['Cornmeal', 100, "d"],
-      ['AP Flour', 90, "d"],
-      ['Baking Powder', 3, "d"],
-      ['Salt', 2, "d"],
-      ['Sour Cream', 85, "w"],
-      ['Milk', 80, "w"],
-      ['Buttermilk', 55, "w"],
-      ['Butter', 55, "w"],
-      ['Egg', 50, "w"]
-    ];
-  }
-
   // * Pita
   else if (name.includes("Pita")) {
     recipe = [
@@ -1499,6 +1484,31 @@ Alternatively, they can be baked at 350° for 15 minutes`;
     ];
   }
 
+  //* Cornbread
+  else if (name.includes("Cornbread")) {
+    recipe = [
+      ['Cornmeal', 215, "d"],
+      ['Sugar', 5, "d"],
+      ['Baking Powder', 5, "d"],
+      ['Salt', 4, "d"],
+      ['Eggs', 50, "w"],
+      ['Milk', 295, "w"],
+      ['Butter', 120, "w"]
+    ];
+    markdown = `## Process
+- Preheat oven to 400°F (200°C). Grease a baking dish or cast-iron skillet.
+- In a large bowl, combine cornmeal, flour, sugar, baking powder, and salt.
+- In another bowl, whisk together eggs, milk, and melted butter.
+- Pour the wet ingredients into the dry ingredients and stir until just combined. Do not overmix.
+- Pour the batter into the prepared baking dish and smooth the top.
+- Bake for 20-25 minutes or until a toothpick inserted into the center comes out clean.
+- Let it cool slightly before serving. Enjoy warm with butter or honey.
+
+Note: First batch, I used about 30g of coarse-ground cornmeal and 185g of fine-ground cornmeal. It struck a good balance between flavor and texture.
+
+The egg content was low compared to Serious Eats version of the recipe. Curious what a BIT more egg might do to the texture.
+`;
+  }
 
 
   // * Bread Crumbs

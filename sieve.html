@@ -112,9 +112,10 @@
 
     .corpus-field-label {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.734rem;
+      font-size: 1rem;
+      font-weight: bold;
       letter-spacing: 0.1em;
-      color: var(--paper-dim);
+      color: var(--paper);
     }
 
     .segmented {
@@ -156,7 +157,7 @@
       font-size: 0.808rem;
       letter-spacing: 0.04em;
       padding: 7px 12px;
-      background: transparent;
+      background: #600404;
       border: 1px solid var(--hairline);
       color: var(--paper-dim);
       cursor: pointer;
@@ -471,7 +472,6 @@
     }
 
     .match-count {
-      font-family: 'Fraunces', serif;
       font-size: 1.909rem;
       color: var(--paper);
     }
@@ -624,7 +624,7 @@
       </div>
       <div class="corpus-toggle">
         <button type="button" class="reset-btn" id="resetBtn">↺ Reset</button>
-        <div class="corpus-field-label">word list</div>
+        <div class="corpus-field-label">Word List</div>
         <div class="segmented" id="corpusSegmented" role="radiogroup" aria-label="Word list">
           <button type="button" data-value="full" class="active" role="radio" aria-checked="true">Full list</button>
           <button type="button" data-value="answers" role="radio" aria-checked="false">Answers only</button>

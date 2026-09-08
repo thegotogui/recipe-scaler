@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TiniCalc!</title>
+  <style>
+    :root {
+      --bg: #000000;
+      --bar-bg: #454f68;
+      --bar-bg-light: #4f5a75;
+      --pill-bg: #2c3346;
+      --pill-bg-hover: #363e56;
+      --text-bright: #f4f3ef;
+      --text-dim: #b8bcc9;
+      --tile-hover: #14161c;
+      --focus: #e8b96a;
+
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-ui: 'Inter', 'Work Sans', -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-variant-numeric: lining-nums;
+    }
+
+    input[type=number] {
+      font-feature-settings: "lnum" 1;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text-bright);
+      font-family: var(--font-ui);
+      min-height: 100vh;
+    }
+
+    /* ---------- Header bar ---------- */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      background: var(--bar-bg);
+      padding: 14px clamp(16px, 3vw, 32px);
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: var(--text-bright);
+      white-space: nowrap;
+    }
+
+    /* the "window" — darker pill holding just the small icons */
+    .icon-rail {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--pill-bg);
+      border-radius: 999px;
+      padding: 8px 10px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .icon-rail::-webkit-scrollbar {
+      display: none;
+    }
+
+    .icon-rail button {
+      all: unset;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.15s ease;
+    }
+
+    .icon-rail button:hover,
+    .icon-rail button:focus-visible {
+      background: var(--pill-bg-hover);
+    }
+
+    .icon-rail button:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 1px;
+    }
+
+    .icon-rail img,
+    .icon-rail svg {
+      width: 20px;
+      height: 20px;
+      display: block;
+    }
+
+    /* ---------- Main grid ---------- */
+    main {
+      padding: clamp(28px, 5vw, 56px) clamp(16px, 5vw, 48px);
+    }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: clamp(20px, 3vw, 40px);
+      max-width: 1200px;
+    }
+
+    .app-tile {
+      all: unset;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 8px;
+      border-radius: 14px;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .app-tile:hover {
+      background: var(--tile-hover);
+      transform: translateY(-2px);
+    }
+
+    .app-tile:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 3px;
+    }
+
+    .app-icon {
+      width: 96px;
+      height: 96px;
+      border-radius: 10%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .app-icon img,
+    .app-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .app-name {
+      font-family: var(--font-ui);
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--text-bright);
+    }
+
+    @media (max-width: 480px) {
+      .brand-title {
+        font-size: 1.35rem;
+      }
+
+      .app-icon {
+        width: 76px;
+        height: 76px;
+      }
+
+      .app-name {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="brand">
+      <div class="brand-mark" id="brandMark"></div>
+      <div class="brand-title">TiniCalc!</div>
+    </div>
+    <nav class="icon-rail" id="iconRail" aria-label="Quick app links"></nav>
+  </header>
+
+  <main>
+    <div class="app-grid" id="appGrid"></div>
+  </main>
+
+  <script>
+    /* =========================================================
+       CONFIG — this is the only block that changes per page.
+       Swap TITLE / BRAND_MARK / APPS to produce a new launch page
+       from this same template.
+       =========================================================== */
+    const CONFIG = {
+      "title": "TiniCalc!",
+      "apps": [
+        {
+          "id": "scaler",
+          "name": "Scaler",
+          "iconType": "svgfile",
+          "icon": "app_icons/scaler.svg",
+          "href": "scaler.html"
+        },
+        {
+          "id": "timer",
+          "name": "Timer",
+          "iconType": "svgfile",
+          "icon": "app_icons/clock.svg",
+          "href": "taptimer.html"
+        },
+        {
+          "id": "weights",
+          "name": "Weights",
+          "iconType": "svgfile",
+          "icon": "app_icons/scale.svg",
+          "href": "weight.html"
+        },
+        {
+          "id": "convert",
+          "name": "Convert",
+          "iconType": "svgfile",
+          "icon": "app_icons/conversions.svg",
+          "href": "convert.html"
+        },
+        {
+          "id": "salt",
+          "name": "Salt",
+          "iconType": "svgfile",
+          "icon": "app_icons/NaCl.svg",
+          "href": "saltratio.html"
+        },
+        {
+          "id": "tinicalc",
+          "name": "TiniCalc",
+          "iconType": "svgfile",
+          "icon": "app_icons/martini.svg",
+          "href": "tinicalc.html"
+        },
+        {
+          "id": "butter",
+          "name": "Butter",
+          "iconType": "svgfile",
+          "icon": "app_icons/butter.svg",
+          "href": "butter.html"
+        },
+        {
+          "id": "flavorizer",
+          "name": "Flavorizer",
+          "iconType": "svgfile",
+          "icon": "app_icons/flavorizer.svg",
+          "href": "flavor.html"
+        },
+        {
+          "id": "rationer",
+          "name": "Rationer",
+          "iconType": "svgfile",
+          "icon": "app_icons/rationer.svg",
+          "href": "rationer.html"
+        },
+        {
+          "id": "adjuster",
+          "name": "Adjuster",
+          "iconType": "svgfile",
+          "icon": "app_icons/adjuster.svg",
+          "href": "adjuster.html"
+        },
+        {
+          "id": "reportionator",
+          "name": "Reportionator",
+          "iconType": "img",
+          "icon": "app_icons/reportionator.png",
+          "href": "reportionator.html"
+        },
+        {
+          "id": "metric-spoon",
+          "name": "Metric Spoon",
+          "iconType": "img",
+          "icon": "app_icons/metricspoon.png",
+          "href": "metric-spoon.html"
+        },
+        {
+          "id": "sousvide",
+          "name": "Sous Vide",
+          "iconType": "img",
+          "icon": "app_icons/sousvide.png",
+          "href": "sousvide.html"
+        },
+        {
+          "id": "equalizer",
+          "name": "Equalizer",
+          "iconType": "img",
+          "icon": "app_icons/equalizer.png",
+          "href": "equalizer.html"
+        }
+      ]
+    };
+
+    /* ---------- placeholder icon generator ----------
+       Used until real per-app icons (SVG for kitchen tools,
+       images for Wordle tools) are wired in. Deterministic
+       color per app name so placeholders stay visually stable. */
+    function hashHue(str) {
+      let h = 0;
+      for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0;
+      return h % 360;
+    }
+    function placeholderSVG(name, size) {
+      const hue = hashHue(name);
+      const initial = name.trim().charAt(0).toUpperCase();
+      return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100" height="100" rx="22" fill="hsl(${hue} 45% 30%)"/>
+      <text x="50" y="50" text-anchor="middle" dominant-baseline="central"
+        font-family="Inter, sans-serif" font-size="42" font-weight="600"
+        fill="hsl(${hue} 60% 88%)">${initial}</text>
+    </svg>`;
+    }
+
+    /* ---------- live-SVG loading ----------
+       iconType 'svgfile' points at a .svg file that gets fetched and
+       inlined as real DOM nodes (not <img>), so any <script> or SMIL
+       animation inside it actually runs — needed for things like a
+       clock icon with moving hands.
+  
+       Each place the icon appears (icon rail + main grid) gets its
+       own independent copy: the file is fetched once and cached as
+       text, but re-parsed and re-mounted per container so each copy
+       runs its own script instance rather than sharing one.
+  
+       For that to work when the same icon appears twice on the page,
+       the SVG's own script must find ITS elements relative to itself,
+       not by global id (duplicate ids only resolve to the first
+       match). Scope lookups like this inside the svg file:
+  
+         svg viewBox="0 0 100 100"
+           line class="hour-hand" x1="50" y1="50" x2="50" y2="25" /
+           script CDATA[
+             (function () {
+               const svg = document.currentScript.closest('svg');
+               const hourHand = svg.querySelector('.hour-hand');
+               function tick() {
+                 const deg = (new Date().getHours() % 12) * 30;
+                 hourHand.setAttribute('transform', `rotate(${deg} 50 50)`);
+               }
+               tick();
+               setInterval(tick, 60000);
+             })();
+           ] end script
+         end svg
+       (angle brackets stripped from this comment on purpose — a literal
+       </ + script inside a JS comment still closes the real <script> tag,
+       since the HTML parser doesn't know about JS comments. This bug is
+       exactly what caused the earlier "code visible on page" report.)
+    */
+    const svgTextCache = new Map(); // path -> Promise<string>
+    function fetchSVGText(path) {
+      if (!svgTextCache.has(path)) {
+        svgTextCache.set(path, fetch(path).then(res => {
+          if (!res.ok) throw new Error(`${res.status} loading ${path}`);
+          return res.text();
+        }));
+      }
+      return svgTextCache.get(path);
+    }
+
+    // innerHTML does not execute <script> tags it inserts — recreate
+    // them as real script elements so they actually run.
+    function activateScripts(container) {
+      container.querySelectorAll('script').forEach(oldScript => {
+        const newScript = document.createElement('script');
+        for (const attr of oldScript.attributes) newScript.setAttribute(attr.name, attr.value);
+        newScript.textContent = oldScript.textContent;
+        oldScript.replaceWith(newScript);
+      });
+    }
+
+    /* ---------- SVG scoping ----------
+       Illustrator (and similar tools) export generic ids/classes —
+       id="Layer_1", class="st0", class="st1"... — that mean something
+       different in every file. Inlining two such icons on one page
+       makes their <style> rules and ids collide globally: whichever
+       icon's ".st0" rule (or "#Layer_1", or a gradient's "linear-
+       gradient" id) lands in the DOM last wins for every icon sharing
+       that name, silently recoloring or breaking the others.
+  
+       Before mounting, every id and class in the icon gets rewritten
+       with a prefix unique to that specific mount (so even the same
+       icon appearing twice — rail + grid — doesn't collide with
+       itself), and every internal reference to those ids/classes
+       (url(#...), href="#...", CSS selectors, CSS url(#...)) is
+       rewritten to match. */
+    let scopeCounter = 0;
+    function scopeSVG(svgText, baseName) {
+      const uid = `${(baseName || 'icon').replace(/[^a-z0-9]/gi, '-')}-${++scopeCounter}`;
+      const doc = new DOMParser().parseFromString(svgText, 'image/svg+xml');
+      if (doc.querySelector('parsererror')) throw new Error('SVG parse error');
+      const svgEl = doc.documentElement;
+
+      const idMap = new Map();
+      svgEl.querySelectorAll('[id]').forEach(el => {
+        const oldId = el.getAttribute('id');
+        const newId = `${uid}--${oldId}`;
+        idMap.set(oldId, newId);
+        el.setAttribute('id', newId);
+      });
+
+      const classMap = new Map();
+      svgEl.querySelectorAll('[class]').forEach(el => {
+        const newClasses = el.getAttribute('class').split(/\s+/).filter(Boolean).map(c => {
+          if (!classMap.has(c)) classMap.set(c, `${uid}--${c}`);
+          return classMap.get(c);
+        });
+        el.setAttribute('class', newClasses.join(' '));
+      });
+
+      // Rewrite <style> block: class selectors + url(#id) references
+      svgEl.querySelectorAll('style').forEach(styleEl => {
+        let css = styleEl.textContent;
+        classMap.forEach((newName, oldName) => {
+          const re = new RegExp(`\\.${oldName}(?=[\\s,.{:#\\[]|$)`, 'g');
+          css = css.replace(re, `.${newName}`);
+        });
+        idMap.forEach((newId, oldId) => {
+          const re = new RegExp(`url\\(#${oldId}\\)`, 'g');
+          css = css.replace(re, `url(#${newId})`);
+        });
+        styleEl.textContent = css;
+      });
+
+      // Rewrite attribute-based id references (gradients, clip-paths, links)
+      const urlAttrs = ['fill', 'stroke', 'clip-path', 'mask', 'filter'];
+      svgEl.querySelectorAll('*').forEach(el => {
+        urlAttrs.forEach(attr => {
+          const val = el.getAttribute(attr);
+          if (val && val.includes('url(#')) {
+            let newVal = val;
+            idMap.forEach((newId, oldId) => { newVal = newVal.split(`url(#${oldId})`).join(`url(#${newId})`); });
+            el.setAttribute(attr, newVal);
+          }
+        });
+        ['href', 'xlink:href'].forEach(attr => {
+          const val = el.getAttribute(attr);
+          if (val && val.startsWith('#') && idMap.has(val.slice(1))) {
+            el.setAttribute(attr, `#${idMap.get(val.slice(1))}`);
+          }
+        });
+      });
+
+      return svgEl.outerHTML;
+    }
+
+    async function mountSVGFile(container, path, appName) {
+      try {
+        const text = await fetchSVGText(path);
+        container.innerHTML = scopeSVG(text, appName);
+        activateScripts(container);
+      } catch (err) {
+        console.warn('Could not load icon:', path, err);
+        container.innerHTML = placeholderSVG(appName);
+      }
+    }
+
+    function renderIconSync(app) {
+      if (app.iconType === 'img' && app.icon) {
+        return `<img src="${app.icon}" alt="" loading="lazy">`;
+      }
+      if (app.iconType === 'svg' && app.icon) {
+        try {
+          return scopeSVG(app.icon, app.name); // scope pasted-in markup too
+        } catch (err) {
+          console.warn('Could not scope inline SVG for', app.name, err);
+          return app.icon;
+        }
+      }
+      if (app.iconType === 'svgfile' && app.icon) {
+        return ''; // filled in async by mountSVGFile
+      }
+      return placeholderSVG(app.name);
+    }
+
+    // Mounts an icon into a container: sync for placeholder/img/inline-svg,
+    // async fetch+inline for svgfile (so scripted/animated SVGs run live).
+    function mountIcon(container, app) {
+      container.innerHTML = renderIconSync(app);
+      if (app.iconType === 'svgfile' && app.icon) {
+        mountSVGFile(container, app.icon, app.name);
+      } else if (app.iconType === 'svg' && app.icon) {
+        activateScripts(container); // in case pasted-in markup also has a <script>
+      }
+    }
+
+    function go(app) {
+      if (app.href) window.location.href = app.href;
+      else console.log('No href set yet for', app.name);
+    }
+
+    // Brand mark (upper-left circular logo) — placeholder unless CONFIG.brandMark supplied
+    document.getElementById('brandMark').innerHTML =
+      CONFIG.brandMark || placeholderSVG(CONFIG.title).replace('rx="22"', 'rx="50"');
+
+    // Icon rail (small, no labels)
+    const rail = document.getElementById('iconRail');
+    CONFIG.apps.forEach(app => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.setAttribute('aria-label', app.name);
+      btn.addEventListener('click', () => go(app));
+      rail.appendChild(btn);
+      mountIcon(btn, app);
+    });
+
+    // Main grid (large, with labels)
+    const grid = document.getElementById('appGrid');
+    CONFIG.apps.forEach(app => {
+      const tile = document.createElement('button');
+      tile.type = 'button';
+      tile.className = 'app-tile';
+      tile.innerHTML = `<div class="app-icon"></div><div class="app-name">${app.name}</div>`;
+      tile.addEventListener('click', () => go(app));
+      grid.appendChild(tile);
+      mountIcon(tile.querySelector('.app-icon'), app);
+    });
+  </script>
+
+</body>
+
+</html>
