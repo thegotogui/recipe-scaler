@@ -1273,6 +1273,38 @@ Alternatively, they can be baked at 350° for 15 minutes`;
   }
 
 
+  // * Steak Diane
+  else if (name.includes("Steak Diane")) {
+    recipe = [
+      ['Heavy Cream', 130],
+      ['Butter', 30],
+      ['Shallot or Onion', 30],
+      ['Worcestershire', 20],
+      ['Dijon', 10],
+      ['Soy Sauce', 10],
+      ['Garlic', 10],
+      ['Thyme', 3],
+      ['Chives &/or Parsley', 5]
+    ];
+    markdown = `## Process
+1. In a small saucepan, melt butter over medium heat. Add shallots and cook until softened, about 2 minutes.
+2. Add Worcestershire sauce, Dijon mustard, and soy sauce. Stir to combine.
+3. Pour in heavy cream and bring to a simmer. Cook until the sauce has thickened slightly, about 5 minutes.
+4. Remove from heat and stir in chopped chives and/or parsley.
+5. Serve over cooked steak or your choice of protein.
+
+### Variations:
+- **Mushrooms** - I used cremini but you can also use white button mushrooms.
+- **Cognac** - You can also use brandy, but cognac is traditional.
+- **Tomato paste** - For extra body.
+- **Beef stock** - Use homemade or make a stock from low-sodium beef base for best results.
+- **Herbs** - For finishing, I use parsley and chives but you can also use green onion.
+
+I really want to blitz dried mushrooms in this sauce next time. I think it will add a lot of flavor and body.
+`;
+  }
+
+
 
   // * Half Sour
   else if (name.includes("Half Sour")) {

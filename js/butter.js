@@ -8,7 +8,7 @@ var weight,                // How much the results should weigh
 	elgin,				   // Skinny sticks on the east coast
 	stubbie,			   // The fatter version found west of the Miss.
 	sticksText,            // I don't know what this is.
-	stick = "elgin",       // Defines the kind of stick we're talking about. We're assuming Elgin because east coast
+	stick = "euro",       // Defines the kind of stick we're talking about. We're assuming Elgin because east coast
 	euro,                  // The number of mms of a Euro stick is needed
 	elementDisplay,
 	elementText,

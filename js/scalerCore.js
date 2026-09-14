@@ -80,7 +80,7 @@ function versions() {
 const ingredientColors = {
   "#fff6a2": ["Butter", "Buttermilk", "Canola Oil", "White Wine", "Garlic"],
   "#FFFFFF": ["Yogurt", "Greek Yogurt", "Baking Powder", "Baking Soda", "Cornstarch", "Stracciatella", "Flour", "AP Flour", "Bread Flour", "Mayo", "Milk", "Ricotta"],
-  "#F2F2F2": ["Rice", "Salt", "Sugar", "Sour Cream", "Lard"],
+  "#F2F2F2": ["Rice", "Salt", "Sugar", "Sour Cream", "Lard", "Heavy Cream"],
   "#fdfea2": ["Apple Cider Vinegar", "Mirin", "Rice Vinegar", "Lemon Juice", "Parmesan", "Garlic Clove", "Powdered Garlic", "Dijon Mustard", "Mustard", "Gnocchi", "Yuzu", "Vegetable Oil", "Canola Oil", "Neutral Oil", "Dry Sake", "Vodka", "Gin"],
   "#FEE580": ["Egg", "Orgeat"],
   "#ff3900": ["Tomato", "Tomato Sauce", "Gochujang", "Samjang", "Red Wine Vinegar", "Harissa", "Paprika", "Chili Powder", "Chipotle", "Smoked Paprika", "Cayenne", "Red Bell Pepper", "Campari"],
@@ -95,7 +95,7 @@ const ingredientColors = {
   "#fdeab0": ["Onion", "Powdered Onion", "Yeast", "Tuna", "Pecorino", "Aged Pecorino", "Fresh Pecorino", "Pecorino Romano", "Pecorino Sardo", "Prosecco"],
   "#e6a500": ["Honey", "Coleman's", "Light Miso", "Spiced Rum", "Dark Rum", "Tequila", "Mezcal", "Whiskey", "Bourbon", "Scotch", "Brandy", "Cognac", "Turmeric"],
   "#ffee00": ["Cornmeal", "Semolina", "Lemon Zest", "Pineapple", "Light Rum", "White Rum"],
-  "#d2c59a": ["Sourdough Starter", "Masa", "Cumin", "Farro", "White Pepper", "Polenta", "Horseradish"],
+  "#d2c59a": ["Sourdough Starter", "Masa", "Cumin", "Farro", "White Pepper", "Polenta", "Horseradish", "Dijon"],
   "#fffce5": ["Spaghetti", "Fetuccini", "Carnaroli", "Arborio", "Pasta", "Simple Syrup", "Triple Sec", "Cointreau", "Gran Marnier", "Orange Liqueur"],
   "#fd99c8": ["Shallot", "Katsuobushi", "Chicken Thighs"],
   "#a48054": ["Potato", "Ginger", "Anchovy", "Buckwheat", "Teff Flour", "Rye Flour", "Lentils", "Almonds", "Beef Stock"],
@@ -662,8 +662,17 @@ function butterAndSalt(mode) {
       let euTemp = Number(rs[arrayCount] * euro).toFixed(1);
       euTemp *= 10;
 
+      if (rs[arrayCount] >= 250) {
+        let sticks = Math.floor(rs[arrayCount] / 250);
+        let remainder = (rs[arrayCount] % 250) * euro * 10;
+        euTemp = `EU ${sticks} sticks + ${remainder.toFixed(1)}mm`;
+      } else {
+        euTemp = `EU ${euTemp}mm`;
+      }
+
+
       // Now string the value, some spaces, and a label togehter into a variable
-      let mmString = ` - Eu ${euTemp}mm`;
+      let mmString = ` - ${euTemp}`;
 
       // And put that string into the ingredient field
       document.getElementById("ingredient" + fieldCount).value = ingredients[arrayCount] + mmString;
