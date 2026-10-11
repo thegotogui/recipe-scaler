@@ -1,11 +1,90 @@
-// ! This is deprecated with the creation of the new recipe system.
-
-
 // scalerRecipes.js
 //* Contains all recipe data, extracted from scaler.js.
 // Call goGetRecipe(name) with the dropdown-selected recipe name string.
 // Returns an object: { recipe, markdown, headers, reciPortions }
 // or null if no recipe matches.
+//
+// RECIPE_CATEGORIES below is the index used to build recipe pickers
+// (dropdowns, menus, etc.) without hardcoding a list elsewhere. Each
+// entry's name is a string that, passed to goGetRecipe(), resolves to
+// that recipe. When adding a new recipe, add it here too so it shows
+// up in any UI built from this list.
+
+const RECIPE_CATEGORIES = [
+  {
+    category: "Breads", items: [
+      "French Baguette", "Biscuits", "Blinis", "Bread for Bread", "Cornbread",
+      "Sourdough Starter"
+    ]
+  },
+  {
+    category: "Crepes", items: [
+      "Classic Crepes", "Ti Couz Crepes", "Sourdough Crepes", "Focaccia",
+      "Dutch Baby", "Injeera", "Naan", "Pita", "Sourdough Bread",
+      "Levain for Bread", "Sonoran Flour Tortillas", "Tatty Scones", "Tortillas"
+    ]
+  },
+  {
+    category: "Pizza", items: [
+      "Classic Pizza Dough", "Sourdough Pizza Dough", "Vito's Pizza Dough",
+      "Neapolitan Pizza Dough"
+    ]
+  },
+  {
+    category: "Dressings", items: [
+      "Caesar Dressing", "Garlic and Soy Pak Choi", "Ginger Sesame Pak Choi",
+      "Miso Roasted Pak Choi with Edamame", "Niçoise Dressing", "Ranch Dressing"
+    ]
+  },
+  {
+    category: "Sauces", items: [
+      "Pasta Sauce", "Caper Sauce", "Gnocchi Sauce", "Bechamel", "Chimichurri",
+      "Salsa Verde", "Puerto Rican Garlic Sauce",
+      "Zhug (Yemenite Hot Sauce With Cilantro and Parsley)", "Bolognese",
+      "Hollandaise", "Miso Sauce", "Pesto", "Ponzu Sauce", "Ssamjang Sauce",
+      "Tonnato", "Trapanese Pesto", "Vodka Sauce", "Wasabi Sauce for Ahi Tuna"
+    ]
+  },
+  {
+    category: "Pasta Doughs", items: [
+      "Agnolotti", "Al Dente Pasta Dough", "All Durum Dough",
+      "Basic Pasta (egg and flour)", "Cavatelli", "Chitarra Pasta",
+      "Culurgione Pasta Dough", "Culurgione Filling", "Potato Gnocchi",
+      "Ricotta Gnocchi", "Ravioli Pasta Dough",
+      "Stracciatella Pasta with Lemon and Asparagus", "Cooked vs Uncooked Pasta"
+    ]
+  },
+  {
+    category: "Mains", items: [
+      "Albondigas", "Tini Burger", "Karaage Chicken", "Meatballs", "Risotto",
+      "Shakshuka", "Turkey Masala", "Turmeric Chicken", "Welsh Rarebit"
+    ]
+  },
+  {
+    category: "Sides", items: [
+      "Egg Topping", "Farro", "Half Sour", "Crispy Kale", "Lentils",
+      "Masa Dumplings", "Mashed Potatoes", "Pickled Onion", "Polenta",
+      "Zuni Zuchini Pickles"
+    ]
+  },
+  {
+    category: "Rices", items: [
+      "Jasmine Rice", "Roma Rice", "Spanish Rice", "Sushi Rice", "White Rice"
+    ]
+  },
+  {
+    category: "Drinks", items: [
+      "Bloody Mary", "Bullshot", "Cable Car", "Campari Spritz",
+      "Coconut Rum Julep", "Jungle Bird", "Lemonade Spritzer", "Margarita",
+      "Mai Tai", "Mexican", "Mojito", "Sangrita", "Soda", "Tea"
+    ]
+  },
+  {
+    category: "Misc", items: [
+      "Bread Crumbs"
+    ]
+  }
+];
 
 function goGetRecipe(name) {
 
@@ -19,15 +98,6 @@ function goGetRecipe(name) {
     recipe = [
       ['Ingredient A', 1],
       ['Ingredient B', 1]
-    ];
-  }
-
-
-  // * Coffee
-  else if (name.includes("Iced Coffee")) {
-    recipe = [
-      ['Water', 500, "w"],
-      ['Ground Coffee', 36, "d"]
     ];
   }
 
@@ -238,8 +308,8 @@ function goGetRecipe(name) {
   // * Roma Rice
   else if (name.includes("Roma")) {
     recipe = [
-      ['Rice ', 162, "d"],
-      ['Water', 337, "w"],
+      ['Rice ', 160, "d"],
+      ['Water', 333, "w"],
       ['Salt', 4, "d"]
     ];
   }
@@ -247,12 +317,12 @@ function goGetRecipe(name) {
   // * Jasmine Rice
   else if (name.includes("Jasmine")) {
     recipe = [
-      ['Water', 420, "w"],
-      ['Rice', 210, "d"],
-      ['Salt', 5, "d"],
-      ['Powdered Garlic', 2, "d"],
-      ['Powdered Onion', 2, "d"],
-      ['Butter', 35, "d"]
+      ['Water', 400, "w"],
+      ['Rice', 200, "d"],
+      ['Salt', 4.76, "d"],
+      ['Powdered Garlic', 1.9, "d"],
+      ['Powdered Onion', 1.9, "d"],
+      ['Butter', 30, "d"]
     ];
   }
 
@@ -377,21 +447,6 @@ function goGetRecipe(name) {
       ['Baking Powder', 10, "d"],
       ['Milk', 130, "w"],
       ['Butter', 50, "w"]
-    ];
-  }
-
-  // * Cornbread
-  else if (name.includes("Cornbread")) {
-    recipe = [
-      ['Cornmeal', 100, "d"],
-      ['AP Flour', 90, "d"],
-      ['Baking Powder', 3, "d"],
-      ['Salt', 2, "d"],
-      ['Sour Cream', 85, "w"],
-      ['Milk', 80, "w"],
-      ['Buttermilk', 55, "w"],
-      ['Butter', 55, "w"],
-      ['Egg', 50, "w"]
     ];
   }
 
@@ -776,61 +831,63 @@ Try a few different bread flours to see which one gives you the best result.`;
       ['Pecorino', 25, "d"],
       ['Pasta', 450, "d"],
     ];
+    markdown = `One half a lemon will deliver almost exactly 20ml of lemon juice.`;
   }
+}
 
   // * Sourdough Starter
   else if (name.includes("Starter")) {
-    recipe = [
-      ['AP Flour', 28, "d"],
-      ['Rye Flour', 14, "d"],
-      ['Water', 40, "w"]
-    ];
-  }
+  recipe = [
+    ['AP Flour', 28, "d"],
+    ['Rye Flour', 14, "d"],
+    ['Water', 40, "w"]
+  ];
+}
 
-  // * Hollandaise
-  else if (name.includes("Hollandaise")) {
-    recipe = [
-      ['Butter', 150, "w"],
-      ['Egg Yolk', 85, "w"],
-      ['Water', 50, "w"],
-      ['Lemon Juice', 20, "w"],
-      ['Salt', 3, "d"]
-    ];
-    markdown = `## Process
+// * Hollandaise
+else if (name.includes("Hollandaise")) {
+  recipe = [
+    ['Butter', 150, "w"],
+    ['Egg Yolk', 85, "w"],
+    ['Water', 50, "w"],
+    ['Lemon Juice', 20, "w"],
+    ['Salt', 3, "d"]
+  ];
+  markdown = `## Process
 - Combine in a zip-lock bag.
 - Poach in a 147°F (64°C) water bath for 1 hour.
 - Remove from bag and whisk to combine.
 - Adjust seasoning with salt and lemon juice to taste.`;
-  }
+}
 
-  // * Pasta Sauce
-  else if (name.includes("Pasta Sauce")) {
-    recipe = [
-      ['Pasta', 142, "d"],
-      ['Tomato Sauce', 275, "w"]
-    ];
-  }
+// * Pasta Sauce
+else if (name.includes("Pasta Sauce")) {
+  recipe = [
+    ['Pasta', 142, "d"],
+    ['Tomato Sauce', 275, "w"]
+  ];
+}
 
-  // * Gnocchi Sauce
-  else if (name.includes("Gnocchi Sauce")) {
-    recipe = [
-      ['Gnocchi', 250, "d"],
-      ['Sauce', 150, "w"]
-    ];
-  }
+// * Gnocchi Sauce
+else if (name.includes("Gnocchi Sauce")) {
+  recipe = [
+    ['Gnocchi', 250, "d"],
+    ['Sauce', 150, "w"]
+  ];
+}
 
-  // * Bolognese
-  else if (name.includes("Bolognese")) {
-    recipe = [
-      ['Ground Beef', 340, "d"],
-      ['Tomato', 450, "d"],
-      ['Milk', 240, "w"],
-      ['White Wine', 240, "w"],
-      ['Onion', 80, "d"],
-      ['Celery', 100, "d"],
-      ['Carrot', 100, "d"],
-    ];
-    markdown = `
+// * Bolognese
+else if (name.includes("Bolognese")) {
+  recipe = [
+    ['Ground Beef', 340, "d"],
+    ['Tomato', 450, "d"],
+    ['Milk', 240, "w"],
+    ['White Wine', 240, "w"],
+    ['Onion', 80, "d"],
+    ['Celery', 100, "d"],
+    ['Carrot', 100, "d"],
+  ];
+  markdown = `
 # Bolognese Sauce
 ## Ingredients
 ### Preparation
@@ -847,37 +904,47 @@ Try a few different bread flours to see which one gives you the best result.`;
 11. Season to taste with salt and pepper, remove and discard the parmesan rinds.
 * **Cooking Note:** As Marcella explains, the simmer time can be broken up into various stages throughout the same day if needed. Simply remove the sauce from the heat, cover with a lid, and resume simmering later. Once you have prepared the sauce base, you can also transfer it to a slow cooker or Instant pot (set to low 'slow cook' mode) for an easy, hands-off simmer option. * For Serving: Toss with boiled cooked pasta – ideally finishing the al dente pasta in the warm sauce – until well-coated. Serve with freshly grated parmigiano-reggiano cheese on the side.
       `;
-  }
+}
 
-  // * Ssamjang Sauce
-  else if (name.includes("Ssamjang")) {
-    recipe = [
-      ['Beef Stock', 70],
-      ['Samjang', 60],
-      ['Light Miso', 20],
-      ['Gochujang', 15],
-      ['Red Wine Vinegar', 15]
-    ];
-  }
+// * Ssamjang Sauce
+else if (name.includes("Ssamjang")) {
+  recipe = [
+    ['Beef Stock', 70],
+    ['Samjang', 60],
+    ['Light Miso', 20],
+    ['Gochujang', 15],
+    ['Red Wine Vinegar', 15]
+  ];
+}
+
+
+// * Parmegiano Reggiano Spinach
+else if (name.includes("Spinach")) {
+  recipe = [
+    ['Spinach', 60, "n"],
+    ['Parmigiano Reggiano', 35, "d"],
+    ['Butter', 35, "n"]
+  ];
+}
 
 
 
-  // * Vodka Sauce
-  else if (name.includes("Vodka")) {
-    recipe = [
-      ['Butter', 15],
-      ['Yellow Onion', 75],
-      ['Garlic', 6],
-      ['Tomato Paste', 40],
-      ['Whole Tomatoes', 129],
-      ['Cream', 76],
-      ['Vodka', 20],
-      ['Parmigiano-Reggiano', 20],
-      ['Pasta', 140]
-    ];
-    markdown = `1. In a large (3- or 4-quart) saucepan or small Dutch oven, melt butter over medium heat. Add onion, garlic, and red pepper flakes, season lightly with salt, and cook, stirring frequently, until onions are very soft but not browned, about 15 minutes; lower heat if needed to prevent browning. 
+// * Vodka Sauce
+else if (name.includes("Vodka")) {
+  recipe = [
+    ['Butter', 15],
+    ['Yellow Onion', 75],
+    ['Garlic', 6],
+    ['Tomato Paste', 40],
+    ['Whole Tomatoes', 129],
+    ['Cream', 76],
+    ['Vodka', 20],
+    ['Parmigiano-Reggiano', 20],
+    ['Pasta', 140]
+  ];
+  markdown = `1. In a large (3- or 4-quart) saucepan or small Dutch oven, melt butter over medium heat. Add onion, garlic, and red pepper flakes, season lightly with salt, and cook, stirring frequently, until onions are very soft but not browned, about 15 minutes; lower heat if needed to prevent browning. 
     
-2. Add tomato paste and cook, stirring, until fragrant and thick, about 3 minutes. Stir in canned tomatoes with their liquid. Bring to a simmer, then cook, stirring often and crushing the whole tomatoes roughly with a spoon, until sauce has thickened slightly, about 10 minutes.
+2. Add tomato paste and cook, stirring, until tomato paste is fragrant and thick, about 3 minutes. Stir in canned tomatoes with their liquid. Bring to a simmer, then cook, stirring often and crushing the whole tomatoes roughly with a spoon, until sauce has thickened slightly, about 10 minutes.
 
     3. Add cream, and stir to incorporate. Transfer sauce to a blender, and blend until very smooth (you may be able to make an immersion blender work, but in our tests the sauce level was too low to safely avoid splattering). Wipe out pot, then return blended sauce to it. Season lightly with salt.
     
@@ -888,114 +955,138 @@ Try a few different bread flours to see which one gives you the best result.`;
     6. Remove from heat and stir in cheese until thoroughly incorporated into a smooth and creamy sauce. Taste for salt, and season with more if needed. If you can't detect the vodka at all, you can add a few drops more and stir it in before serving; exactly how boozy you want the sauce is a question of taste, but be careful because a heavy hand will ruin the dish. Spoon pasta and sauce onto warmed serving plates and top with additional grated cheese. Serve immediately.
     
     - The vodka to sauce ratio is 1:15.83`;
-  }
+}
 
-  // * Meatballs
-  else if (name.includes("Meatballs")) {
-    recipe = [
-      ['Ground Beef', 250, "d"],
-      ['Milk', 85, "w"],
-      ['Bread (for Crumbs)', 51.24, "w"],
-      ['Bread Crumbs', 35, "w"],
-      ['Onion', 35, "d"],
-      ['Egg', 27, "w"],
-      ['Parmesan', 20, "d"],
-      ['Parsley', 5, "d"],
-      ['Salt', 3, "d"],
-      ['Garlic Powder', 3, "d"]
-    ];
-    reciPortions = 12;
-    markdown = `1. Mix milk and breadcrumbs together and allow to sit 15-20 minutes.
+
+// * Au Poivre Sauce
+else if (name.includes("Au Poivre")) {
+  recipe = [
+    ['Butter', 66, "n"],
+    ['Shallot', 30, "w"],
+    ['Beef Stock', 237, "w"],
+    ['Black Peppercorns', 17, "d"],
+    ['Dijon Mustard', 6, "w"],
+    ['Crème Fraiche', 175, "w"],
+    ['Cognac', 50, "d"]
+  ];
+  reciPortions = 12;
+  markdown = `1. In the same pan used to cook steaks, pour off most of the grease and lower heat to medium. (If making the sauce for another purpose, skip this step.)
+2. Add 2 Tbsp of the butter and shallots to the pan and sauté for a minute or so until shallots begin to brown.
+3. Add broth and peppercorns and whisk to incorporate the fond. Bring to a brisk simmer.
+4. Add mustard and crème fraîche and stir until sauce is lightly thickened, about 1 minute.
+5. Pour the alcohol into the pan. Keep in mind that adding alcohol to a pan, especially on a gas stove, can flare up in a big way.
+6. Continue simmering until the desired consistency is reached.
+7. Add remaining 2 Tbsp butter and stir to melt and combine.
+8. Spoon sauce over steaks and serve.`;
+}
+
+
+
+// * Meatballs
+else if (name.includes("Meatballs")) {
+  recipe = [
+    ['Ground Beef', 250, "d"],
+    ['Milk', 90, "w"],
+    ['Bread Crumbs', 35, "w"],
+    ['Onion', 35, "d"],
+    ['Egg', 27, "w"],
+    ['Parmesan', 20, "d"],
+    ['Parsley', 5, "d"],
+    ['Salt', 3, "d"],
+    ['Garlic Powder', 3, "d"]
+  ];
+  reciPortions = 12;
+  markdown = `1. Mix milk and breadcrumbs together and allow to sit 15-20 minutes.
 2. Combine all ingredients and knead until evenly distributed. Meatballs should be wet and somewhat sticky.
 3. In a medium-heat pan, brown meatballs on all sides.
 4. Combine meatballs and sauce to a pan over a simmer. Cover and cook 10-15 minutes, turning halfway through.
 5. Combine with pasta and serve as desired.
 
 Alternatively, they can be baked at 350° for 15 minutes`;
-  }
+}
 
-  // * Albondigas
-  else if (name.includes("Albondigas")) {
-    recipe = [
-      ['Ground Beef', 280, "d"],
-      ['Milk', 125, "w"],
-      ['Bread Crumbs', 50, "d"],
-      ['Rice (Roma)', 100, "d"],
-      ['Egg', 50, "w"],
-      ['Onion', 40, "d"],
-      ['Parmesan', 30, "d"],
-      ['Parsley', 5, "d"],
-      ['Salt', 4, "d"],
-      ['Garlic Powder', 3, "d"]
-    ];
-    markdown = `
+// * Albondigas
+else if (name.includes("Albondigas")) {
+  recipe = [
+    ['Ground Beef', 280, "d"],
+    ['Milk', 125, "w"],
+    ['Bread Crumbs', 50, "d"],
+    ['Rice (Roma)', 100, "d"],
+    ['Egg', 50, "w"],
+    ['Onion', 40, "d"],
+    ['Parmesan', 30, "d"],
+    ['Parsley', 5, "d"],
+    ['Salt', 4, "d"],
+    ['Garlic Powder', 3, "d"]
+  ];
+  markdown = `
   ### It's a little hard to believe this is going to stay together, but it does.
   1. Mix milk and breadcrumbs together and allow to sit 15-20 minutes.
   2. Combine all ingredients and knead until ingredients are distributed. Meatballs should be wet and somewhat sticky.
   3. In a medium-heat pan, brown meatballs on all sides.
   4. Add meatballs and sauce to a pan over a simmer. Cover and cook 10-15 minutes, turning meatballs halfway through.
   5. Combine with pasta and serve\nThey can be baked at 350° for 15 minutes`;
-  }
+}
 
-  // * Mashed Potatoes
-  else if (name.includes("Mashed")) {
-    recipe = [
-      ['Potatoes', 700, "d"],
-      ['Sour Cream', 130, "w"],
-      ['Butter', 66, "w"],
-      ['White Pepper', 3, "d"],
-      ['Salt', 4, "d"],
-      ['Wasabi Salt', 2.5, "d"]
-    ];
-  }
+// * Mashed Potatoes
+else if (name.includes("Mashed")) {
+  recipe = [
+    ['Potatoes', 700, "d"],
+    ['Sour Cream', 130, "w"],
+    ['Butter', 66, "w"],
+    ['White Pepper', 3, "d"],
+    ['Salt', 4, "d"],
+    ['Wasabi Salt', 2.5, "d"]
+  ];
+}
 
-  // * Shakshuka
-  else if (name.includes("Shakshuka")) {
-    recipe = [
-      ['Tomato', 200],
-      ['Harissa', 25],
-      ['Onion', 50],
-      ['Red Pepper Flakes', 20],
-      ['Garlic', 10],
-      ['Paprika', 6],
-      ['Cumin', 3]
-    ];
-  }
+// * Shakshuka
+else if (name.includes("Shakshuka")) {
+  recipe = [
+    ['Tomato', 200],
+    ['Harissa', 25],
+    ['Onion', 50],
+    ['Red Pepper Flakes', 20],
+    ['Garlic', 10],
+    ['Paprika', 6],
+    ['Cumin', 3]
+  ];
+}
 
-  // * Tatty Scones
-  else if (name.includes("Tatty")) {
-    recipe = [
-      ['Potato', 500, "d"],
-      ['Flour', 100, "d"],
-      ['Butter', 50, "n"],
-      ['Salt', 5, "d"]
-    ];
-  }
+// * Tatty Scones
+else if (name.includes("Tatty")) {
+  recipe = [
+    ['Potato', 500, "d"],
+    ['Flour', 100, "d"],
+    ['Butter', 50, "n"],
+    ['Salt', 5, "d"]
+  ];
+}
 
-  // * Tortillas
-  else if (name.includes("Tortillas")) {
-    recipe = [
-      ['Masa', 90, "d"],
-      ['Water', 110, "w"],
-      ['Butter', 14.25, "w"],
-      ['Achiotina/lard', 14.25, "w"],
-      ['Salt', 2.15, "d"]
-    ];
-    reciPortions = 6;
-  }
+// * Tortillas
+else if (name.includes("Tortillas") && !name.includes("Sonoran")) {
+  recipe = [
+    ['Masa', 90, "d"],
+    ['Water', 110, "w"],
+    ['Butter', 14.25, "w"],
+    ['Achiotina/lard', 14.25, "w"],
+    ['Salt', 2.15, "d"]
+  ];
+  reciPortions = 6;
+}
 
-  // * Masa Dumplings
-  else if (name.includes("Masa Dumplings")) {
-    recipe = [
-      ['Masa', 50, "d"],
-      ['AP Flour', 85, "d"],
-      ['Baking Powder', 3, "d"],
-      ['Butter', 45, "w"],
-      ['Eggs', 100, "w"],
-      ['Chicken Broth', 120, "w"],
-      ['Salt', 6, "d"]
-    ];
-    markdown = `
+// * Masa Dumplings
+else if (name.includes("Masa Dumplings")) {
+  recipe = [
+    ['Masa', 50, "d"],
+    ['AP Flour', 85, "d"],
+    ['Baking Powder', 3, "d"],
+    ['Butter', 45, "w"],
+    ['Eggs', 100, "w"],
+    ['Chicken Broth', 120, "w"],
+    ['Salt', 6, "d"]
+  ];
+  markdown = `
 # Masa Dumplings
 ## Preparatiion
 - Melt butter
@@ -1005,57 +1096,57 @@ Alternatively, they can be baked at 350° for 15 minutes`;
 - Allow dough to rest at least 15 minutes, preferably longer.
 - Cookk on grey non-stick pan on big burner at 6.0 heat. 
 `;
-  }
+}
 
-  // * Sonoran Flour Tortillas
-  else if (name.includes("Sonoran")) {
-    recipe = [
-      ['Flour', 100, "d"],
-      ['Water', 50, "w"],
-      ['Lard', 30, "w"],
-      ['Salt', 2, "d"],
-      ['Baking Powder', 1, "d"]
-    ];
-    reciPortions = 6;
-  }
+// * Sonoran Flour Tortillas
+else if (name.includes("Sonoran")) {
+  recipe = [
+    ['Flour', 100, "d"],
+    ['Water', 50, "w"],
+    ['Lard', 30, "w"],
+    ['Salt', 2, "d"],
+    ['Baking Powder', 1, "d"]
+  ];
+  reciPortions = 6;
+}
 
-  // * Blinis
-  else if (name.includes("Blinis")) {
-    recipe = [
-      ['Buttermilk', 475, "w"],
-      ['Egg', 110, "w"],
-      ['Butter', 28, "w"],
-      ['Buckwheat Flour', 140, "d"],
-      ['AP Flour', 70, "d"],
-      ['Sugar', 8, "d"],
-      ['Salt', 2, "d"],
-      ['Baking Powder', 2, "d"],
-      ['Baking Soda', 1, "d"]
-    ];
-    reciPortions = 50;
-  }
+// * Blinis
+else if (name.includes("Blinis")) {
+  recipe = [
+    ['Buttermilk', 475, "w"],
+    ['Egg', 110, "w"],
+    ['Butter', 28, "w"],
+    ['Buckwheat Flour', 140, "d"],
+    ['AP Flour', 70, "d"],
+    ['Sugar', 8, "d"],
+    ['Salt', 2, "d"],
+    ['Baking Powder', 2, "d"],
+    ['Baking Soda', 1, "d"]
+  ];
+  reciPortions = 50;
+}
 
-  // * Spanish Rice
-  else if (name.includes("Spanish")) {
-    recipe = [
-      ['Water', 300, "w"],
-      ['Rice', 200, "d"],
-      ['Bell Pepper', 80, "d"],
-      ['Tomato Paste', 30, "w"],
-      ['Cumin', 3, "d"],
-      ['Salt', 4.93, "d"],
-      ['Dried Garlic', 2, "d"]
-    ];
-  }
+// * Spanish Rice
+else if (name.includes("Spanish")) {
+  recipe = [
+    ['Water', 300, "w"],
+    ['Rice', 200, "d"],
+    ['Bell Pepper', 80, "d"],
+    ['Tomato Paste', 30, "w"],
+    ['Cumin', 3, "d"],
+    ['Salt', 4.93, "d"],
+    ['Dried Garlic', 2, "d"]
+  ];
+}
 
-  // * Crispy Kale
-  else if (name.includes("Kale")) {
-    recipe = [
-      ['Kale', 100, "d"],
-      ['Olive Oil', 10, "n"],
-      ['Salt', 3, "d"]
-    ];
-    markdown = `## Process
+// * Crispy Kale
+else if (name.includes("Kale")) {
+  recipe = [
+    ['Kale', 100, "d"],
+    ['Olive Oil', 10, "n"],
+    ['Salt', 3, "d"]
+  ];
+  markdown = `## Process
 - Preheat oven to **320°F** Convection.
 - Wash and thoroughly dry the kale.
 - Remove the leaves from the thick stems and tear them into bite-sized pieces.
@@ -1063,336 +1154,364 @@ Alternatively, they can be baked at 350° for 15 minutes`;
 - Arrange the kale pieces in a single layer on a baking sheet lined with parchment paper or a silicone baking mat. Avoid overcrowding to ensure even crisping.
 - Bake in the preheated oven for about **10 minutes**, turning the pieces halfway through, until the kale is crispy but not burnt.
     `;
-  }
+}
 
-  // * Lemonade Spritzer
-  else if (name.includes("Lemonade Spritzer")) {
-    recipe = [
-      ['Lemonade', 100],
-      ['Soda Water', 80]
-    ];
-  }
+// * Lemonade Spritzer
+else if (name.includes("Lemonade Spritzer")) {
+  recipe = [
+    ['Lemonade', 100],
+    ['Soda Water', 80]
+  ];
+}
 
-  // * Bloody Mary
-  else if (name.includes("Bloody")) {
-    recipe = [
-      ['V8', 150],
-      ['Soy Sauce', 5],
-      ['Horseradish', 3],
-      ['Lemon Juice', 2],
-      ['Worcestershire', 2],
-      ['Tabasco Sauce', 1]
-    ];
-  }
+// * Bloody Mary
+else if (name.includes("Bloody")) {
+  recipe = [
+    ['V8', 150],
+    ['Soy Sauce', 5],
+    ['Horseradish', 3],
+    ['Lemon Juice', 2],
+    ['Worcestershire', 2],
+    ['Tabasco Sauce', 1]
+  ];
+}
 
-  // * Sangrita
-  else if (name.includes("Sangrita")) {
-    recipe = [
-      ['Tomato Juice', 70],
-      ['Orange Juice', 25],
-      ['Lime', 4],
-      ['Cholula', 2]
-    ];
-  }
+// * Sangrita
+else if (name.includes("Sangrita")) {
+  recipe = [
+    ['Tomato Juice', 70],
+    ['Orange Juice', 25],
+    ['Lime', 4],
+    ['Cholula', 2]
+  ];
+}
 
-  // * Risotto
-  else if (name.includes("Risotto")) {
-    recipe = [
-      ['Stock', 325, 'w'],
-      ['Carnaroli', 130, 'd'],
-      ['Vegetable Oil', 35, 'n'],
-      ['Onion', 10, 'd'],
-      ['Salt', 4.64, 'd']
-    ];
-  }
+// * Risotto
+else if (name.includes("Risotto")) {
+  recipe = [
+    ['Stock', 325, 'w'],
+    ['Carnaroli', 130, 'd'],
+    ['Vegetable Oil', 35, 'n'],
+    ['Onion', 10, 'd'],
+    ['Salt', 4.64, 'd']
+  ];
+}
 
-  // * Cavatelli
-  else if (name.includes("Cavatelli")) {
-    recipe = [
-      ['AP Flour', 120, 'd'],
-      ['Durum Flour', 50, 'd'],
-      ['WW', 20, 'd'],
-      ['Water', 55, 'w'],
-      ['Egg', 50, 'w'],
-      ['Salt', 3, 'd']
-    ];
-  }
+// * Cavatelli
+else if (name.includes("Cavatelli")) {
+  recipe = [
+    ['AP Flour', 120, 'd'],
+    ['Durum Flour', 50, 'd'],
+    ['WW', 20, 'd'],
+    ['Water', 55, 'w'],
+    ['Egg', 50, 'w'],
+    ['Salt', 3, 'd']
+  ];
+}
 
-  // * Bechamel
-  else if (name.includes("Bechamel")) {
-    recipe = [
-      ['Flour', 15],
-      ['Butter', 15],
-      ['Milk', 175],
-      ['Mustard', 15]
-    ];
-  }
+// * Bechamel
+else if (name.includes("Bechamel")) {
+  recipe = [
+    ['Flour', 15],
+    ['Butter', 15],
+    ['Milk', 175],
+    ['Mustard', 15]
+  ];
+}
 
-  // * Bullshot
-  else if (name.includes("Bull")) {
-    recipe = [
-      ['Vodka', 50],
-      ['Beef Stock', 100],
-      ['Worcestershire Sauce', 5.25],
-      ['Red Wine Vinegar', 1.25],
-      ['Soy Sauce', 5.25],
-      ['Tabasco Sauce', 0.62]
-    ];
-  }
+// * Bullshot
+else if (name.includes("Bull")) {
+  recipe = [
+    ['Vodka', 50],
+    ['Beef Stock', 100],
+    ['Worcestershire Sauce', 5.25],
+    ['Red Wine Vinegar', 1.25],
+    ['Soy Sauce', 5.25],
+    ['Tabasco Sauce', 0.62]
+  ];
+}
 
-  // * Margarita
-  else if (name.includes("Margarita")) {
-    recipe = [
-      ['Curaçao', 85],
-      ['Tequila', 33],
-      ['Lime Juice', 33]
-    ];
-  }
+// * Margarita
+else if (name.includes("Margarita")) {
+  recipe = [
+    ['Curaçao', 85],
+    ['Tequila', 33],
+    ['Lime Juice', 33]
+  ];
+}
 
-  // * Polenta
-  else if (name.includes("Polenta")) {
-    recipe = [
-      ['Water', 400, "w"],
-      ['Polenta', 90, "d"],
-      ['Sour Cream', 30, "w"],
-      ['Butter', 15, "w"],
-      ['Salt', 5.3, "d"],
-      ['Cheese', 120, "d"]
-    ];
-  }
+// * Polenta
+else if (name.includes("Polenta")) {
+  recipe = [
+    ['Water', 400, "w"],
+    ['Polenta', 90, "d"],
+    ['Sour Cream', 30, "w"],
+    ['Butter', 15, "w"],
+    ['Salt', 5.3, "d"],
+    ['Cheese', 120, "d"]
+  ];
+}
 
-  // * Farro
-  else if (name.includes("Farro")) {
-    recipe = [
-      ['Farro', 100, "d"],
-      ['Water', 360, "w"],
-      ['Salt', 4, "d"]
-    ];
-  }
+// * Farro
+else if (name.includes("Farro")) {
+  recipe = [
+    ['Farro', 100, "d"],
+    ['Water', 360, "w"],
+    ['Salt', 4, "d"]
+  ];
+}
 
-  // * Dutch Baby
-  else if (name.includes("Dutch")) {
-    recipe = [
-      ['Flour', 120, "d"],
-      ['Cheese', 72, "d"],
-      ['Thyme', 1, "d"],
-      ['Parsley', 1, "d"],
-      ['Egg', 400, "w"],
-      ['Milk', 176, "w"],
-      ['Unsalted Butter', 89, "w"]
-    ];
-  }
+// * Dutch Baby
+else if (name.includes("Dutch")) {
+  recipe = [
+    ['Flour', 120, "d"],
+    ['Cheese', 72, "d"],
+    ['Thyme', 1, "d"],
+    ['Parsley', 1, "d"],
+    ['Egg', 400, "w"],
+    ['Milk', 176, "w"],
+    ['Unsalted Butter', 89, "w"]
+  ];
+}
 
-  // * Welsh Rarebit
-  else if (name.includes("Welsh")) {
-    recipe = [
-      ['Cheese', 50, "d"],
-      ['Butter', 15, "w"],
-      ['Flour', 15, "d"],
-      ['Milk', 26, "w"],
-      ['Guinness', 26, "w"],
-      ['Worcestershire', 7.5, "w"],
-      ["Coleman's", 5, "w"]
-    ];
-  }
+// * Welsh Rarebit
+else if (name.includes("Welsh")) {
+  recipe = [
+    ['Cheese', 50, "d"],
+    ['Butter', 15, "w"],
+    ['Flour', 15, "d"],
+    ['Milk', 26, "w"],
+    ['Guinness', 26, "w"],
+    ['Worcestershire', 7.5, "w"],
+    ["Coleman's", 5, "w"]
+  ];
+}
 
+// * Injeera
+else if (name.includes("Injeera")) {
+  recipe = [
+    ['Water', 300, "w"],
+    ['AP Flour', 75, "d"],
+    ['Teff Flour', 40, "d"],
+    ['Starter', 175, "s"]
+  ];
+}
 
-
-
-  // * Injeera
-  else if (name.includes("Injeera")) {
-    recipe = [
-      ['Water', 300, "w"],
-      ['AP Flour', 75, "d"],
-      ['Teff Flour', 40, "d"],
-      ['Starter', 175, "s"]
-    ];
-  }
-
-  // * Ponzu Sauce
-  else if (name.includes("Ponzu")) {
-    recipe = [
-      ['Kombu', 1],
-      ['Rice Vinegar', 30],
-      ['Mirin', 12],
-      ['Katsuobushi', 15],
-      ['Yuzu', 120],
-      ['Soy Sauce', 120]
-    ];
-  }
+// * Ponzu Sauce
+else if (name.includes("Ponzu")) {
+  recipe = [
+    ['Kombu', 1],
+    ['Rice Vinegar', 30],
+    ['Mirin', 12],
+    ['Katsuobushi', 15],
+    ['Yuzu', 120],
+    ['Soy Sauce', 120]
+  ];
+}
 
 
+// * Steak Diane
+else if (name.includes("Steak Diane")) {
+  recipe = [
+    ['Heavy Cream', 130],
+    ['Butter', 30],
+    ['Shallot or Onion', 30],
+    ['Worcestershire', 20],
+    ['Dijon', 10],
+    ['Soy Sauce', 10],
+    ['Garlic', 10],
+    ['Thyme', 3],
+    ['Chives &/or Parsley', 5]
+  ];
+  markdown = `## Process
+1. In a small saucepan, melt butter over medium heat. Add shallots and cook until softened, about 2 minutes.
+2. Add Worcestershire sauce, Dijon mustard, and soy sauce. Stir to combine.
+3. Pour in heavy cream and bring to a simmer. Cook until the sauce has thickened slightly, about 5 minutes.
+4. Remove from heat and stir in chopped chives and/or parsley.
+5. Serve over cooked steak or your choice of protein.
 
-  // * Half Sour
-  else if (name.includes("Half Sour")) {
-    recipe = [
+### Variations:
+- **Mushrooms** - I used cremini but you can also use white button mushrooms.
+- **Cognac** - You can also use brandy, but cognac is traditional.
+- **Tomato paste** - For extra body.
+- **Beef stock** - Use homemade or make a stock from low-sodium beef base for best results.
+- **Herbs** - For finishing, I use parsley and chives but you can also use green onion.
 
-      ['Water', 1000, "w"],
-      ['Garlic', 2, "w"],
-      ['Kosher Salt', 21.5, "d"],
-      ['Black Peppercorns', 2, "d"],
-      ['Coriander Seed', 2, "d"],
-      ['Bay Leaf', 1, "d"],
-      ['Dill', 2, "d"],
-      ['Vinegar', 2, "d"]
-    ];
-  }
+I really want to blitz dried mushrooms in this sauce next time. I think it will add a lot of flavor and body.
+`;
+}
 
 
-  // * Zuni Zuchini Pickles
-  else if (name.includes("Zuni")) {
-    recipe = [
-      ['Zucchini', 454, 'w'],
-      ['Small yellow onion', 115, 'w'],
-      ['Kosher salt(Diamond Crystal)', 18, 'w'],
-      ['Ice water and ice cubes', 0, 'w'],
-      ['Apple cider vinegar', 475, 'w'],
-      ['Granulated sugar', 200, 'w'],
-      ['Dry mustard', 3, 'd'],
-      ['Yellow or brown mustard seeds', 5, 'd'],
-      ['Turmeric', 2, "d"]
-    ];
 
-    markdown = `## Process
+// * Half Sour
+else if (name.includes("Half Sour")) {
+  recipe = [
+
+    ['Water', 1000, "w"],
+    ['Garlic', 2, "w"],
+    ['Kosher Salt', 21.5, "d"],
+    ['Black Peppercorns', 2, "d"],
+    ['Coriander Seed', 2, "d"],
+    ['Bay Leaf', 1, "d"],
+    ['Dill', 2, "d"],
+    ['Vinegar', 2, "d"]
+  ];
+}
+
+
+// * Zuni Zuchini Pickles
+else if (name.includes("Zuni")) {
+  recipe = [
+    ['Zucchini', 454, 'w'],
+    ['Small yellow onion', 115, 'w'],
+    ['Kosher salt(Diamond Crystal)', 18, 'w'],
+    ['Ice water and ice cubes', 0, 'w'],
+    ['Apple cider vinegar', 475, 'w'],
+    ['Granulated sugar', 200, 'w'],
+    ['Dry mustard', 3, 'd'],
+    ['Yellow or brown mustard seeds', 5, 'd'],
+    ['Turmeric', 2, "d"]
+  ];
+
+  markdown = `## Process
 1. With a mandolin, cut zucchini lengthwise (or crosswise, if you prefer) in 1/16-inch slices. Cut onion crosswise the same thickness.
 2. Place zucchini and onion in a low wide bowl, toss with salt and cover with ice water. Add a few ice cubes. Leave for 1 hour, until faintly salty and slightly softened when tasted. Drain, discard ice and dry vegetables thoroughly between kitchen towels. Rinse and dry bowl.
 3. Make the brine: Combine vinegar, sugar, dry mustard, mustard seeds and turmeric in a nonreactive saucepan, and simmer over medium-high heat for about 3 minutes. Turn off heat and set aside until just warm to the touch.
 4. Return zucchini to the bowl and pour cooled brine over, then stir to distribute spices.
 5. Transfer mixture and brine to pint jars and refrigerate for at least a day before serving.`;
-  }
+}
 
 
 
 
 
 
-  // * Coconut Rum Julep
-  else if (name.includes("Julep")) {
-    recipe = [
-      ['Rum', 43],
-      ['Simple Syrup', 21],
-      ['Lime', 14],
-      ['Coconut', 21]
-    ];
-  }
+// * Coconut Rum Julep
+else if (name.includes("Julep")) {
+  recipe = [
+    ['Rum', 43],
+    ['Simple Syrup', 21],
+    ['Lime', 14],
+    ['Coconut', 21]
+  ];
+}
 
-  // * Jungle Bird
-  else if (name.includes("Jungle Bird")) {
-    recipe = [
-      ['Dark Rum', 43],
-      ['Campari', 21],
-      ['Pineapple', 43],
-      ['Lime', 14],
-      ['Simple Syrup', 14]
-    ];
-  }
+// * Jungle Bird
+else if (name.includes("Jungle Bird")) {
+  recipe = [
+    ['Dark Rum', 43],
+    ['Campari', 21],
+    ['Pineapple', 43],
+    ['Lime', 14],
+    ['Simple Syrup', 14]
+  ];
+}
 
-  // * Cable Car
-  else if (name.includes("Cable")) {
-    recipe = [
-      ['Spiced Rum', 45],
-      ['Curacao', 22],
-      ['Lemon Juice', 30],
-      ['Simple Syrup', 15]
-    ];
-  }
+// * Cable Car
+else if (name.includes("Cable")) {
+  recipe = [
+    ['Spiced Rum', 45],
+    ['Curacao', 22],
+    ['Lemon Juice', 30],
+    ['Simple Syrup', 15]
+  ];
+}
 
-  // * Mexican
-  else if (name.includes("Mexican")) {
-    recipe = [
-      ['Pineapple', 70],
-      ['Tequila', 28],
-      ['Triple Sec', 10]
-    ];
-  }
+// * Mexican
+else if (name.includes("Mexican")) {
+  recipe = [
+    ['Pineapple', 70],
+    ['Tequila', 28],
+    ['Triple Sec', 10]
+  ];
+}
 
-  // * Mai Tai
-  else if (name.includes("Mai Tai")) {
-    recipe = [
-      ['Dark Rum', 30],
-      ['Light Rum', 30],
-      ['Lime', 30],
-      ['Orange Curacao', 15],
-      ['Orgeat', 15],
-      ['Simple Syrup', 7.5]
-    ];
-  }
+// * Mai Tai
+else if (name.includes("Mai Tai")) {
+  recipe = [
+    ['Dark Rum', 30],
+    ['Light Rum', 30],
+    ['Lime', 30],
+    ['Orange Curacao', 15],
+    ['Orgeat', 15],
+    ['Simple Syrup', 7.5]
+  ];
+}
 
 
-  // * Mojito
-  else if (name.includes("Mojito")) {
-    recipe = [
-      ['6 to 8 fresh mint leaves', 4],
-      ['Simple Syrup', 15],
-      ['Lime juice (about half a fresh lime)', 22],
-      ['White rum', 60],
-      ['Sparkling Water', 80]
-    ];
-    markdown = `## Process
+// * Mojito
+else if (name.includes("Mojito")) {
+  recipe = [
+    ['6 to 8 fresh mint leaves', 4],
+    ['Simple Syrup', 15],
+    ['Lime juice (about half a fresh lime)', 22],
+    ['White rum', 60],
+    ['Sparkling Water', 80]
+  ];
+  markdown = `## Process
 - Muddle mint leaves with simple syrup and lime juice in a sturdy glass or cocktail shaker.
 - Fill the glass with ice and add the rum.
 - Stir well to combine.
 - Strain into a glass filled with ice and top with sparkling water.
 - Garnish with a sprig of mint and a lime wedge.`;
-  }
+}
 
-  // * Campari Spritz
-  else if (name.includes("Campari Spritz")) {
-    recipe = [
-      ['Prosecco', 90],
-      ['Campari', 60],
-      ['Soda water', 30]
-    ];
-    markdown = `## Process
+// * Campari Spritz
+else if (name.includes("Campari Spritz")) {
+  recipe = [
+    ['Prosecco', 90],
+    ['Campari', 60],
+    ['Soda water', 30]
+  ];
+  markdown = `## Process
 - Fill a glass with ice.
 - Add the Prosecco, Campari, and soda water.
 - Stir well to combine.
 - Garnish with orange slices.`;
-  }
+}
 
 
-  // * Soda
-  else if (name.includes("Soda")) {
-    recipe = [
-      ['Fizzy Water', 300],
-      ['Flavor Syrup', 40]
-    ];
-  }
+// * Soda
+else if (name.includes("Soda")) {
+  recipe = [
+    ['Fizzy Water', 300],
+    ['Flavor Syrup', 40]
+  ];
+}
 
-  // * Tea
-  else if (name.includes("Tea")) {
-    recipe = [
-      ['Water', 500],
-      ['Loose Tea', 6]
-    ];
-  }
+// * Tea
+else if (name.includes("Tea")) {
+  recipe = [
+    ['Water', 500],
+    ['Loose Tea', 6]
+  ];
+}
 
-
-  // * Turkey Masala
-  else if (name.includes("Turkey Masala")) {
-    recipe = [
-      ['Garam Masala', 5, "d"],
-      ['Coriander', 2, "d"],
-      ['Cumin', 2, "d"],
-      ['Paprika', 8, "d"],
-      ['Turmeric', 4, "d"],
-      ['Kosher Salt', 1, "d"],
-      ['Red Pepper Flakes', 0.5, "d"],
-      ['Garlic', 3, "d"],
-      ['Ginger', 3, "d"],
-      ['Whole Milk Yogurt', 118, "w"],
-      ['Chicken or Turkey', 2, "w"],
-      ['Onion', 1, "d"],
-      ['Cardamom Pods', 0.25, "d"],
-      ['Whole Peeled Tomatoes', 1, "w"],
-      ['Heavy Cream', 1, "w"],
-      ['Bay Leaf', 1, "n"],
-      ['Kosher Salt', 9, "d"],
-      ['Fresh Cilantro', 0.75, "d"],
-      ['Lemon Juice', 1, "w"],
-      ['Steamed Basmati Rice', 1, "n"]
-    ];
-    markdown = `## For the Marinade
+// * Turkey Masala
+else if (name.includes("Turkey Masala")) {
+  recipe = [
+    ['Garam Masala', 5, "d"],
+    ['Coriander', 2, "d"],
+    ['Cumin', 2, "d"],
+    ['Paprika', 8, "d"],
+    ['Turmeric', 4, "d"],
+    ['Kosher Salt', 1, "d"],
+    ['Red Pepper Flakes', 0.5, "d"],
+    ['Garlic', 3, "d"],
+    ['Ginger', 3, "d"],
+    ['Whole Milk Yogurt', 118, "w"],
+    ['Chicken or Turkey', 2, "w"],
+    ['Onion', 1, "d"],
+    ['Cardamom Pods', 0.25, "d"],
+    ['Whole Peeled Tomatoes', 1, "w"],
+    ['Heavy Cream', 1, "w"],
+    ['Bay Leaf', 1, "n"],
+    ['Kosher Salt', 9, "d"],
+    ['Fresh Cilantro', 0.75, "d"],
+    ['Lemon Juice', 1, "w"],
+    ['Steamed Basmati Rice', 1, "n"]
+  ];
+  markdown = `## For the Marinade
 ### Spices
 - 5g(3 tsp) garam masala
 - 2 tsp coriander(4g)
@@ -1417,23 +1536,57 @@ Alternatively, they can be baked at 350° for 15 minutes`;
 - Juice of 1 small lemon
 - Steamed basmati rice, for serving
 `;
-  }
+}
 
-  // * Egg Topping
-  else if (name.includes("Egg")) {
-    recipe = [
-      ['Egg', 58],
-      ['Water', 8]
-    ];
-  }
+// * Egg Topping
+else if (name.includes("Egg")) {
+  recipe = [
+    ['Egg', 58],
+    ['Water', 8]
+  ];
+}
+// * Coffee
+else if (name.includes("Iced Coffee")) {
+  recipe = [
+    ['Water', 500, "w"],
+    ['Ground Coffee', 36, "d"]
+  ];
+}
 
-  // * Bread Crumbs
-  else if (name.includes("Bread Crumbs")) {
-    recipe = [
-      ['Bread', 44.28, "d"],
-      ['Toasted Crumbs', 36, "d"]
-    ];
-    markdown = `## Process
+//* Cornbread
+else if (name.includes("Cornbread")) {
+  recipe = [
+    ['Cornmeal', 215, "d"],
+    ['Sugar', 5, "d"],
+    ['Baking Powder', 5, "d"],
+    ['Salt', 4, "d"],
+    ['Eggs', 50, "w"],
+    ['Milk', 295, "w"],
+    ['Butter', 120, "w"]
+  ];
+  markdown = `## Process
+- Preheat oven to 400°F (200°C). Grease a baking dish or cast-iron skillet.
+- In a large bowl, combine cornmeal, flour, sugar, baking powder, and salt.
+- In another bowl, whisk together eggs, milk, and melted butter.
+- Pour the wet ingredients into the dry ingredients and stir until just combined. Do not overmix.
+- Pour the batter into the prepared baking dish and smooth the top.
+- Bake for 20-25 minutes or until a toothpick inserted into the center comes out clean.
+- Let it cool slightly before serving. Enjoy warm with butter or honey.
+
+Note: First batch, I used about 30g of coarse-ground cornmeal and 185g of fine-ground cornmeal. It struck a good balance between flavor and texture.
+
+The egg content was low compared to Serious Eats version of the recipe. Curious what a BIT more egg might do to the texture.
+`;
+}
+
+
+// * Bread Crumbs
+else if (name.includes("Bread Crumbs")) {
+  recipe = [
+    ['Bread', 44.28, "d"],
+    ['Toasted Crumbs', 36, "d"]
+  ];
+  markdown = `## Process
 - Toast bread until golden brown and dry.
 - Pulse in a food processor until fine crumbs are formed.
 
@@ -1442,25 +1595,25 @@ Note that the ratios here are 69 > 56
 56/69 = 0.812
 
 1/.812 = 1.232`;
-  }
+}
 
-  // * Test mode
-  else if (name.includes("TEST")) {
-    recipe = [
-      ['A', 1], ['B', 2], ['C', 3], ['D', 4], ['E', 5],
-      ['F', 6], ['G', 7], ['H', 8], ['I', 9], ['J', 10],
-      ['K', 11], ['L', 12], ['M', 13], ['N', 14], ['O', 15],
-    ];
-  }
+// * Test mode
+else if (name.includes("TEST")) {
+  recipe = [
+    ['A', 1], ['B', 2], ['C', 3], ['D', 4], ['E', 5],
+    ['F', 6], ['G', 7], ['H', 8], ['I', 9], ['J', 10],
+    ['K', 11], ['L', 12], ['M', 13], ['N', 14], ['O', 15],
+  ];
+}
 
-  // * Different Lengths Test
-  else if (name.includes("MISMATCH")) {
-    recipe = [
-      ['A', 1], ['B', 2], ['C', 3], ['D', 4], ['E', 5],
-      ['F', 6], ['G', 7], ['H', 8], ['I', 9], ['J', 10],
-      ['K', 11], ['L', 12], ['M', 13], ['N', 14], ['O'],
-    ];
-  }
-  console.log(`reciPortions: ${reciPortions}`);
-  return recipe ? { recipe, markdown, headers, reciPortions } : null;
+// * Different Lengths Test
+else if (name.includes("MISMATCH")) {
+  recipe = [
+    ['A', 1], ['B', 2], ['C', 3], ['D', 4], ['E', 5],
+    ['F', 6], ['G', 7], ['H', 8], ['I', 9], ['J', 10],
+    ['K', 11], ['L', 12], ['M', 13], ['N', 14], ['O'],
+  ];
+}
+console.log(`reciPortions: ${reciPortions}`);
+return recipe ? { recipe, markdown, headers, reciPortions } : null;
 }

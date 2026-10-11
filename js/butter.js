@@ -8,7 +8,7 @@ var weight,                // How much the results should weigh
 	elgin,				   // Skinny sticks on the east coast
 	stubbie,			   // The fatter version found west of the Miss.
 	sticksText,            // I don't know what this is.
-	stick = "euro",       // Defines the kind of stick we're talking about. We're assuming Elgin because east coast
+	stick = "euro",        // Defines the kind of stick we're talking about. We're assuming Euro because Italy
 	euro,                  // The number of mms of a Euro stick is needed
 	elementDisplay,
 	elementText,
@@ -21,6 +21,7 @@ var weight,                // How much the results should weigh
 //  Stubby is       3 3/16(7.9cm) x 1.5(38mm) x 1.5(38mm)
 //  Elgin is                 12cm x 30mm x 30mm
 //  European Block is       162mm x 63mm x 39mm and weighs - 500g across 107mm = 4.26728g per mm
+//  BIG European block is    80mm x 
 
 // Check to see which variant of butterstick we're using because that changes the
 // weight/length ratio

@@ -1,0 +1,331 @@
+<title>Tagli di carne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --bg: #faf6f0;
+    --surface: #f1ebe2;
+    --text: #1f1a14;
+    --muted: #5e554a;
+    --line: #cfc4b4;
+    --accent: #9a5a12;
+    --accent-soft: #f3e1c6;
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #15120e;
+      --surface: #1f1b16;
+      --text: #eee5d6;
+      --muted: #b2a792;
+      --line: #3d352b;
+      --accent: #e3a54e;
+      --accent-soft: #3a2c18;
+      color-scheme: dark;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #15120e;
+    --surface: #1f1b16;
+    --text: #eee5d6;
+    --muted: #b2a792;
+    --line: #3d352b;
+    --accent: #e3a54e;
+    --accent-soft: #3a2c18;
+    color-scheme: dark;
+  }
+
+  * {
+    box-sizing: border-box;
+    font-variant-numeric: lining-nums;
+    font-feature-settings: "lnum" 1
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.5 "Work Sans", system-ui, -apple-system, "Segoe UI", sans-serif
+  }
+
+  .wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding-inline: 16px;
+    padding-block: 28px 56px
+  }
+
+  h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(30px, 7vw, 42px);
+    line-height: 1.1;
+    margin: 0 0 8px;
+    text-wrap: balance;
+    letter-spacing: -.01em
+  }
+
+  .lede {
+    color: var(--muted);
+    margin: 0 0 22px;
+    max-width: 62ch
+  }
+
+  .controls {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    background: var(--bg);
+    padding-block: 10px;
+    z-index: 2;
+    display: grid;
+    gap: 10px;
+    border-bottom: 1px solid var(--line)
+  }
+
+  .tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap
+  }
+
+  .tab {
+    font: inherit;
+    font-size: 15px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--text);
+    padding: 7px 13px;
+    border-radius: 999px;
+    cursor: pointer
+  }
+
+  .tab span {
+    color: var(--muted);
+    margin-left: 5px
+  }
+
+  .tab[aria-selected="true"] {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg)
+  }
+
+  .tab[aria-selected="true"] span {
+    color: var(--bg);
+    opacity: .85
+  }
+
+  .tab:focus-visible,
+  #q:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px
+  }
+
+  #q {
+    font: inherit;
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text)
+  }
+
+  #q::placeholder {
+    color: var(--muted)
+  }
+
+  .note {
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 22px 0 6px;
+    color: var(--muted);
+    font-size: 15px
+  }
+
+  .note b {
+    color: var(--text);
+    font-weight: 600
+  }
+
+  h2 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600;
+    font-size: 26px;
+    margin: 28px 0 2px;
+    text-wrap: balance
+  }
+
+  h2 .l {
+    color: var(--accent);
+    font-weight: 500
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--accent);
+    margin: 22px 0 4px
+  }
+
+  .head,
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr 1.15fr;
+    gap: 4px 16px
+  }
+
+  .head {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+    padding-block: 8px 6px;
+    border-bottom: 1px solid var(--text);
+    margin-top: 14px
+  }
+
+  .row {
+    padding-block: 10px;
+    border-bottom: 2px dotted var(--line)
+  }
+
+  .m {
+    font-weight: 500
+  }
+
+  .it .m,
+  .de .m {
+    font-weight: 600
+  }
+
+  .s {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 2px
+  }
+
+  .tag {
+    font-size: 13px;
+    color: var(--muted);
+    display: none
+  }
+
+  .closest {
+    display: inline-block;
+    font-size: 12.5px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: 4px;
+    padding: 0 6px;
+    margin-top: 3px;
+    font-weight: 500
+  }
+
+  .empty {
+    color: var(--muted);
+    padding: 24px 0
+  }
+
+  .gl .row {
+    grid-template-columns: 1fr 1fr 1fr
+  }
+
+  footer {
+    margin-top: 36px;
+    color: var(--muted);
+    font-size: 14px;
+    max-width: 62ch
+  }
+
+  @media (max-width:560px) {
+    .head {
+      display: none
+    }
+
+    .row {
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 14px
+    }
+
+    .en {
+      grid-column: 1/-1
+    }
+
+    .en .m {
+      font-size: 15px;
+      color: var(--muted);
+      font-weight: 500
+    }
+
+    .tag {
+      display: block
+    }
+
+    .gl .row {
+      grid-template-columns: 1fr 1fr
+    }
+  }
+</style>
+
+<div class="wrap">
+  <h1>Tagli di carne · Fleischteile</h1>
+  <p class="lede">Common English cuts of beef, veal, pork and lamb with the Italian and German names to ask for. German names follow Austrian and South Tyrolean usage; where Germany uses a different
+    word it is marked DE.</p>
+
+  <div class="controls">
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <input id="q" type="search" placeholder="Search in any language, e.g. brisket, girello, Beiried" aria-label="Search cuts">
+  </div>
+
+  <div id="out"></div>
+
+  <h2>At the butcher <span class="l">· Dal macellaio · Beim Metzger</span></h2>
+  <div class="gl" id="gl"></div>
+
+  <footer>Regional names vary a lot, in both languages. When in doubt, name the dish you're making and let the butcher pick the cut.</footer>
+</div>
+
+<script>
+  const DATA = { "beef": { "en": "Beef", "it": "Manzo", "de": "Rind", "note": "<b>Age matters on the label.</b> Vitellone / Jungrind (8–12 months), scottona / Kalbin (young heifer), manzo / Rind (1–4 years), bue / Ochse (older castrated ox).", "groups": [["Forequarter", [["Neck", "Collo", "", "Hals", "DE: Kamm, Nacken", "Braising, boiling"], ["Chuck roll / chuck eye", "Sottospalla", "Milan: reale", "Hinteres Ausgelöstes", "DE: Fehlrippe", "", 1], ["Shoulder clod", "Fesone di spalla", "Florence: cotennotto", "Dicke Schulter", "DE: dickes Bugstück", ""], ["Flat iron / top blade", "Copertina di spalla", "Also cappello del prete, paletta", "Schulterscherzel", "DE: Schaufelstück; many butchers now say Flat Iron", ""], ["Chuck tender (mock tender)", "Girello di spalla", "Milan: fusello", "Mageres Meisel", "DE: falsches Filet", ""], ["Brisket", "Punta di petto", "Also petto", "Brustkern", "DE: Rinderbrust", ""], ["Short ribs", "Biancostato", "Also costine di manzo", "Querrippe", "DE: Spannrippe", "", 1], ["Plate / navel", "Pancia", "", "Bauchlappen", "", "Mostly boiling and mince"]]], ["Rib and loin", [["Rib roast / prime rib", "Costata", "", "Rostbraten", "DE: Hochrippe", "Bone-in rib, whole or as steaks"], ["Ribeye steak (boneless)", "Costata disossata", "Also entrecôte", "Rostbraten", "DE: Entrecôte", "", 1], ["Strip loin / New York strip", "Controfiletto", "Also lombata, roast-beef", "Beiried", "DE: Roastbeef, Rumpsteak", ""], ["Tenderloin", "Filetto", "", "Lungenbraten", "DE: Filet", ""], ["T-bone / porterhouse", "Bistecca alla fiorentina", "", "T-Bone-Steak", "", "The porterhouse end, with more filetto, is the true fiorentina"], ["Top sirloin", "Scamone", "Rome: pezza", "Tafelstück", "DE: Hüfte, Hüftsteak", ""], ["Picanha / rump cap", "Codone", "Also punta di sottofesa, copertina di scamone", "Tafelspitz", "DE: Tafelspitz, Hüftdeckel", "The same cut as boiled Tafelspitz"], ["Tri-tip", "Spinacino", "Also tasca; Italian sources disagree on the exact match", "Hüferschwanzl", "DE: Bürgermeisterstück", "", 1]]], ["Belly and flank", [["Flank steak", "Bavetta", "Also pancia", "Dünnung", "DE: Flanke, Bavette", ""], ["Hanger steak", "Lombatello", "", "Nierenzapfen", "", "Also sold as Onglet"], ["Skirt steak", "Diaframma", "Some butchers call this lombatello too", "Saumfleisch", "Diaphragm: Kronfleisch", "", 1]]], ["Round (hindquarter)", [["Top round", "Fesa", "Also fesa interna; Milan: rosa", "Schale", "DE: Oberschale", ""], ["Bottom round", "Sottofesa", "Also fetta di mezzo, controfesa", "Schwarzes Scherzel", "DE: Unterschale (flaches Stück)", ""], ["Eye of round", "Girello", "Rome: magatello; South: lacerto", "Weißes Scherzel", "DE: Semerrolle, Rolle", ""], ["Knuckle / sirloin tip", "Noce", "Turin: boccia grande; Naples: pezza a cannello", "Nuss", "DE: Kugel", ""], ["Shank", "Geretto", "Also muscolo, stinco", "Wadschinken", "DE: Hesse, Wade", ""], ["Cross-cut shank", "Ossobuco", "", "Beinscheibe", "", "Usually veal, but sold from beef too"]]], ["Other", [["Oxtail", "Coda", "", "Ochsenschwanz", "", "Coda alla vaccinara"], ["Cheek", "Guancia", "Also guanciale di manzo", "Backerl", "DE: Rinderbacke", ""], ["Tongue", "Lingua", "", "Zunge", "", ""], ["Ground beef", "Macinato di manzo", "", "Faschiertes", "DE: Hackfleisch", ""]]]] }, "veal": { "en": "Veal", "it": "Vitello", "de": "Kalb", "note": "<b>Vitello</b> (Kalb) is up to 8 months; <b>vitellone</b> (Jungrind, 8–12 months) is darker and often sold where you'd expect veal. Ask which one it is.", "groups": [["Leg", [["Cutlets / scaloppine", "Fettine di fesa", "Also from noce or sottofesa", "Kalbsschnitzel", "From the Schale; the Wiener Schnitzel cut", ""], ["Top round", "Fesa", "", "Kalbsschale", "DE: Kalbsoberschale", ""], ["Bottom round", "Sottofesa", "", "Kalbsunterschale", "", ""], ["Eye of round", "Girello", "Also magatello; the cut for vitello tonnato", "Weißes Scherzel", "DE: Kalbsrolle", ""], ["Knuckle", "Noce", "", "Kalbsnuss", "", ""], ["Rump", "Scamone", "", "Kalbshüfte", "", ""]]], ["Loin and rib", [["Rack of veal", "Carré di vitello", "", "Kalbskarree", "", ""], ["Rib chop", "Costoletta", "The cut for cotoletta alla milanese", "Kalbskotelett", "", ""], ["Loin chop", "Nodino", "", "Kalbsrückenkotelett", "", "Ask for it cut from the Rücken", 1], ["Loin (boneless)", "Lombata / controfiletto", "", "Kalbsrücken", "ausgelöst (boneless)", ""], ["Tenderloin", "Filetto", "", "Kalbslungenbraten", "DE: Kalbsfilet", ""]]], ["Forequarter and shank", [["Shoulder", "Spalla", "Includes fesone and girello di spalla", "Kalbsschulter", "", ""], ["Breast", "Petto", "For cima alla genovese", "Kalbsbrust", "", "Gefüllte Kalbsbrust uses the same cut"], ["Neck", "Collo", "", "Kalbshals", "", "Stews"], ["Whole hind shank", "Stinco", "", "Kalbsstelze", "DE: Kalbshaxe", "Roasted whole"], ["Cross-cut shank", "Ossobuco", "", "Kalbsbeinscheibe", "DE: Kalbshaxenscheibe", "Cut 3–4 cm thick"]]], ["Offal and other", [["Sweetbreads", "Animelle", "", "Kalbsbries", "", ""], ["Liver", "Fegato", "Fegato alla veneziana", "Kalbsleber", "", ""], ["Kidneys", "Rognone", "", "Kalbsnierndl", "DE: Kalbsnieren", ""], ["Cheek", "Guancia", "", "Kalbsbackerl", "DE: Kalbsbacke", ""], ["Ground veal", "Macinato di vitello", "", "Kalbsfaschiertes", "DE: Kalbshackfleisch", ""]]]] }, "pork": { "en": "Pork", "it": "Maiale", "de": "Schwein", "note": "<b>Fresh vs cured.</b> Say <b>fresco</b> (frisch) for raw meat: pancetta fresca, guanciale fresco. In South Tyrol, <b>Speck</b> means the cured smoked ham, not fatback.", "groups": [["Shoulder and neck", [["Boston butt / shoulder", "Coppa", "Also capocollo, collo", "Schopf", "DE: Schweinenacken, Kamm", ""], ["Picnic shoulder", "Spalla", "", "Schweinsschulter", "DE: Schäufele (bone-in)", ""], ["Jowl", "Guanciale", "Cured by default; gola or guanciale fresco for raw", "Schweinsbackerl", "DE: Schweinebacke", ""]]], ["Loin", [["Pork loin, boneless", "Lonza", "Also lombata", "Karree ausgelöst", "DE: Schweinelachs", ""], ["Bone-in loin roast", "Arista", "Also carré di maiale", "Schweinskarree", "DE: Kotelettstrang", ""], ["Pork chop", "Braciola", "Also costoletta, bistecca di maiale", "Karreeschnitte", "DE: Kotelett", ""], ["Tenderloin", "Filetto", "Also filettino", "Schweinslungenbraten", "DE: Schweinefilet", ""], ["Baby back ribs", "Costine di lombo", "Ask for the loin-side ribs", "Karreeripperl", "DE: Kotelettrippchen", "", 1], ["Spare ribs", "Costine", "Also puntine", "Bauchripperl", "DE: Schälrippchen, Spareribs", ""]]], ["Belly and leg", [["Pork belly", "Pancia", "Also pancetta fresca", "Schweinsbauch", "DE: Schweinebauch", ""], ["Fresh ham / leg", "Coscia", "Also prosciutto fresco", "Schweinsschlögel", "DE: Schweinekeule", ""], ["Hock / shank", "Stinco", "", "Stelze", "DE: Haxe, Eisbein", "Roasted whole in the north"], ["Trotter", "Piedino", "Also zampetto; zampone is the stuffed version", "Schweinsfuß", "DE: Spitzbein", ""]]], ["Fat, skin, other", [["Fatback", "Lardo", "Also the cured lardo", "Rückenspeck", "Say fresh fatback; Speck alone means ham here", ""], ["Skin", "Cotenna", "Also cotica", "Schwarte", "", ""], ["Ground pork", "Macinato di maiale", "", "Schweinefaschiertes", "DE: Schweinehackfleisch", ""], ["Fresh sausage", "Salsiccia", "", "Bratwurst (roh)", "Many South Tyrol butchers also say Salsiccia", ""]]]] }, "lamb": { "en": "Lamb", "it": "Agnello", "de": "Lamm", "note": "<b>Age sets the name.</b> Abbacchio / Milchlamm (milk-fed), agnello / Lamm, castrato / Hammel (mutton), pecora / Schaf (ewe). Capretto / Kitz is kid goat, often sold beside lamb.", "groups": [["Cuts", [["Leg", "Cosciotto", "", "Lammschlögel", "DE: Lammkeule", ""], ["Shank", "Stinco", "", "Lammstelze", "DE: Lammhaxe", ""], ["Loin / saddle", "Sella", "Also lombata", "Lammrücken", "Boneless loin: Lammlachs", ""], ["Loin chop", "Costoletta di lombata", "", "Lammkotelett", "From the Rücken", ""], ["Rack of lamb", "Carré d'agnello", "", "Lammkarree", "DE: Lammkrone (crown roast)", ""], ["Rib chops", "Costolette", "Grilled small chops are scottadito (Rome)", "Lammkoteletts", "", ""], ["Shoulder", "Spalla", "", "Lammschulter", "", ""], ["Neck", "Collo", "", "Lammhals", "DE: Lammnacken", ""], ["Breast", "Petto", "Also pancia", "Lammbrust", "", ""], ["Riblets", "Costine", "Cut from the breast", "Lammripperl", "DE: Lammrippchen", "", 1], ["Ground lamb", "Macinato d'agnello", "Not always stocked; ask to have it ground", "Lammfaschiertes", "DE: Lammhackfleisch", ""]]], ["Offal", [["Pluck (heart, lungs, liver)", "Coratella", "Coratella con carciofi", "Lammgeschlinge", "Lungs and heart: Beuschel", ""]]]] } };
+  const GLOSS = [["Fettine", "Dünn geschnitten", "Thin slices, for scaloppine"], ["Da arrosto", "Zum Braten", "For roasting"], ["Da brasato / stufato", "Zum Schmoren", "For braising, stewing"], ["Da bollito", "Zum Kochen, Suppenfleisch", "For boiling"], ["Spezzatino", "Gulaschfleisch", "Stew cubes"], ["Macinato", "Faschiert", "Ground"], ["Con l'osso / disossato", "Mit Knochen / ausgelöst", "Bone-in / boneless"], ["Legato", "Gebunden", "Tied, for a roast"], ["Alta 3 cm", "3 cm dick", "Cut 3 cm thick"], ["Frollato", "Abgehangen", "Aged"]];
+  const order = ["beef", "veal", "pork", "lamb"];
+  let current = "beef";
+  try { const s = localStorage.getItem("tagli-tab"); if (order.includes(s)) current = s; } catch (e) { }
+  const tabs = document.getElementById("tabs"), out = document.getElementById("out"), q = document.getElementById("q");
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const cell = (cls, lang, label, m, s) => `<div class="${cls}" lang="${lang}"><div class="tag">${label}</div><div class="m">${esc(m)}</div>${s ? `<div class="s">${esc(s)}</div>` : ""}</div>`;
+  function row(r) {
+    const [en, it, its, de, des, note, closest] = r;
+    return `<div class="row"><div class="en"><div class="m">${esc(en)}</div>${closest ? '<span class="closest">closest match</span>' : ''}${note ? `<div class="s">${esc(note)}</div>` : ''}</div>${cell("it", "it", "Italiano", it, its)}${cell("de", "de", "Deutsch", de, des)}</div>`;
+  }
+  const head = '<div class="head"><div>English</div><div>Italiano</div><div>Deutsch</div></div>';
+  function render() {
+    const term = q.value.trim().toLowerCase();
+    tabs.innerHTML = order.map(k => `<button class="tab" role="tab" aria-selected="${k === current && !term}" data-k="${k}">${DATA[k].en}<span>${DATA[k].it} · ${DATA[k].de}</span></button>`).join("");
+    if (!term) {
+      const a = DATA[current];
+      out.innerHTML = `<div class="note">${a.note}</div><h2>${a.en} <span class="l">· ${a.it} · ${a.de}</span></h2>` +
+        a.groups.map(([g, rows]) => `<h3>${g}</h3>${head}${rows.map(row).join("")}`).join("");
+      return;
+    }
+    let h = "";
+    order.forEach(k => {
+      const hits = DATA[k].groups.flatMap(([, rows]) => rows).filter(r => r.slice(0, 6).join(" ").toLowerCase().includes(term));
+      if (hits.length) h += `<h2>${DATA[k].en} <span class="l">· ${DATA[k].it} · ${DATA[k].de}</span></h2>${head}${hits.map(row).join("")}`;
+    });
+    out.innerHTML = h || `<p class="empty">No cut matches “${esc(q.value)}”. Try an English primal (round, loin) or an Italian or German name.</p>`;
+  }
+  document.getElementById("gl").innerHTML = '<div class="head"><div>Italiano</div><div>Deutsch</div><div>English</div></div>' +
+    GLOSS.map(([i, d, n]) => `<div class="row"><div lang="it"><div class="m"><b>${esc(i)}</b></div></div><div lang="de"><div class="m"><b>${esc(d)}</b></div></div><div class="en" style="grid-column:auto"><div class="s" style="margin:0">${esc(n)}</div></div></div>`).join("");
+  tabs.addEventListener("click", e => {
+    const b = e.target.closest(".tab"); if (!b) return;
+    current = b.dataset.k; q.value = "";
+    try { localStorage.setItem("tagli-tab", current); } catch (e) { }
+    render();
+  });
+  q.addEventListener("input", render);
+  render();
+</script>
