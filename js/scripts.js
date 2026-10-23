@@ -308,16 +308,16 @@ setInterval(() => {
 	let rotationValuesH = `rotate(${(hours * 30) + (minutes / 2)}, 192, 192)`
 	let rotationValuesM = `rotate(${(minutes * 6) + (seconds / 10)}, 192, 192)`
 	let rotationValuesS = `rotate(${(seconds * 6)}, 192, 192)`
-	if (document.getElementById("hHourHand")) {
-		document.getElementById("hHourHand").setAttribute("transform", rotationValuesH);
-		document.getElementById("hMinuteHand").setAttribute("transform", rotationValuesM);
-		document.getElementById("hSecondHand").setAttribute("transform", rotationValuesS);
+	if (document.getElementById("HourHand")) {
+		document.getElementById("HourHand").setAttribute("transform", rotationValuesH);
+		document.getElementById("MinuteHand").setAttribute("transform", rotationValuesM);
+		document.getElementById("SecondHand").setAttribute("transform", rotationValuesS);
 	}
 	// This might or might not be the timer page so, if the large icon is present, update it.
-	if (document.getElementById("pHourHand")) {
-		document.getElementById("pHourHand").setAttribute("transform", rotationValuesH);
-		document.getElementById("pMinuteHand").setAttribute("transform", rotationValuesM);
-		document.getElementById("pSecondHand").setAttribute("transform", rotationValuesS);
+	if (document.getElementById("HourHand")) {
+		document.getElementById("HourHand").setAttribute("transform", rotationValuesH);
+		document.getElementById("MinuteHand").setAttribute("transform", rotationValuesM);
+		document.getElementById("SecondHand").setAttribute("transform", rotationValuesS);
 	}
 }
 )

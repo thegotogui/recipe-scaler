@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 514.61 514.61">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke: #c9a227;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-1, .cls-3 {
+        stroke-width: 10px;
+      }
+
+      .cls-1, .cls-3, .cls-4 {
+        fill: #fff;
+      }
+
+      .cls-5 {
+        fill: #7c735e;
+        font-family: MyriadPro-Bold, 'Myriad Pro';
+        font-size: 76.85px;
+        font-weight: 700;
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke: #c4c4c4;
+        stroke-width: 25px;
+      }
+
+      .cls-3 {
+        stroke: #c6af95;
+      }
+
+      .cls-6 {
+        fill: #f5f0e8;
+      }
+
+      .cls-7 {
+        fill: #c9a227;
+      }
+
+      .cls-8 {
+        fill: #5c7a6c;
+      }
+    </style>
+  </defs>
+  <rect class="cls-6" y="0" width="514.61" height="514.61"/>
+  <rect class="cls-1" x="32.36" y="66.41" width="210.19" height="407.7" rx="22.65" ry="22.65"/>
+  <rect class="cls-7" x="48.28" y="32.9" width="171.65" height="67.16" rx="22.65" ry="22.65"/>
+  <rect class="cls-3" x="273.1" y="66.41" width="210.19" height="407.7" rx="22.44" ry="22.44"/>
+  <rect class="cls-8" x="288.37" y="43.76" width="80.23" height="45.3" rx="22.65" ry="22.65"/>
+  <polygon class="cls-4" points="85.38 37.38 92.61 59.61 115.99 59.61 97.07 73.36 104.3 95.59 85.38 81.85 66.47 95.59 73.69 73.36 54.78 59.61 78.16 59.61 85.38 37.38"/>
+  <text class="cls-5" transform="translate(46.28 422.22)"><tspan x="0" y="0">$</tspan></text>
+  <text class="cls-5" transform="translate(297.98 422.22)"><tspan x="0" y="0">$</tspan></text>
+  <line class="cls-2" x1="60.96" y1="147.55" x2="210.61" y2="147.55"/>
+  <line class="cls-2" x1="297.98" y1="147.55" x2="352.24" y2="147.55"/>
+  <line class="cls-2" x1="368.59" y1="147.55" x2="458.7" y2="147.55"/>
+  <line class="cls-2" x1="297.98" y1="232.01" x2="388.08" y2="232.01"/>
+  <line class="cls-2" x1="60.96" y1="232.01" x2="151.06" y2="232.01"/>
+</svg>

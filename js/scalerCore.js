@@ -1950,16 +1950,21 @@ function makeJson(params) {
 
 function sumSelectedRows(mode) {
 
+  tallyIt(); // This is needed to update the rs array with the current field values before summing them.
   // * A. set all of the rows to the current color (synced or not)
   colorSyncedFields();
 
-  let sumTotal = 0, percTotal = 0, theColor;
+  let sumTotal = 0, percTotal = 0, theColor, eachAmt = [], eachIngredient = [], anychecked = false;
 
   // * B. Now, go colorize checked rows and add them to the sumTotal.
+
   for (let i = 1; i <= rs.length; i++) {
     if (document.getElementById("sumCheck" + i).checked) {
+      eachAmt.push(rs[i - 1]);
       sumTotal += rs[i - 1];
       percTotal += perc[i - 1];
+      eachIngredient.push(ingredients[i - 1]);
+      anychecked = true;
       // color-code everything to make clear which rows are being summed and that the total reflects those rows.
       theColor = "#79588fdd";
       document.getElementById("row" + i).style.backgroundColor = theColor;
@@ -1967,6 +1972,25 @@ function sumSelectedRows(mode) {
       theColor = "";
     }
   }
+
+  if (anychecked) {
+    console.log("-".repeat(50));
+    let eachP = 0, offset = 0;
+    for (let index = 0; index < eachAmt.length; index++) {
+      eachP = eachAmt[index] / sumTotal * 100;
+      offset = index + 1;
+      if (document.getElementById("sumCheck" + offset).checked) {
+
+        document.getElementById("perc" + offset).value = eachP.toFixed(2) + "%";
+        console.log(`${eachP.toFixed(2)}% : ${eachIngredient[index]}`);
+      } else {
+        document.getElementById("perc" + offset).value = perc[index].toFixed(2) + "%";
+        console.log(`Percentage`);
+      }
+    }
+    console.log("-".repeat(50));
+  }
+
 
 
   //* C. If the total is 0, then no boxes are checked and the total should be the full recipe amount. Otherwise, the total is the sum of the checked rows.
@@ -1994,7 +2018,7 @@ function sumSelectedRows(mode) {
   else {
     temp = 100;
   }
-  document.getElementById("totalPercVal").value = temp + "%";
+  document.getElementById("totalPercVal").value = temp.toFixed(2) + "%";
 }
 
 
